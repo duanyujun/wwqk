@@ -71,22 +71,11 @@ CREATE TABLE `team` (
 
 /*Data for the table `team` */
 
-/*Table structure for table `user` */
-
-CREATE TABLE `user` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(40) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
-  `sex` int(11) DEFAULT NULL,
-  `remark` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-
-/*Data for the table `user` */
-
-insert  into `user`(`id`,`name`,`age`,`sex`,`remark`) values (1,'李莉',24,1,'学员');
-insert  into `user`(`id`,`name`,`age`,`sex`,`remark`) values (4,'周伯通',10,1,'叫兽');
-insert  into `user`(`id`,`name`,`age`,`sex`,`remark`) values (5,'宋刚',30,1,'学员\r\n');
+insert  into `league`(`id`,`name`,`name_en`,`season`,`source_id`,`league_url`) values (1,'英超','premier league','20152016','r31553','http://cn.soccerway.com/national/england/premier-league/20152016/regular-round/r31553/');
+insert  into `league`(`id`,`name`,`name_en`,`season`,`source_id`,`league_url`) values (2,'德甲','bundesliga','20152016','r31545','http://cn.soccerway.com/national/germany/bundesliga/20152016/regular-season/r31545/');
+insert  into `league`(`id`,`name`,`name_en`,`season`,`source_id`,`league_url`) values (3,'西甲','primera division','20152016','r31781','http://cn.soccerway.com/national/spain/primera-division/20152016/regular-season/r31781/');
+insert  into `league`(`id`,`name`,`name_en`,`season`,`source_id`,`league_url`) values (4,'意甲','sesie a','20152016','r31554','http://cn.soccerway.com/national/italy/serie-a/20152016/regular-season/r31554/');
+insert  into `league`(`id`,`name`,`name_en`,`season`,`source_id`,`league_url`) values (5,'法甲','ligue 1','20152016','r31546','http://cn.soccerway.com/national/france/ligue-1/20152016/regular-season/r31546/');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
