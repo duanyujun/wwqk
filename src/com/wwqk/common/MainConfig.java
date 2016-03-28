@@ -14,6 +14,7 @@ import com.jfinal.render.ViewType;
 import com.wwqk.controller.IndexController;
 import com.wwqk.controller.UserController;
 import com.wwqk.model.User;
+import com.wwqk.plugin.QuartzPlugin;
 
 
 public class MainConfig extends JFinalConfig {
@@ -39,9 +40,15 @@ public class MainConfig extends JFinalConfig {
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(c3p0Plugin);
 		arp.setShowSql(true);
 		arp.addMapping("user", User.class);
-		
 		me.add(c3p0Plugin);
 		me.add(arp);
+		
+//		ConfigPlugin configPlugin = new ConfigPlugin();
+//		configPlugin.addResource("job.properties");
+//		me.add(new QuartzPlugin());
+		
+		QuartzPlugin quartzPlugin =  new QuartzPlugin("job.properties");
+	    me.add(quartzPlugin);
 	}
 
 	@Override
