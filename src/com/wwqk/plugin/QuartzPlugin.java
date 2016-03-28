@@ -19,9 +19,7 @@ import org.slf4j.LoggerFactory;
 import com.jfinal.plugin.IPlugin;
 
 /**
- * 实现作业的调度
- * 
- * @author jerri liu
+ * QuartzPlugin实现作业调度
  *
  */
 public class QuartzPlugin implements IPlugin {

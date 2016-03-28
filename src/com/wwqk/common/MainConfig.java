@@ -13,6 +13,7 @@ import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.render.ViewType;
 import com.wwqk.controller.IndexController;
 import com.wwqk.controller.UserController;
+import com.wwqk.model.League;
 import com.wwqk.model.User;
 import com.wwqk.plugin.QuartzPlugin;
 
@@ -40,6 +41,8 @@ public class MainConfig extends JFinalConfig {
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(c3p0Plugin);
 		arp.setShowSql(true);
 		arp.addMapping("user", User.class);
+		arp.addMapping("league", League.class);
+		
 		me.add(c3p0Plugin);
 		me.add(arp);
 		
