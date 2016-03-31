@@ -14,6 +14,8 @@ import com.jfinal.render.ViewType;
 import com.wwqk.controller.IndexController;
 import com.wwqk.controller.UserController;
 import com.wwqk.model.League;
+import com.wwqk.model.Player;
+import com.wwqk.model.Team;
 import com.wwqk.model.User;
 import com.wwqk.plugin.QuartzPlugin;
 
@@ -42,13 +44,11 @@ public class MainConfig extends JFinalConfig {
 		arp.setShowSql(true);
 		arp.addMapping("user", User.class);
 		arp.addMapping("league", League.class);
+		arp.addMapping("team", Team.class);
+		arp.addMapping("player", Player.class);
 		
 		me.add(c3p0Plugin);
 		me.add(arp);
-		
-//		ConfigPlugin configPlugin = new ConfigPlugin();
-//		configPlugin.addResource("job.properties");
-//		me.add(new QuartzPlugin());
 		
 		QuartzPlugin quartzPlugin =  new QuartzPlugin("job.properties");
 	    me.add(quartzPlugin);
