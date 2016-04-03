@@ -42,7 +42,6 @@ public class MainConfig extends JFinalConfig {
 		C3p0Plugin c3p0Plugin = new C3p0Plugin(PropKit.get("jdbcUrl"), PropKit.get("user"), PropKit.get("password"));
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(c3p0Plugin);
 		arp.setShowSql(true);
-		arp.addMapping("user", User.class);
 		arp.addMapping("league", League.class);
 		arp.addMapping("team", Team.class);
 		arp.addMapping("player", Player.class);

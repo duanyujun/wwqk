@@ -32,18 +32,16 @@ public class TeamJob implements Job {
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		List<League> leagues = League.dao.find("select * from league");
-		
 		String htmlLeague = null;
 		for(League league : leagues){
+			System.err.println("handle league url:"+league.getStr("league_url")+" started!!!");
 			htmlLeague = FetchHtmlUtils.getHtmlContent(httpClient, league.getStr("league_url"));
 			handleTeamsUrl(htmlLeague, league.getStr("id"));
 		}
-		
 		httpClient.getConnectionManager().shutdown();
 	}
 	
 	private void handleTeamsUrl(String htmlContent, String leagueId){
-		System.err.println("handle team ing!!!");
 		Map<String, String> map = new HashMap<String, String>();
 		Set<String> idSet = new HashSet<String>();
 		Matcher matcher = TEAM_URL_PATTERN.matcher(htmlContent);
@@ -52,6 +50,8 @@ public class TeamJob implements Job {
 			String id = getId(url);
 			if(idSet.contains(id)){
 				continue;
+			}else{
+				idSet.add(id);
 			}
 			Team team = new Team();
 			team.set("id", id);
@@ -63,9 +63,9 @@ public class TeamJob implements Job {
 		}
 		
 		for(Entry<String, String> entry : map.entrySet()){
-			//»ñÈ¡Çò¶ÓĞÅÏ¢
+			//è·å–çƒé˜Ÿä¿¡æ¯
 			handleTeamDetail(entry);
-			//»ñÈ¡Çò³¡ĞÅÏ¢
+			//è·å–çƒåœºä¿¡æ¯
 			handleTeamVenue(entry);
 		}
 		
@@ -73,13 +73,15 @@ public class TeamJob implements Job {
 	
 	private void handleTeamDetail(Entry<String, String> entry){
 		Team team = Team.dao.findById(entry.getKey());
+		System.err.println("handle teamï¼š "+team.getStr("name")+" ing!!!");
 		String teamContent = FetchHtmlUtils.getHtmlContent(httpClient, SITE_PROFIX+entry.getValue());
-		team.set("setup_time", matcherString(getPatternByName("³ÉÁ¢ÓÚ"), teamContent));
-		team.set("address", matcherString(getPatternByName("µØÖ·"), teamContent).replaceAll(clearString, ""));
-		team.set("country", matcherString(getPatternByName("¹ú¼Ò"), teamContent));
-		team.set("telphone", matcherString(getPatternByName("µç»°"), teamContent));
-		team.set("fax", matcherString(getPatternByName("´«Õæ"), teamContent));
-		team.set("email", matcherString(getPatternByName("µç×ÓÓÊ¼ş"), teamContent));
+		team.set("setup_time", matcherString(getPatternByName("æˆç«‹äº"), teamContent));
+		team.set("address", matcherString(getPatternByName("åœ°å€"), teamContent).replaceAll(clearString, ""));
+		team.set("country", matcherString(getPatternByName("å›½å®¶"), teamContent));
+		team.set("telphone", matcherString(getPatternByName("ç”µè¯"), teamContent));
+		team.set("fax", matcherString(getPatternByName("ä¼ çœŸ"), teamContent));
+		team.set("email", matcherString(getPatternByName("ç”µå­é‚®ä»¶"), teamContent));
+		team.save();
 	}
 	
 	private Pattern getPatternByName(String patternName){
@@ -92,8 +94,8 @@ public class TeamJob implements Job {
 		String venueName = matcherString(VENUE_NAME_PATTERN, venueContent);
 		team.set("venue_name", venueName);
 		team.set("venue_name_en", venueName);
-		team.set("venue_address", matcherString(getPatternByName("µØÖ·"), venueContent));
-		team.set("venue_capacity", matcherString(getPatternByName("ÈİÁ¿"), venueContent));
+		team.set("venue_address", matcherString(getPatternByName("åœ°å€"), venueContent));
+		team.set("venue_capacity", matcherString(getPatternByName("å®¹é‡"), venueContent));
 		team.set("venue_img", matcherString(VENUE_IMG_PATTERN, venueContent));
 		team.save();
 	}
