@@ -90,7 +90,6 @@ public class PlayerJob implements Job {
 		player.set("weight", matcherString(getPatternByName("体重"), playerContent));
 		player.set("foot", matcherString(getPatternByName("脚"), playerContent));
 		player.save();
-		
 	}
 	
 	private String matcherString(Pattern pattern, String source){
