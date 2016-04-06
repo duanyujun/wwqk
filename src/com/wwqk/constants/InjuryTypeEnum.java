@@ -22,6 +22,9 @@ public enum InjuryTypeEnum implements IEnum{
 	UN("Unknown", "未知伤病"), 
 	LCL("LCL Knee Ligament Injury", "膝盖外侧副韧带拉伤"), 
 	CKI("Cartilage Knee Injury", "膝盖软骨骨折"), 
+	BN("Broken Nose", "鼻骨骨折"),
+	SI("Shoulder Injury", "肩膀受伤"),
+	CSI("Calf/Shin Injury", "小腿/胫骨损伤"),
 	RC("Renal Colic", "肾绞痛");
 	
 	/** 键 */
