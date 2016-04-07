@@ -1,5 +1,6 @@
 package com.wwqk.job;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,16 +16,22 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import com.jfinal.plugin.activerecord.Db;
+import com.wwqk.model.Career;
+import com.wwqk.model.League;
 import com.wwqk.model.Player;
 import com.wwqk.model.Team;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.FetchHtmlUtils;
+import com.wwqk.utils.StringUtils;
 
 public class PlayerJob implements Job {
 	
 	private HttpClient httpClient = new DefaultHttpClient();
 	String clearString = "<.*?/>";
-	Pattern PLAYER_URL_PATTERN = Pattern.compile("class=\"flag_16 right_16.*?<a href=\"(.*?)\".*?>(.*?)</a>");
+	private static final Pattern PLAYER_URL_PATTERN = Pattern.compile("class=\"flag_16 right_16.*?<a href=\"(.*?)\".*?>(.*?)</a>");
+	private static final Pattern CAREER_PATTERN = Pattern.compile("class=\"season\">.*?>(.*?)</a>.*?href=\"(.*?)\".*?title=\"(.*?)\".*?<span class=\"(.*?)\".*?href=\"(.*?)\".*?title=\"(.*?)\".*?game-minutes available\">(.*?)</td>.*?appearances available\">(.*?)</td>.*?lineups available\">(.*?)</td>.*?subs-in available\">(.*?)</td>.*?subs-out available\">(.*?)</td>.*?subs-on-bench available\">(.*?)</td>.*?goals available\">(.*?)</td>.*?yellow-cards available\">(.*?)</td>.*?2nd-yellow-cards available\">(.*?)</td>.*?red-cards available\">(.*?)</td>");
+	private static final Pattern HONOR_PATTERN = Pattern.compile("group-head\">.*?>(.*?)</th>.*?competition\">.*?class=\"(.*?)\">(.*?)</td>.*?label\">(.*?)</td>.*?total\">(.*?)</td>.*?");
 	private static final String SITE_PROFIX = "http://cn.soccerway.com";
 
 	@Override
@@ -92,7 +99,7 @@ public class PlayerJob implements Job {
 		player.save();
 		
 		//职业生涯
-		
+		handleCareer(playerContent, entry.getKey());
 		//所获荣誉
 		
 		//受伤情况
@@ -102,7 +109,53 @@ public class PlayerJob implements Job {
 	}
 	
 	private void handleCareer(String playerContent, String playerId){
+		Matcher matcher = CAREER_PATTERN.matcher(playerContent);
+		List<Career> lstCareer = new ArrayList<Career>();
+		while(matcher.find()){
+			Career career = new Career();
+			career.set("season", matcher.group(1));
+			career.set("team_id", CommonUtils.getId(matcher.group(2)));
+			career.set("team_name", matcher.group(3));
+			career.set("league_img_css", matcher.group(4));
+			career.set("league_id", getLeagueId(matcher.group(5)));
+			career.set("league_name", matcher.group(6));
+			career.set("play_time", matcher.group(7));
+			career.set("play_count", matcher.group(8));
+			career.set("first_team", matcher.group(9));
+			career.set("substitute", matcher.group(10));
+			career.set("substituted", matcher.group(11));
+			career.set("substitute_count", matcher.group(12));
+			career.set("goal", matcher.group(13));
+			//career.set("assist_goal", matcher.group(1));
+			career.set("yellow_count", matcher.group(14));
+			career.set("double_yellow_count", matcher.group(15));
+			career.set("red_count", matcher.group(16));
+			career.set("player_id", playerId);
+			
+			lstCareer.add(career);
+		}
+		if(lstCareer.size()>0){
+			Db.update("delete from career where player_id = ?", playerId);
+			Db.batchSave(lstCareer, lstCareer.size());
+		}
 		
+	}
+	
+	
+	private String getLeagueId(String leagueURL){
+		if(StringUtils.isBlank(leagueURL)){
+			return null;
+		}
+		String id = null;
+		List<League> lstLeague = League.dao.find("select * from league");
+		for(League league : lstLeague){
+			if(leagueURL.contains(league.getStr("name_en"))){
+				id = league.getStr("id");
+				break;
+			}
+		}
+		
+		return id;
 	}
 	
 }
