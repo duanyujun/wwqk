@@ -21,6 +21,7 @@ import com.wwqk.model.Career;
 import com.wwqk.model.League;
 import com.wwqk.model.Player;
 import com.wwqk.model.Team;
+import com.wwqk.model.Trophy;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.FetchHtmlUtils;
 import com.wwqk.utils.StringUtils;
@@ -31,7 +32,10 @@ public class PlayerJob implements Job {
 	String clearString = "<.*?/>";
 	private static final Pattern PLAYER_URL_PATTERN = Pattern.compile("class=\"flag_16 right_16.*?<a href=\"(.*?)\".*?>(.*?)</a>");
 	private static final Pattern CAREER_PATTERN = Pattern.compile("class=\"season\">.*?>(.*?)</a>.*?href=\"(.*?)\".*?title=\"(.*?)\".*?<span class=\"(.*?)\".*?href=\"(.*?)\".*?title=\"(.*?)\".*?game-minutes available\">(.*?)</td>.*?appearances available\">(.*?)</td>.*?lineups available\">(.*?)</td>.*?subs-in available\">(.*?)</td>.*?subs-out available\">(.*?)</td>.*?subs-on-bench available\">(.*?)</td>.*?goals available\">(.*?)</td>.*?yellow-cards available\">(.*?)</td>.*?2nd-yellow-cards available\">(.*?)</td>.*?red-cards available\">(.*?)</td>");
-	private static final Pattern HONOR_PATTERN = Pattern.compile("group-head\">.*?>(.*?)</th>.*?competition\">.*?class=\"(.*?)\">(.*?)</td>.*?label\">(.*?)</td>.*?total\">(.*?)</td>.*?");
+	private static final Pattern TROPHY_TABLE_PATTERN = Pattern.compile("trophies-table\">(.*?)</table>");
+	private static final Pattern TROPHY_TITLE_PATTERN = Pattern.compile("<th.*?>(.*?)</th>");
+	private static final Pattern TROPHY_COMPETITION_PATTERN = Pattern.compile("class=\"competition\">.*?>(.*?)</td>.*?label\">(.*?)</td>.*?total\">(.*?)</td>.*?seasons\">.*?</td>");
+	private static final Pattern TROPHY_SEASON_PATTERN = Pattern.compile("<a.*?>(.*/)</a>");
 	private static final String SITE_PROFIX = "http://cn.soccerway.com";
 
 	@Override
@@ -101,7 +105,7 @@ public class PlayerJob implements Job {
 		//职业生涯
 		handleCareer(playerContent, entry.getKey());
 		//所获荣誉
-		
+		handleTrophy(playerContent, entry.getKey());
 		//受伤情况
 		
 		//转会情况
@@ -139,6 +143,48 @@ public class PlayerJob implements Job {
 			Db.batchSave(lstCareer, lstCareer.size());
 		}
 		
+	}
+	
+	private void handleTrophy(String playerContent, String playerId){
+		Matcher matcher = TROPHY_TABLE_PATTERN.matcher(playerContent);
+		if(matcher.find()){
+			List<Trophy> lstTrophy = new ArrayList<Trophy>();
+			String trophyContent = matcher.group(1);
+			String[] groupArray = trophyContent.split(" <tr class=\"group-head\">");
+			for(String group : groupArray){
+				Matcher groupMatcher = TROPHY_TITLE_PATTERN.matcher(group);
+				if(groupMatcher.find()){
+					String groupTitle = groupMatcher.group(1);
+					Matcher cmpMatcher = TROPHY_COMPETITION_PATTERN.matcher(group);
+					while(cmpMatcher.find()){
+						String cmpTitle = cmpMatcher.group(1);
+						String trophyName = cmpMatcher.group(2);
+						String trophyCount = cmpMatcher.group(3);
+						Matcher seasonMatcher = TROPHY_SEASON_PATTERN.matcher(cmpMatcher.group(4));
+						StringBuilder sb = new StringBuilder();
+						while(seasonMatcher.find()){
+							sb.append(seasonMatcher.group(1)).append(",");
+						}
+						if(sb.length()!=0){
+							sb.deleteCharAt(sb.length()-1);
+						}
+						Trophy trophy = new Trophy();
+						trophy.set("trophy_area", groupTitle);
+						trophy.set("league_name", cmpTitle);
+						trophy.set("trophy_name", trophyName);
+						trophy.set("times", trophyCount);
+						trophy.set("season", sb.toString());
+						trophy.set("player_id", playerId);
+						
+						lstTrophy.add(trophy);
+					}
+				}
+			}
+			if(lstTrophy.size()>0){
+				Db.update("delete from trophy where player_id = ?", playerId);
+				Db.batchSave(lstTrophy, lstTrophy.size());
+			}
+		}
 	}
 	
 	
