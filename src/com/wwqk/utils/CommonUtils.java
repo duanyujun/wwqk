@@ -9,6 +9,8 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.wwqk.constants.InjuryTypeEnum;
+
 /**
  * 常用Id
  * @author Administrator
@@ -30,6 +32,15 @@ public class CommonUtils {
 		MONTH_MAP.put(" 十月", " 10");
 		MONTH_MAP.put(" 十一月", " 11");
 		MONTH_MAP.put(" 十二月", " 12");
+	}
+	
+	public static String getCNInjury(String injuryStr){
+		for(InjuryTypeEnum typeEnum : InjuryTypeEnum.values()){
+			if(typeEnum.getKey().equals(injuryStr)){
+				return typeEnum.getValue();
+			}
+		}
+		return injuryStr;
 	}
 
 	/**

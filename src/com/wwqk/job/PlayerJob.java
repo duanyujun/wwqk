@@ -18,6 +18,7 @@ import org.quartz.JobExecutionException;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.wwqk.model.Career;
+import com.wwqk.model.Injury;
 import com.wwqk.model.League;
 import com.wwqk.model.Player;
 import com.wwqk.model.Team;
@@ -36,6 +37,7 @@ public class PlayerJob implements Job {
 	private static final Pattern TROPHY_TITLE_PATTERN = Pattern.compile("<th.*?>(.*?)</th>");
 	private static final Pattern TROPHY_COMPETITION_PATTERN = Pattern.compile("class=\"competition\">.*?>(.*?)</td>.*?label\">(.*?)</td>.*?total\">(.*?)</td>.*?seasons\">.*?</td>");
 	private static final Pattern TROPHY_SEASON_PATTERN = Pattern.compile("<a.*?>(.*/)</a>");
+	private static final Pattern INJURY_PATTERN = Pattern.compile("icon injury.*?<td>(.*?)</td>.*?<span.*?>(.*?)</span>.*?<span.*?>(.*?)</span>");
 	private static final String SITE_PROFIX = "http://cn.soccerway.com";
 
 	@Override
@@ -107,7 +109,7 @@ public class PlayerJob implements Job {
 		//所获荣誉
 		handleTrophy(playerContent, entry.getKey());
 		//受伤情况
-		
+		handleInjury(playerContent, entry.getKey());
 		//转会情况
 		
 	}
@@ -184,6 +186,18 @@ public class PlayerJob implements Job {
 				Db.update("delete from trophy where player_id = ?", playerId);
 				Db.batchSave(lstTrophy, lstTrophy.size());
 			}
+		}
+	}
+	
+	private void handleInjury(String playerContent, String playerId){
+		Matcher matcher = INJURY_PATTERN.matcher(playerContent);
+		while(matcher.find()){
+			Injury injury = new Injury();
+			injury.set("type", CommonUtils.getCNInjury(matcher.group(1)));
+			injury.set("start_time", CommonUtils.getDateByString(matcher.group(2)));
+			injury.set("estimate_time", CommonUtils.getDateByString(matcher.group(3)));
+			injury.set("end_time", CommonUtils.getDateByString(matcher.group(4)));
+			injury.set("player_id", playerId);
 		}
 	}
 	
