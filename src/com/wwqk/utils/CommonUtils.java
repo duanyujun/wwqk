@@ -147,7 +147,8 @@ public class CommonUtils {
 		}
 		EUValue = EUValue.replace("&euro;", "").trim();
 		if(EUValue.contains(MILLION_STRING)){
-			EUValue = EUValue.replace(MILLION_STRING, "00万");
+			EUValue = EUValue.replace(MILLION_STRING, "");
+			EUValue = String.valueOf(Integer.valueOf(EUValue).intValue()*100)+"万";
 		}
 		EUValue = EUValue+"欧元";
 		return EUValue;

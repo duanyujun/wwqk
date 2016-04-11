@@ -147,7 +147,6 @@ public class PlayerJob implements Job {
 			Db.update("delete from career where player_id = ?", playerId);
 			Db.batchSave(lstCareer, lstCareer.size());
 		}
-		
 	}
 	
 	private void handleTrophy(String playerContent, String playerId){
