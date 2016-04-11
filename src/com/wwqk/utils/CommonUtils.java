@@ -18,6 +18,10 @@ import com.wwqk.constants.InjuryTypeEnum;
  */
 public class CommonUtils {
 	
+	private static final String NO_INFO = "无信息";
+	private static final String MILLION_STRING = "M";
+	
+	
 	public static final Map<String, String> MONTH_MAP = new HashMap<String, String>();
 	static{
 		MONTH_MAP.put(" 一月", " 01");
@@ -130,6 +134,23 @@ public class CommonUtils {
 	 */
 	public static Pattern getPatternByName(String patternName){
 		return Pattern.compile("<dt>"+patternName+"</dt>.*?<dd>(.*?)</dd>");
+	}
+	
+	/**
+	 * &euro; 24M -> 2400万欧元
+	 * @param EUValue
+	 * @return
+	 */
+	public static String getCNValue(String EUValue){
+		if(StringUtils.isBlank(EUValue)){
+			return NO_INFO;
+		}
+		EUValue = EUValue.replace("&euro;", "").trim();
+		if(EUValue.contains(MILLION_STRING)){
+			EUValue = EUValue.replace(MILLION_STRING, "00万");
+		}
+		EUValue = EUValue+"欧元";
+		return EUValue;
 	}
 	
 }

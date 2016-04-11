@@ -22,6 +22,7 @@ import com.wwqk.model.Injury;
 import com.wwqk.model.League;
 import com.wwqk.model.Player;
 import com.wwqk.model.Team;
+import com.wwqk.model.Transfer;
 import com.wwqk.model.Trophy;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.FetchHtmlUtils;
@@ -38,6 +39,8 @@ public class PlayerJob implements Job {
 	private static final Pattern TROPHY_COMPETITION_PATTERN = Pattern.compile("class=\"competition\">.*?>(.*?)</td>.*?label\">(.*?)</td>.*?total\">(.*?)</td>.*?seasons\">.*?</td>");
 	private static final Pattern TROPHY_SEASON_PATTERN = Pattern.compile("<a.*?>(.*/)</a>");
 	private static final Pattern INJURY_PATTERN = Pattern.compile("icon injury.*?<td>(.*?)</td>.*?<span.*?>(.*?)</span>.*?<span.*?>(.*?)</span>");
+	private static final Pattern TRANSFER_TABLE_PATTERN = Pattern.compile("transfers-container.*?</table>");
+	private static final Pattern TRANSFER_PATTERN = Pattern.compile("<span.*?>(.*?)</span>.*?<a.*?>(.*?)</a>.*?<a.*?>(.*?)</a>.*?<td.*?>(.*?)</td>");
 	private static final String SITE_PROFIX = "http://cn.soccerway.com";
 
 	@Override
@@ -111,7 +114,7 @@ public class PlayerJob implements Job {
 		//受伤情况
 		handleInjury(playerContent, entry.getKey());
 		//转会情况
-		
+		handleTransfer(playerContent, entry.getKey());
 	}
 	
 	private void handleCareer(String playerContent, String playerId){
@@ -190,6 +193,7 @@ public class PlayerJob implements Job {
 	}
 	
 	private void handleInjury(String playerContent, String playerId){
+		List<Injury> lstInjury = new ArrayList<Injury>();
 		Matcher matcher = INJURY_PATTERN.matcher(playerContent);
 		while(matcher.find()){
 			Injury injury = new Injury();
@@ -198,9 +202,39 @@ public class PlayerJob implements Job {
 			injury.set("estimate_time", CommonUtils.getDateByString(matcher.group(3)));
 			injury.set("end_time", CommonUtils.getDateByString(matcher.group(4)));
 			injury.set("player_id", playerId);
+			lstInjury.add(injury);
+		}
+		if(lstInjury.size()>0){
+			Db.update("delete from injury where player_id = ?", playerId);
+			Db.batchSave(lstInjury, lstInjury.size());
 		}
 	}
 	
+	private void handleTransfer(String playerContent, String playerId){
+		List<Transfer> lstTransfer = new ArrayList<Transfer>();
+		Matcher matcher = TRANSFER_TABLE_PATTERN.matcher(playerContent);
+		if(matcher.find()){
+			String transferHTML = matcher.group(1);
+			Matcher transferMatcher = TRANSFER_PATTERN.matcher(transferHTML);
+			while(transferMatcher.find()){
+				String timeStr = transferMatcher.group(1);
+				String fromStr = transferMatcher.group(2);
+				String toStr = transferMatcher.group(3);
+				String valueStr = transferMatcher.group(4);
+				Transfer transfer = new Transfer();
+				transfer.set("date", CommonUtils.getDateByString(timeStr));
+				transfer.set("from_team", fromStr);
+				transfer.set("to_team", toStr);
+				transfer.set("value", CommonUtils.getCNValue(valueStr));
+				transfer.set("player_id", playerId);
+				lstTransfer.add(transfer);
+			}
+		}
+		if(lstTransfer.size()>0){
+			Db.update("delete from transfer where player_id = ?", playerId);
+			Db.batchSave(lstTransfer, lstTransfer.size());
+		}
+	}
 	
 	private String getLeagueId(String leagueURL){
 		if(StringUtils.isBlank(leagueURL)){
