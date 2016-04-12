@@ -48,9 +48,10 @@ public class TeamJob implements Job {
 		List<League> leagues = League.dao.find("select * from league");
 		String htmlLeague = null;
 		for(League league : leagues){
-			System.err.println("handle league url:"+league.getStr("league_url")+" started!!!");
+			System.err.println("+++handle league url:"+league.getStr("league_url")+" started!!!");
 			htmlLeague = FetchHtmlUtils.getHtmlContent(httpClient, league.getStr("league_url"));
 			handleTeamsUrl(htmlLeague, league.getStr("id"));
+			System.err.println("---handle league url:"+league.getStr("league_url")+" ended!!!");
 		}
 		httpClient.getConnectionManager().shutdown();
 	}

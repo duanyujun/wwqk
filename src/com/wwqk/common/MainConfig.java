@@ -13,10 +13,16 @@ import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.render.ViewType;
 import com.wwqk.controller.IndexController;
 import com.wwqk.controller.UserController;
+import com.wwqk.model.Career;
+import com.wwqk.model.Injury;
 import com.wwqk.model.League;
+import com.wwqk.model.LeagueAssists;
+import com.wwqk.model.LeaguePosition;
+import com.wwqk.model.LeagueShooter;
 import com.wwqk.model.Player;
 import com.wwqk.model.Team;
-import com.wwqk.model.User;
+import com.wwqk.model.Transfer;
+import com.wwqk.model.Trophy;
 import com.wwqk.plugin.QuartzPlugin;
 
 
@@ -45,6 +51,13 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("league", League.class);
 		arp.addMapping("team", Team.class);
 		arp.addMapping("player", Player.class);
+		arp.addMapping("career", Career.class);
+		arp.addMapping("injury", Injury.class);
+		arp.addMapping("league_assists", LeagueAssists.class);
+		arp.addMapping("league_position", LeaguePosition.class);
+		arp.addMapping("league_shooter", LeagueShooter.class);
+		arp.addMapping("transfer", Transfer.class);
+		arp.addMapping("trophy", Trophy.class);
 		
 		me.add(c3p0Plugin);
 		me.add(arp);
