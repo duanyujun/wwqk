@@ -38,7 +38,9 @@ public class TeamJob implements Job {
 	Pattern BEST_SHOOTER_PATTERN = Pattern.compile("data-people_id=\"(.*?)\" data-team_id=\"(.*?)\".*?_16_left\">(.*?)</a>.*?<a.*?>(.*?)</a>.*?number goals\">(.*?)</td>.*?number penalties\">(.*?)</td>.*?first-goals\">(.*?)</td>");
 	Pattern MATCH_PATTERN = Pattern.compile("day no-repetition\">.*?>(.*?)</span>.*?date no-repetition\">.*?>(.*?)</span>.*?<td class=\"team team-a.*?href=\"(.*?)\" title=\"(.*?)\".*?href=\"(.*?)\">(.*?)</a>.*?href=\"(.*?)\" title=\"(.*?)\"");
 	Pattern ROUND_PATTERN = Pattern.compile("regular-round/(.*?)/");
-	Pattern RANK_PATTERN = Pattern.compile("team_rank.*?data-team_id=\"(.*?)\".*?<td.*?>(.*?)</td>.*?title=\"(.*?)\".*?total mp\">(.*?)</td>.*?total_won\">(.*?)</td>.*?total_drawn\">(.*?)</td>.*?total_lost\">(.*?)</td>.*?total_gf\">(.*?)</td>.*?total_ga\">(.*?)</td>.*?number gd\">(.*?)</td>.*?number points\">(.*?)</td>");
+	Pattern RANK_TABLE_PATTERN = Pattern.compile("<table class=\"leaguetable sortable table detailed-table.*?</table>");
+	Pattern RANK_PATTERN = Pattern.compile("data-team_id=\"(\\d+)\">.*?<td.*?>(.*?)</td>.*?text team large-link.*?title=\"(.*?)\".*?total mp\">(.*?)</td>.*?won total_won\">(.*?)</td>.*?total_drawn\">(.*?)</td>.*?total_lost\">(.*?)</td>.*?total_gf\">(.*?)</td>.*?total_ga\">(.*?)</td>.*?number gd\">(.*?)</td>.*?points\">(.*?)</td>");
+	
 	
 	private static final String SITE_PROFIX = "http://cn.soccerway.com";
 	private HttpClient httpClient = new DefaultHttpClient();
@@ -97,9 +99,13 @@ public class TeamJob implements Job {
 		//助攻榜
 		//TODO
 		//排名
+		System.err.println("+++handleLeaguePosition start!!!");
 		handleLeaguePosition(htmlContent, leagueId, roundId);
+		System.err.println("+++handleLeaguePosition end!!!");
 		//比赛
+		System.err.println("+++handleMatch start!!!");
 		handleMatch(htmlContent, leagueId, roundId);
+		System.err.println("+++handleMatch end!!!");
 		
 		for(Entry<String, String> entry : map.entrySet()){
 			//获取球队信息
@@ -114,8 +120,8 @@ public class TeamJob implements Job {
 		List<Match> lstMatch = new ArrayList<Match>();
  		Matcher matcher = MATCH_PATTERN.matcher(htmlContent);
 		while(matcher.find()){
-			String matchDate = matcher.group(1);
-			String matchWeekday = matcher.group(2);
+			String matchWeekday = matcher.group(1);
+			String matchDate = matcher.group(2);
 			String homeTeamId = CommonUtils.getId(matcher.group(3));
 			String homeTeamName = matcher.group(4);
 			String matchURL = matcher.group(5);
@@ -177,42 +183,45 @@ public class TeamJob implements Job {
 	@Before(Tx.class)
 	private void handleLeaguePosition(String htmlContent, String leagueId, String roundId){
 		List<LeaguePosition> lstPositions = new ArrayList<LeaguePosition>();
-		Matcher matcher = RANK_PATTERN.matcher(htmlContent);
-		while(matcher.find()){
-			String teamId = matcher.group(1);
-			String rank = matcher.group(2);
-			String teamName = matcher.group(3);
-			String roundCount = matcher.group(4);
-			String winCount = matcher.group(5);
-			String evenCount = matcher.group(6);
-			String loseCount = matcher.group(7);
-			String winGoalCount = matcher.group(8);
-			String loseGoalCount = matcher.group(9);
-			String goalCount = matcher.group(10);
-			String points = matcher.group(11);
-		
-			LeaguePosition leaguePosition = new LeaguePosition();
-			leaguePosition.set("league_id", leagueId);
-			leaguePosition.set("round_id", roundId);
-			leaguePosition.set("rank", rank);
-			leaguePosition.set("team_name", teamName);
-			leaguePosition.set("team_id", teamId);
-			leaguePosition.set("round_count", roundCount);
-			leaguePosition.set("win_count", winCount);
-			leaguePosition.set("even_count", evenCount);
-			leaguePosition.set("lose_count", loseCount);
-			leaguePosition.set("win_goal_count", winGoalCount);
-			leaguePosition.set("lose_goal_count", loseGoalCount);
-			leaguePosition.set("goal_count", goalCount);
-			leaguePosition.set("points", points);
+		Matcher tableMatcher = RANK_TABLE_PATTERN.matcher(htmlContent);
+		if(tableMatcher.find()){
+			String content = tableMatcher.group();
+			Matcher matcher = RANK_PATTERN.matcher(content);
+			while(matcher.find()){
+				String teamId = matcher.group(1);
+				String rank = matcher.group(2);
+				String teamName = matcher.group(3);
+				String roundCount = matcher.group(4);
+				String winCount = matcher.group(5);
+				String evenCount = matcher.group(6);
+				String loseCount = matcher.group(7);
+				String winGoalCount = matcher.group(8);
+				String loseGoalCount = matcher.group(9);
+				String goalCount = matcher.group(10);
+				String points = matcher.group(11);
+			
+				LeaguePosition leaguePosition = new LeaguePosition();
+				leaguePosition.set("league_id", leagueId);
+				leaguePosition.set("round_id", roundId);
+				leaguePosition.set("rank", rank);
+				leaguePosition.set("team_name", teamName);
+				leaguePosition.set("team_id", teamId);
+				leaguePosition.set("round_count", roundCount);
+				leaguePosition.set("win_count", winCount);
+				leaguePosition.set("even_count", evenCount);
+				leaguePosition.set("lose_count", loseCount);
+				leaguePosition.set("win_goal_count", winGoalCount);
+				leaguePosition.set("lose_goal_count", loseGoalCount);
+				leaguePosition.set("goal_count", goalCount);
+				leaguePosition.set("points", points);
 
-			lstPositions.add(leaguePosition);
+				lstPositions.add(leaguePosition);
+			}
+			if(lstPositions.size()>0){
+				Db.update("delete from league_position where league_id = ?", leagueId);
+				Db.batchSave(lstPositions, lstPositions.size());
+			}
 		}
-		if(lstPositions.size()>0){
-			Db.update("delete from league_position where league_id = ?", leagueId);
-			Db.batchSave(lstPositions, lstPositions.size());
-		}
-		
 	}
 	
 	private void handleTeamDetail(Entry<String, String> entry){
