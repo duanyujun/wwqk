@@ -22,7 +22,7 @@ import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wwqk.model.League;
 import com.wwqk.model.LeaguePosition;
 import com.wwqk.model.LeagueShooter;
-import com.wwqk.model.Match;
+import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.Team;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.FetchHtmlUtils;
@@ -34,7 +34,7 @@ public class TeamJob implements Job {
 	Pattern TEAM_URL_PATTERN = Pattern.compile("text team large-link.*?href=\"(.*?)\".*?title=\"(.*?)\"");
 	Pattern TEAM_LOGO_PATTERN = Pattern.compile("<div class=\"logo\">.*?src=\"(.*?)\"");
 	Pattern VENUE_NAME_PATTERN = Pattern.compile("block_venue_info-wrapper.*?<h2>(.*?)</h2");
-	Pattern VENUE_IMG_PATTERN = Pattern.compile("http://cache.images.core.optasports.com/soccer/venues/600x450/.*?\\.jpg");
+	Pattern VENUE_IMG_PATTERN = Pattern.compile("http://cache.images.core.optasports.com/soccer/venues/600x450/(.*?)\\.jpg");
 	Pattern BEST_SHOOTER_PATTERN = Pattern.compile("data-people_id=\"(.*?)\" data-team_id=\"(.*?)\".*?_16_left\">(.*?)</a>.*?<a.*?>(.*?)</a>.*?number goals\">(.*?)</td>.*?number penalties\">(.*?)</td>.*?first-goals\">(.*?)</td>");
 	Pattern MATCH_PATTERN = Pattern.compile("day no-repetition\">.*?>(.*?)</span>.*?date no-repetition\">.*?>(.*?)</span>.*?<td class=\"team team-a.*?href=\"(.*?)\" title=\"(.*?)\".*?href=\"(.*?)\">(.*?)</a>.*?href=\"(.*?)\" title=\"(.*?)\"");
 	Pattern ROUND_PATTERN = Pattern.compile("regular-round/(.*?)/");
@@ -117,7 +117,7 @@ public class TeamJob implements Job {
 	
 	@Before(Tx.class)
 	private void handleMatch(String htmlContent, String leagueId, String roundId){
-		List<Match> lstMatch = new ArrayList<Match>();
+		List<LeagueMatch> lstMatch = new ArrayList<LeagueMatch>();
  		Matcher matcher = MATCH_PATTERN.matcher(htmlContent);
 		while(matcher.find()){
 			String matchWeekday = matcher.group(1);
@@ -129,14 +129,14 @@ public class TeamJob implements Job {
 			String awayTeamId = CommonUtils.getId(matcher.group(7));
 			String awayTeamName = matcher.group(8);
 			
-			Match match = new Match();
+			LeagueMatch match = new LeagueMatch();
 			match.set("match_date", CommonUtils.getDateByString(matchDate));
 			match.set("match_weekday", matchWeekday);
 			match.set("home_team_id", homeTeamId);
 			match.set("home_team_name", homeTeamName);
 			match.set("away_team_id", awayTeamId);
 			match.set("away_team_name", awayTeamName);
-			match.set("result", matchPoints);
+			match.set("result", filterMatchPoints(matchPoints));
 			match.set("league_id", leagueId);
 			match.set("round_id", roundId);
 			match.set("match_url", matchURL);
@@ -144,7 +144,7 @@ public class TeamJob implements Job {
 			lstMatch.add(match);
 		}
 		if(lstMatch.size()>0){
-			Db.update("delete from match where league_id = ?", leagueId);
+			Db.update("delete from league_match where league_id = ? ", leagueId);
 			Db.batchSave(lstMatch, lstMatch.size());
 		}
 	}
@@ -248,6 +248,21 @@ public class TeamJob implements Job {
 		team.set("venue_capacity", CommonUtils.matcherString(CommonUtils.getPatternByName("容量"), venueContent));
 		team.set("venue_img", CommonUtils.matcherString(VENUE_IMG_PATTERN, venueContent));
 		team.update();
+	}
+	
+	private final Pattern TimePattern = Pattern.compile("<span.*?>(.*?)</span>");
+	/**
+	 * 球赛未开打
+	 * @return String
+	 */
+	private String filterMatchPoints(String matchPoints){
+		if(matchPoints.contains(" : ")){
+			Matcher matcher = TimePattern.matcher(matchPoints);
+			if(matcher.find()){
+				matchPoints = matcher.group(1);
+			}
+		}
+		return matchPoints;
 	}
 	
 }

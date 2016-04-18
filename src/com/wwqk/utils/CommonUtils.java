@@ -76,7 +76,7 @@ public class CommonUtils {
 		if(matcher.find()){
 			return matcher.group(1);
 		}
-		return "";
+		return "0";
 	}
 	
 	/**

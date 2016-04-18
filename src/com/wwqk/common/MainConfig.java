@@ -17,6 +17,7 @@ import com.wwqk.model.Career;
 import com.wwqk.model.Injury;
 import com.wwqk.model.League;
 import com.wwqk.model.LeagueAssists;
+import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeaguePosition;
 import com.wwqk.model.LeagueShooter;
 import com.wwqk.model.Player;
@@ -56,6 +57,7 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("league_assists", LeagueAssists.class);
 		arp.addMapping("league_position", LeaguePosition.class);
 		arp.addMapping("league_shooter", LeagueShooter.class);
+		arp.addMapping("league_match", LeagueMatch.class);
 		arp.addMapping("transfer", Transfer.class);
 		arp.addMapping("trophy", Trophy.class);
 		
