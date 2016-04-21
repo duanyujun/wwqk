@@ -1,5 +1,6 @@
 package com.wwqk.utils;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,7 +20,10 @@ import com.wwqk.constants.InjuryTypeEnum;
 public class CommonUtils {
 	
 	private static final String NO_INFO = "无信息";
-	private static final String MILLION_STRING = "M";
+	private static final BigDecimal HUNDRED = new BigDecimal(100);
+	private static final Pattern VALUE_PATTERN_1 = Pattern.compile("\\d+\\.\\d+");
+	private static final Pattern VALUE_PATTERN_2 = Pattern.compile("\\d+");
+	
 	
 	
 	public static final Map<String, String> MONTH_MAP = new HashMap<String, String>();
@@ -75,6 +79,23 @@ public class CommonUtils {
 		Matcher matcher = pattern.matcher(source);
 		if(matcher.find()){
 			return matcher.group(1);
+		}
+		return "0";
+	}
+	
+	/**
+	 * 得到正则匹配的结果（查找一次）
+	 * @param pattern
+	 * @param source
+	 * @return
+	 */
+	public static String matcherStringAll(Pattern pattern, String source){
+		if(StringUtils.isBlank(source)){
+			return "";
+		}
+		Matcher matcher = pattern.matcher(source);
+		if(matcher.find()){
+			return matcher.group();
 		}
 		return "0";
 	}
@@ -138,20 +159,37 @@ public class CommonUtils {
 	
 	/**
 	 * &euro; 24M -> 2400万欧元
-	 * @param EUValue
+	 * @param euValue
 	 * @return
 	 */
-	public static String getCNValue(String EUValue){
-		if(StringUtils.isBlank(EUValue)){
+	public static String getCNValue(String euValue){
+		if(StringUtils.isBlank(euValue)){
 			return NO_INFO;
 		}
-		EUValue = EUValue.replace("&euro;", "").trim();
-		if(EUValue.contains(MILLION_STRING)){
-			EUValue = EUValue.replace(MILLION_STRING, "");
-			EUValue = String.valueOf(Integer.valueOf(EUValue).intValue()*100)+"万";
+		Matcher matcher1 = VALUE_PATTERN_1.matcher(euValue);
+		if(matcher1.find()){
+			euValue = String.valueOf(new BigDecimal(matcher1.group()).multiply(HUNDRED))+"万欧元";
+		}else{
+			Matcher matcher2 = VALUE_PATTERN_2.matcher(euValue);
+			if(matcher2.find()){
+				euValue = String.valueOf(new BigDecimal(matcher2.group()).multiply(HUNDRED))+"万欧元";
+			}else{
+				euValue = NO_INFO;
+			}
 		}
-		EUValue = EUValue+"欧元";
-		return EUValue;
+		return euValue;
+	}
+	
+	/**
+	 * 得到默认0
+	 * @param source
+	 * @return
+	 */
+	public static final String getDefaultZero(String source){
+		if(StringUtils.isBlank(source)){
+			return "0";
+		}
+		return source;
 	}
 	
 }

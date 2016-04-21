@@ -16,7 +16,9 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wwqk.model.Career;
 import com.wwqk.model.Injury;
 import com.wwqk.model.League;
@@ -36,7 +38,7 @@ public class PlayerJob implements Job {
 	private static final Pattern CAREER_PATTERN = Pattern.compile("class=\"season\">.*?>(.*?)</a>.*?href=\"(.*?)\".*?title=\"(.*?)\".*?<span class=\"(.*?)\".*?href=\"(.*?)\".*?title=\"(.*?)\".*?game-minutes available\">(.*?)</td>.*?appearances available\">(.*?)</td>.*?lineups available\">(.*?)</td>.*?subs-in available\">(.*?)</td>.*?subs-out available\">(.*?)</td>.*?subs-on-bench available\">(.*?)</td>.*?goals available\">(.*?)</td>.*?yellow-cards available\">(.*?)</td>.*?2nd-yellow-cards available\">(.*?)</td>.*?red-cards available\">(.*?)</td>");
 	private static final Pattern TROPHY_TABLE_PATTERN = Pattern.compile("trophies-table\">(.*?)</table>");
 	private static final Pattern TROPHY_TITLE_PATTERN = Pattern.compile("<th.*?>(.*?)</th>");
-	private static final Pattern TROPHY_COMPETITION_PATTERN = Pattern.compile("class=\"competition\">.*?>(.*?)</td>.*?label\">(.*?)</td>.*?total\">(.*?)</td>.*?seasons\">.*?</td>");
+	private static final Pattern TROPHY_COMPETITION_PATTERN = Pattern.compile("class=\"competition\">.*?>(.*?)</td>.*?label\">(.*?)</td>.*?total\">(.*?)</td>.*?seasons\">(.*?)</td>");
 	private static final Pattern TROPHY_SEASON_PATTERN = Pattern.compile("<a.*?>(.*/)</a>");
 	private static final Pattern INJURY_PATTERN = Pattern.compile("icon injury.*?<td>(.*?)</td>.*?<span.*?>(.*?)</span>.*?<span.*?>(.*?)</span>");
 	private static final Pattern TRANSFER_TABLE_PATTERN = Pattern.compile("transfers-container.*?</table>");
@@ -45,16 +47,20 @@ public class PlayerJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		List<Team> lstTeam = Team.dao.find("select * from team");
+		List<Team> lstTeam = Team.dao.find("select * from team order by id+0 asc ");
 		String htmlTeam = null;
+		System.err.println("handle player start!!!");
 		for(Team team : lstTeam){
 			htmlTeam = FetchHtmlUtils.getHtmlContent(httpClient, team.getStr("team_url"));
 			handlePlayerUrl(htmlTeam, team.getStr("id"));
 		}
+		System.err.println("handle player end!!!");
 	}
 
 	private void handlePlayerUrl(String htmlTeam, String teamId) {
-		System.err.println("handle player ing!!!");
+		
+		List<Player> lstNeedInsert = new ArrayList<Player>();
+		List<Player> lstNeedUpdate = new ArrayList<Player>();
 		Map<String, String> map = new HashMap<String, String>();
 		Set<String> idSet = new HashSet<String>();
 		Matcher matcher = PLAYER_URL_PATTERN.matcher(htmlTeam);
@@ -72,28 +78,43 @@ public class PlayerJob implements Job {
 				Player player = new Player();
 				player.set("id", id);
 				player.set("name", matcher.group(2));
-				player.set("player_url", url);
+				player.set("player_url", SITE_PROFIX+url);
 				player.set("team_id", teamId);
-				player.save();
+				lstNeedInsert.add(player);
 			}else{
 				playerDB.set("name", matcher.group(2));
-				playerDB.set("player_url", url);
+				playerDB.set("player_url", SITE_PROFIX+url);
 				playerDB.set("team_id", teamId);
 				playerDB.update();
+				lstNeedUpdate.add(playerDB);
 			}
 			
-			map.put(id, url);
+			map.put(id, SITE_PROFIX+url);
 		}
+		
+		//更新球员球队id信息
+		updatePlayerTeamInfo(lstNeedInsert, lstNeedUpdate, teamId);
 		
 		for(Entry<String, String> entry : map.entrySet()){
 			handlePlayerDetail(entry);
 		}
 	}
-
+	
+	@Before(Tx.class)
+	private void updatePlayerTeamInfo(List<Player> lstNeedInsert, List<Player> lstNeedUpdate, String teamId){
+		
+		if(lstNeedInsert.size()!=0 || lstNeedUpdate.size()!=0){
+			//解除关联
+			Db.update("update player set team_id = '' where team_id = ? ", teamId);
+			Db.batchSave(lstNeedInsert, lstNeedInsert.size());
+			Db.batchUpdate(lstNeedUpdate, lstNeedUpdate.size());
+		}
+	}
+	
 	private void handlePlayerDetail(Entry<String, String> entry){
 		Player player = Player.dao.findById(entry.getKey());
-		System.err.println("handle team： "+player.getStr("name")+" ing!!!");
-		String playerContent = FetchHtmlUtils.getHtmlContent(httpClient, SITE_PROFIX+entry.getValue());
+		System.err.println("handle player： "+player.getStr("name")+" ing!!!");
+		String playerContent = FetchHtmlUtils.getHtmlContent(httpClient, entry.getValue());
 		player.set("first_name", CommonUtils.matcherString(CommonUtils.getPatternByName("名字"), playerContent));
 		player.set("last_name", CommonUtils.matcherString(CommonUtils.getPatternByName("姓氏"), playerContent));
 		player.set("nationality", CommonUtils.matcherString(CommonUtils.getPatternByName("国籍"), playerContent));
@@ -105,7 +126,7 @@ public class PlayerJob implements Job {
 		player.set("height", CommonUtils.matcherString(CommonUtils.getPatternByName("高度"), playerContent));
 		player.set("weight", CommonUtils.matcherString(CommonUtils.getPatternByName("体重"), playerContent));
 		player.set("foot", CommonUtils.matcherString(CommonUtils.getPatternByName("脚"), playerContent));
-		player.save();
+		player.update();
 		
 		//职业生涯
 		handleCareer(playerContent, entry.getKey());
@@ -129,16 +150,16 @@ public class PlayerJob implements Job {
 			career.set("league_id", getLeagueId(matcher.group(5)));
 			career.set("league_name", matcher.group(6));
 			career.set("play_time", matcher.group(7));
-			career.set("play_count", matcher.group(8));
-			career.set("first_team", matcher.group(9));
-			career.set("substitute", matcher.group(10));
-			career.set("substituted", matcher.group(11));
-			career.set("substitute_count", matcher.group(12));
-			career.set("goal", matcher.group(13));
+			career.set("play_count", CommonUtils.getDefaultZero(matcher.group(8)));
+			career.set("first_team", CommonUtils.getDefaultZero(matcher.group(9)));
+			career.set("substitute", CommonUtils.getDefaultZero(matcher.group(10)));
+			career.set("substituted", CommonUtils.getDefaultZero(matcher.group(11)));
+			career.set("substitute_count", CommonUtils.getDefaultZero(matcher.group(12)));
+			career.set("goal", CommonUtils.getDefaultZero(matcher.group(13)));
 			//career.set("assist_goal", matcher.group(1));
-			career.set("yellow_count", matcher.group(14));
-			career.set("double_yellow_count", matcher.group(15));
-			career.set("red_count", matcher.group(16));
+			career.set("yellow_count", CommonUtils.getDefaultZero(matcher.group(14)));
+			career.set("double_yellow_count", CommonUtils.getDefaultZero(matcher.group(15)));
+			career.set("red_count", CommonUtils.getDefaultZero(matcher.group(16)));
 			career.set("player_id", playerId);
 			
 			lstCareer.add(career);
@@ -196,10 +217,10 @@ public class PlayerJob implements Job {
 		Matcher matcher = INJURY_PATTERN.matcher(playerContent);
 		while(matcher.find()){
 			Injury injury = new Injury();
-			injury.set("type", CommonUtils.getCNInjury(matcher.group(1)));
+			injury.set("type", matcher.group(1));
 			injury.set("start_time", CommonUtils.getDateByString(matcher.group(2)));
-			injury.set("estimate_time", CommonUtils.getDateByString(matcher.group(3)));
-			injury.set("end_time", CommonUtils.getDateByString(matcher.group(4)));
+			//injury.set("estimate_time", CommonUtils.getDateByString(matcher.group(3)));
+			injury.set("end_time", CommonUtils.getDateByString(matcher.group(3)));
 			injury.set("player_id", playerId);
 			lstInjury.add(injury);
 		}
@@ -213,7 +234,7 @@ public class PlayerJob implements Job {
 		List<Transfer> lstTransfer = new ArrayList<Transfer>();
 		Matcher matcher = TRANSFER_TABLE_PATTERN.matcher(playerContent);
 		if(matcher.find()){
-			String transferHTML = matcher.group(1);
+			String transferHTML = matcher.group();
 			Matcher transferMatcher = TRANSFER_PATTERN.matcher(transferHTML);
 			while(transferMatcher.find()){
 				String timeStr = transferMatcher.group(1);
