@@ -1,6 +1,7 @@
 package com.wwqk.job;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -84,11 +85,13 @@ public class TeamJob implements Job {
 				team.set("name", matcher.group(2));
 				team.set("team_url", SITE_PROFIX+url);
 				team.set("league_id", leagueId);
+				team.set("update_time", new Date());
 				lstNeedInsert.add(team);
 			}else{
 				teamDB.set("name", matcher.group(2));
 				teamDB.set("team_url", SITE_PROFIX+url);
 				teamDB.set("league_id", leagueId);
+				teamDB.set("update_time", new Date());
  				lstNeedUpdate.add(teamDB);
 			}
 			map.put(id, SITE_PROFIX+url);
@@ -159,6 +162,7 @@ public class TeamJob implements Job {
 			match.set("league_id", leagueId);
 			match.set("round_id", roundId);
 			match.set("match_url", matchURL);
+			match.set("update_time", new Date());
 			
 			lstMatch.add(match);
 		}
@@ -191,6 +195,7 @@ public class TeamJob implements Job {
 			shooter.set("first_goal_count", Integer.valueOf(firstGoalStr));
 			shooter.set("league_id", leagueId);
 			shooter.set("round_id", roundId);
+			shooter.set("update_time", new Date());
 			lstShooter.add(shooter);
 		}
 		if(lstShooter.size()>0){
@@ -233,6 +238,7 @@ public class TeamJob implements Job {
 				leaguePosition.set("lose_goal_count", loseGoalCount);
 				leaguePosition.set("goal_count", goalCount);
 				leaguePosition.set("points", points);
+				leaguePosition.set("update_time", new Date());
 
 				lstPositions.add(leaguePosition);
 			}
@@ -254,6 +260,7 @@ public class TeamJob implements Job {
 		team.set("telphone", CommonUtils.matcherString(CommonUtils.getPatternByName("电话"), teamContent));
 		team.set("fax", CommonUtils.matcherString(CommonUtils.getPatternByName("传真"), teamContent));
 		team.set("email", CommonUtils.matcherString(CommonUtils.getPatternByName("电子邮件"), teamContent).replaceAll(tagString, ""));
+		team.set("update_time", new Date());
 		team.update();
 	}
 	
@@ -266,6 +273,7 @@ public class TeamJob implements Job {
 		team.set("venue_address", CommonUtils.matcherString(CommonUtils.getPatternByName("地址:"), venueContent));
 		team.set("venue_capacity", CommonUtils.matcherString(CommonUtils.getPatternByName("容量:"), venueContent));
 		team.set("venue_img", CommonUtils.matcherStringAll(VENUE_IMG_PATTERN, venueContent));
+		team.set("update_time", new Date());
 		team.update();
 	}
 	

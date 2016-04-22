@@ -1,6 +1,7 @@
 package com.wwqk.job;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -80,11 +81,13 @@ public class PlayerJob implements Job {
 				player.set("name", matcher.group(2));
 				player.set("player_url", SITE_PROFIX+url);
 				player.set("team_id", teamId);
+				player.set("update_time", new Date());
 				lstNeedInsert.add(player);
 			}else{
 				playerDB.set("name", matcher.group(2));
 				playerDB.set("player_url", SITE_PROFIX+url);
 				playerDB.set("team_id", teamId);
+				playerDB.set("update_time", new Date());
 				playerDB.update();
 				lstNeedUpdate.add(playerDB);
 			}
@@ -126,6 +129,7 @@ public class PlayerJob implements Job {
 		player.set("height", CommonUtils.matcherString(CommonUtils.getPatternByName("高度"), playerContent));
 		player.set("weight", CommonUtils.matcherString(CommonUtils.getPatternByName("体重"), playerContent));
 		player.set("foot", CommonUtils.matcherString(CommonUtils.getPatternByName("脚"), playerContent));
+		player.set("update_time", new Date());
 		player.update();
 		
 		//职业生涯
@@ -161,6 +165,7 @@ public class PlayerJob implements Job {
 			career.set("double_yellow_count", CommonUtils.getDefaultZero(matcher.group(15)));
 			career.set("red_count", CommonUtils.getDefaultZero(matcher.group(16)));
 			career.set("player_id", playerId);
+			career.set("update_time", new Date());
 			
 			lstCareer.add(career);
 		}
@@ -200,6 +205,7 @@ public class PlayerJob implements Job {
 						trophy.set("times", trophyCount);
 						trophy.set("season", sb.toString());
 						trophy.set("player_id", playerId);
+						trophy.set("update_time", new Date());
 						
 						lstTrophy.add(trophy);
 					}
@@ -222,6 +228,7 @@ public class PlayerJob implements Job {
 			//injury.set("estimate_time", CommonUtils.getDateByString(matcher.group(3)));
 			injury.set("end_time", CommonUtils.getDateByString(matcher.group(3)));
 			injury.set("player_id", playerId);
+			injury.set("update_time", new Date());
 			lstInjury.add(injury);
 		}
 		if(lstInjury.size()>0){
@@ -247,6 +254,7 @@ public class PlayerJob implements Job {
 				transfer.set("to_team", toStr);
 				transfer.set("value", CommonUtils.getCNValue(valueStr));
 				transfer.set("player_id", playerId);
+				transfer.set("update_time", new Date());
 				lstTransfer.add(transfer);
 			}
 		}
