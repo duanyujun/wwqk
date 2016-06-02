@@ -13,6 +13,10 @@ import java.util.regex.Pattern;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -50,73 +54,71 @@ public class TeamJob implements Job {
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		List<League> leagues = League.dao.find("select * from league");
-		String htmlLeague = null;
 		for(League league : leagues){
 			System.err.println("+++handle league url:"+league.getStr("league_url")+" started!!!");
-			htmlLeague = FetchHtmlUtils.getHtmlContent(httpClient, league.getStr("league_url"));
-			handleTeamsUrl(htmlLeague, league.getStr("id"));
+			handleTeamsUrl(league.getStr("league_url"), league.getStr("id"));
 			System.err.println("---handle league url:"+league.getStr("league_url")+" ended!!!");
 		}
 		httpClient.getConnectionManager().shutdown();
 	}
 	
-	private void handleTeamsUrl(String htmlContent, String leagueId){
-		//解除联赛关联
+	private void handleTeamsUrl(String leagueUrl, String leagueId){
 		List<Team> lstNeedInsert = new ArrayList<Team>();
 		List<Team> lstNeedUpdate = new ArrayList<Team>();
-		
-		
 		Map<String, String> map = new HashMap<String, String>();
 		Set<String> idSet = new HashSet<String>();
-		Matcher matcher = TEAM_URL_PATTERN.matcher(htmlContent);
-		while(matcher.find()){
-			String url = matcher.group(1);
-			String id = CommonUtils.getId(url);
-			if(idSet.contains(id)){
-				continue;
-			}else{
-				idSet.add(id);
+		Document document = Jsoup.connect(leagueUrl).get();
+		Elements bodyElement = document.select(".detailed-table");
+		String roundId = null;
+		if(bodyElement.size()>0){
+			roundId = bodyElement.get(0).attr("data-round_id");
+			Elements teamLinks = bodyElement.get(0).select(".team_rank");
+			for(Element element : teamLinks){
+				String teamId = element.attr("data-team_id");
+				//防止重复
+				if(idSet.contains(teamId)){
+					continue;
+				}else{
+					idSet.add(teamId);
+				}
+				Elements aElements = element.select("a");
+				String teamName = null;
+				String teamUrl = null;
+				if(aElements.size()>0){
+					teamName = aElements.get(0).attr("title");
+					teamUrl = SITE_PROFIX + aElements.get(0).attr("href");
+				}
+				//判断数据库中是否存在
+				Team teamDB = Team.dao.findById(teamId);
+				if(teamDB==null){
+					Team team = new Team();
+					team.set("id", teamId);
+					team.set("name", teamName);
+					team.set("team_url", teamUrl);
+					team.set("league_id", leagueId);
+					team.set("update_time", new Date());
+					lstNeedInsert.add(team);
+				}else{
+					teamDB.set("name", teamName);
+					teamDB.set("team_url", teamUrl);
+					teamDB.set("league_id", leagueId);
+					teamDB.set("update_time", new Date());
+	 				lstNeedUpdate.add(teamDB);
+				}
+				map.put(teamId, teamUrl);
 			}
-			//判断数据库中是否存在
-			Team teamDB = Team.dao.findById(id);
-			if(teamDB==null){
-				Team team = new Team();
-				team.set("id", id);
-				team.set("name", matcher.group(2));
-				team.set("team_url", SITE_PROFIX+url);
-				team.set("league_id", leagueId);
-				team.set("update_time", new Date());
-				lstNeedInsert.add(team);
-			}else{
-				teamDB.set("name", matcher.group(2));
-				teamDB.set("team_url", SITE_PROFIX+url);
-				teamDB.set("league_id", leagueId);
-				teamDB.set("update_time", new Date());
- 				lstNeedUpdate.add(teamDB);
-			}
-			map.put(id, SITE_PROFIX+url);
 		}
 		
 		updateTeamLeagueInfo(lstNeedInsert, lstNeedUpdate, leagueId);
 		
-		String roundId = null;
-		Matcher roundMatcher = ROUND_PATTERN.matcher(htmlContent);
-		if(roundMatcher.find()){
-			roundId = roundMatcher.group(1);
-		}
-		
 		//最佳射手
-		handleBestShooter(htmlContent, leagueId, roundId);
+		handleBestShooter(document, leagueId, roundId);
 		//助攻榜
 		//TODO
 		//排名
-		System.err.println("+++handleLeaguePosition start!!!");
-		handleLeaguePosition(htmlContent, leagueId, roundId);
-		System.err.println("+++handleLeaguePosition end!!!");
+		handleLeaguePosition(document, leagueId, roundId);
 		//比赛
-		System.err.println("+++handleMatch start!!!");
 		handleMatch(htmlContent, leagueId, roundId);
-		System.err.println("+++handleMatch end!!!");
 		
 		for(Entry<String, String> entry : map.entrySet()){
 			//获取球队信息
@@ -173,31 +175,47 @@ public class TeamJob implements Job {
 	}
 	
 	@Before(Tx.class)
-	private void handleBestShooter(String htmlContent, String leagueId, String roundId){
+	private void handleBestShooter(Document document, String leagueId, String roundId){
 		List<LeagueShooter> lstShooter = new ArrayList<LeagueShooter>();
-		Matcher matcher = BEST_SHOOTER_PATTERN.matcher(htmlContent);
-		while(matcher.find()){
-			String playerId = matcher.group(1);
-			String teamId = matcher.group(2);
-			String playerName = matcher.group(3);
-			String teamName = matcher.group(4);
-			String goalStr = matcher.group(5);
-			String penaltyStr = matcher.group(6);
-			String firstGoalStr = matcher.group(7);
-			
-			LeagueShooter shooter = new LeagueShooter();
-			shooter.set("player_id", playerId);
-			shooter.set("player_name", playerName);
-			shooter.set("team_id", teamId);
-			shooter.set("team_name", teamName);
-			shooter.set("goal_count", Integer.valueOf(goalStr));
-			shooter.set("penalty_count", Integer.valueOf(penaltyStr));
-			shooter.set("first_goal_count", Integer.valueOf(firstGoalStr));
-			shooter.set("league_id", leagueId);
-			shooter.set("round_id", roundId);
-			shooter.set("update_time", new Date());
-			lstShooter.add(shooter);
+		Elements elements = document.select(".playerstats");
+		if(elements.size()>0){
+			Elements trElements = elements.get(0).select("tbody > tr");
+			for(Element element : trElements){
+				String playerId = element.attr("data-people_id");
+				String teamId = element.attr("data-people_id");
+				String playerName = null;
+				String playerUrl = null;
+				String teamName = null;
+				String teamUrl = null;
+				Elements playElements = element.select("a");
+				if(playElements.size()>1){
+					playerName = playElements.get(0).html();
+					playerUrl = SITE_PROFIX + playElements.get(0).attr("href");
+					teamName = playElements.get(1).html();
+					teamUrl = SITE_PROFIX + playElements.get(1).attr("href");
+				}
+				
+				String goalStr = element.child(2).html();
+				String penaltyStr = element.child(3).html();
+				String firstGoalStr = element.child(4).html();
+				
+				LeagueShooter shooter = new LeagueShooter();
+				shooter.set("player_id", playerId);
+				shooter.set("player_name", playerName);
+				shooter.set("player_url", playerUrl);
+				shooter.set("team_id", teamId);
+				shooter.set("team_name", teamName);
+				shooter.set("team_url", teamUrl);
+				shooter.set("goal_count", Integer.valueOf(goalStr));
+				shooter.set("penalty_count", Integer.valueOf(penaltyStr));
+				shooter.set("first_goal_count", Integer.valueOf(firstGoalStr));
+				shooter.set("league_id", leagueId);
+				shooter.set("round_id", roundId);
+				shooter.set("update_time", new Date());
+				lstShooter.add(shooter);
+			}
 		}
+		
 		if(lstShooter.size()>0){
 			Db.update("delete from league_shooter where league_id = ?", leagueId);
 			Db.batchSave(lstShooter, lstShooter.size());
@@ -205,47 +223,46 @@ public class TeamJob implements Job {
 	}
 	
 	@Before(Tx.class)
-	private void handleLeaguePosition(String htmlContent, String leagueId, String roundId){
+	private void handleLeaguePosition(Document document, String leagueId, String roundId){
 		List<LeaguePosition> lstPositions = new ArrayList<LeaguePosition>();
-		Matcher tableMatcher = RANK_TABLE_PATTERN.matcher(htmlContent);
-		if(tableMatcher.find()){
-			String content = tableMatcher.group();
-			Matcher matcher = RANK_PATTERN.matcher(content);
-			while(matcher.find()){
-				String teamId = matcher.group(1);
-				String rank = matcher.group(2);
-				String teamName = matcher.group(3);
-				String roundCount = matcher.group(4);
-				String winCount = matcher.group(5);
-				String evenCount = matcher.group(6);
-				String loseCount = matcher.group(7);
-				String winGoalCount = matcher.group(8);
-				String loseGoalCount = matcher.group(9);
-				String goalCount = matcher.group(10);
-				String points = matcher.group(11);
+		Elements bodyElement = document.select(".detailed-table");
+		Elements teamLinks = bodyElement.get(0).select(".team_rank");
+		for(Element element : teamLinks){
+			String teamId = element.attr("data-team_id");
+			String rank = element.child(0).html();
+			String teamName = element.child(2).text();
+			String teamUrl = SITE_PROFIX + element.child(2).child(0).attr("href");
+			String roundCount = element.child(3).text();
+			String winCount = element.child(4).text();
+			String evenCount = element.child(5).text();
+			String loseCount = element.child(6).text();
+			String winGoalCount = element.child(7).text();
+			String loseGoalCount = element.child(8).text();
+			String goalCount = element.child(9).text();
+			String points = element.child(10).text();
 			
-				LeaguePosition leaguePosition = new LeaguePosition();
-				leaguePosition.set("league_id", leagueId);
-				leaguePosition.set("round_id", roundId);
-				leaguePosition.set("rank", rank);
-				leaguePosition.set("team_name", teamName);
-				leaguePosition.set("team_id", teamId);
-				leaguePosition.set("round_count", roundCount);
-				leaguePosition.set("win_count", winCount);
-				leaguePosition.set("even_count", evenCount);
-				leaguePosition.set("lose_count", loseCount);
-				leaguePosition.set("win_goal_count", winGoalCount);
-				leaguePosition.set("lose_goal_count", loseGoalCount);
-				leaguePosition.set("goal_count", goalCount);
-				leaguePosition.set("points", points);
-				leaguePosition.set("update_time", new Date());
-
-				lstPositions.add(leaguePosition);
-			}
-			if(lstPositions.size()>0){
-				Db.update("delete from league_position where league_id = ?", leagueId);
-				Db.batchSave(lstPositions, lstPositions.size());
-			}
+			LeaguePosition leaguePosition = new LeaguePosition();
+			leaguePosition.set("league_id", leagueId);
+			leaguePosition.set("round_id", roundId);
+			leaguePosition.set("rank", rank);
+			leaguePosition.set("team_id", teamId);
+			leaguePosition.set("team_name", teamName);
+			leaguePosition.set("team_url", teamUrl);
+			leaguePosition.set("round_count", roundCount);
+			leaguePosition.set("win_count", winCount);
+			leaguePosition.set("even_count", evenCount);
+			leaguePosition.set("lose_count", loseCount);
+			leaguePosition.set("win_goal_count", winGoalCount);
+			leaguePosition.set("lose_goal_count", loseGoalCount);
+			leaguePosition.set("goal_count", goalCount);
+			leaguePosition.set("points", points);
+			leaguePosition.set("update_time", new Date());
+			
+			lstPositions.add(leaguePosition);
+		}
+		if(lstPositions.size()>0){
+			Db.update("delete from league_position where league_id = ?", leagueId);
+			Db.batchSave(lstPositions, lstPositions.size());
 		}
 	}
 	
