@@ -172,7 +172,17 @@ public class CommonUtils {
 		}else{
 			Matcher matcher2 = VALUE_PATTERN_2.matcher(euValue);
 			if(matcher2.find()){
-				euValue = String.valueOf(new BigDecimal(matcher2.group()).multiply(HUNDRED))+"万欧元";
+				String value = matcher2.group();
+				if(euValue.contains("K")){
+					if(value.length()>1){
+						euValue = Integer.valueOf(value).intValue()/10+"."
+								+ value.substring(value.length()-1) + "万欧元";
+					}else{
+						euValue = Integer.valueOf(value).intValue() * 1000 + "欧元";
+					}
+				}else{
+					euValue = String.valueOf(new BigDecimal(value).multiply(HUNDRED))+"万欧元";
+				}
 			}else{
 				euValue = NO_INFO;
 			}

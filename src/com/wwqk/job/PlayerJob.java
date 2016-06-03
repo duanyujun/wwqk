@@ -1,5 +1,6 @@
 package com.wwqk.job;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,8 +12,10 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -28,14 +31,11 @@ import com.wwqk.model.Team;
 import com.wwqk.model.Transfer;
 import com.wwqk.model.Trophy;
 import com.wwqk.utils.CommonUtils;
-import com.wwqk.utils.FetchHtmlUtils;
 import com.wwqk.utils.StringUtils;
 
 public class PlayerJob implements Job {
 	
-	private HttpClient httpClient = new DefaultHttpClient();
 	String clearString = "<.*?/>";
-	private static final Pattern PLAYER_URL_PATTERN = Pattern.compile("class=\"flag_16 right_16.*?<a href=\"(.*?)\".*?>(.*?)</a>");
 	private static final Pattern CAREER_PATTERN = Pattern.compile("class=\"season\">.*?>(.*?)</a>.*?href=\"(.*?)\".*?title=\"(.*?)\".*?<span class=\"(.*?)\".*?href=\"(.*?)\".*?title=\"(.*?)\".*?game-minutes available\">(.*?)</td>.*?appearances available\">(.*?)</td>.*?lineups available\">(.*?)</td>.*?subs-in available\">(.*?)</td>.*?subs-out available\">(.*?)</td>.*?subs-on-bench available\">(.*?)</td>.*?goals available\">(.*?)</td>.*?yellow-cards available\">(.*?)</td>.*?2nd-yellow-cards available\">(.*?)</td>.*?red-cards available\">(.*?)</td>");
 	private static final Pattern TROPHY_TABLE_PATTERN = Pattern.compile("trophies-table\">(.*?)</table>");
 	private static final Pattern TROPHY_TITLE_PATTERN = Pattern.compile("<th.*?>(.*?)</th>");
@@ -45,62 +45,91 @@ public class PlayerJob implements Job {
 	private static final Pattern TRANSFER_TABLE_PATTERN = Pattern.compile("transfers-container.*?</table>");
 	private static final Pattern TRANSFER_PATTERN = Pattern.compile("<span.*?>(.*?)</span>.*?<a.*?>(.*?)</a>.*?<a.*?>(.*?)</a>.*?<td.*?>(.*?)</td>");
 	private static final String SITE_PROFIX = "http://cn.soccerway.com";
+	private static final String COUCH_STRING = "教练";
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		List<Team> lstTeam = Team.dao.find("select * from team order by id+0 asc ");
-		String htmlTeam = null;
 		System.err.println("handle player start!!!");
-		for(Team team : lstTeam){
-			htmlTeam = FetchHtmlUtils.getHtmlContent(httpClient, team.getStr("team_url"));
-			handlePlayerUrl(htmlTeam, team.getStr("id"));
+		try {
+			for(Team team : lstTeam){
+				handlePlayerUrl(team.getStr("team_url"), team.getStr("id"));
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
+		
 		System.err.println("handle player end!!!");
 	}
 
-	private void handlePlayerUrl(String htmlTeam, String teamId) {
+	private void handlePlayerUrl(String teamUrl, String teamId) throws IOException {
 		
 		List<Player> lstNeedInsert = new ArrayList<Player>();
 		List<Player> lstNeedUpdate = new ArrayList<Player>();
 		Map<String, String> map = new HashMap<String, String>();
 		Set<String> idSet = new HashSet<String>();
-		Matcher matcher = PLAYER_URL_PATTERN.matcher(htmlTeam);
-		while(matcher.find()){
-			String url = matcher.group(1);
-			String id = CommonUtils.getId(url);
-			if(idSet.contains(id)){
-				continue;
-			}else{
-				idSet.add(id);
+		Document document = Jsoup.connect(teamUrl).get();
+		Elements elements = document.select(".squad-container");
+		if(elements.size()>0){
+			Elements theadElements = elements.get(0).select("thead");
+			Elements tbodyElements = elements.get(0).select("tbody");
+			if(theadElements.size()==tbodyElements.size() && theadElements.size()>0){
+				for(int i=0; i<theadElements.size(); i++){
+					if(COUCH_STRING.equals(StringUtils.trim(theadElements.get(i).child(0).child(0).text()))){
+						//TODO add couch
+					}else{
+						Elements aElements = tbodyElements.get(i).select("a");
+						for(Element element : aElements){
+							String url = element.attr("href");
+							String id = CommonUtils.getId(url);
+							String imgSmall = null;
+							String playerName = null;
+							if(idSet.contains(id)){
+								//获取姓名
+								playerName = element.text();
+								continue;
+							}else{
+								//获取小头像
+								imgSmall = element.child(0).attr("src");
+								idSet.add(id);
+							}
+							
+							Player playerDB = Player.dao.findById(id);
+							if(playerDB==null){
+								Player player = new Player();
+								player.set("id", id);
+								player.set("name", playerName);
+								//TODO add column
+								player.set("img_small", imgSmall);
+								player.set("player_url", SITE_PROFIX+url);
+								player.set("team_id", teamId);
+								player.set("update_time", new Date());
+								lstNeedInsert.add(player);
+							}else{
+								playerDB.set("name", playerName);
+								//TODO add column
+								playerDB.set("img_small", imgSmall);
+								playerDB.set("player_url", SITE_PROFIX+url);
+								playerDB.set("team_id", teamId);
+								playerDB.set("update_time", new Date());
+								playerDB.update();
+								lstNeedUpdate.add(playerDB);
+							}
+							
+							map.put(id, SITE_PROFIX+url);
+						}
+					}
+					
+					//更新球员球队id信息
+					updatePlayerTeamInfo(lstNeedInsert, lstNeedUpdate, teamId);
+				}
 			}
-			
-			Player playerDB = Player.dao.findById(id);
-			if(playerDB==null){
-				Player player = new Player();
-				player.set("id", id);
-				player.set("name", matcher.group(2));
-				player.set("player_url", SITE_PROFIX+url);
-				player.set("team_id", teamId);
-				player.set("update_time", new Date());
-				lstNeedInsert.add(player);
-			}else{
-				playerDB.set("name", matcher.group(2));
-				playerDB.set("player_url", SITE_PROFIX+url);
-				playerDB.set("team_id", teamId);
-				playerDB.set("update_time", new Date());
-				playerDB.update();
-				lstNeedUpdate.add(playerDB);
-			}
-			
-			map.put(id, SITE_PROFIX+url);
 		}
-		
-		//更新球员球队id信息
-		updatePlayerTeamInfo(lstNeedInsert, lstNeedUpdate, teamId);
 		
 		for(Entry<String, String> entry : map.entrySet()){
 			handlePlayerDetail(entry);
 		}
+		
 	}
 	
 	@Before(Tx.class)
@@ -114,32 +143,39 @@ public class PlayerJob implements Job {
 		}
 	}
 	
-	private void handlePlayerDetail(Entry<String, String> entry){
+	private void handlePlayerDetail(Entry<String, String> entry) throws IOException{
 		Player player = Player.dao.findById(entry.getKey());
 		System.err.println("handle player： "+player.getStr("name")+" ing!!!");
-		String playerContent = FetchHtmlUtils.getHtmlContent(httpClient, entry.getValue());
-		player.set("first_name", CommonUtils.matcherString(CommonUtils.getPatternByName("名字"), playerContent));
-		player.set("last_name", CommonUtils.matcherString(CommonUtils.getPatternByName("姓氏"), playerContent));
-		player.set("nationality", CommonUtils.matcherString(CommonUtils.getPatternByName("国籍"), playerContent));
-		player.set("birthday", CommonUtils.getCNDate(CommonUtils.matcherString(CommonUtils.getPatternByName("出生日期"), playerContent)));
-		player.set("age", CommonUtils.matcherString(CommonUtils.getPatternByName("年龄"), playerContent));
-		player.set("birth_country", CommonUtils.matcherString(CommonUtils.getPatternByName("出生国家"), playerContent));
-		player.set("birth_place", CommonUtils.matcherString(CommonUtils.getPatternByName("出生地"), playerContent));
-		player.set("position", CommonUtils.matcherString(CommonUtils.getPatternByName("位置"), playerContent));
-		player.set("height", CommonUtils.matcherString(CommonUtils.getPatternByName("高度"), playerContent));
-		player.set("weight", CommonUtils.matcherString(CommonUtils.getPatternByName("体重"), playerContent));
-		player.set("foot", CommonUtils.matcherString(CommonUtils.getPatternByName("脚"), playerContent));
-		player.set("update_time", new Date());
-		player.update();
+		Document document = Jsoup.connect(entry.getValue()).get();
+		Elements elements = document.select(".yui-gc");
+		if(elements.size()>0){
+			String imgBig = elements.get(0).child(1).child(0).attr("src");
+			Element infoElement = elements.get(0).child(0).child(0).child(0);
+			player.set("first_name", infoElement.child(1).text());
+			player.set("last_name", infoElement.child(3).text());
+			player.set("nationality", infoElement.child(5).text());
+			player.set("birthday", CommonUtils.getCNDate(infoElement.child(7).text()));
+			player.set("age", infoElement.child(9).text());
+			player.set("birth_country", infoElement.child(11).text());
+			player.set("birth_place", infoElement.child(13).text());
+			player.set("position", infoElement.child(15).text());
+			player.set("height", infoElement.child(17).text());
+			player.set("weight", infoElement.child(19).text());
+			player.set("foot", infoElement.child(21).text());
+			//TODO add column
+			player.set("img_big", imgBig);
+			player.set("update_time", new Date());
+			player.update();
+		}
 		
 		//职业生涯
-		handleCareer(playerContent, entry.getKey());
+		handleCareer(document.html(), entry.getKey());
 		//所获荣誉
-		handleTrophy(playerContent, entry.getKey());
+		handleTrophy(document.html(), entry.getKey());
 		//受伤情况
-		handleInjury(playerContent, entry.getKey());
+		handleInjury(document.html(), entry.getKey());
 		//转会情况
-		handleTransfer(playerContent, entry.getKey());
+		handleTransfer(document.html(), entry.getKey());
 	}
 	
 	private void handleCareer(String playerContent, String playerId){
@@ -225,7 +261,6 @@ public class PlayerJob implements Job {
 			Injury injury = new Injury();
 			injury.set("type", matcher.group(1));
 			injury.set("start_time", CommonUtils.getDateByString(matcher.group(2)));
-			//injury.set("estimate_time", CommonUtils.getDateByString(matcher.group(3)));
 			injury.set("end_time", CommonUtils.getDateByString(matcher.group(3)));
 			injury.set("player_id", playerId);
 			injury.set("update_time", new Date());
