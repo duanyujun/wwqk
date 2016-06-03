@@ -42,7 +42,7 @@ public class TeamJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		List<League> leagues = League.dao.find("select * from league");
+		List<League> leagues = League.dao.find("select * from league where online = 1");
 		try {
 			for(League league : leagues){
 				System.err.println("+++handle league url:"+league.getStr("league_url")+" started!!!");
@@ -191,10 +191,9 @@ public class TeamJob implements Job {
 				if(playElements.size()>1){
 					playerName = playElements.get(0).html();
 					playerUrl = SITE_PROFIX + playElements.get(0).attr("href");
-					teamName = playElements.get(1).html();
+					teamName = playElements.get(1).attr("title");
 					teamUrl = SITE_PROFIX + playElements.get(1).attr("href");
 				}
-				
 				String goalStr = element.child(2).html();
 				String penaltyStr = element.child(3).html();
 				String firstGoalStr = element.child(4).html();
