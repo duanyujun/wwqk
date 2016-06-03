@@ -275,13 +275,16 @@ public class TeamJob implements Job {
 		if(teamImgElements.size()>0){
 			team.set("team_img", teamImgElements.get(0).child(0).attr("src"));
 		}
-		String teamContent = document.html();
-		team.set("setup_time", CommonUtils.matcherString(CommonUtils.getPatternByName("成立于"), teamContent));
-		team.set("address", CommonUtils.matcherString(CommonUtils.getPatternByName("地址"), teamContent).replaceAll(clearString, ""));
-		team.set("country", CommonUtils.matcherString(CommonUtils.getPatternByName("国家"), teamContent));
-		team.set("telphone", CommonUtils.matcherString(CommonUtils.getPatternByName("电话"), teamContent));
-		team.set("fax", CommonUtils.matcherString(CommonUtils.getPatternByName("传真"), teamContent));
-		team.set("email", CommonUtils.matcherString(CommonUtils.getPatternByName("电子邮件"), teamContent).replaceAll(tagString, ""));
+		Elements detailInfoElements = document.select("dl");
+		if(detailInfoElements.size()>0){
+			team.set("setup_time", detailInfoElements.get(0).child(1).text());
+			team.set("address", detailInfoElements.get(0).child(3).text());
+			team.set("country", detailInfoElements.get(0).child(5).text());
+			team.set("telphone", detailInfoElements.get(0).child(7).text());
+			team.set("fax", detailInfoElements.get(0).child(9).text());
+			team.set("email", detailInfoElements.get(0).child(11).text());
+		}
+		
 		Elements venueImgElements = document.select(".block_team_venue");
 		if(venueImgElements.size()>0){
 			//TODO add column
