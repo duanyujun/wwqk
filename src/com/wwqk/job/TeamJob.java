@@ -267,6 +267,7 @@ public class TeamJob implements Job {
 		}
 	}
 	
+	@Before(Tx.class)
 	private void handleTeamDetail(Entry<String, String> entry) throws IOException{
 		Team team = Team.dao.findById(entry.getKey());
 		System.err.println("handle team： "+team.getStr("name")+" ing!!!");
@@ -294,6 +295,7 @@ public class TeamJob implements Job {
 		team.update();
 	}
 	
+	@Before(Tx.class)
 	private void handleTeamVenue(Entry<String, String> entry) throws IOException{
 		Team team = Team.dao.findById(entry.getKey());
 		Document document = Jsoup.connect(entry.getValue()+"venue/").get();
