@@ -31,6 +31,7 @@ import com.wwqk.model.LeaguePosition;
 import com.wwqk.model.LeagueShooter;
 import com.wwqk.model.Team;
 import com.wwqk.utils.CommonUtils;
+import com.wwqk.utils.FetchHtmlUtils;
 import com.wwqk.utils.StringUtils;
 
 public class TeamJob implements Job {
@@ -50,7 +51,7 @@ public class TeamJob implements Job {
 				System.err.println("---handle league url:"+league.getStr("league_url")+" ended!!!");
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			System.err.println("^^^^^^^"+e.getMessage());
 		}
 		
 		httpClient.getConnectionManager().shutdown();
@@ -136,18 +137,18 @@ public class TeamJob implements Job {
 	@Before(Tx.class)
 	private void handleMatch(Document document, String leagueId, String roundId){
 		List<LeagueMatch> lstMatch = new ArrayList<LeagueMatch>();
-		Elements elements = document.select("no-date-repetition");
+		Elements elements = document.select(".no-date-repetition");
 		for(Element element : elements){
 			String matchWeekday = element.child(0).text();
 			String matchDate = element.child(1).text();
 			String homeTeamId = CommonUtils.getId(element.child(2).child(0).attr("href"));
-			String homeTeamName = CommonUtils.getId(element.child(2).child(0).attr("title"));
+			String homeTeamName = element.child(2).child(0).attr("title");
 			//TODO add column
 			String homeTeamUrl = element.child(2).child(0).attr("href");
 			String matchURL = element.child(3).child(0).attr("href");
 			String matchPoints = StringUtils.trim(element.child(3).text());
 			String awayTeamId = CommonUtils.getId(element.child(4).child(0).attr("href"));
-			String awayTeamName = CommonUtils.getId(element.child(4).child(0).attr("title"));
+			String awayTeamName = element.child(4).child(0).attr("title");
 			//TODO add column
 			String awayTeamUrl = element.child(4).child(0).attr("href");
 			LeagueMatch match = new LeagueMatch();
@@ -271,20 +272,20 @@ public class TeamJob implements Job {
 	private void handleTeamDetail(Entry<String, String> entry) throws IOException{
 		Team team = Team.dao.findById(entry.getKey());
 		System.err.println("handle team： "+team.getStr("name")+" ing!!!");
-		Document document = Jsoup.connect(entry.getValue()).get();
+		String teamContent = FetchHtmlUtils.getHtmlContent(httpClient, entry.getValue());
+		Document document = Jsoup.parse(teamContent);
+		
 		Elements teamImgElements = document.select(".logo");
 		if(teamImgElements.size()>0){
 			team.set("team_img", teamImgElements.get(0).child(0).attr("src"));
 		}
-		Elements detailInfoElements = document.select("dl");
-		if(detailInfoElements.size()>0){
-			team.set("setup_time", detailInfoElements.get(0).child(1).text());
-			team.set("address", detailInfoElements.get(0).child(3).text());
-			team.set("country", detailInfoElements.get(0).child(5).text());
-			team.set("telphone", detailInfoElements.get(0).child(7).text());
-			team.set("fax", detailInfoElements.get(0).child(9).text());
-			team.set("email", detailInfoElements.get(0).child(11).text());
-		}
+		team.set("setup_time", CommonUtils.matcherString(CommonUtils.getPatternByName("成立于"), teamContent));
+		team.set("address", CommonUtils.matcherString(CommonUtils.getPatternByName("地址"), teamContent).replaceAll(clearString, ""));
+		team.set("country", CommonUtils.matcherString(CommonUtils.getPatternByName("国家"), teamContent));
+		team.set("telphone", CommonUtils.matcherString(CommonUtils.getPatternByName("电话"), teamContent));
+		team.set("fax", CommonUtils.matcherString(CommonUtils.getPatternByName("传真"), teamContent));
+		team.set("email", CommonUtils.matcherString(CommonUtils.getPatternByName("电子邮件"), teamContent).replaceAll(tagString, ""));
+		
 		
 		Elements venueImgElements = document.select(".block_team_venue");
 		if(venueImgElements.size()>0){
@@ -298,8 +299,8 @@ public class TeamJob implements Job {
 	@Before(Tx.class)
 	private void handleTeamVenue(Entry<String, String> entry) throws IOException{
 		Team team = Team.dao.findById(entry.getKey());
-		Document document = Jsoup.connect(entry.getValue()+"venue/").get();
-		String venueContent = document.html();
+		String venueContent = FetchHtmlUtils.getHtmlContent(httpClient, entry.getValue()+"venue/");
+		Document document = Jsoup.parse(venueContent);
 		Elements venueElements = document.select(".block_venue_info-wrapper");
 		if(venueElements.size()>0){
 			String venueName = venueElements.get(0).child(0).html();

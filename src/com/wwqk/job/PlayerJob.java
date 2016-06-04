@@ -12,6 +12,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,10 +33,13 @@ import com.wwqk.model.Team;
 import com.wwqk.model.Transfer;
 import com.wwqk.model.Trophy;
 import com.wwqk.utils.CommonUtils;
+import com.wwqk.utils.FetchHtmlUtils;
 import com.wwqk.utils.StringUtils;
 
 public class PlayerJob implements Job {
 	
+	//TODO　球员小图片 http://cache.images.core.optasports.com/soccer/players/50x50/79495.png
+	private HttpClient httpClient = new DefaultHttpClient();
 	String clearString = "<.*?/>";
 	private static final Pattern CAREER_PATTERN = Pattern.compile("class=\"season\">.*?>(.*?)</a>.*?href=\"(.*?)\".*?title=\"(.*?)\".*?<span class=\"(.*?)\".*?href=\"(.*?)\".*?title=\"(.*?)\".*?game-minutes available\">(.*?)</td>.*?appearances available\">(.*?)</td>.*?lineups available\">(.*?)</td>.*?subs-in available\">(.*?)</td>.*?subs-out available\">(.*?)</td>.*?subs-on-bench available\">(.*?)</td>.*?goals available\">(.*?)</td>.*?yellow-cards available\">(.*?)</td>.*?2nd-yellow-cards available\">(.*?)</td>.*?red-cards available\">(.*?)</td>");
 	private static final Pattern TROPHY_TABLE_PATTERN = Pattern.compile("trophies-table\">(.*?)</table>");
@@ -44,94 +49,106 @@ public class PlayerJob implements Job {
 	private static final Pattern INJURY_PATTERN = Pattern.compile("icon injury.*?<td>(.*?)</td>.*?<span.*?>(.*?)</span>.*?<span.*?>(.*?)</span>");
 	private static final Pattern TRANSFER_TABLE_PATTERN = Pattern.compile("transfers-container.*?</table>");
 	private static final Pattern TRANSFER_PATTERN = Pattern.compile("<span.*?>(.*?)</span>.*?<a.*?>(.*?)</a>.*?<a.*?>(.*?)</a>.*?<td.*?>(.*?)</td>");
+	private static final Pattern PLAYER_URL_PATTERN = Pattern.compile("class=\"flag_16 right_16.*?<a href=\"(.*?)\".*?>(.*?)</a>");
 	private static final String SITE_PROFIX = "http://cn.soccerway.com";
-	private static final String COUCH_STRING = "教练";
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		List<Team> lstTeam = Team.dao.find("select * from team order by id+0 asc ");
+		String htmlTeam = null;
 		System.err.println("handle player start!!!");
 		try {
 			for(Team team : lstTeam){
-				handlePlayerUrl(team.getStr("team_url"), team.getStr("id"));
+				htmlTeam = FetchHtmlUtils.getHtmlContent(httpClient, team.getStr("team_url"));
+				handlePlayerUrl(htmlTeam, team.getStr("id"));
 			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-		
+		httpClient.getConnectionManager().shutdown();
 		System.err.println("handle player end!!!");
 	}
 
-	private void handlePlayerUrl(String teamUrl, String teamId) throws IOException {
+	private void handlePlayerUrl(String htmlTeam, String teamId) throws IOException {
 		
 		List<Player> lstNeedInsert = new ArrayList<Player>();
 		List<Player> lstNeedUpdate = new ArrayList<Player>();
 		Map<String, String> map = new HashMap<String, String>();
 		Set<String> idSet = new HashSet<String>();
-		Document document = Jsoup.connect(teamUrl).get();
-		Elements elements = document.select(".squad-container");
-		if(elements.size()>0){
-			Elements theadElements = elements.get(0).select("thead");
-			Elements tbodyElements = elements.get(0).select("tbody");
-			if(theadElements.size()==tbodyElements.size() && theadElements.size()>0){
-				for(int i=0; i<theadElements.size(); i++){
-					if(COUCH_STRING.equals(StringUtils.trim(theadElements.get(i).child(0).child(0).text()))){
-						//TODO add couch
-					}else{
-						Elements aElements = tbodyElements.get(i).select("a");
-						for(Element element : aElements){
-							String url = element.attr("href");
-							String id = CommonUtils.getId(url);
-							String imgSmall = null;
-							String playerName = null;
-							if(idSet.contains(id)){
-								//获取姓名
-								playerName = element.text();
-								continue;
-							}else{
-								//获取小头像
-								imgSmall = element.child(0).attr("src");
-								idSet.add(id);
-							}
-							
-							Player playerDB = Player.dao.findById(id);
-							if(playerDB==null){
-								Player player = new Player();
-								player.set("id", id);
-								player.set("name", playerName);
-								//TODO add column
-								player.set("img_small", imgSmall);
-								player.set("player_url", SITE_PROFIX+url);
-								player.set("team_id", teamId);
-								player.set("update_time", new Date());
-								lstNeedInsert.add(player);
-							}else{
-								playerDB.set("name", playerName);
-								//TODO add column
-								playerDB.set("img_small", imgSmall);
-								playerDB.set("player_url", SITE_PROFIX+url);
-								playerDB.set("team_id", teamId);
-								playerDB.set("update_time", new Date());
-								playerDB.update();
-								lstNeedUpdate.add(playerDB);
-							}
-							
-							map.put(id, SITE_PROFIX+url);
-						}
-					}
-					
-					//更新球员球队id信息
-					updatePlayerTeamInfo(lstNeedInsert, lstNeedUpdate, teamId);
-				}
+		Matcher matcher = PLAYER_URL_PATTERN.matcher(htmlTeam);
+		while(matcher.find()){
+			String url = matcher.group(1);
+			String id = CommonUtils.getId(url);
+			if(idSet.contains(id)){
+				continue;
+			}else{
+				idSet.add(id);
 			}
+			
+			Player playerDB = Player.dao.findById(id);
+			if(playerDB==null){
+				Player player = new Player();
+				player.set("id", id);
+				player.set("name", matcher.group(2));
+				player.set("player_url", SITE_PROFIX+url);
+				player.set("team_id", teamId);
+				player.set("update_time", new Date());
+				lstNeedInsert.add(player);
+			}else{
+				playerDB.set("name", matcher.group(2));
+				playerDB.set("player_url", SITE_PROFIX+url);
+				playerDB.set("team_id", teamId);
+				playerDB.set("update_time", new Date());
+				playerDB.update();
+				lstNeedUpdate.add(playerDB);
+			}
+			
+			map.put(id, SITE_PROFIX+url);
 		}
+		
+		//更新球员球队id信息
+		updatePlayerTeamInfo(lstNeedInsert, lstNeedUpdate, teamId);
+		
+		//教练
+		handleCouchInfo(htmlTeam, teamId);
 		
 		for(Entry<String, String> entry : map.entrySet()){
 			handlePlayerDetail(entry);
 		}
-		
 	}
 	
+	@Before(Tx.class)
+	private void handleCouchInfo(String htmlTeam, String teamId) {
+		Document document = Jsoup.parse(htmlTeam);
+		Elements elements = document.select(".squad-container");
+		if(elements.size()>0){
+			Elements couchElements = elements.get(0).select("tbody");
+			if(couchElements.size()>0){
+				Elements trElements = couchElements.get(0).select("tr");
+				if(trElements.size()>0){
+					StringBuilder sb = new StringBuilder();
+					for(Element element : trElements){
+						Set<String> couchUrlSet = new HashSet<String>();
+						Elements aElements = element.select("a");
+						for(Element element2 : aElements){
+							if(!couchUrlSet.contains(element2.attr("href"))){
+								sb.append(element2.attr("href")).append(",");
+							}
+						}
+					}
+					if(sb.length()>0){
+						sb.deleteCharAt(sb.length()-1);
+					}
+					Team team = Team.dao.findById(teamId);
+					if(team!=null){
+						team.set("couch_url", sb.toString());
+						team.update();
+					}
+				}
+			}
+		}
+	}
+
 	@Before(Tx.class)
 	private void updatePlayerTeamInfo(List<Player> lstNeedInsert, List<Player> lstNeedUpdate, String teamId){
 		
