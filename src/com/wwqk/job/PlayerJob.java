@@ -163,36 +163,29 @@ public class PlayerJob implements Job {
 	private void handlePlayerDetail(Entry<String, String> entry) throws IOException{
 		Player player = Player.dao.findById(entry.getKey());
 		System.err.println("handle player： "+player.getStr("name")+" ing!!!");
-		Document document = Jsoup.connect(entry.getValue()).get();
-		Elements elements = document.select(".yui-gc");
-		if(elements.size()>0){
-			String imgBig = elements.get(0).child(1).child(0).attr("src");
-			Element infoElement = elements.get(0).child(0).child(0).child(0);
-			player.set("first_name", infoElement.child(1).text());
-			player.set("last_name", infoElement.child(3).text());
-			player.set("nationality", infoElement.child(5).text());
-			player.set("birthday", CommonUtils.getCNDate(infoElement.child(7).text()));
-			player.set("age", infoElement.child(9).text());
-			player.set("birth_country", infoElement.child(11).text());
-			player.set("birth_place", infoElement.child(13).text());
-			player.set("position", infoElement.child(15).text());
-			player.set("height", infoElement.child(17).text());
-			player.set("weight", infoElement.child(19).text());
-			player.set("foot", infoElement.child(21).text());
-			//TODO add column
-			player.set("img_big", imgBig);
-			player.set("update_time", new Date());
-			player.update();
-		}
+		String playerContent = FetchHtmlUtils.getHtmlContent(httpClient, entry.getValue());
+		player.set("first_name", CommonUtils.matcherString(CommonUtils.getPatternByName("名字"), playerContent));
+		player.set("last_name", CommonUtils.matcherString(CommonUtils.getPatternByName("姓氏"), playerContent));
+		player.set("nationality", CommonUtils.matcherString(CommonUtils.getPatternByName("国籍"), playerContent));
+		player.set("birthday", CommonUtils.getCNDate(CommonUtils.matcherString(CommonUtils.getPatternByName("出生日期"), playerContent)));
+		player.set("age", CommonUtils.matcherString(CommonUtils.getPatternByName("年龄"), playerContent));
+		player.set("birth_country", CommonUtils.matcherString(CommonUtils.getPatternByName("出生国家"), playerContent));
+		player.set("birth_place", CommonUtils.matcherString(CommonUtils.getPatternByName("出生地"), playerContent));
+		player.set("position", CommonUtils.matcherString(CommonUtils.getPatternByName("位置"), playerContent));
+		player.set("height", CommonUtils.matcherString(CommonUtils.getPatternByName("高度"), playerContent));
+		player.set("weight", CommonUtils.matcherString(CommonUtils.getPatternByName("体重"), playerContent));
+		player.set("foot", CommonUtils.matcherString(CommonUtils.getPatternByName("脚"), playerContent));
+		player.set("update_time", new Date());
+		player.update();
 		
 		//职业生涯
-		handleCareer(document.html(), entry.getKey());
+		handleCareer(playerContent, entry.getKey());
 		//所获荣誉
-		handleTrophy(document.html(), entry.getKey());
+		handleTrophy(playerContent, entry.getKey());
 		//受伤情况
-		handleInjury(document.html(), entry.getKey());
+		handleInjury(playerContent, entry.getKey());
 		//转会情况
-		handleTransfer(document.html(), entry.getKey());
+		handleTransfer(playerContent, entry.getKey());
 	}
 	
 	private void handleCareer(String playerContent, String playerId){
