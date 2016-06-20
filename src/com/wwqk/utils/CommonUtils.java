@@ -149,6 +149,31 @@ public class CommonUtils {
 	}
 	
 	/**
+	 *  二月 2016
+	 * @param dateStr
+	 * @return
+	 * @throws ParseException 
+	 */
+	public static Date getCNDateMonth(String dateStr){
+		if(StringUtils.isBlank(dateStr)){
+			return null;
+		}
+		for(Entry<String, String> entry : CommonUtils.MONTH_MAP.entrySet()){
+			dateStr = dateStr.replace(entry.getKey().trim(), entry.getValue());
+		}
+		
+		String[] patterns ={"MM yyyy"};
+		Date date = null;
+		try {
+			date = DateTimeUtils.parseDate(dateStr, patterns);
+		} catch (ParseException e) {
+			
+		}
+		
+		return date;
+	}
+	
+	/**
 	 * 得到常用的Pattern
 	 * @param patternName
 	 * @return

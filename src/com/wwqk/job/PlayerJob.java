@@ -26,6 +26,8 @@ import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wwqk.model.Career;
+import com.wwqk.model.Coach;
+import com.wwqk.model.CoachCareer;
 import com.wwqk.model.Injury;
 import com.wwqk.model.League;
 import com.wwqk.model.Player;
@@ -50,6 +52,8 @@ public class PlayerJob implements Job {
 	private static final Pattern TRANSFER_TABLE_PATTERN = Pattern.compile("transfers-container.*?</table>");
 	private static final Pattern TRANSFER_PATTERN = Pattern.compile("<span.*?>(.*?)</span>.*?<a.*?>(.*?)</a>.*?<a.*?>(.*?)</a>.*?<td.*?>(.*?)</td>");
 	private static final Pattern PLAYER_URL_PATTERN = Pattern.compile("class=\"flag_16 right_16.*?<a href=\"(.*?)\".*?>(.*?)</a>");
+	private static final Pattern PLAYER_IMG_PATTERN = Pattern.compile("class=\"yui-u\">.*?<img src=\"(.*?)\"");
+	private static final Pattern COUCH_URL_PATTERN = Pattern.compile("教练</th>.*?href=\"(.*?)\"");
 	private static final String SITE_PROFIX = "http://cn.soccerway.com";
 
 	@Override
@@ -119,31 +123,70 @@ public class PlayerJob implements Job {
 	
 	@Before(Tx.class)
 	private void handleCouchInfo(String htmlTeam, String teamId) {
-		Document document = Jsoup.parse(htmlTeam);
-		Elements elements = document.select(".squad-container");
-		if(elements.size()>0){
-			Elements couchElements = elements.get(0).select("tbody");
-			if(couchElements.size()>0){
-				Elements trElements = couchElements.get(0).select("tr");
+		String coachUrl = CommonUtils.matcherString(COUCH_URL_PATTERN, htmlTeam);
+		Team team = Team.dao.findById(teamId);
+		if(team!=null){
+			team.set("coach_url", SITE_PROFIX+coachUrl);
+			team.update();
+		}
+		
+		String coachContent = FetchHtmlUtils.getHtmlContent(httpClient, SITE_PROFIX+coachUrl);
+		String firstName = CommonUtils.matcherString(CommonUtils.getPatternByName("名字"), coachContent);
+		String lastName = CommonUtils.matcherString(CommonUtils.getPatternByName("姓氏"), coachContent);
+		String nationality = CommonUtils.matcherString(CommonUtils.getPatternByName("国籍"), coachContent);
+		Date birthday = CommonUtils.getCNDate(CommonUtils.matcherString(CommonUtils.getPatternByName("出生日期"), coachContent));
+		String age = CommonUtils.matcherString(CommonUtils.getPatternByName("年龄"), coachContent);
+		String birthCountry = CommonUtils.matcherString(CommonUtils.getPatternByName("出生国家"), coachContent);
+		String birthPlace =  CommonUtils.matcherString(CommonUtils.getPatternByName("出生地"), coachContent);
+		String imgBig = CommonUtils.matcherString(PLAYER_IMG_PATTERN, coachContent);
+		
+		String coachId = CommonUtils.getId(coachUrl);
+		Coach coach = Coach.dao.findById(coachId);
+		if(coach==null){
+			coach = new Coach();
+		}
+		coach.set("first_name", firstName);
+		coach.set("last_name", lastName);
+		coach.set("name", lastName);
+		coach.set("nationality", nationality);
+		coach.set("birthday", birthday);
+		coach.set("age", age);
+		coach.set("birth_country", birthCountry);
+		coach.set("birth_place", birthPlace);
+		coach.set("img_big", imgBig);
+		coach.set("team_id", teamId);
+		coach.set("coach_url", SITE_PROFIX+coachUrl);
+		coach.set("update_time", new Date());
+		if(StringUtils.isBlank(coach.getStr("id"))){
+			coach.save();
+		}else{
+			coach.update();
+		}
+		
+		//coach career
+		Document document = Jsoup.parse(coachContent);
+		Elements careerElements = document.select(".block_coach_career");
+		if(careerElements.size()>0){
+			Elements tbodyElements = careerElements.get(0).select("tbody");
+			if(tbodyElements.size()>0){
+				Elements trElements = tbodyElements.get(0).select("tr");
 				if(trElements.size()>0){
-					StringBuilder sb = new StringBuilder();
+					List<CoachCareer> lstCoachCareer = new ArrayList<CoachCareer>();
 					for(Element element : trElements){
-						Set<String> couchUrlSet = new HashSet<String>();
-						Elements aElements = element.select("a");
-						for(Element element2 : aElements){
-							if(!couchUrlSet.contains(element2.attr("href"))){
-								sb.append(element2.attr("href")).append(",");
-							}
+						CoachCareer coachCareer = new CoachCareer();
+						coachCareer.set("team_id", teamId);
+						coachCareer.set("team_name", element.select("a").get(0).text());
+						coachCareer.set("form_date", CommonUtils.getCNDateMonth(element.child(1).text()));
+						String toDateStr = element.child(2).text();
+						if(StringUtils.isNotBlank(toDateStr)){
+							coachCareer.set("to_date", CommonUtils.getCNDateMonth(toDateStr));
 						}
+						coachCareer.set("coach_id", coachId);
+						coachCareer.set("update_time", new Date());
+						lstCoachCareer.add(coachCareer);
 					}
-					if(sb.length()>0){
-						sb.deleteCharAt(sb.length()-1);
-					}
-					Team team = Team.dao.findById(teamId);
-					if(team!=null){
-						team.set("couch_url", sb.toString());
-						team.update();
-					}
+					Db.update("delete from coach_career where coach_id = ?", coachId);
+					Db.batchSave(lstCoachCareer, lstCoachCareer.size());
 				}
 			}
 		}
@@ -176,6 +219,8 @@ public class PlayerJob implements Job {
 		player.set("weight", CommonUtils.matcherString(CommonUtils.getPatternByName("体重"), playerContent));
 		player.set("foot", CommonUtils.matcherString(CommonUtils.getPatternByName("脚"), playerContent));
 		player.set("update_time", new Date());
+		player.set("img_big", CommonUtils.matcherString(PLAYER_IMG_PATTERN, playerContent));
+	
 		player.update();
 		
 		//职业生涯
