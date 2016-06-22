@@ -46,7 +46,7 @@ public class PlayerJob implements Job {
 	private static final Pattern CAREER_PATTERN = Pattern.compile("class=\"season\">.*?>(.*?)</a>.*?href=\"(.*?)\".*?title=\"(.*?)\".*?<span class=\"(.*?)\".*?href=\"(.*?)\".*?title=\"(.*?)\".*?game-minutes available\">(.*?)</td>.*?appearances available\">(.*?)</td>.*?lineups available\">(.*?)</td>.*?subs-in available\">(.*?)</td>.*?subs-out available\">(.*?)</td>.*?subs-on-bench available\">(.*?)</td>.*?goals available\">(.*?)</td>.*?yellow-cards available\">(.*?)</td>.*?2nd-yellow-cards available\">(.*?)</td>.*?red-cards available\">(.*?)</td>");
 	private static final Pattern TROPHY_TABLE_PATTERN = Pattern.compile("trophies-table\">(.*?)</table>");
 	private static final Pattern TROPHY_TITLE_PATTERN = Pattern.compile("<th.*?>(.*?)</th>");
-	private static final Pattern TROPHY_COMPETITION_PATTERN = Pattern.compile("class=\"competition\">.*?>(.*?)</td>.*?label\">(.*?)</td>.*?total\">(.*?)</td>.*?seasons\">(.*?)</td>");
+	private static final Pattern TROPHY_COMPETITION_PATTERN = Pattern.compile("class=\"competition\">.*?class=\"(.*?)\">(.*?)</td>.*?label\">(.*?)</td>.*?total\">(.*?)</td>.*?seasons\">(.*?)</td>");
 	private static final Pattern TROPHY_SEASON_PATTERN = Pattern.compile("<a.*?>(.*/)</a>");
 	private static final Pattern INJURY_PATTERN = Pattern.compile("icon injury.*?<td>(.*?)</td>.*?<span.*?>(.*?)</span>.*?<span.*?>(.*?)</span>");
 	private static final Pattern TRANSFER_TABLE_PATTERN = Pattern.compile("transfers-container.*?</table>");
@@ -190,6 +190,9 @@ public class PlayerJob implements Job {
 				}
 			}
 		}
+		
+		//coach trophy
+		handleCoachTrophy(document.html(), coachId);
 	}
 
 	@Before(Tx.class)
@@ -278,10 +281,11 @@ public class PlayerJob implements Job {
 					String groupTitle = groupMatcher.group(1);
 					Matcher cmpMatcher = TROPHY_COMPETITION_PATTERN.matcher(group);
 					while(cmpMatcher.find()){
-						String cmpTitle = cmpMatcher.group(1);
-						String trophyName = cmpMatcher.group(2);
-						String trophyCount = cmpMatcher.group(3);
-						Matcher seasonMatcher = TROPHY_SEASON_PATTERN.matcher(cmpMatcher.group(4));
+						String cmpCssStr = cmpMatcher.group(1);
+						String cmpTitle = cmpMatcher.group(2);
+						String trophyName = cmpMatcher.group(3);
+						String trophyCount = cmpMatcher.group(4);
+						Matcher seasonMatcher = TROPHY_SEASON_PATTERN.matcher(cmpMatcher.group(5));
 						StringBuilder sb = new StringBuilder();
 						while(seasonMatcher.find()){
 							sb.append(seasonMatcher.group(1)).append(",");
@@ -290,6 +294,7 @@ public class PlayerJob implements Job {
 							sb.deleteCharAt(sb.length()-1);
 						}
 						Trophy trophy = new Trophy();
+						trophy.set("league_css", cmpCssStr);
 						trophy.set("trophy_area", groupTitle);
 						trophy.set("league_name", cmpTitle);
 						trophy.set("trophy_name", trophyName);
@@ -304,6 +309,51 @@ public class PlayerJob implements Job {
 			}
 			if(lstTrophy.size()>0){
 				Db.update("delete from trophy where player_id = ?", playerId);
+				Db.batchSave(lstTrophy, lstTrophy.size());
+			}
+		}
+	}
+	
+	private void handleCoachTrophy(String coachContent, String coachId){
+		Matcher matcher = TROPHY_TABLE_PATTERN.matcher(coachContent);
+		if(matcher.find()){
+			List<Trophy> lstTrophy = new ArrayList<Trophy>();
+			String trophyContent = matcher.group(1);
+			String[] groupArray = trophyContent.split(" <tr class=\"group-head\">");
+			for(String group : groupArray){
+				Matcher groupMatcher = TROPHY_TITLE_PATTERN.matcher(group);
+				if(groupMatcher.find()){
+					String groupTitle = groupMatcher.group(1);
+					Matcher cmpMatcher = TROPHY_COMPETITION_PATTERN.matcher(group);
+					while(cmpMatcher.find()){
+						String cmpCssStr = cmpMatcher.group(1);
+						String cmpTitle = cmpMatcher.group(2);
+						String trophyName = cmpMatcher.group(3);
+						String trophyCount = cmpMatcher.group(4);
+						Matcher seasonMatcher = TROPHY_SEASON_PATTERN.matcher(cmpMatcher.group(5));
+						StringBuilder sb = new StringBuilder();
+						while(seasonMatcher.find()){
+							sb.append(seasonMatcher.group(1)).append(",");
+						}
+						if(sb.length()!=0){
+							sb.deleteCharAt(sb.length()-1);
+						}
+						Trophy trophy = new Trophy();
+						trophy.set("league_css", cmpCssStr);
+						trophy.set("trophy_area", groupTitle);
+						trophy.set("league_name", cmpTitle);
+						trophy.set("trophy_name", trophyName);
+						trophy.set("times", trophyCount);
+						trophy.set("season", sb.toString());
+						trophy.set("coach_id", coachId);
+						trophy.set("update_time", new Date());
+						
+						lstTrophy.add(trophy);
+					}
+				}
+			}
+			if(lstTrophy.size()>0){
+				Db.update("delete from coach_trophy where coach_id = ?", coachId);
 				Db.batchSave(lstTrophy, lstTrophy.size());
 			}
 		}
