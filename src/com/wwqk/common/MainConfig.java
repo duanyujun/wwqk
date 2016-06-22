@@ -14,6 +14,9 @@ import com.jfinal.render.ViewType;
 import com.wwqk.controller.IndexController;
 import com.wwqk.controller.UserController;
 import com.wwqk.model.Career;
+import com.wwqk.model.Coach;
+import com.wwqk.model.CoachCareer;
+import com.wwqk.model.CoachTrophy;
 import com.wwqk.model.Injury;
 import com.wwqk.model.League;
 import com.wwqk.model.LeagueAssists;
@@ -60,6 +63,9 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("league_match", LeagueMatch.class);
 		arp.addMapping("transfer", Transfer.class);
 		arp.addMapping("trophy", Trophy.class);
+		arp.addMapping("coach", Coach.class);
+		arp.addMapping("coach_trophy", CoachTrophy.class);
+		arp.addMapping("coach_career", CoachCareer.class);
 		
 		me.add(c3p0Plugin);
 		me.add(arp);
