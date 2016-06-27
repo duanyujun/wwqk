@@ -55,7 +55,7 @@ public class PlayerJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		List<Team> lstTeam = Team.dao.find("select * from team order by id+0 asc ");
+		List<Team> lstTeam = Team.dao.find("select * from team where online=1 order by id+0 asc ");
 		String htmlTeam = null;
 		System.err.println("handle player start!!!");
 		try {
@@ -178,19 +178,19 @@ public class PlayerJob implements Job {
 				Elements trElements = tbodyElements.get(0).select("tr");
 				if(trElements.size()>0){
 					List<CoachCareer> lstCoachCareer = new ArrayList<CoachCareer>();
-					for(Element element : trElements){
+					for(int i=0; i<trElements.size(); i++){
+						Element element = trElements.get(i);
 						CoachCareer coachCareer = new CoachCareer();
-						coachCareer.set("team_id", teamId);
 						coachCareer.set("team_name", element.select("a").get(0).text());
-						coachCareer.set("from_date", CommonUtils.getCNDateMonth(element.child(1).text()));
-						String toDateStr = element.child(2).text();
-						if(StringUtils.isNotBlank(toDateStr)){
-							coachCareer.set("to_date", CommonUtils.getCNDateMonth(toDateStr));
+						coachCareer.set("start_date", CommonUtils.getCNDateMonth(element.child(1).text()));
+						if(StringUtils.isNotBlank(element.child(2).text())){
+							coachCareer.set("end_date", CommonUtils.getCNDateMonth(element.child(2).text()));
 						}
 						coachCareer.set("coach_id", coachId);
 						coachCareer.set("update_time", new Date());
 						lstCoachCareer.add(coachCareer);
 					}
+				
 					Db.update("delete from coach_career where coach_id = ?", coachId);
 					Db.batchSave(lstCoachCareer, lstCoachCareer.size());
 				}
