@@ -181,12 +181,13 @@ public class CommonUtils {
 				dateStr = dateStr.replace(entry.getKey().trim(), entry.getValue());
 			}
 		}
-		String[] patterns ={"MM yyyy"};
+		dateStr = "01 " + dateStr;
+		String[] patterns ={"dd MM yyyy"};
 		Date date = null;
 		try {
 			date = DateTimeUtils.parseDate(dateStr, patterns);
 		} catch (ParseException e) {
-			
+			System.err.println("/////////"+e.getMessage());
 		}
 		
 		return date;
