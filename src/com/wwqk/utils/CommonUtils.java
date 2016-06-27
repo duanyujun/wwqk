@@ -42,6 +42,20 @@ public class CommonUtils {
 		MONTH_MAP.put(" 十二月", " 12");
 	}
 	
+	public static final Map<String, String> MONTH_TEN_MAP = new HashMap<String, String>();
+	static{
+		MONTH_TEN_MAP.put("一月", "01");
+		MONTH_TEN_MAP.put("二月", "02");
+		MONTH_TEN_MAP.put("三月", "03");
+		MONTH_TEN_MAP.put("四月", "04");
+		MONTH_TEN_MAP.put("五月", "05");
+		MONTH_TEN_MAP.put("六月", "06");
+		MONTH_TEN_MAP.put("七月", "07");
+		MONTH_TEN_MAP.put("八月", "08");
+		MONTH_TEN_MAP.put("九月", "09");
+		MONTH_TEN_MAP.put("十月", "10");
+	}
+	
 	public static String getCNInjury(String injuryStr){
 		for(InjuryTypeEnum typeEnum : InjuryTypeEnum.values()){
 			if(typeEnum.getKey().equals(injuryStr)){
@@ -158,10 +172,15 @@ public class CommonUtils {
 		if(StringUtils.isBlank(dateStr)){
 			return null;
 		}
-		for(Entry<String, String> entry : CommonUtils.MONTH_MAP.entrySet()){
-			dateStr = dateStr.replace(entry.getKey().trim(), entry.getValue());
+		if(dateStr.contains("十二月")){
+			dateStr = dateStr.replace("十二月", "12");
+		}else if(dateStr.contains("十一月")){
+			dateStr = dateStr.replace("十一月", "11");
+		}else{
+			for(Entry<String, String> entry : CommonUtils.MONTH_TEN_MAP.entrySet()){
+				dateStr = dateStr.replace(entry.getKey().trim(), entry.getValue());
+			}
 		}
-		
 		String[] patterns ={"MM yyyy"};
 		Date date = null;
 		try {
