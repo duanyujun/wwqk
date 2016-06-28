@@ -1,6 +1,7 @@
 package com.wwqk.job;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -32,6 +34,7 @@ import com.wwqk.model.Team;
 import com.wwqk.model.Transfer;
 import com.wwqk.model.Trophy;
 import com.wwqk.utils.CommonUtils;
+import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.FetchHtmlUtils;
 import com.wwqk.utils.StringUtils;
 
@@ -43,7 +46,7 @@ public class PlayerJob implements Job {
 	private static final Pattern CAREER_PATTERN = Pattern.compile("class=\"season\">.*?>(.*?)</a>.*?href=\"(.*?)\".*?title=\"(.*?)\".*?<span class=\"(.*?)\".*?href=\"(.*?)\".*?title=\"(.*?)\".*?game-minutes available\">(.*?)</td>.*?appearances available\">(.*?)</td>.*?lineups available\">(.*?)</td>.*?subs-in available\">(.*?)</td>.*?subs-out available\">(.*?)</td>.*?subs-on-bench available\">(.*?)</td>.*?goals available\">(.*?)</td>.*?yellow-cards available\">(.*?)</td>.*?2nd-yellow-cards available\">(.*?)</td>.*?red-cards available\">(.*?)</td>");
 	private static final Pattern TROPHY_TABLE_PATTERN = Pattern.compile("trophies-table\">(.*?)</table>");
 	private static final Pattern TROPHY_TITLE_PATTERN = Pattern.compile("<th.*?>(.*?)</th>");
-	private static final Pattern TROPHY_COMPETITION_PATTERN = Pattern.compile("class=\"competition\">.*?class=\"(.*?)\">(.*?)</td>.*?label\">(.*?)</td>.*?total\">(.*?)</td>.*?seasons\">(.*?)</td>");
+	private static final Pattern TROPHY_COMPETITION_PATTERN = Pattern.compile("class=\"competition\">(.*?)</td>.*?label\">(.*?)</td>.*?total\">(.*?)</td>.*?seasons\">(.*?)</td>");
 	private static final Pattern TROPHY_SEASON_PATTERN = Pattern.compile("<a.*?>(.*/)</a>");
 	private static final Pattern INJURY_PATTERN = Pattern.compile("icon injury.*?<td>(.*?)</td>.*?<span.*?>(.*?)</span>.*?<td class=\"enddate\">(.*?)</td>");
 	private static final Pattern TRANSFER_TABLE_PATTERN = Pattern.compile("transfers-container.*?</table>");
@@ -55,7 +58,7 @@ public class PlayerJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		List<Team> lstTeam = Team.dao.find("select * from team where online=1 order by id+0 asc ");
+		List<Team> lstTeam = Team.dao.find("select * from team order by id+0 asc ");
 		String htmlTeam = null;
 		System.err.println("handle player start!!!");
 		try {
@@ -182,9 +185,14 @@ public class PlayerJob implements Job {
 						Element element = trElements.get(i);
 						CoachCareer coachCareer = new CoachCareer();
 						coachCareer.set("team_name", element.select("a").get(0).text());
-						coachCareer.set("start_date", CommonUtils.getCNDateMonth(element.child(1).text()));
+						String teamUrl = element.select("a").get(0).attr("href");
+						coachCareer.set("team_url", teamUrl);
+						coachCareer.set("team_id", CommonUtils.getId(teamUrl));
+						coachCareer.set("start_date", getCNDateMonth(element.child(1).text()));
 						if(StringUtils.isNotBlank(element.child(2).text())){
-							coachCareer.set("end_date", CommonUtils.getCNDateMonth(element.child(2).text()));
+							coachCareer.set("end_date", getCNDateMonth(element.child(2).text()));
+						}else{
+							coachCareer.set("end_date",null);
 						}
 						coachCareer.set("coach_id", coachId);
 						coachCareer.set("update_time", new Date());
@@ -288,26 +296,29 @@ public class PlayerJob implements Job {
 				if(groupMatcher.find()){
 					String groupTitle = groupMatcher.group(1);
 					Matcher cmpMatcher = TROPHY_COMPETITION_PATTERN.matcher(group);
+					String preTitle = null;
 					while(cmpMatcher.find()){
-						String cmpCssStr = cmpMatcher.group(1);
-						String cmpTitle = cmpMatcher.group(2);
-						String trophyName = cmpMatcher.group(3);
-						String trophyCount = cmpMatcher.group(4);
-						Matcher seasonMatcher = TROPHY_SEASON_PATTERN.matcher(cmpMatcher.group(5));
-						StringBuilder sb = new StringBuilder();
-						while(seasonMatcher.find()){
-							sb.append(seasonMatcher.group(1)).append(",");
+						//String cmpCssStr = cmpMatcher.group(1);
+						String cmpTitle = cmpMatcher.group(1);
+						cmpTitle = Jsoup.clean(cmpTitle, Whitelist.none());
+						if(StringUtils.isBlank(cmpTitle)){
+							cmpTitle = preTitle;
+						}else{
+							preTitle = cmpTitle;
 						}
-						if(sb.length()!=0){
-							sb.deleteCharAt(sb.length()-1);
-						}
+						String trophyName = cmpMatcher.group(2);
+						String trophyCount = cmpMatcher.group(3);
+						String season = cmpMatcher.group(4);
+						season = Jsoup.clean(cmpTitle, Whitelist.none());
+						season = season.replaceAll("\\s", "");
+						
 						Trophy trophy = new Trophy();
-						trophy.set("league_css", cmpCssStr);
+						//trophy.set("league_css", cmpCssStr);
 						trophy.set("trophy_area", groupTitle);
 						trophy.set("league_name", cmpTitle);
 						trophy.set("trophy_name", trophyName);
 						trophy.set("times", trophyCount);
-						trophy.set("season", sb.toString());
+						trophy.set("season", season);
 						trophy.set("player_id", playerId);
 						trophy.set("update_time", new Date());
 						
@@ -426,6 +437,30 @@ public class PlayerJob implements Job {
 		}
 		
 		return id;
+	}
+	
+	private Date getCNDateMonth(String dateStr){
+		if(StringUtils.isBlank(dateStr)){
+			return null;
+		}
+		if(dateStr.contains("十二月")){
+			dateStr = dateStr.replace("十二月", "12");
+		}else if(dateStr.contains("十一月")){
+			dateStr = dateStr.replace("十一月", "11");
+		}else{
+			for(Entry<String, String> entry : CommonUtils.MONTH_TEN_MAP.entrySet()){
+				dateStr = dateStr.replace(entry.getKey().trim(), entry.getValue());
+			}
+		}
+		String[] patterns ={"MM yyyy"};
+		Date date = null;
+		try {
+			date = DateTimeUtils.parseDate(dateStr, patterns);
+		} catch (ParseException e) {
+			
+		}
+		
+		return date;
 	}
 	
 }
