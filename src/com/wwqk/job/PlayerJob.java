@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,7 +51,6 @@ public class PlayerJob implements Job {
 	private static final Pattern TROPHY_TABLE_PATTERN = Pattern.compile("trophies-table\">(.*?)</table>");
 	private static final Pattern TROPHY_TITLE_PATTERN = Pattern.compile("<th.*?>(.*?)</th>");
 	private static final Pattern TROPHY_COMPETITION_PATTERN = Pattern.compile("class=\"competition\">(.*?)</td>.*?label\">(.*?)</td>.*?total\">(.*?)</td>.*?seasons\">(.*?)</td>");
-	private static final Pattern TROPHY_SEASON_PATTERN = Pattern.compile("<a.*?>(.*/)</a>");
 	private static final Pattern INJURY_PATTERN = Pattern.compile("icon injury.*?<td>(.*?)</td>.*?<span.*?>(.*?)</span>.*?<td class=\"enddate\">(.*?)</td>");
 	private static final Pattern TRANSFER_TABLE_PATTERN = Pattern.compile("transfers-container.*?</table>");
 	private static final Pattern TRANSFER_PATTERN = Pattern.compile("<span.*?>(.*?)</span>.*?<a.*?>(.*?)</a>.*?<a.*?>(.*?)</a>.*?<td.*?>(.*?)</td>");
@@ -75,50 +78,50 @@ public class PlayerJob implements Job {
 
 	private void handlePlayerUrl(String htmlTeam, String teamId) throws IOException {
 		
-//		List<Player> lstNeedInsert = new ArrayList<Player>();
-//		List<Player> lstNeedUpdate = new ArrayList<Player>();
-//		Map<String, String> map = new HashMap<String, String>();
-//		Set<String> idSet = new HashSet<String>();
-//		Matcher matcher = PLAYER_URL_PATTERN.matcher(htmlTeam);
-//		while(matcher.find()){
-//			String url = matcher.group(1);
-//			String id = CommonUtils.getId(url);
-//			if(idSet.contains(id)){
-//				continue;
-//			}else{
-//				idSet.add(id);
-//			}
-//			
-//			Player playerDB = Player.dao.findById(id);
-//			if(playerDB==null){
-//				Player player = new Player();
-//				player.set("id", id);
-//				player.set("name", matcher.group(2));
-//				player.set("player_url", SITE_PROFIX+url);
-//				player.set("team_id", teamId);
-//				player.set("update_time", new Date());
-//				lstNeedInsert.add(player);
-//			}else{
-//				playerDB.set("name", matcher.group(2));
-//				playerDB.set("player_url", SITE_PROFIX+url);
-//				playerDB.set("team_id", teamId);
-//				playerDB.set("update_time", new Date());
-//				playerDB.update();
-//				lstNeedUpdate.add(playerDB);
-//			}
-//			
-//			map.put(id, SITE_PROFIX+url);
-//		}
-//		
-//		//更新球员球队id信息
-//		updatePlayerTeamInfo(lstNeedInsert, lstNeedUpdate, teamId);
+		List<Player> lstNeedInsert = new ArrayList<Player>();
+		List<Player> lstNeedUpdate = new ArrayList<Player>();
+		Map<String, String> map = new HashMap<String, String>();
+		Set<String> idSet = new HashSet<String>();
+		Matcher matcher = PLAYER_URL_PATTERN.matcher(htmlTeam);
+		while(matcher.find()){
+			String url = matcher.group(1);
+			String id = CommonUtils.getId(url);
+			if(idSet.contains(id)){
+				continue;
+			}else{
+				idSet.add(id);
+			}
+			
+			Player playerDB = Player.dao.findById(id);
+			if(playerDB==null){
+				Player player = new Player();
+				player.set("id", id);
+				player.set("name", matcher.group(2));
+				player.set("player_url", SITE_PROFIX+url);
+				player.set("team_id", teamId);
+				player.set("update_time", new Date());
+				lstNeedInsert.add(player);
+			}else{
+				playerDB.set("name", matcher.group(2));
+				playerDB.set("player_url", SITE_PROFIX+url);
+				playerDB.set("team_id", teamId);
+				playerDB.set("update_time", new Date());
+				playerDB.update();
+				lstNeedUpdate.add(playerDB);
+			}
+			
+			map.put(id, SITE_PROFIX+url);
+		}
+		
+		//更新球员球队id信息
+		updatePlayerTeamInfo(lstNeedInsert, lstNeedUpdate, teamId);
 		
 		//教练
 		handleCouchInfo(htmlTeam, teamId);
 		
-//		for(Entry<String, String> entry : map.entrySet()){
-//			handlePlayerDetail(entry);
-//		}
+		for(Entry<String, String> entry : map.entrySet()){
+			handlePlayerDetail(entry);
+		}
 	}
 	
 	@Before(Tx.class)
@@ -344,26 +347,34 @@ public class PlayerJob implements Job {
 				if(groupMatcher.find()){
 					String groupTitle = groupMatcher.group(1);
 					Matcher cmpMatcher = TROPHY_COMPETITION_PATTERN.matcher(group);
+					String preTitle = null;
 					while(cmpMatcher.find()){
-						String cmpCssStr = cmpMatcher.group(1);
-						String cmpTitle = cmpMatcher.group(2);
-						String trophyName = cmpMatcher.group(3);
-						String trophyCount = cmpMatcher.group(4);
-						Matcher seasonMatcher = TROPHY_SEASON_PATTERN.matcher(cmpMatcher.group(5));
-						StringBuilder sb = new StringBuilder();
-						while(seasonMatcher.find()){
-							sb.append(seasonMatcher.group(1)).append(",");
+						//String cmpCssStr = cmpMatcher.group(1);
+						String cmpTitle = cmpMatcher.group(1);
+						cmpTitle = Jsoup.clean(cmpTitle, Whitelist.none());
+						cmpTitle = cmpTitle.replaceAll("\\s", "");
+						if(StringUtils.isBlank(cmpTitle)){
+							cmpTitle = preTitle;
+						}else{
+							preTitle = cmpTitle;
 						}
-						if(sb.length()!=0){
-							sb.deleteCharAt(sb.length()-1);
-						}
+												
+						String trophyName = cmpMatcher.group(2);
+						String trophyCount = cmpMatcher.group(3);
+						String seasons = cmpMatcher.group(4);
+						
+						seasons = Jsoup.clean(seasons, Whitelist.none());
+						seasons = seasons.replaceAll("\\s", "");
+						
+						
+						
 						CoachTrophy trophy = new CoachTrophy();
-						trophy.set("league_css", cmpCssStr);
+						//trophy.set("league_css", cmpCssStr);
 						trophy.set("trophy_area", groupTitle);
 						trophy.set("league_name", cmpTitle);
 						trophy.set("trophy_name", trophyName);
 						trophy.set("times", trophyCount);
-						trophy.set("season", sb.toString());
+						trophy.set("season", seasons);
 						trophy.set("coach_id", coachId);
 						trophy.set("update_time", new Date());
 						
