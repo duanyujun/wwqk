@@ -220,8 +220,7 @@ public class CommonUtils {
 				String value = matcher2.group();
 				if(euValue.contains("K")){
 					if(value.length()>1){
-						euValue = Integer.valueOf(value).intValue()/10+"."
-								+ value.substring(value.length()-1) + "万欧元";
+						euValue = Integer.valueOf(value).intValue()/10+ "万欧元";
 					}else{
 						euValue = Integer.valueOf(value).intValue() * 1000 + "欧元";
 					}
