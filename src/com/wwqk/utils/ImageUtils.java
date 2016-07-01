@@ -25,7 +25,7 @@ public class ImageUtils {
 		imgUrl = imgUrl.replace(WEB_PROFIX, "");
 		//String fileName = imgUrl.substring(imgUrl.lastIndexOf("/") + 1);
 		String foldName = imgUrl.substring(0, imgUrl.lastIndexOf("/"));
-		String folderPath = getDiskPath()+getFilePath(foldName)+File.separator;
+		String folderPath = getDiskPath()+getFilePath(foldName)+"/";
 		File filePath = new File(folderPath);
 		if (!filePath.exists()) {
 			filePath.mkdirs();
@@ -37,11 +37,11 @@ public class ImageUtils {
 				}
 				oldImageUrlStr = WEB_PROFIX + oldImageUrlStr;
 			}
-			Thread.sleep(1000);
-			Response response = Jsoup.connect(oldImageUrlStr).ignoreContentType(true).execute();
+			Thread.sleep(500);
 			String fileNameRel = getDiskPath()+getFilePath(imgUrl);
 			File file = new File(fileNameRel);
 			if(!file.exists()){
+				Response response = Jsoup.connect(oldImageUrlStr).ignoreContentType(true).execute();
 				file.createNewFile();
 				OutputStream os = new FileOutputStream(file);
 				os.write(response.bodyAsBytes());
@@ -58,7 +58,7 @@ public class ImageUtils {
 		String[] paths = path.split("/");
 		StringBuilder sb = new StringBuilder();
 		for(String p : paths){
-			sb.append(File.separator).append(p);
+			sb.append("/").append(p);
 		}
 		String folderStr = IMG_PATH + sb.toString();
 		return folderStr;
