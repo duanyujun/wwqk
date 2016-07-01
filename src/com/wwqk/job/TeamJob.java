@@ -43,17 +43,16 @@ public class TeamJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		List<League> leagues = League.dao.find("select * from league where online = 1");
+		System.err.println("handle team start!!!");
+		List<League> leagues = League.dao.find("select * from league");
 		try {
 			for(League league : leagues){
-				System.err.println("+++handle league url:"+league.getStr("league_url")+" started!!!");
 				handleTeamsUrl(league.getStr("league_url"), league.getStr("id"));
-				System.err.println("---handle league url:"+league.getStr("league_url")+" ended!!!");
 			}
 		} catch (Exception e) {
 			System.err.println("^^^^^^^"+e.getMessage());
 		}
-		
+		System.err.println("handle team end!!!");
 		httpClient.getConnectionManager().shutdown();
 	}
 	
