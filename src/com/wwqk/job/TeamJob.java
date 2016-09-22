@@ -39,10 +39,19 @@ public class TeamJob implements Job {
 	String clearString = "<.*?/>";
 	String tagString = "<.*?>";
 	private static final String SITE_PROFIX = "http://cn.soccerway.com";
-	private HttpClient httpClient = new DefaultHttpClient();
+	private HttpClient client;
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
+		client = new DefaultHttpClient();  
+//	    ClientConnectionManager mgr = client.getConnectionManager();  
+//	    HttpParams params = client.getParams();  
+//	    params.setParameter("http.socket.timeout",6000);
+//	    params.setParameter("http.connection.timeout",6000);
+//	    params.setParameter("http.connection-manager.timeout",100000000L);
+//	   
+//	    client = new DefaultHttpClient(new ThreadSafeClientConnManager(params, mgr.getSchemeRegistry()), params);  
+	    
 		System.err.println("handle team start!!!");
 		List<League> leagues = League.dao.find("select * from league");
 		try {
@@ -50,10 +59,10 @@ public class TeamJob implements Job {
 				handleTeamsUrl(league.getStr("league_url"), league.getStr("id"));
 			}
 		} catch (Exception e) {
-			System.err.println("^^^^^^^"+e.getMessage());
+			System.err.println("^^^^^^^"+e.getMessage()+" +++++"+e);
 		}
 		System.err.println("handle team end!!!");
-		httpClient.getConnectionManager().shutdown();
+		client.getConnectionManager().shutdown();
 	}
 	
 	private void handleTeamsUrl(String leagueUrl, String leagueId) throws IOException{
@@ -271,7 +280,7 @@ public class TeamJob implements Job {
 	private void handleTeamDetail(Entry<String, String> entry) throws IOException{
 		Team team = Team.dao.findById(entry.getKey());
 		System.err.println("handle team： "+team.getStr("name")+" ing!!!");
-		String teamContent = FetchHtmlUtils.getHtmlContent(httpClient, entry.getValue());
+		String teamContent = FetchHtmlUtils.getHtmlContent(client, entry.getValue());
 		Document document = Jsoup.parse(teamContent);
 		
 		Elements teamImgElements = document.select(".logo");
@@ -298,7 +307,7 @@ public class TeamJob implements Job {
 	@Before(Tx.class)
 	private void handleTeamVenue(Entry<String, String> entry) throws IOException{
 		Team team = Team.dao.findById(entry.getKey());
-		String venueContent = FetchHtmlUtils.getHtmlContent(httpClient, entry.getValue()+"venue/");
+		String venueContent = FetchHtmlUtils.getHtmlContent(client, entry.getValue()+"venue/");
 		Document document = Jsoup.parse(venueContent);
 		Elements venueElements = document.select(".block_venue_info-wrapper");
 		if(venueElements.size()>0){
