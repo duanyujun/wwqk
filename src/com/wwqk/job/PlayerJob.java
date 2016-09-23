@@ -61,11 +61,12 @@ public class PlayerJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		List<Team> lstTeam = Team.dao.find("select * from team order by id+0 asc ");
+		List<Team> lstTeam = Team.dao.find("select * from team where id>889 order by id+0 asc ");
 		String htmlTeam = null;
 		System.err.println("handle player start!!!");
 		try {
 			for(Team team : lstTeam){
+				System.err.println("handle team:"+team.getStr("id")+"_"+team.getStr("name"));
 				htmlTeam = FetchHtmlUtils.getHtmlContent(httpClient, team.getStr("team_url"));
 				handlePlayerUrl(htmlTeam, team.getStr("id"));
 			}
