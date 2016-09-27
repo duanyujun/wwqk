@@ -11,7 +11,9 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.render.ViewType;
+import com.wwqk.controller.DataController;
 import com.wwqk.controller.IndexController;
+import com.wwqk.controller.MatchController;
 import com.wwqk.controller.UserController;
 import com.wwqk.model.Career;
 import com.wwqk.model.Coach;
@@ -43,6 +45,9 @@ public class MainConfig extends JFinalConfig {
 	public void configRoute(Routes me) {
 		// TODO Auto-generated method stub
 		me.add("/", IndexController.class, "web");
+		me.add("/match", MatchController.class, "web");
+		me.add("/data", DataController.class, "web");
+		
 		me.add("/user", UserController.class);
 	}
 
