@@ -42,7 +42,7 @@ public class MainConfig extends JFinalConfig {
 	@Override
 	public void configRoute(Routes me) {
 		// TODO Auto-generated method stub
-		me.add("/", IndexController.class);
+		me.add("/", IndexController.class, "web");
 		me.add("/user", UserController.class);
 	}
 

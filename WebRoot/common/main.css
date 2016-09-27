@@ -1,0 +1,9 @@
+body{font-family:"Source Sans Pro", "Open Sans", "Helvetica Neue", "WenQuanYi Micro Hei", "Microsoft YaHei", 微软雅黑, STHeiti, "WenQuanYi Micro Hei", SimSun, sans-serif;}
+#main_nav {line-height:60px;height:60px;min-height:60px;background:#00A50D; }
+#main_nav ul li{list-style-type:none;height:60px; float:left;cursor:pointer;text-align:center;}
+#main_nav ul li:hover{background:#167D12;}
+#main_nav ul li a{height:60px;font-size:18px;color:white;text-decoration:none;}
+.logo_div{float:left;height:60px;min-height:60px;width:160px;}
+.logo_div a{font-size:22px;color:white;text-decoration:none;}
+.menu_sel{background:#167D12;}
+.menu_bg{background:#00A50D;}
