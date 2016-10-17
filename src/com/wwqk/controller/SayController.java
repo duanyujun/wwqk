@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.jfinal.core.Controller;
 
-public class IndexController extends Controller {
+public class SayController extends Controller {
 
 	public void index(){
 		List<String> list = new ArrayList<String>();
@@ -13,7 +13,7 @@ public class IndexController extends Controller {
 			list.add(i+"");
 		}
 		setAttr("list", list);
-		render("index.jsp");
+		render("say.jsp");
 	}
 	
 }

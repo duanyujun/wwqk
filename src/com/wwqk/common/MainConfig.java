@@ -10,10 +10,12 @@ import com.jfinal.core.JFinal;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
+import com.jfinal.render.JspRender;
 import com.jfinal.render.ViewType;
 import com.wwqk.controller.DataController;
 import com.wwqk.controller.IndexController;
 import com.wwqk.controller.MatchController;
+import com.wwqk.controller.SayController;
 import com.wwqk.controller.UserController;
 import com.wwqk.model.Career;
 import com.wwqk.model.Coach;
@@ -39,6 +41,7 @@ public class MainConfig extends JFinalConfig {
 		// TODO Auto-generated method stub
 		me.setViewType(ViewType.JSP);
 		PropKit.use("config.properties");
+		JspRender.setSupportActiveRecord(true);
 	}
 
 	@Override
@@ -47,7 +50,7 @@ public class MainConfig extends JFinalConfig {
 		me.add("/", IndexController.class, "web");
 		me.add("/match", MatchController.class, "web");
 		me.add("/data", DataController.class, "web");
-		
+		me.add("/say", SayController.class, "web");
 		me.add("/user", UserController.class);
 	}
 

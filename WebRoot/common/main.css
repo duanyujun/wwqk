@@ -3,9 +3,23 @@ body{font-family:"Source Sans Pro", "Open Sans", "Helvetica Neue", "WenQuanYi Mi
 #main_nav ul li{list-style-type:none;height:60px; float:left;cursor:pointer;text-align:center;}
 #main_nav ul li:hover{background:#167D12;}
 #main_nav ul li a{box-sizing:content-box;display:inline-block;width:100px;line-height:60px;font-size:18px;color:white;text-decoration:none;}
-.logo_div{float:left;height:60px;min-height:60px;width:160px;}
+.logo_div{float:left;height:60px;min-height:60px;width:195px;}
 .logo_div a{font-size:22px;color:white;text-decoration:none;}
 .menu_sel{background:#167D12;}
 .menu_bg{background:#00A50D;}
 .menu_width{width:100px;}
 .clear_row_margin{margin-left:0px;margin-right:0px;}
+.msg-img{width:220px;height:140px;}
+.msg-title{color:#2C3447;font-size:18px;}
+.msg-title a{color:#2C3447;text-decoration:none;}
+.msg-title a:hover{color:#00A50D;cursor:pointer;}
+.mob-author{line-height:25px;}
+.mob-author a{text-decoration:none;}
+.mob-author-a{margin-left:30px;}
+.author-face{position:absolute; width:25px;height:25px;}
+.author-face img{width:100%;overflow:hidden;border-radius:25px;}
+.author-name{color:#bbb;}
+.summary{color:#999;font-size:14px;}
+.index-line{border-bottom:1px solid #f0f0f0;padding-right:15px;margin-top:20px;}
+.say-info a{color:#8899a6;font-size:13px;text-decoration:none;cursor:pointer;}
+.say-info a:hover{color:#00A50D;}

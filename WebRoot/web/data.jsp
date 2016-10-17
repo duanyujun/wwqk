@@ -25,6 +25,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</div>
 				<ul style="float:left;">
 					<li class="menu_width"><a href="">首页</a></li>
+					<li class="menu_width"><a href="say">说说</a></li>
 					<li class="menu_width"><a href="match">比赛</a></li>
 					<li class="menu_width menu_sel"><a href="data">数据</a></li>
 				</ul>	
