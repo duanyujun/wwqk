@@ -41,10 +41,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<div class="col-lg-9 col-md-9" style="padding-left:0px;">
 				<div class="table-responsive">
 					<table class="table table-condensed">
-					  <caption>英超</caption>
+					  <caption><img src="assets/image/page/league-logo5.jpg" style="width:100px;height:100px;"/></caption>
 					  <thead>
 					    <tr>
-					      <th>比赛时间</th>
+					      <th>比赛时间（英超）</th>
 					      <th></th>
 					      <th></th>
 					      <th></th>
@@ -54,16 +54,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					  <tbody>
 					    <tr>
 					      <td>2016-09-18 星期二</td>
-					      <td><img src="assets/image/page/flag-1.png" style="width:25px;height:25px;"/>利物浦</td>
+					      <td><img src="assets/image/page/flag-1.png" style="width:25px;height:25px;"/>&nbsp;利物浦</td>
 					      <td>03 : 00</td>
-					      <td><img src="assets/image/page/flag-2.png" style="width:25px;height:25px;"/>曼联</td>
-					      <td></td>
-					    </tr>
-					    <tr>
-					      <td>2016-09-18 星期二</td>
-					      <td>利物浦</td>
-					      <td>03 : 00</td>
-					      <td>曼联</td>
+					      <td><img src="assets/image/page/flag-2.png" style="width:25px;height:25px;"/>&nbsp;曼联</td>
 					      <td></td>
 					    </tr>
 					  </tbody>
