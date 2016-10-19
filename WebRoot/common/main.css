@@ -23,3 +23,6 @@ body{font-family:"Source Sans Pro", "Open Sans", "Helvetica Neue", "WenQuanYi Mi
 .index-line{border-bottom:1px solid #f0f0f0;padding-right:15px;margin-top:20px;}
 .say-info a{color:#8899a6;font-size:13px;text-decoration:none;cursor:pointer;}
 .say-info a:hover{color:#00A50D;}
+.select-league{width:60px;height:20px;line-height:20px;background:#00A50D;color:white;text-align:center;cursor:pointer;}
+.common-league{width:60px;height:20px;line-height:20px;text-align:center;cursor:pointer;}
+.link-img{cursor:pointer;text-decoration:none;}
