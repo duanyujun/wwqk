@@ -68,7 +68,44 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="common-league">法甲</div>
 					</div>
 				</div>
+				
+				<div class="row">
+					<table class="table">
+					  <caption>联赛积分榜</caption>
+					  <thead>
+					    <tr>
+					      <th>排名</th>
+					      <th>球队</th>
+					      <th>场次</th>
+					      <th>胜</th>
+					      <th>平</th>
+					      <th>负</th>
+					      <th>进球</th>
+					      <th>失球</th>
+					      <th>净胜球</th>
+					      <th>积分</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr class="success">
+					      <td>1</td>
+					      <td>曼城</td>
+					      <td>8</td>
+					      <td>6</td>
+					      <td>1</td>
+					      <td>1</td>
+					      <td>19</td>
+					      <td>8</td>
+					      <td>+11</td>
+					      <td>19</td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+				
 			</div>
 		</div>
+		
+		
 </body>	
 

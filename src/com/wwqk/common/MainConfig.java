@@ -84,7 +84,7 @@ public class MainConfig extends JFinalConfig {
 
 	@Override
 	public void configInterceptor(Interceptors me) {
-		// TODO Auto-generated method stub
+
 
 	}
 
