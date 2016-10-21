@@ -4,10 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jfinal.core.Controller;
+import com.wwqk.utils.StringUtils;
 
 public class DataController extends Controller {
 
 	public void index(){
+		String leagueId = getPara("leagueId");
+		if(StringUtils.isBlank(leagueId)){
+			setAttr("leagueId", 1);
+		}else{
+			setAttr("leagueId", leagueId);
+		}
 		List<String> positionlist = new ArrayList<String>();
 		for(int i=0; i<20; i++){
 			positionlist.add(i+"");
