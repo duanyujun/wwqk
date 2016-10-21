@@ -26,3 +26,7 @@ body{font-family:"Source Sans Pro", "Open Sans", "Helvetica Neue", "WenQuanYi Mi
 .select-league{width:60px;height:20px;line-height:20px;background:#00A50D;color:white;text-align:center;cursor:pointer;}
 .common-league{width:60px;height:20px;line-height:20px;text-align:center;cursor:pointer;}
 .link-img{cursor:pointer;text-decoration:none;}
+.team-title{color:#2C3447;font-size:14px;}
+.team-title a{color:#2C3447;text-decoration:none;}
+.team-title a:hover{color:#00A50D;cursor:pointer;}
+
