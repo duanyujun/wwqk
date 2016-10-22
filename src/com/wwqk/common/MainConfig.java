@@ -16,7 +16,7 @@ import com.wwqk.controller.DataController;
 import com.wwqk.controller.IndexController;
 import com.wwqk.controller.MatchController;
 import com.wwqk.controller.SayController;
-import com.wwqk.controller.UserController;
+import com.wwqk.controller.TeamController;
 import com.wwqk.model.Career;
 import com.wwqk.model.Coach;
 import com.wwqk.model.CoachCareer;
@@ -33,7 +33,6 @@ import com.wwqk.model.Transfer;
 import com.wwqk.model.Trophy;
 import com.wwqk.plugin.QuartzPlugin;
 
-
 public class MainConfig extends JFinalConfig {
 
 	@Override
@@ -46,12 +45,11 @@ public class MainConfig extends JFinalConfig {
 
 	@Override
 	public void configRoute(Routes me) {
-		// TODO Auto-generated method stub
 		me.add("/", IndexController.class, "web");
 		me.add("/match", MatchController.class, "web");
 		me.add("/data", DataController.class, "web");
 		me.add("/say", SayController.class, "web");
-		me.add("/user", UserController.class);
+		me.add("/team", TeamController.class, "web");
 	}
 
 	@Override

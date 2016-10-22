@@ -51,7 +51,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<a href="data?leagueId=5" class="link-img"><img src="assets/image/page/league-logo5.jpg" style="width:60px;height:60px;"/></a>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" style="margin-top:8px;">
 					<div class="col-lg-2 col-md-2">
 						<a href="data" ><div class="${leagueId==1?'select-league':'common-league'}">英超</div></a>
 					</div>
@@ -72,7 +72,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<div class="row" style="margin-top:20px;">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<table class="table table-hover" style="border:1px solid #dddddd;">
-						  <caption><img src="assets/image/page/cup-${leagueId}.jpg" style="width:50px;height:60px;"/>&nbsp;联赛积分榜</caption>
+						  <caption style="min-height:60px;"><img src="assets/image/page/cup-${leagueId}.jpg" />&nbsp;联赛积分榜</caption>
 						  <thead>
 						    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
 						      <th>排名</th>
@@ -129,7 +129,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</c:choose> 
 						  	</c:if>
 							  <td>${status.count}</td>
-						      <td class="team-title" ><a href="" target="_blank"><img src="assets/image/page/flag-1.png" style="width:25px;height:25px;"/>&nbsp;曼城</a></td>
+						      <td class="team-title" ><a href="team" target="_blank"><img src="assets/image/page/flag-1.png" style="width:25px;height:25px;"/>&nbsp;曼城</a></td>
 						      <td>8</td>
 						      <td>6</td>
 						      <td>1</td>
