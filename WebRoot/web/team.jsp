@@ -36,11 +36,39 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 				
 				<div class="row">
-					<div class="col-lg-12 col-md-12">
-						<span>托特纳姆热刺</span>
+					<div class="col-lg-4 col-md-4">
+						<div class="col-lg-12 col-md-12">						
+							<img src="assets/image/page/team-logo.png" style="width:150px;height:150px;"/>
+						</div>
+						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
+							<span style="font-size:24px;font-weight:bold;">托特纳姆热刺</span>
+						</div>
+						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
+							成立时间：1892
+						</div>
+						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
+							地址：Anfield Road L4 0TH Liverpool
+						</div>
+						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
+							国家：英格兰
+						</div>
+						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
+							电话：+44 (151) 263 2361
+						</div>
 					</div>
-					<div class="col-lg-12 col-md-12">
-						<img src="assets/image/page/team-logo.png" />
+					<div class="col-lg-4 col-md-4">
+						<div class="col-lg-12 col-md-12">
+							<img src="assets/image/page/venue.jpg" style="width:300px;height:225px;"/>
+						</div>
+						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
+							球场名称：Anfield
+						</div>
+						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
+							所在城市：Liverpool
+						</div>
+						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
+							观众容量：54074
+						</div>
 					</div>
 				</div>
 				
