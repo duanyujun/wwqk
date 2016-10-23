@@ -72,28 +72,30 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 				</div>
 				
-				<div class="row" style="margin-top:20px;">
-					<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-						<table class="table " >
-						  <caption style="min-height:30px;">前锋</caption>
-						  <tbody >
-						  	<c:set var="i" value="1"/>
-						  	<tr style="border-top:1px solid #dddddd; ${2==playerlist.size()?'border-bottom:1px solid #dddddd;':''}">
-							<c:forEach items="${playerlist}" var="player">
-								<td style="width:50px;border:none;"><img src="assets/image/page/14.png" /></td>
-						      	<td colspan="${i==playerlist.size()?3:1}" style="border:none;">孙兴慜&nbsp;24岁</td>
-						      	<c:if test="${i%2==0}">
+				<c:forEach items="${lstGroup}" var="group">
+					<div class="row" style="margin-top:20px;">
+						<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+							<table class="table " >
+							  <caption style="min-height:30px;"><b>${group[0].position}</b></caption>
+							  <tbody >
+							  	<c:set var="i" value="1"/>
+							  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
+								<c:forEach items="${group}" var="player">
+									<td style="width:50px;border:none;"><img src="assets/image/soccer/players/50x50/${player.id}.png" /></td>
+							      	<td colspan="${i==group.size()?3:1}" style="border:none;">${player.name}<br>${player.age}岁</td>
+							      	<c:if test="${i%2==0}">
+									</tr>
+									<tr style="${i+2 ge group.size()?'border-bottom:1px solid #dddddd;':''}">
+									</c:if>
+									<c:set var="i" value="${i+1}"></c:set>
+								</c:forEach>
 								</tr>
-								<tr style="${i+2 ge playerlist.size()?'border-bottom:1px solid #dddddd;':''}">
-								</c:if>
-								<c:set var="i" value="${i+1}"></c:set>
-							</c:forEach>
-							</tr>
-							
-						  </tbody>
-						</table>
+								
+							  </tbody>
+							</table>
+						</div>
 					</div>
-				</div>
+				</c:forEach>
 				
 			</div>
 		</div>

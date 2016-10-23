@@ -88,7 +88,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						    </tr>
 						  </thead>
 						  <tbody>
-						  <c:forEach items="${positionlist}"  var="team" varStatus="status">
+						  <c:forEach items="${positionList}"  var="team" varStatus="status">
 						  	<c:if test="${leagueId==4}">
 						  		<c:choose> 
 								  <c:when test="${status.index<3}">   
@@ -129,7 +129,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</c:choose> 
 						  	</c:if>
 							  <td>${status.count}</td>
-						      <td class="team-title" ><a href="team" target="_blank"><img src="assets/image/page/flag-1.png" style="width:25px;height:25px;"/>&nbsp;曼城</a></td>
+						      <td class="team-title" ><a href="team?id=${team.team_id}" target="_blank"><img src="assets/image/page/flag-1.png" style="width:25px;height:25px;"/>&nbsp;${team.team_name}</a></td>
 						      <td>8</td>
 						      <td>6</td>
 						      <td>1</td>
