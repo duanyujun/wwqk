@@ -129,15 +129,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</c:choose> 
 						  	</c:if>
 							  <td>${status.count}</td>
-						      <td class="team-title" ><a href="team?id=${team.team_id}" target="_blank"><img src="assets/image/page/flag-1.png" style="width:25px;height:25px;"/>&nbsp;${team.team_name}</a></td>
-						      <td>8</td>
-						      <td>6</td>
-						      <td>1</td>
-						      <td>1</td>
-						      <td>19</td>
-						      <td>8</td>
-						      <td>+11</td>
-						      <td>19</td>
+						      <td class="team-title" ><a href="team?id=${team.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${team.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${team.team_name}</a></td>
+						      <td>${team.round_count}</td>
+						      <td>${team.win_count}</td>
+						      <td>${team.even_count}</td>
+						      <td>${team.lose_count}</td>
+						      <td>${team.win_goal_count}</td>
+						      <td>${team.lose_goal_count}</td>
+						      <td>${team.goal_count}</td>
+						      <td>${team.points}</td>
 						    </tr>
 						    
 						   </c:forEach>
@@ -161,14 +161,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						    </tr>
 						  </thead>
 						  <tbody>
-						  	<c:forEach items="${shooterlist}"  var="shooter" varStatus="status">
+						  	<c:forEach items="${shooterList}"  var="shooter" varStatus="status">
 							    <tr>
 							      <td>${status.count}</td>
-							      <td class="team-title" ><a href="" target="_blank"><img src="assets/image/page/14.png" style="width:25px;height:25px;" />&nbsp;迭戈-科斯塔</a></td>
-							      <td class="team-title" ><a href="" target="_blank"><img src="assets/image/page/flag-1.png" style="width:25px;height:25px;"/>&nbsp;切尔西</a></td>
-							      <td align="center">7</td>
-							      <td align="center">0</td>
-							      <td align="center">3</td>
+							      <td class="team-title" ><img src="assets/image/soccer/players/50x50/${shooter.player_id}.png" style="width:25px;height:25px;" />&nbsp;${shooter.player_name}</td>
+							      <td class="team-title" ><a href="team?id=${shooter.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${shooter.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${shooter.team_name}</a></td>
+							      <td align="center">${shooter.goal_count}</td>
+							      <td align="center">${shooter.penalty_count}</td>
+							      <td align="center">${shooter.first_goal_count}</td>
 							    </tr>
 							</c:forEach>
 						  </tbody>

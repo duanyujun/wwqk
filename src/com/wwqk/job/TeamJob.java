@@ -191,7 +191,7 @@ public class TeamJob implements Job {
 			Elements trElements = elements.get(0).select("tbody > tr");
 			for(Element element : trElements){
 				String playerId = element.attr("data-people_id");
-				String teamId = element.attr("data-people_id");
+				String teamId = element.attr("data-team_id");
 				String playerName = null;
 				String playerUrl = null;
 				String teamName = null;
