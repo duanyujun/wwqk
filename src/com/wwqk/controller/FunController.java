@@ -16,4 +16,8 @@ public class FunController extends Controller {
 		render("fun.jsp");
 	}
 	
+	public void detail(){
+		render("funDetail.jsp");
+	}
+	
 }
