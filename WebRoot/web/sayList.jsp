@@ -53,8 +53,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">体重：${player.weight}</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">位置：${player.position}</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">用脚：${player.foot}</div>
-						<div class="col-lg-12 team-title" style="margin-top:10px;">目前效力球队：
-							<a href="team?id=${team.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a>
+						<div class="col-lg-12 team-title" style="margin-top:10px;font-size:14px;">目前效力球队：
+							<a href="team?id=${player.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a>
 						</div>
 					</div>
 				</div>
