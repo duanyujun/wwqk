@@ -4,11 +4,11 @@ import java.util.Map;
 
 import com.jfinal.plugin.activerecord.Model;
 
-public class LeagueMatch extends Model<LeagueMatch> {
+public class LeagueMatchHistory extends Model<LeagueMatchHistory> {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public static final LeagueMatch dao = new LeagueMatch();
+	public static final LeagueMatchHistory dao = new LeagueMatchHistory();
 	
 	public Map<String, Object> getAttrs(){
 	    return super.getAttrs();

@@ -189,6 +189,7 @@ public class TeamJob implements Job {
 		Elements elements = document.select(".playerstats");
 		if(elements.size()>0){
 			Elements trElements = elements.get(0).select("tbody > tr");
+			int i=1;
 			for(Element element : trElements){
 				String playerId = element.attr("data-people_id");
 				String teamId = element.attr("data-team_id");
@@ -211,6 +212,7 @@ public class TeamJob implements Job {
 				shooter.set("player_id", playerId);
 				shooter.set("player_name", playerName);
 				shooter.set("player_url", playerUrl);
+				shooter.set("rank", i);
 				shooter.set("team_id", teamId);
 				shooter.set("team_name", teamName);
 				//TODO add column
@@ -222,6 +224,8 @@ public class TeamJob implements Job {
 				shooter.set("round_id", roundId);
 				shooter.set("update_time", new Date());
 				lstShooter.add(shooter);
+				
+				i++;
 			}
 		}
 		

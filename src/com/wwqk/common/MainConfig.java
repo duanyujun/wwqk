@@ -13,6 +13,7 @@ import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.render.JspRender;
 import com.jfinal.render.ViewType;
 import com.wwqk.controller.DataController;
+import com.wwqk.controller.FunController;
 import com.wwqk.controller.IndexController;
 import com.wwqk.controller.MatchController;
 import com.wwqk.controller.SayController;
@@ -21,10 +22,12 @@ import com.wwqk.model.Career;
 import com.wwqk.model.Coach;
 import com.wwqk.model.CoachCareer;
 import com.wwqk.model.CoachTrophy;
+import com.wwqk.model.Fun;
 import com.wwqk.model.Injury;
 import com.wwqk.model.League;
 import com.wwqk.model.LeagueAssists;
 import com.wwqk.model.LeagueMatch;
+import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.LeaguePosition;
 import com.wwqk.model.LeagueShooter;
 import com.wwqk.model.Player;
@@ -50,6 +53,7 @@ public class MainConfig extends JFinalConfig {
 		me.add("/data", DataController.class, "web");
 		me.add("/say", SayController.class, "web");
 		me.add("/team", TeamController.class, "web");
+		me.add("/fun", FunController.class, "web");
 	}
 
 	@Override
@@ -67,11 +71,13 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("league_position", LeaguePosition.class);
 		arp.addMapping("league_shooter", LeagueShooter.class);
 		arp.addMapping("league_match", LeagueMatch.class);
+		arp.addMapping("league_match_history", LeagueMatchHistory.class);
 		arp.addMapping("transfer", Transfer.class);
 		arp.addMapping("trophy", Trophy.class);
 		arp.addMapping("coach", Coach.class);
 		arp.addMapping("coach_trophy", CoachTrophy.class);
 		arp.addMapping("coach_career", CoachCareer.class);
+		arp.addMapping("fun", Fun.class);
 		
 		me.add(c3p0Plugin);
 		me.add(arp);

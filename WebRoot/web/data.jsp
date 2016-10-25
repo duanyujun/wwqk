@@ -21,10 +21,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		<div class="row menu_bg clear_row_margin" >
 			<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 				<div class="logo_div">
-					<a >趣点足球网</a>
+					<a style="margin-left:12px;">趣点足球网</a>
 				</div>
 				<ul style="float:left;">
 					<li class="menu_width"><a href="">首页</a></li>
+					<li class="menu_width"><a href="fun">趣点</a></li>
 					<li class="menu_width"><a href="say">说说</a></li>
 					<li class="menu_width"><a href="match">比赛</a></li>
 					<li class="menu_width menu_sel"><a href="data">数据</a></li>
@@ -70,7 +71,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</div>
 				
 				<div class="row" style="margin-top:20px;">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 						<table class="table table-hover" style="border:1px solid #dddddd;">
 						  <caption style="min-height:60px;"><img src="assets/image/page/cup-${leagueId}.jpg" />&nbsp;联赛积分榜</caption>
 						  <thead>
@@ -92,7 +93,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  	<c:if test="${leagueId==4}">
 						  		<c:choose> 
 								  <c:when test="${status.index<3}">   
-								    <tr style="background:#A2E6D0;">
+								    <tr style="background:#E0F4F0;">
 								  </c:when> 
 								  <c:when test="${status.index>16}">   
 								    <tr style="background:#EEEEEE;">
@@ -105,7 +106,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  	<c:if test="${leagueId==5}">
 						  		<c:choose> 
 								  <c:when test="${status.index<2}">   
-								    <tr style="background:#A2E6D0;">
+								    <tr style="background:#E0F4F0;">
 								  </c:when> 
 								  <c:when test="${status.index>17}">   
 								    <tr style="background:#EEEEEE;">
@@ -118,7 +119,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  	<c:if test="${leagueId!=4 && leagueId!=5}">
 						  		<c:choose> 
 								  <c:when test="${status.index<4}">   
-								    <tr style="background:#A2E6D0;">
+								    <tr style="background:#E0F4F0;">
 								  </c:when> 
 								  <c:when test="${status.index>16}">   
 								    <tr style="background:#EEEEEE;">
@@ -147,7 +148,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</div>
 				
 				<div class="row" style="margin-top:20px;">
-					<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+					<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 						<table class="table table-striped table-hover " style="border:1px solid #dddddd;">
 						  <caption>射手榜</caption>
 						  <thead>
@@ -175,7 +176,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						</table>
 					</div>
 					
-					<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+					<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" style="display:none;">
 						<table class="table table-striped table-hover " style="border:1px solid #dddddd;">
 						  <caption>助攻榜</caption>
 						  <thead>
