@@ -17,7 +17,7 @@ public class ImageJob implements Job {
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		System.err.println("handle image start!!!");
-		//handleTeamImage();
+		handleTeamImage();
 		handlePlayerImage();
 		handleCoachImage();
 		System.err.println("handle image end!!!");
