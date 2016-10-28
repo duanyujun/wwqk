@@ -24,8 +24,8 @@ public class MatchController extends Controller {
 			//进行排序
 			List<List<LeagueMatch>> lstGroup = new ArrayList<List<LeagueMatch>>();
 			lstGroup.add(groupMap.get("英超"));
-			lstGroup.add(groupMap.get("德甲"));
 			lstGroup.add(groupMap.get("西甲"));
+			lstGroup.add(groupMap.get("德甲"));
 			lstGroup.add(groupMap.get("意甲"));
 			lstGroup.add(groupMap.get("法甲"));
 			setAttr("lstGroup", lstGroup);

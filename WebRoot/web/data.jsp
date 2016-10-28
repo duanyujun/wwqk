@@ -57,10 +57,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<a href="data" ><div class="${leagueId==1?'select-league':'common-league'}">英超</div></a>
 					</div>
 					<div class="col-lg-2 col-md-2">
-						<a href="data?leagueId=2" ><div class="${leagueId==2?'select-league':'common-league'}">德甲</div></a>
+						<a href="data?leagueId=2" ><div class="${leagueId==3?'select-league':'common-league'}">西甲</div></a>
 					</div>
 					<div class="col-lg-2 col-md-2">
-						<a href="data?leagueId=3" ><div class="${leagueId==3?'select-league':'common-league'}">西甲</div></a>
+						<a href="data?leagueId=3" ><div class="${leagueId==2?'select-league':'common-league'}">德甲</div></a>
 					</div>
 					<div class="col-lg-2 col-md-2">
 						<a href="data?leagueId=4" ><div class="${leagueId==4?'select-league':'common-league'}">意甲</div></a>
