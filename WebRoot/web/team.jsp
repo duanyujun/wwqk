@@ -39,36 +39,36 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<div class="row">
 					<div class="col-lg-4 col-md-4">
 						<div class="col-lg-12 col-md-12">						
-							<img src="assets/image/page/team-logo.png" style="width:150px;height:150px;"/>
+							<img src="assets/image/soccer/teams/150x150/${team.id}.png" style="width:150px;height:150px;"/>
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-							<span style="font-size:24px;font-weight:bold;">托特纳姆热刺</span>
+							<span style="font-size:24px;font-weight:bold;">${team.name}</span>
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-							成立时间：1892
+							成立时间：${team.setup_time}
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-							地址：Anfield Road L4 0TH Liverpool
+							地址：${team.address}
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-							国家：英格兰
+							国家：${team.country}
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-							电话：+44 (151) 263 2361
+							电话：${team.telphone}
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-4">
 						<div class="col-lg-12 col-md-12">
-							<img src="assets/image/page/venue.jpg" style="width:300px;height:225px;"/>
+							<img src="${team.venue_small_img_local}" style="width:300px;height:225px;"/>
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-							球场名称：Anfield
+							球场名称：${team.venue_name}
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-							所在城市：Liverpool
+							所在城市：${team.venue_address}
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-							观众容量：54074
+							观众容量：${team.venue_capacity}
 						</div>
 					</div>
 				</div>

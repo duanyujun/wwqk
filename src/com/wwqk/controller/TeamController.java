@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.jfinal.core.Controller;
 import com.wwqk.model.Player;
+import com.wwqk.model.Team;
 import com.wwqk.utils.StringUtils;
 
 public class TeamController extends Controller {
@@ -32,6 +33,9 @@ public class TeamController extends Controller {
 				lstGroup.add(groupMap.get("守门员"));
 				setAttr("lstGroup", lstGroup);
 			}
+			
+			Team team = Team.dao.findById(teamId);
+			setAttr("team", team);
 		}
 		
 		render("team.jsp");

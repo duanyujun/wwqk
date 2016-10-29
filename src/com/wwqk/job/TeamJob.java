@@ -318,7 +318,7 @@ public class TeamJob implements Job {
 			String venueName = venueElements.get(0).child(0).html();
 			team.set("venue_name", venueName);
 			team.set("venue_name_en", venueName);
-			team.set("venue_address", CommonUtils.matcherString(CommonUtils.getPatternByName("地址:"), venueContent));
+			team.set("venue_address", CommonUtils.matcherString(CommonUtils.getPatternByName("城市:"), venueContent));
 			team.set("venue_capacity", CommonUtils.matcherString(CommonUtils.getPatternByName("容量:"), venueContent));
 			Elements imgElements = venueElements.get(0).select("img");
 			if(imgElements.size()>0){
