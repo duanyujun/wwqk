@@ -40,13 +40,17 @@ public class ImageUtils {
 			Thread.sleep(500);
 			String fileNameRel = getDiskPath()+getFilePath(imgUrl);
 			File file = new File(fileNameRel);
-			if(!file.exists()){
+			if(file.exists()){
+				//TODO 通过判读标识字段，确定是否要删除
+				file.delete();
+			}
+			//if(!file.exists()){
 				Response response = Jsoup.connect(oldImageUrlStr).ignoreContentType(true).execute();
 				file.createNewFile();
 				OutputStream os = new FileOutputStream(file);
 				os.write(response.bodyAsBytes());
 				os.close();
-			}
+			//}
 		} catch (Exception e) {
 			
 		}

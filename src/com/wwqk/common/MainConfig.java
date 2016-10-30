@@ -7,6 +7,8 @@ import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.core.JFinal;
+import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
+import com.jfinal.ext.plugin.shiro.ShiroPlugin;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
@@ -27,7 +29,6 @@ import com.wwqk.model.Injury;
 import com.wwqk.model.League;
 import com.wwqk.model.LeagueAssists;
 import com.wwqk.model.LeagueMatch;
-import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.LeaguePosition;
 import com.wwqk.model.LeagueShooter;
 import com.wwqk.model.Player;
@@ -37,6 +38,8 @@ import com.wwqk.model.Trophy;
 import com.wwqk.plugin.QuartzPlugin;
 
 public class MainConfig extends JFinalConfig {
+	
+	private Routes routes;
 
 	@Override
 	public void configConstant(Constants me) {
@@ -44,10 +47,16 @@ public class MainConfig extends JFinalConfig {
 		me.setViewType(ViewType.JSP);
 		PropKit.use("config.properties");
 		JspRender.setSupportActiveRecord(true);
+		me.setErrorView(401, "/web/error.jsp");
+		me.setErrorView(403, "/web/error.jsp");
+		me.setError404View("/web/error.jsp");
+		me.setError500View("/web/error.jsp");
 	}
 
 	@Override
 	public void configRoute(Routes me) {
+		this.routes = me;
+		
 		me.add("/", IndexController.class, "web");
 		me.add("/match", MatchController.class, "web");
 		me.add("/data", DataController.class, "web");
@@ -84,12 +93,17 @@ public class MainConfig extends JFinalConfig {
 		
 		QuartzPlugin quartzPlugin =  new QuartzPlugin("job.properties");
 	    me.add(quartzPlugin);
+	    
+	    ShiroPlugin shiroPlugin = new ShiroPlugin(routes);
+		shiroPlugin.setLoginUrl("/web/login.jsp");
+		shiroPlugin.setUnauthorizedUrl("/web/error.jsp");
+		shiroPlugin.setSuccessUrl("/web/monitor/allMonitors.jsp");
+		me.add(shiroPlugin);
 	}
 
 	@Override
 	public void configInterceptor(Interceptors me) {
-
-
+		me.add(new ShiroInterceptor());
 	}
 
 	@Override
