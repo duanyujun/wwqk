@@ -9,19 +9,6 @@ import com.jfinal.core.Controller;
 public class LoginController extends Controller {
 
 	public void index() {
-		render("login.jsp");
-	}
-	
-	//@ActionKey("/logout")
-	public void logout() {
-		Subject currentUser = SecurityUtils.getSubject();
-		if (currentUser.isAuthenticated()) {
-			currentUser.logout();
-		}
-		redirect("/");
-	}
-	
-	public void login() {
 		String username = getPara("username");
 		String password = getPara("password");
 		Subject currentUser = SecurityUtils.getSubject();
@@ -34,6 +21,19 @@ public class LoginController extends Controller {
 			// 登录失败
 			forwardAction("/");
 		}
+	}
+	
+	//@ActionKey("/logout")
+	public void logout() {
+		Subject currentUser = SecurityUtils.getSubject();
+		if (currentUser.isAuthenticated()) {
+			currentUser.logout();
+		}
+		redirect("/");
+	}
+	
+	public void login() {
+		
 
 	}
 	

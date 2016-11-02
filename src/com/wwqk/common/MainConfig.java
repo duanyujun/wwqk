@@ -14,8 +14,10 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.render.JspRender;
 import com.jfinal.render.ViewType;
+import com.wwqk.controller.AdminController;
 import com.wwqk.controller.DataController;
 import com.wwqk.controller.FunController;
+import com.wwqk.controller.HomeController;
 import com.wwqk.controller.IndexController;
 import com.wwqk.controller.LoginController;
 import com.wwqk.controller.MatchController;
@@ -76,6 +78,8 @@ public class MainConfig extends JFinalConfig {
 		me.add("/user", UserController.class, "web");
 		me.add("/role", RoleController.class, "web");
 		me.add("/permission", PermissionController.class, "web");
+		me.add("/home", HomeController.class, "web");
+		me.add("/admin",AdminController.class, "web");
 	}
 
 	@Override
@@ -115,7 +119,7 @@ public class MainConfig extends JFinalConfig {
 	    ShiroPlugin shiroPlugin = new ShiroPlugin(routes);
 		shiroPlugin.setLoginUrl("/web/login.jsp");
 		shiroPlugin.setUnauthorizedUrl("/web/error.jsp");
-		shiroPlugin.setSuccessUrl("/web/monitor/allMonitors.jsp");
+		shiroPlugin.setSuccessUrl("/web/home.jsp");
 		me.add(shiroPlugin);
 	}
 

@@ -64,7 +64,7 @@
                                             <i class="icon-login"></i>重新登录</a>
                                     </li>
                                     <li>
-                                        <a href="/logout">
+                                        <a href="/login/logout">
                                             <i class="icon-key"></i>退出系统</a>
                                     </li>
                                 </ul>
@@ -183,7 +183,7 @@ function init(){
 	$(".sub-menu").eq(0).show();
 	//$('.sub-menu li a').eq(0).click();
 	
-	$('#main-content').load("/monitor/tableview");
+	//$('#main-content').load("/monitor/tableview");
 	$('#urlHidden').val("/monitor/tableview");
 }
 
