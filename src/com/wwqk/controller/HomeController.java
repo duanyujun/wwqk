@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 
 import com.jfinal.core.Controller;
-import com.wwqk.constants.RolesConstants;
 import com.wwqk.model.GroupMenu;
 import com.wwqk.model.Permissions;
 import com.wwqk.utils.StringUtils;

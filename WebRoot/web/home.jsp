@@ -145,7 +145,6 @@
         <script src="${ctx}/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
         <script src="${ctx}/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
 		<script src="${ctx}/assets/global/plugins/jquery-validation/js/localization/messages_zh.min.js" type="text/javascript"></script>
-        <script src="http://api.map.baidu.com/api?v=2.0&ak=F389kFdrmsN4UtGQkBM3kpMB4c84mNxe" type="text/javascript"></script>
     </body>
 
 <script type="text/javascript">
@@ -183,8 +182,8 @@ function init(){
 	$(".sub-menu").eq(0).show();
 	//$('.sub-menu li a').eq(0).click();
 	
-	//$('#main-content').load("/monitor/tableview");
-	$('#urlHidden').val("/monitor/tableview");
+	$('#main-content').load("/admin/listLeague");
+	$('#urlHidden').val("/admin/listLeague");
 }
 
 function showToast(type, title, content){
