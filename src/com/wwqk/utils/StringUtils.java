@@ -1,5 +1,7 @@
 package com.wwqk.utils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -1789,5 +1791,17 @@ public class StringUtils {
 	static {
 		CONSTANTS_PADDING = new String[65535];
 		CONSTANTS_PADDING[32] = "";
+	}
+	
+	public static String decode(String source){
+		if(isBlank(source)){
+			return null;
+		}
+		try {
+			source = URLDecoder.decode(source, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			
+		}
+		return source;
 	}
 }

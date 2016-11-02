@@ -17,9 +17,13 @@ import com.jfinal.render.ViewType;
 import com.wwqk.controller.DataController;
 import com.wwqk.controller.FunController;
 import com.wwqk.controller.IndexController;
+import com.wwqk.controller.LoginController;
 import com.wwqk.controller.MatchController;
+import com.wwqk.controller.PermissionController;
+import com.wwqk.controller.RoleController;
 import com.wwqk.controller.SayController;
 import com.wwqk.controller.TeamController;
+import com.wwqk.controller.UserController;
 import com.wwqk.model.Career;
 import com.wwqk.model.Coach;
 import com.wwqk.model.CoachCareer;
@@ -31,10 +35,15 @@ import com.wwqk.model.LeagueAssists;
 import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeaguePosition;
 import com.wwqk.model.LeagueShooter;
+import com.wwqk.model.Permissions;
 import com.wwqk.model.Player;
+import com.wwqk.model.Roles;
+import com.wwqk.model.RolesPermissions;
 import com.wwqk.model.Team;
 import com.wwqk.model.Transfer;
 import com.wwqk.model.Trophy;
+import com.wwqk.model.Users;
+import com.wwqk.model.UsersRoles;
 import com.wwqk.plugin.QuartzPlugin;
 
 public class MainConfig extends JFinalConfig {
@@ -63,6 +72,10 @@ public class MainConfig extends JFinalConfig {
 		me.add("/say", SayController.class, "web");
 		me.add("/team", TeamController.class, "web");
 		me.add("/fun", FunController.class, "web");
+		me.add("/login", LoginController.class, "web");
+		me.add("/user", UserController.class, "web");
+		me.add("/role", RoleController.class, "web");
+		me.add("/permission", PermissionController.class, "web");
 	}
 
 	@Override
@@ -87,6 +100,11 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("coach_trophy", CoachTrophy.class);
 		arp.addMapping("coach_career", CoachCareer.class);
 		arp.addMapping("fun", Fun.class);
+		arp.addMapping("users", Users.class);
+		arp.addMapping("roles", Roles.class);
+		arp.addMapping("permissions", Permissions.class);
+		arp.addMapping("user_roles", UsersRoles.class);
+		arp.addMapping("roles_permissions", RolesPermissions.class);
 		
 		me.add(c3p0Plugin);
 		me.add(arp);
