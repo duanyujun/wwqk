@@ -74,7 +74,7 @@ public class MainConfig extends JFinalConfig {
 		me.add("/say", SayController.class, "web");
 		me.add("/team", TeamController.class, "web");
 		me.add("/fun", FunController.class, "web");
-		me.add("/login", LoginController.class, "web");
+		me.add("/login", LoginController.class);
 		me.add("/user", UserController.class, "web");
 		me.add("/role", RoleController.class, "web");
 		me.add("/permission", PermissionController.class, "web");
@@ -118,8 +118,8 @@ public class MainConfig extends JFinalConfig {
 	    
 	    ShiroPlugin shiroPlugin = new ShiroPlugin(routes);
 		shiroPlugin.setLoginUrl("/web/login.jsp");
-		shiroPlugin.setUnauthorizedUrl("/web/error.jsp");
-		shiroPlugin.setSuccessUrl("/web/home.jsp");
+		shiroPlugin.setUnauthorizedUrl("/web/login.jsp");
+		shiroPlugin.setSuccessUrl("/home");
 		me.add(shiroPlugin);
 	}
 

@@ -22,23 +22,18 @@ public class LoginController extends Controller {
 			getSession().setAttribute("username", username);
 			redirect("/home");
 		} catch (Exception e) {
+			System.err.println(e.getMessage());
 			// 登录失败
-			forwardAction("/");
+			forwardAction("/login");
 		}
 	}
 	
-	//@ActionKey("/logout")
 	public void logout() {
 		Subject currentUser = SecurityUtils.getSubject();
 		if (currentUser.isAuthenticated()) {
 			currentUser.logout();
 		}
-		redirect("/");
-	}
-	
-	public void login() {
-		
-
+		redirect("/login");
 	}
 	
 }

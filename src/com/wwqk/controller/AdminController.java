@@ -2,6 +2,9 @@ package com.wwqk.controller;
 
 import java.util.Map;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.wwqk.model.League;
@@ -11,6 +14,15 @@ import com.wwqk.service.TeamService;
 import com.wwqk.utils.StringUtils;
 
 public class AdminController extends Controller {
+	
+	public void index(){
+		Subject currentUser = SecurityUtils.getSubject();
+		if (currentUser.isAuthenticated()) {
+			redirect("/home");
+		}else{
+			redirect("/home");
+		}
+	}
 
 	public void listLeague(){
 		render("admin/leagueList.jsp");
