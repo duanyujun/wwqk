@@ -15,7 +15,6 @@ import com.wwqk.utils.StringUtils;
 
 public class HomeController extends Controller {
 
-	//@RequiresRoles(value = { RolesConstants.ROLE_USER})
 	public void index() {
 		
 		Subject subject = SecurityUtils.getSubject();

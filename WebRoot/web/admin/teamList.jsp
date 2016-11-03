@@ -9,7 +9,7 @@
     <div class="portlet-title">
         <div class="caption font-dark">
             <i class="icon-settings font-dark"></i>
-            <span class="caption-subject bold uppercase">联赛管理</span>
+            <span class="caption-subject bold uppercase">球队管理</span>
         </div>
         
     </div>
@@ -18,10 +18,10 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="btn-group">
-                        <button id="sample_editable_1_new" onclick="goInsert();" class="btn sbold green"> 添加联赛
+                        <button id="sample_editable_1_new" onclick="goInsert();" class="btn sbold green"> 添加球队
                             <i class="fa fa-plus"></i>
                         </button>
-                        <button id="deleteBtn" onclick="goDelete();" class="btn sbold red" style="margin-left:10px;"> 删除联赛
+                        <button id="deleteBtn" onclick="goDelete();" class="btn sbold red" style="margin-left:10px;"> 删除球队
                             <i class="fa fa-trash"></i>
                         </button>
                     </div>
@@ -55,10 +55,11 @@
                     <th>
                         <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /> 
                     </th>
-                    <th> 联赛名称 </th>
-                    <th> 英文名称 </th>
-                    <th> 是否上线 </th>
-                    <th> 联赛链接 </th>
+                    <th> 球队名称 </th>
+                    <th> 成立时间 </th>
+                    <th> 球场名称 </th>
+                    <th> 所在联赛 </th>
+                    <th> 球队链接 </th>
                 </tr>
             </thead>
         </table>
@@ -105,7 +106,7 @@ $(document).ready(function() {
             }
         },
         "bStateSave": !0,
-        "ajax": "/admin/leagueData"
+        "ajax": "/admin/teamData"
     } );
     
     $('#sample_1').find(".group-checkable").change(function() {
@@ -132,7 +133,7 @@ $(document).ready(function() {
 } );
 
 function goInsert(id){
-	var url = "/admin/editLeague";
+	var url = "/admin/editTeam";
 	if(id){
 		var timestamp=new Date().getTime();
 		url = url + "?id="+id+"&t="+timestamp;
@@ -154,7 +155,7 @@ function goDelete(){
            	 function(o) {
                	if(o==true){
                		ids = ids.substring(0, ids.length-1);
-           			$.post( "/admin/deleteLeague",
+           			$.post( "/admin/deleteTeam",
            					{ids, ids},
            					function(result){
            						$('#main-content').load($('#urlHidden').val());

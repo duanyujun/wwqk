@@ -7,8 +7,12 @@ import org.apache.shiro.subject.Subject;
 import com.jfinal.core.Controller;
 
 public class LoginController extends Controller {
+	
+	public void index(){
+		render("login.jsp");
+	}
 
-	public void index() {
+	public void enter() {
 		String username = getPara("username");
 		String password = getPara("password");
 		Subject currentUser = SecurityUtils.getSubject();
