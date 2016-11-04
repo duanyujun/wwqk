@@ -31,7 +31,7 @@ public class PlayerService {
 			orderSql = " order by p.name "+sortType;
 			break;
 		case 2:
-			orderSql = " order by t.team_name "+sortType;
+			orderSql = " order by t.name "+sortType;
 			break;
 		default:
 			break;
@@ -49,16 +49,18 @@ public class PlayerService {
 			lstPalyer = Player.dao.find(sql+whereSql+orderSql+limitSql);
 			data = new Object[lstPalyer.size()];
 			for(int i=0; i<lstPalyer.size(); i++){
-				Object[] obj = new Object[9];
+				Object[] obj = new Object[10];
 				Player player = lstPalyer.get(i);
 				obj[0] = player.get("id");
 				obj[1] = player.get("name");
 				obj[2] = player.get("team_name");
 				obj[3] = player.get("first_name");
 				obj[4] = player.get("last_name");
-				obj[6] = player.get("nationality");
-				obj[7] = player.get("age");
-				obj[8] = player.get("player_url");
+				obj[5] = player.get("nationality");
+				obj[6] = player.get("age");
+				obj[7] = player.get("height");
+				obj[8] = player.get("weight");
+				obj[9] = player.get("foot");
 				data[i] = obj;
 			}
 		}

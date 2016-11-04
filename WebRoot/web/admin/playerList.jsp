@@ -61,7 +61,9 @@
                     <th> 姓氏 </th>
                     <th> 国籍 </th>
                     <th> 年龄 </th>
-                    <th> 球员链接 </th>
+                    <th> 身高 </th>
+                    <th> 体重 </th>
+                    <th> 惯用脚 </th>
                 </tr>
             </thead>
         </table>
