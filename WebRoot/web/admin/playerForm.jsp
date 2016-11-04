@@ -24,20 +24,20 @@
     </div>
     <div class="portlet-body">
         <form class="form-horizontal" role="form" id="form">
-        	  <input type="hidden" name="id" value="${roles.id}" />
+        	  <input type="hidden" name="id" value="${roles.attrs.id}" />
         	  <input type="hidden" id="permissionids" name="permissionids" value="" />
 		      <div class="form-body">
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>角色名：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="role_name" name="role_name" required value="${roles.role_name}" placeholder="请输入角色名">
+		                  <input type="text" class="form-control" id="role_name" name="role_name" required value="${roles.attrs.role_name}" placeholder="请输入角色名">
 		              </div>
 		              <div class="col-md-3"><label for="role_name"></label></div>
 		          </div>
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>角色中文名：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="role_name_cn" name="role_name_cn" required value="${roles.role_name_cn}"  placeholder="请输入角色中文名">
+		                  <input type="text" class="form-control" id="role_name_cn" name="role_name_cn" required value="${roles.attrs.role_name_cn}"  placeholder="请输入角色中文名">
 		              </div>
 		              <div class="col-md-3"><label for="role_name_cn"></label></div>
 		          </div>
@@ -53,7 +53,7 @@
 		          <div class="form-group">
 		              <label class="col-md-3 control-label">描述：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" name="description" value="${roles.description}"  placeholder="请输入描述">
+		                  <input type="text" class="form-control" name="description" value="${roles.attrs.description}"  placeholder="请输入描述">
 		              </div>
 		              <div class="col-md-3"></div>
 		          </div>
@@ -114,7 +114,7 @@ function initztree(){
 	};
 	$.ajax({ 
 		url: "/role/getPemissions", 
-		data: {roleId: '${roles.id}'},
+		data: {roleId: '${roles.attrs.id}'},
     	success: function(data){
          $.fn.zTree.init($("#ztree"), setting, data);
     }});
@@ -155,7 +155,7 @@ function saveTree(){
     
     $.ajax({ 
 		url: "/role/saveRolePermissions", 
-		data: {roleId: '${roles.id}', permissionids:ids},
+		data: {roleId: '${roles.attrs.id}', permissionids:ids},
     	success: function(data){
     		showToast(1, "分配权限成功！", "温馨提示");
         }

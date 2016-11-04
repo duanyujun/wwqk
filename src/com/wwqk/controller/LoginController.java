@@ -33,7 +33,7 @@ public class LoginController extends Controller {
 		if (currentUser.isAuthenticated()) {
 			currentUser.logout();
 		}
-		redirect("/login");
+		render("login.jsp");
 	}
 	
 }

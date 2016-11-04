@@ -8,8 +8,10 @@ import org.apache.shiro.subject.Subject;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.wwqk.model.League;
+import com.wwqk.model.Player;
 import com.wwqk.model.Team;
 import com.wwqk.service.LeagueService;
+import com.wwqk.service.PlayerService;
 import com.wwqk.service.TeamService;
 import com.wwqk.utils.StringUtils;
 
@@ -80,6 +82,37 @@ public class AdminController extends Controller {
 		if(StringUtils.isNotBlank(ids)){
 			String whereSql = " where id in (" + ids +")";
 			Db.update("delete from team "+whereSql);
+			renderJson(1);
+		}else{
+			renderJson(0);
+		}
+	}
+	
+	
+	public void listPlayer(){
+		render("admin/playerList.jsp");
+	}
+	
+	public void playerData(){
+		Map<Object, Object> map = PlayerService.playerData(this);
+		renderJson(map);
+	}
+	
+	public void editPlayer(){
+		String id = getPara("id");
+		if(id!=null){
+			Player player = Player.dao.findById(id);
+			setAttr("player", player);
+		}
+		
+		render("admin/playerForm.jsp");
+	}
+	
+	public void deletePlayer(){
+		String ids = getPara("ids");
+		if(StringUtils.isNotBlank(ids)){
+			String whereSql = " where id in (" + ids +")";
+			Db.update("delete from player "+whereSql);
 			renderJson(1);
 		}else{
 			renderJson(0);
