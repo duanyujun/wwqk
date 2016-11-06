@@ -1,5 +1,8 @@
 package com.wwqk.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
@@ -7,6 +10,7 @@ import org.apache.shiro.subject.Subject;
 
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.upload.UploadFile;
 import com.wwqk.model.League;
 import com.wwqk.model.Player;
 import com.wwqk.model.Team;
@@ -77,8 +81,19 @@ public class AdminController extends Controller {
 		render("admin/teamForm.jsp");
 	}
 	
+	public void saveTeam(){
+		String id = getPara("id");
+		String name = getPara("name");
+		String setup_time = getPara("setup_time");
+		String venue_name = getPara("venue_name");
+		String team_url = getPara("team_url");
+		UploadFile file = getFile(getPara("venue_img_local"), );
+		
+	}
+	
 	public void deleteTeam(){
 		String ids = getPara("ids");
+		
 		if(StringUtils.isNotBlank(ids)){
 			String whereSql = " where id in (" + ids +")";
 			Db.update("delete from team "+whereSql);
@@ -118,4 +133,44 @@ public class AdminController extends Controller {
 			renderJson(0);
 		}
 	}
+	
+	/**
+	 * H:\workspace\wwqk\WebRoot\assets\image\soccer\players
+	 * @param type soccer / venues
+	 * @param size 150x150
+	 * @param id   
+	 * @return
+	 */
+	private String getPicPath(String type, String size, String id)
+	  {
+	    String pathStr = getClass().getClassLoader().getResource("").getPath();
+
+	    if ("\\".equals(File.separator)) {
+	      pathStr = pathStr.substring(1).replaceAll("/", "\\\\");
+	    }
+	    pathStr = pathStr.substring(0, pathStr.indexOf("WEB-INF"));
+	    pathStr = pathStr + "static" + File.separator + "pdf";
+	    File pdfPath = new File(pathStr);
+	    if (!pdfPath.exists()) {
+	      pdfPath.mkdirs();
+	    }
+	    File pdfFile = new File(pathStr + File.separator + pdfName);
+	    if (!pdfFile.exists())
+	      try {
+	        pdfFile.createNewFile();
+	        Map fileInfo = this.uploadFileService.getFileInfo(pdfName);
+	        if (fileInfo != null) {
+	          byte[] info = (byte[])fileInfo.get("fileInfo");
+	          FileOutputStream out = new FileOutputStream(pdfFile, false);
+	          out.write(info);
+	          if (out != null) {
+	            out.flush();
+	          }
+	          out.close();
+	          info = null;
+	        }
+	      } catch (IOException e) {
+	        System.err.println(e.getMessage());
+	      }
+	  }
 }

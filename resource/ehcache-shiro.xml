@@ -26,7 +26,7 @@
     </cache>    
         
     <cache name="shiro-activeSessionCache"
-           maxElementsInMemory="2000"
+           maxElementsInMemory="60000"
            eternal="true"
            timeToLiveSeconds="0"
            timeToIdleSeconds="0"
