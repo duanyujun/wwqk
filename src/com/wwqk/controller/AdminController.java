@@ -10,13 +10,16 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
 import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.upload.UploadFile;
 import com.wwqk.constants.CommonConstants;
 import com.wwqk.model.League;
 import com.wwqk.model.Player;
+import com.wwqk.model.Say;
 import com.wwqk.model.Team;
 import com.wwqk.service.LeagueService;
 import com.wwqk.service.PlayerService;
+import com.wwqk.service.SayService;
 import com.wwqk.service.TeamService;
 import com.wwqk.utils.FileService;
 import com.wwqk.utils.StringUtils;
@@ -219,5 +222,68 @@ public class AdminController extends Controller {
 		}
 		fileName = fileName.replaceAll("\\\\", "/");
 		return fileName;
+	}
+	
+	
+	
+	public void listSay(){
+		render("admin/sayList.jsp");
+	}
+	
+	public void sayData(){
+		Map<Object, Object> map = SayService.sayData(this);
+		renderJson(map);
+	}
+	
+	public void editSay(){
+		String id = getPara("id");
+		if(id!=null){
+			Say say = Say.dao.findById(id);
+			setAttr("say", say);
+		}
+		
+		render("admin/sayForm.jsp");
+	}
+	
+	public void saveSay(){
+		UploadFile file = null;
+		try {
+			file = getFile();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+		
+		String id = getPara("id");
+		if(id == null){
+			return;
+		}
+		String name = getPara("name");
+		String setup_time = getPara("setup_time");
+		String venue_name = getPara("venue_name");
+		String team_url = getPara("team_url");
+		String venue_small_img_local = saveFiles(file, "venues", "300x225", id);
+		
+		Team team = Team.dao.findById(id);
+		team.set("name", name);
+		team.set("setup_time", setup_time);
+		team.set("venue_name", venue_name);
+		team.set("team_url", team_url);
+		if(StringUtils.isNotBlank(venue_small_img_local)){
+			team.set("venue_small_img_local", venue_small_img_local);
+		}
+		team.update();
+		
+		renderJson(1);
+	}
+	
+	public void deleteSay(){
+		String ids = getPara("ids");
+		if(StringUtils.isNotBlank(ids)){
+			String whereSql = " where id in (" + ids +")";
+			Db.update("delete from say "+whereSql);
+			renderJson(1);
+		}else{
+			renderJson(0);
+		}
 	}
 }

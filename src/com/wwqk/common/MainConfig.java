@@ -41,6 +41,7 @@ import com.wwqk.model.Permissions;
 import com.wwqk.model.Player;
 import com.wwqk.model.Roles;
 import com.wwqk.model.RolesPermissions;
+import com.wwqk.model.Say;
 import com.wwqk.model.Team;
 import com.wwqk.model.Transfer;
 import com.wwqk.model.Trophy;
@@ -104,6 +105,7 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("coach_trophy", CoachTrophy.class);
 		arp.addMapping("coach_career", CoachCareer.class);
 		arp.addMapping("fun", Fun.class);
+		arp.addMapping("say", Say.class);
 		arp.addMapping("users", Users.class);
 		arp.addMapping("roles", Roles.class);
 		arp.addMapping("permissions", Permissions.class);
