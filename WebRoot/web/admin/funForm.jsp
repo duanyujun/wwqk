@@ -48,18 +48,11 @@
 		              <div class="col-md-3"><label for="create_time"></label></div>
 		          </div>
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>说说大图片：</label>
+		              <label class="col-md-3 control-label"><font color="red">*</font>说说图片：</label>
 		              <div class="col-md-6">
-		                  <input type="file" class="form-control" id="image_big" name="image_big" >
+		                  <input type="file" class="form-control" id="file" name="file" >
 		              </div>
-		              <div class="col-md-3"><label for="image_big"></label></div>
-		          </div>
-		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>说说小图片：</label>
-		              <div class="col-md-6">
-		                  <input type="file" class="form-control" id="image_small" name="image_small" >
-		              </div>
-		              <div class="col-md-3"><label for="image_small"></label></div>
+		              <div class="col-md-3"><label for="file"></label></div>
 		          </div>
 		          
 		          <div class="form-group">

@@ -246,9 +246,9 @@ public class AdminController extends Controller {
 	}
 	
 	public void saveSay(){
-		UploadFile file = null;
+		List<UploadFile> files = new ArrayList<UploadFile>();
 		try {
-			file = getFile();
+			files = getFiles();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -261,18 +261,29 @@ public class AdminController extends Controller {
 		String setup_time = getPara("setup_time");
 		String venue_name = getPara("venue_name");
 		String team_url = getPara("team_url");
-		String venue_small_img_local = saveFiles(file, "venues", "300x225", id);
+		String image_small = "";
+		String image_big = "";
+		for(UploadFile file : files){
+			if("image_small".equals(file.getParameterName())){
+				image_small = saveFiles(file, "say", "180x135", id);
+			}else{
+				image_big = saveFiles(file, "players", "610x410", id);
+			}
+		}
 		
 		Team team = Team.dao.findById(id);
 		team.set("name", name);
 		team.set("setup_time", setup_time);
 		team.set("venue_name", venue_name);
 		team.set("team_url", team_url);
-		if(StringUtils.isNotBlank(venue_small_img_local)){
-			team.set("venue_small_img_local", venue_small_img_local);
+		if(StringUtils.isNotBlank(image_small)){
+			team.set("image_small", image_small);
 		}
-		team.update();
+		if(StringUtils.isNotBlank(image_big)){
+			team.set("image_big", image_big);
+		}
 		
+		team.update();
 		renderJson(1);
 	}
 	
