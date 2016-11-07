@@ -6,6 +6,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import com.wwqk.constants.CommonConstants;
 import com.wwqk.model.Coach;
 import com.wwqk.model.Player;
 import com.wwqk.model.Team;
@@ -30,10 +31,20 @@ public class ImageJob implements Job {
 				team.set("team_img_local", ImageUtils.getInstance().getImgName(team.getStr("team_img")));
 			}
 			if(StringUtils.isNotBlank(team.getStr("venue_small_img"))){
-				team.set("venue_small_img_local", ImageUtils.getInstance().getImgName(team.getStr("venue_small_img")));
+				String venue_small_img_local = team.getStr("venue_small_img_local");
+				if(StringUtils.isNotBlank(venue_small_img_local) && venue_small_img_local.contains(CommonConstants.UPLOAD_FILE_FLAG)){
+					//do nothing
+				}else{
+					team.set("venue_small_img_local", ImageUtils.getInstance().getImgName(team.getStr("venue_small_img")));
+				}
 			}
 			if(StringUtils.isNotBlank(team.getStr("venue_img"))){
-				team.set("venue_img_local", ImageUtils.getInstance().getImgName(team.getStr("venue_img")));
+				String venue_img_local = team.getStr("venue_img_local");
+				if(StringUtils.isNotBlank(venue_img_local) && venue_img_local.contains(CommonConstants.UPLOAD_FILE_FLAG)){
+					//do nothing
+				}else{
+					team.set("venue_img_local", ImageUtils.getInstance().getImgName(team.getStr("venue_img")));
+				}
 			}
 			team.update();
 		}
@@ -46,9 +57,15 @@ public class ImageJob implements Job {
 			for(Player player : lstPlayers){
 				String imgStr = player.getStr("img_big");
 				if(StringUtils.isNotBlank(imgStr)){
+					//如果本地有上传过，则不处理
+					String img_small_local = player.getStr("img_small_local");
+					if(StringUtils.isNotBlank(img_small_local) && img_small_local.contains(CommonConstants.UPLOAD_FILE_FLAG)){
+						continue;
+					}
 					player.set("img_big_local", ImageUtils.getInstance().getImgName(imgStr));
 					String imgSmallStr = imgStr.replace("150x150", "50x50");
 					player.set("img_small_local", ImageUtils.getInstance().getImgName(imgSmallStr));
+					player.update();
 				}
 			}
 		}
@@ -59,6 +76,11 @@ public class ImageJob implements Job {
 		for(Coach coach : lstCoachs){
 			String imgStr = coach.getStr("img_big");
 			if(StringUtils.isNotBlank(imgStr)){
+				//如果本地有上传过，则不处理
+				String img_big_local = coach.getStr("img_big_local");
+				if(StringUtils.isNotBlank(img_big_local) && img_big_local.contains(CommonConstants.UPLOAD_FILE_FLAG)){
+					continue;
+				}
 				coach.set("img_big_local", ImageUtils.getInstance().getImgName(imgStr));
 				String imgSmallStr = imgStr.replace("150x150", "50x50");
 				coach.set("img_small_local", ImageUtils.getInstance().getImgName(imgSmallStr));

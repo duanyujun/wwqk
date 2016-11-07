@@ -23,7 +23,7 @@
         
     </div>
     <div class="portlet-body">
-        <form class="form-horizontal" role="form" id="form" enctype="multipart/form-data" method="post">
+        <form class="form-horizontal" id="form" action="/admin/saveTeam" enctype="multipart/form-data" method="post">
         	  <input type="hidden" name="id" value="${team.id}" />
 		      <div class="form-body">
 		          <div class="form-group">
@@ -50,9 +50,9 @@
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>球场图片：</label>
 		              <div class="col-md-6">
-		                  <input type="file" class="form-control" id="venue_img_local" name="venue_img_local" required value="${team.venue_img_local}" >
+		                  <input type="file" class="form-control" id="file" name="file" >
 		              </div>
-		              <div class="col-md-3"><label for="venue_img_local"></label></div>
+		              <div class="col-md-3"><label for="file"></label></div>
 		          </div>
 		          <div class="form-group">
 		              <label class="col-md-3 control-label">球队链接：</label>
@@ -94,17 +94,25 @@ function cancel(){
 function save(){
 	var r = $("#form").valid(); 
 	if(r==true){
-		$.post(
-			"/admin/teamSave",
-			encodeURI(encodeURI(decodeURIComponent($('#form').formSerialize(),true))),
-			function(result){
-				$('#main-content').load($('#urlHidden').val());
-				showToast(1, "保存成功！", "温馨提示");
-			}
-		);
+		$('#form').submit();
 	}
 }
 
+$(function(){
+    var options = {
+        target: '#form',
+   		success:showSuccess
+    };
+    $('#form').submit(function(){
+        $(this).ajaxSubmit(options);
+        return false;
+    });
+});
+
+function showSuccess(data){
+	$('#main-content').load($('#urlHidden').val());
+	showToast(1, "保存成功！", "温馨提示");
+}
 
 </script>
 

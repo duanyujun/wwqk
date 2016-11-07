@@ -18,44 +18,69 @@
     <div class="portlet-title">
         <div class="caption font-dark">
             <i class="icon-settings font-dark"></i>
-            <span class="caption-subject bold uppercase"> Managed Table</span>
+            <span class="caption-subject bold uppercase"> 编辑球员 </span>
         </div>
         
     </div>
     <div class="portlet-body">
-        <form class="form-horizontal" role="form" id="form">
-        	  <input type="hidden" name="id" value="${roles.attrs.id}" />
-        	  <input type="hidden" id="permissionids" name="permissionids" value="" />
+        <form class="form-horizontal" id="form" action="/admin/savePlayer" enctype="multipart/form-data" method="post">
+        	  <input type="hidden" name="id" value="${player.id}" />
 		      <div class="form-body">
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>角色名：</label>
+		              <label class="col-md-3 control-label"><font color="red">*</font>球员名称：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="role_name" name="role_name" required value="${roles.attrs.role_name}" placeholder="请输入角色名">
+		                  <input type="text" class="form-control" id="name" name="name" required value="${player.name}" placeholder="请输入球员名称">
 		              </div>
-		              <div class="col-md-3"><label for="role_name"></label></div>
+		              <div class="col-md-3"><label for="name"></label></div>
 		          </div>
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>角色中文名：</label>
+		              <label class="col-md-3 control-label"><font color="red">*</font>身高：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="role_name_cn" name="role_name_cn" required value="${roles.attrs.role_name_cn}"  placeholder="请输入角色中文名">
+		                  <input type="text" class="form-control" id="height" name="height" required value="${player.height}"  placeholder="请输入身高">
 		              </div>
-		              <div class="col-md-3"><label for="role_name_cn"></label></div>
+		              <div class="col-md-3"><label for="height"></label></div>
 		          </div>
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>分配权限：</label>
+		              <label class="col-md-3 control-label"><font color="red">*</font>体重：</label>
 		              <div class="col-md-6">
-		                  <a href="javascript:;" class="btn btn-sm default" data-reveal-id="myModal"> 编辑 
-                               <i class="fa fa-edit"></i>
-                           </a>
+		                  <input type="text" class="form-control" id="weight" name="weight" required value="${player.weight}" placeholder="请输入体重">
 		              </div>
-		              <div class="col-md-3"></div>
+		              <div class="col-md-3"><label for="weight"></label></div>
 		          </div>
 		          <div class="form-group">
-		              <label class="col-md-3 control-label">描述：</label>
+		              <label class="col-md-3 control-label"><font color="red">*</font>惯用脚（如：右）：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" name="description" value="${roles.attrs.description}"  placeholder="请输入描述">
+		                  <input type="text" class="form-control" id="foot" name="foot" required value="${player.foot}" placeholder="请输入惯用脚">
 		              </div>
-		              <div class="col-md-3"></div>
+		              <div class="col-md-3"><label for="foot"></label></div>
+		          </div>
+		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>球衣号码：</label>
+		              <div class="col-md-6">
+		                  <input type="text" class="form-control" id="number" name="number" required value="${player.number}" placeholder="请输入球衣号码">
+		              </div>
+		              <div class="col-md-3"><label for="number"></label></div>
+		          </div>
+		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>球员小图片（50x50）：</label>
+		              <div class="col-md-6">
+		                  <input type="file" class="form-control" id="file_small" name="file_small" >
+		              </div>
+		              <div class="col-md-3"><label for="file_small"></label></div>
+		          </div>
+		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>球员大图片（150x150）：</label>
+		              <div class="col-md-6">
+		                  <input type="file" class="form-control" id="file_big" name="file_big" >
+		              </div>
+		              <div class="col-md-3"><label for="file_big"></label></div>
+		          </div>
+		          <div class="form-group">
+		              <label class="col-md-3 control-label">球员链接：</label>
+		              <div class="col-md-6">
+		                  <input type="text" class="form-control" name="player_url" value="${player.player_url}"  placeholder="请输入球员链接">
+		              </div>
+		              <div class="col-md-3"><label for="player_url"></label></div>
 		          </div>
 		          
 		          <div class="form-group">
@@ -69,26 +94,8 @@
     </div>
 </div>
 
-<div id="myModal" class="reveal-modal">
-	<ul id="ztree" class="ztree"></ul>
-	<button type="button" class="btn green" onclick="saveTree();" style="margin-left:50%;">确 定</button>
-	<button type="button" class="btn default" onclick="cancelTree();" style="margin-left:10px;">取 消</button>
-	<a class="close-reveal-modal">&#215;</a>
-</div>
-
 <script type="text/javascript">
 $(document).ready(function() {
-	initztree();
-	$('a[data-reveal-id]').click(function(e){
-		e.preventDefault();
-		var modalLocation = $(this).attr('data-reveal-id');
-		$('#'+modalLocation).reveal($(this).data());
-		var clientWidth = document.body.clientWidth;
-		if(clientWidth>=420){
-			var left = (clientWidth - $(".reveal-modal").width() - 80)/2;
-			$(".reveal-modal").css("left",left+"px");
-		}
-	});
 	
 	var validator = $("#form").validate({
 		errorPlacement: function(error, element) {
@@ -101,25 +108,6 @@ $(document).ready(function() {
 	});
 });
 
-function initztree(){
-	var setting = {
-			check: {
-				enable: true
-			},
-			data: {
-				simpleData: {
-					enable: true
-				}
-			}
-	};
-	$.ajax({ 
-		url: "/role/getPemissions", 
-		data: {roleId: '${roles.attrs.id}'},
-    	success: function(data){
-         $.fn.zTree.init($("#ztree"), setting, data);
-    }});
-	
-}
 
 function cancel(){
 	$('#main-content').load($('#urlHidden').val());
@@ -128,43 +116,26 @@ function cancel(){
 function save(){
 	var r = $("#form").valid(); 
 	if(r==true){
-		$.post(
-			"/role/save",
-			encodeURI(encodeURI(decodeURIComponent($('#form').formSerialize(),true))),
-			function(result){
-				$('#main-content').load($('#urlHidden').val());
-				showToast(1, "保存成功！", "温馨提示");
-			}
-		);
+		$('#form').submit();
 	}
 }
 
-function saveTree(){
-	//get tree checked ids
-	var treeObj = $.fn.zTree.getZTreeObj("ztree");
-    var nodes = treeObj.getCheckedNodes(true);
-    var ids = "";
-	for(var i=0; i<nodes.length; i++){
-		ids = ids + nodes[i].id+",";
-	}
-	if(ids!=""){
-		ids = ids.substring(0, ids.length-1);
-	}
-    $("#permissionids").val(ids);
-    $('#myModal').trigger('reveal:close');
-    
-    $.ajax({ 
-		url: "/role/saveRolePermissions", 
-		data: {roleId: '${roles.attrs.id}', permissionids:ids},
-    	success: function(data){
-    		showToast(1, "分配权限成功！", "温馨提示");
-        }
-	});
+$(function(){
+    var options = {
+        target: '#form',
+   		success:showSuccess
+    };
+    $('#form').submit(function(){
+        $(this).ajaxSubmit(options);
+        return false;
+    });
+});
+
+function showSuccess(data){
+	$('#main-content').load($('#urlHidden').val());
+	showToast(1, "保存成功！", "温馨提示");
 }
 
-function cancelTree(){
-	$('#myModal').trigger('reveal:close');
-}
 
 </script>
 
