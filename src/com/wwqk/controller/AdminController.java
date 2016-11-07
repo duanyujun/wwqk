@@ -253,37 +253,42 @@ public class AdminController extends Controller {
             e.printStackTrace();
         }
 		
-		String id = getPara("id");
-		if(id == null){
-			return;
-		}
-		String name = getPara("name");
-		String setup_time = getPara("setup_time");
-		String venue_name = getPara("venue_name");
-		String team_url = getPara("team_url");
+		String player_id = getPara("player_id");
+		String player_name = getPara("player_name");
+		String content = getPara("content");
 		String image_small = "";
 		String image_big = "";
+		long millis = System.currentTimeMillis();
 		for(UploadFile file : files){
 			if("image_small".equals(file.getParameterName())){
-				image_small = saveFiles(file, "say", "180x135", id);
+				image_small = saveFiles(file, "say", "180x135", player_id+"-"+millis);
 			}else{
-				image_big = saveFiles(file, "players", "610x410", id);
+				image_big = saveFiles(file, "players", "610x410", player_id+"-"+millis);
 			}
 		}
 		
-		Team team = Team.dao.findById(id);
-		team.set("name", name);
-		team.set("setup_time", setup_time);
-		team.set("venue_name", venue_name);
-		team.set("team_url", team_url);
-		if(StringUtils.isNotBlank(image_small)){
-			team.set("image_small", image_small);
-		}
-		if(StringUtils.isNotBlank(image_big)){
-			team.set("image_big", image_big);
+		String id = getPara("id");
+		Say say = null;
+		if(id==null){
+			say = new Say();
+		}else{
+			say = Say.dao.findById(id);
 		}
 		
-		team.update();
+		say.set("player_id", player_id);
+		say.set("player_name", player_name);
+		say.set("content", content);
+		say.set("image_small", image_small);
+		say.set("image_big", image_big);
+		
+		if(StringUtils.isNotBlank(image_small)){
+			say.set("image_small", image_small);
+		}
+		if(StringUtils.isNotBlank(image_big)){
+			say.set("image_big", image_big);
+		}
+		
+		say.update();
 		renderJson(1);
 	}
 	
