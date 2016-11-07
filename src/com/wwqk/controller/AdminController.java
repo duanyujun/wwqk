@@ -202,7 +202,7 @@ public class AdminController extends Controller {
 		return pathStr;
 	}
 	
-	private String saveFiles(UploadFile file, String type, String size, String id){
+	private String saveFiles(UploadFile file, String type, String size, String id, boolean needDateStr){
 		String fileName = "";
 		if(file!=null){
 			String lastPrefix = file.getOriginalFileName().substring(file.getOriginalFileName().lastIndexOf("."));
