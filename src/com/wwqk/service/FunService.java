@@ -13,9 +13,9 @@ import com.wwqk.model.Say;
 import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.StringUtils;
 
-public class SayService {
+public class FunService {
 
-	public static Map<Object, Object> sayData(Controller controller){
+	public static Map<Object, Object> funData(Controller controller){
 		String sumSql = "select count(*) from say ";
 		String sql = "select * from say ";
 		String orderSql = "";
@@ -82,75 +82,57 @@ public class SayService {
 		return map;
 	}
 	
-	public static void saveSay(Controller controller){
+	public static void saveFun(Controller controller){
 		List<UploadFile> files = new ArrayList<UploadFile>();
 		try {
 			files = controller.getFiles();
         }catch (Exception e){
             e.printStackTrace();
         }
-		
-		String player_id = controller.getPara("player_id");
-		String player_name = controller.getPara("player_name");
-		String content = controller.getPara("content");
 		String image_small = "";
 		String image_big = "";
 		long millis = System.currentTimeMillis();
 		for(UploadFile file : files){
 			if("image_small".equals(file.getParameterName())){
-				image_small = ImageUtils.getInstance().saveFiles(file, "say", "180x135", player_id+"-"+millis, true);
+				image_small = ImageUtils.getInstance().saveFiles(file, "fun", "180x135", millis+"", true);
 			}else{
-				image_big = ImageUtils.getInstance().saveFiles(file, "say", "610x410", player_id+"-"+millis, true);
+				image_big = ImageUtils.getInstance().saveFiles(file, "fun", "610x410", millis+"", true);
 			}
 		}
 		
 		String id = controller.getPara("id");
-		Say say = null;
+		Fun fun = null;
 		if(StringUtils.isBlank(id)){
-			say = new Say();
+			fun = new Fun();
 		}else{
-			say = Say.dao.findById(id);
+			fun = Fun.dao.findById(id);
 		}
 		
-		say.set("player_id", player_id);
-		say.set("player_name", player_name);
-		say.set("content", content);
-		say.set("image_small", image_small);
-		say.set("image_big", image_big);
-		
-		if(StringUtils.isNotBlank(image_small)){
-			say.set("image_small", image_small);
-		}
-		if(StringUtils.isNotBlank(image_big)){
-			say.set("image_big", image_big);
-		}
-		
-		save(say);
-		
-		//复制一份到趣点
-		Fun fun = new Fun();
-		String contentOld = content;
-		if(StringUtils.isNotBlank(content) && content.length()>15){
-			content = content.substring(0, 15);
-		}
-		fun.set("title", content);
-		fun.set("summary", contentOld);
-		fun.set("type", 2);
-		fun.set("source_id", say.get("id"));
+		fun.set("title", controller.getPara("title"));
+		fun.set("summary", controller.getPara("summary"));
+		fun.set("content", controller.getPara("content"));
 		fun.set("image_small", image_small);
 		fun.set("image_big", image_big);
-		fun.set("player_id",player_id);
-		fun.set("player_name",player_name);
-		fun.set("player_image",image_small);
-		FunService.save(fun);
+		fun.set("source_name", controller.getPara("source_name"));
+		fun.set("source_url", controller.getPara("source_url"));
+	
+		
+		if(StringUtils.isNotBlank(image_small)){
+			fun.set("image_small", image_small);
+		}
+		if(StringUtils.isNotBlank(image_big)){
+			fun.set("image_big", image_big);
+		}
+		
+		save(fun);
 	}
 	
-	
-	public static void save(Say say){
-		if(say.get("id")==null){
-			say.save();
+	public static void save(Fun fun){
+		if(fun.get("id")==null){
+			fun.save();
 		}else{
-			say.update();
+			fun.update();
 		}
 	}
+	
 }

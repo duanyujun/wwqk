@@ -2,10 +2,15 @@ package com.wwqk.utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Date;
 
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
+
+import com.jfinal.upload.UploadFile;
+import com.wwqk.constants.CommonConstants;
 
 public class ImageUtils {
 	
@@ -80,6 +85,57 @@ public class ImageUtils {
 		}
 		
 		return path;
+	}
+	
+	/**
+	 * H:\workspace\wwqk\WebRoot\assets\image\soccer\players
+	 * 
+	 * @param type players / venues
+	 * @param size 150x150
+	 * @return
+	 */
+	public String getPicPath(String type, String size, boolean needDateStr) {
+		String pathStr = getClass().getClassLoader().getResource("").getPath();
+
+		String dateStr = "";
+		if(needDateStr){
+			dateStr = File.separator + DateTimeUtils.formatDate(new Date());
+		}
+		
+		if ("\\".equals(File.separator)) {
+			pathStr = pathStr.substring(1).replaceAll("/", "\\\\");
+		}
+		pathStr = pathStr.substring(0, pathStr.indexOf("WEB-INF"));
+		pathStr = pathStr + "assets" + File.separator + "image"
+				+ File.separator + "soccer" + File.separator + type
+				+ dateStr + File.separator + size;
+		File path = new File(pathStr);
+		if(!path.exists()){
+			path.mkdirs();
+		}
+		return pathStr;
+	}
+	
+	public String saveFiles(UploadFile file, String type, String size, String id, boolean needDateStr){
+		String fileName = "";
+		if(file!=null){
+			String lastPrefix = file.getOriginalFileName().substring(file.getOriginalFileName().lastIndexOf("."));
+			String picFilePath = getPicPath(type, size, needDateStr);
+			fileName = picFilePath.substring(picFilePath.indexOf("assets"))+File.separator+CommonConstants.UPLOAD_FILE_FLAG+id+lastPrefix;
+			File localFile = new File(picFilePath+File.separator+CommonConstants.UPLOAD_FILE_FLAG+id+lastPrefix);
+			try {
+				if(localFile.exists()){
+					localFile.delete();
+				}
+				localFile.createNewFile();
+				FileService fileService = new FileService();
+				fileService.fileChannelCopy(file.getFile(), localFile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		fileName = fileName.replaceAll("\\\\", "/");
+		return fileName;
 	}
 	
 	public static void main(String[] args) {

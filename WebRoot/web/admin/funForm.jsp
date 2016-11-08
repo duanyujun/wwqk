@@ -18,7 +18,7 @@
     <div class="portlet-title">
         <div class="caption font-dark">
             <i class="icon-settings font-dark"></i>
-            <span class="caption-subject bold uppercase"> 编辑说说 </span>
+            <span class="caption-subject bold uppercase"> 编辑趣点 </span>
         </div>
         
     </div>
@@ -27,32 +27,57 @@
         	  <input type="hidden" name="id" value="${say.id}" />
 		      <div class="form-body">
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>球员Id：</label>
+		              <label class="col-md-3 control-label"><font color="red">*</font>标题：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="player_id" name="player_id" required value="${say.player_id}" placeholder="请输入球员Id">
+		                  <input type="text" class="form-control" id="title" name="title" required value="${fun.title}" placeholder="请输入标题">
 		              </div>
-		              <div class="col-md-3"><label for="player_id"></label></div>
+		              <div class="col-md-3"><label for="title"></label></div>
 		          </div>
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>球员名称：</label>
+		              <label class="col-md-3 control-label"><font color="red">*</font>摘要：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="player_name" name="player_name" required value="${say.player_name}"  placeholder="请输入球员名称">
+		                  <input type="text" class="form-control" id="summary" name="summary" required value="${fun.summary}"  placeholder="请输入摘要">
 		              </div>
-		              <div class="col-md-3"><label for="player_name"></label></div>
+		              <div class="col-md-3"><label for="summary"></label></div>
 		          </div>
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>发表时间：</label>
+		              <label class="col-md-3 control-label"><font color="red">*</font>内容：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="create_time" name="create_time" required value="${say.create_time}" placeholder="请输入发表时间">
+		                  <input type="text" class="form-control" id="content" name="content" required value="${fun.content}"  placeholder="请输入内容">
 		              </div>
-		              <div class="col-md-3"><label for="create_time"></label></div>
+		              <div class="col-md-3"><label for="content"></label></div>
 		          </div>
+		          
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>说说图片：</label>
+		              <label class="col-md-3 control-label"><font color="red">*</font>来源名称：</label>
 		              <div class="col-md-6">
-		                  <input type="file" class="form-control" id="file" name="file" >
+		                  <input type="text" class="form-control" id="source_name" name="source_name" required value="${fun.source_name}"  placeholder="请输入来源名称">
 		              </div>
-		              <div class="col-md-3"><label for="file"></label></div>
+		              <div class="col-md-3"><label for="source_name"></label></div>
+		          </div>
+		          
+		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>来源URL：</label>
+		              <div class="col-md-6">
+		                  <input type="text" class="form-control" id="source_url" name="source_url" required value="${fun.source_url}"  placeholder="请输入来源URL">
+		              </div>
+		              <div class="col-md-3"><label for="source_url"></label></div>
+		          </div>
+		         
+		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>大图片：</label>
+		              <div class="col-md-6">
+		                  <input type="file" class="form-control" id="file_big" name="file_big" >
+		              </div>
+		              <div class="col-md-3"><label for="file_big"></label></div>
+		          </div>
+		          
+		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>小图片（180x135）：</label>
+		              <div class="col-md-6">
+		                  <input type="file" class="form-control" id="file_small" name="file_small" >
+		              </div>
+		              <div class="col-md-3"><label for="file_small"></label></div>
 		          </div>
 		          
 		          <div class="form-group">

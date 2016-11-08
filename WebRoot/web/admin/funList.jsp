@@ -9,7 +9,7 @@
     <div class="portlet-title">
         <div class="caption font-dark">
             <i class="icon-settings font-dark"></i>
-            <span class="caption-subject bold uppercase">说说管理</span>
+            <span class="caption-subject bold uppercase">趣点管理</span>
         </div>
         
     </div>
@@ -18,10 +18,10 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="btn-group">
-                        <button id="sample_editable_1_new" onclick="goInsert();" class="btn sbold green"> 添加说说
+                        <button id="sample_editable_1_new" onclick="goInsert();" class="btn sbold green"> 添加趣点
                             <i class="fa fa-plus"></i>
                         </button>
-                        <button id="deleteBtn" onclick="goDelete();" class="btn sbold red" style="margin-left:10px;"> 删除说说
+                        <button id="deleteBtn" onclick="goDelete();" class="btn sbold red" style="margin-left:10px;"> 删除趣点
                             <i class="fa fa-trash"></i>
                         </button>
                     </div>
@@ -55,10 +55,11 @@
                     <th>
                         <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /> 
                     </th>
-                    <th> 球员Id </th>
-                    <th> 球员名称 </th>
-                    <th> 发表时间 </th>
-                    <th> 内容 </th>
+                    <th> 标题  </th>
+                    <th> 摘要 </th>
+                    <th> 类型 </th>
+                    <th> 创建时间 </th>
+                    <th> 状态 </th>
                 </tr>
             </thead>
         </table>
@@ -88,7 +89,7 @@ $(document).ready(function() {
                     }}
         
         ],
-        "order": [[3, 'desc']],
+        "order": [[4, 'desc']],
         "language": {
             "emptyTable": "暂 无 数  据",
             "info": "显示从_START_到_END_条，共_TOTAL_条记录",
@@ -105,7 +106,7 @@ $(document).ready(function() {
             }
         },
         "bStateSave": !0,
-        "ajax": "/admin/sayData"
+        "ajax": "/admin/funData"
     } );
     
     $('#sample_1').find(".group-checkable").change(function() {
@@ -132,7 +133,7 @@ $(document).ready(function() {
 } );
 
 function goInsert(id){
-	var url = "/admin/editSay";
+	var url = "/admin/editFun";
 	if(id){
 		var timestamp=new Date().getTime();
 		url = url + "?id="+id+"&t="+timestamp;
@@ -154,7 +155,7 @@ function goDelete(){
            	 function(o) {
                	if(o==true){
                		ids = ids.substring(0, ids.length-1);
-           			$.post( "/admin/deleteSay",
+           			$.post( "/admin/deleteFun",
            					{ids, ids},
            					function(result){
            						$('#main-content').load($('#urlHidden').val());

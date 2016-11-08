@@ -7,7 +7,9 @@ import java.util.Map;
 
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.upload.UploadFile;
 import com.wwqk.model.Player;
+import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.StringUtils;
 
 public class PlayerService {
@@ -75,6 +77,37 @@ public class PlayerService {
 		map.put("data", data);
 		
 		return map;
+	}
+	
+	public static void updatePlayer(Controller controller){
+		List<UploadFile> files = new ArrayList<UploadFile>();
+		try {
+			files = controller.getFiles();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+		
+		String id = controller.getPara("id");
+		String img_small_local = "";
+		String img_big_local = "";
+		
+		for(UploadFile file : files){
+			if("file_small".equals(file.getParameterName())){
+				img_small_local = ImageUtils.getInstance().saveFiles(file, "players", "50x50", id, false);
+			}else{
+				img_big_local = ImageUtils.getInstance().saveFiles(file, "players", "150x150", id, false);
+			}
+		}
+		
+		Player player = Player.dao.findById(id);
+		player.set("name", controller.getPara("name"));
+		player.set("height", controller.getPara("height"));
+		player.set("weight", controller.getPara("weight"));
+		player.set("foot", controller.getPara("foot"));
+		player.set("number", controller.getPara("number"));
+		player.set("img_small_local", img_small_local);
+		player.set("img_big_local", img_big_local);
+		player.update();
 	}
 	
 }
