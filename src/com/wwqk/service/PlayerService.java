@@ -8,6 +8,7 @@ import java.util.Map;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.upload.UploadFile;
+import com.wwqk.constants.FlagMask;
 import com.wwqk.model.Player;
 import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.StringUtils;
@@ -101,12 +102,24 @@ public class PlayerService {
 		
 		Player player = Player.dao.findById(id);
 		player.set("name", controller.getPara("name"));
+		FlagMask.setModelFlag(player, "name", controller.getPara("name"), FlagMask.PLAYER_NAME_MASK);
+		
 		player.set("height", controller.getPara("height"));
+		FlagMask.setModelFlag(player, "height", controller.getPara("height"), FlagMask.PLAYER_HEIGHT_MASK);
+		
 		player.set("weight", controller.getPara("weight"));
+		FlagMask.setModelFlag(player, "weight", controller.getPara("weight"), FlagMask.PLAYER_WEIGHT_MASK);
+		
 		player.set("foot", controller.getPara("foot"));
+		FlagMask.setModelFlag(player, "foot", controller.getPara("foot"), FlagMask.PLAYER_FOOT_MASK);
+		
 		player.set("number", controller.getPara("number"));
+		FlagMask.setModelFlag(player, "number", controller.getPara("number"), FlagMask.PLAYER_NUMBER_MASK);
+		
 		player.set("img_small_local", img_small_local);
+		FlagMask.setModelFlag(player, "img_small_local", img_small_local, FlagMask.PLAYER_SMALL_IMG_MASK);
 		player.set("img_big_local", img_big_local);
+		FlagMask.setModelFlag(player, "img_big_local", img_big_local, FlagMask.PLAYER_BIG_IMG_MASK);
 		player.update();
 	}
 	

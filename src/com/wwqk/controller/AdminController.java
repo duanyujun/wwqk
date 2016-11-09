@@ -1,11 +1,14 @@
 package com.wwqk.controller;
 
 import java.util.Map;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.upload.UploadFile;
+import com.wwqk.constants.FlagMask;
 import com.wwqk.model.Fun;
 import com.wwqk.model.League;
 import com.wwqk.model.Player;
@@ -86,16 +89,22 @@ public class AdminController extends Controller {
 		if(id == null){
 			return;
 		}
+		Team team = Team.dao.findById(id);
+		
 		String name = getPara("name");
 		String setup_time = getPara("setup_time");
 		String venue_name = getPara("venue_name");
+		FlagMask.setModelFlag(team, "venue_name", venue_name, FlagMask.TEAM_VENUE_NAME_MASK);
 		String team_url = getPara("team_url");
 		String venue_small_img_local = ImageUtils.getInstance().saveFiles(file, "venues", "300x225", id, false);
+		FlagMask.setModelFlag(team, "venue_small_img_local", venue_small_img_local, FlagMask.TEAM_VENUE_IMG_MASK);
+		String venue_address = getPara("venue_address");
+		FlagMask.setModelFlag(team, "venue_address", venue_address, FlagMask.TEAM_VENUE_CITY_MASK);
 		
-		Team team = Team.dao.findById(id);
 		team.set("name", name);
 		team.set("setup_time", setup_time);
 		team.set("venue_name", venue_name);
+		team.set("venue_address", venue_address);
 		team.set("team_url", team_url);
 		if(StringUtils.isNotBlank(venue_small_img_local)){
 			team.set("venue_small_img_local", venue_small_img_local);

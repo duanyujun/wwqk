@@ -48,6 +48,13 @@
 		              <div class="col-md-3"><label for="venue_name"></label></div>
 		          </div>
 		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>球场城市：</label>
+		              <div class="col-md-6">
+		                  <input type="text" class="form-control" id="venue_address" name="venue_address" required value="${team.venue_address}" placeholder="请输入球场城市">
+		              </div>
+		              <div class="col-md-3"><label for="venue_address"></label></div>
+		          </div>
+		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>球场图片：</label>
 		              <div class="col-md-6">
 		                  <input type="file" class="form-control" id="file" name="file" >

@@ -1,32 +1,64 @@
 package com.wwqk.constants;
 
+import com.jfinal.plugin.activerecord.Model;
+import com.wwqk.utils.StringUtils;
+
 public class FlagMask {
 
 	//球队相关
 	/** 球队名称 */
-	private static final int TEAM_NAME_MASK = 1<<0;
+	public static final int TEAM_NAME_MASK = 0x00000001;
 	
-	/** 球队照片 */
-	private static final int TEAM_IMG_MASK = 1<<1;
+	/** 球场名称  */
+	public static final int TEAM_VENUE_NAME_MASK = 0x00000002;
 	
 	/** 球场照片 */
-	private static final int TEAM_VENUE_IMG_MASK = 1<<2;
+	public static final int TEAM_VENUE_IMG_MASK = 0x00000004;
 	
-	/** 球场名称（容量和地址都保存在一起） */
-	private static final int TEAM_VENUE_NAME_MASK = 1<<3;
+	/** 球场城市 */
+	public static final int TEAM_VENUE_CITY_MASK = 0x00000008;
 	
 	//球员相关
-	/** 球员名字 */
-	private static final int PLAYER_NAME_MASK = 1<<0;
+	/** 球员名称 */
+	public static final int PLAYER_NAME_MASK = 0x00000001;
 	
-	/** 球员照片 */
-	private static final int PLAYER_IMG_MASK = 1<<1;
+	/** 球员身高 */
+	public static final int PLAYER_HEIGHT_MASK = 0x00000002;
+	
+	/** 球员体重 */
+	public static final int PLAYER_WEIGHT_MASK = 0x00000004;
+	
+	/** 球员惯用脚 */
+	public static final int PLAYER_FOOT_MASK = 0x00000008;
+	
+	/** 球衣号码 */
+	public static final int PLAYER_NUMBER_MASK = 0x00000010;
 	
 	/** 球员号码 */
-	private static final int PLAYER_NUMBER_MASK = 1<<2;
+	public static final int PLAYER_SMALL_IMG_MASK = 0x00000020;
 	
 	/** 球员出生国家 */
-	private static final int PLAYER_COUNTRY_MASK = 1<<3;
+	public static final int PLAYER_BIG_IMG_MASK = 0x00000040;
 	
+	/**
+	 * 如果编辑位上有设置标记，则不允许修改
+	 * @param editFlag 编辑位，从数据库中查询得来
+	 * @param mask 标志
+	 * @return boolean
+	 */
+	public static boolean isEditable(int editFlag, int mask){
+		return !((editFlag & mask) == mask);
+		
+	}
 	
+	private static int setEditFlag(int editFlag, int mask){
+		editFlag |= mask;
+		return editFlag;
+	}
+	
+	public static void setModelFlag(Model<?> model, String param, String newValue, int mask){
+		if(StringUtils.isNotBlank(model.get(param)) && !model.get("param").equals(newValue)){
+			model.set("edit_flag", FlagMask.setEditFlag(model.get("edit_flag"), mask));
+		}
+	}
 }

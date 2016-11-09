@@ -25,6 +25,7 @@ import org.quartz.JobExecutionException;
 import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
+import com.wwqk.constants.FlagMask;
 import com.wwqk.model.League;
 import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeaguePosition;
@@ -316,13 +317,19 @@ public class TeamJob implements Job {
 		Elements venueElements = document.select(".block_venue_info-wrapper");
 		if(venueElements.size()>0){
 			String venueName = venueElements.get(0).child(0).html();
-			team.set("venue_name", venueName);
+			if(FlagMask.isEditable(team.get("venue_name"), FlagMask.TEAM_VENUE_NAME_MASK)){
+				team.set("venue_name", venueName);
+			}
 			team.set("venue_name_en", venueName);
-			team.set("venue_address", CommonUtils.matcherString(CommonUtils.getPatternByName("城市:"), venueContent));
+			if(FlagMask.isEditable(team.get("venue_address"), FlagMask.TEAM_VENUE_NAME_MASK)){
+				team.set("venue_address", CommonUtils.matcherString(CommonUtils.getPatternByName("城市:"), venueContent));
+			}
+			
 			team.set("venue_capacity", CommonUtils.matcherString(CommonUtils.getPatternByName("容量:"), venueContent));
 			Elements imgElements = venueElements.get(0).select("img");
 			if(imgElements.size()>0){
-				team.set("venue_img", imgElements.get(0).attr("src"));
+				String venue_img = imgElements.get(0).attr("src");
+				team.set("venue_img", venue_img);
 			}
 			team.set("update_time", new Date());
 			team.update();

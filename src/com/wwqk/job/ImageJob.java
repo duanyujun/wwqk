@@ -7,6 +7,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import com.wwqk.constants.CommonConstants;
+import com.wwqk.constants.FlagMask;
 import com.wwqk.model.Coach;
 import com.wwqk.model.Player;
 import com.wwqk.model.Team;
@@ -31,10 +32,7 @@ public class ImageJob implements Job {
 				team.set("team_img_local", ImageUtils.getInstance().getImgName(team.getStr("team_img")));
 			}
 			if(StringUtils.isNotBlank(team.getStr("venue_small_img"))){
-				String venue_small_img_local = team.getStr("venue_small_img_local");
-				if(StringUtils.isNotBlank(venue_small_img_local) && venue_small_img_local.contains(CommonConstants.UPLOAD_FILE_FLAG)){
-					//do nothing
-				}else{
+				if(FlagMask.isEditable(team.get("edit_flag"), FlagMask.TEAM_VENUE_IMG_MASK)){
 					team.set("venue_small_img_local", ImageUtils.getInstance().getImgName(team.getStr("venue_small_img")));
 				}
 			}
@@ -62,9 +60,13 @@ public class ImageJob implements Job {
 					if(StringUtils.isNotBlank(img_small_local) && img_small_local.contains(CommonConstants.UPLOAD_FILE_FLAG)){
 						continue;
 					}
-					player.set("img_big_local", ImageUtils.getInstance().getImgName(imgStr));
+					if(FlagMask.isEditable(player.get("edit_flag"), FlagMask.PLAYER_BIG_IMG_MASK)){
+						player.set("img_big_local", ImageUtils.getInstance().getImgName(imgStr));
+					}
 					String imgSmallStr = imgStr.replace("150x150", "50x50");
-					player.set("img_small_local", ImageUtils.getInstance().getImgName(imgSmallStr));
+					if(FlagMask.isEditable(player.get("edit_flag"), FlagMask.PLAYER_SMALL_IMG_MASK)){
+						player.set("img_small_local", ImageUtils.getInstance().getImgName(imgSmallStr));
+					}
 					player.update();
 				}
 			}

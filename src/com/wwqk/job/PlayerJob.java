@@ -27,6 +27,7 @@ import org.quartz.JobExecutionException;
 import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
+import com.wwqk.constants.FlagMask;
 import com.wwqk.model.Career;
 import com.wwqk.model.Coach;
 import com.wwqk.model.CoachCareer;
@@ -103,7 +104,10 @@ public class PlayerJob implements Job {
 				player.set("update_time", new Date());
 				lstNeedInsert.add(player);
 			}else{
-				playerDB.set("name", matcher.group(2));
+				if(FlagMask.isEditable(playerDB.get("name"), FlagMask.PLAYER_NAME_MASK)){
+					playerDB.set("name", matcher.group(2));
+				}
+				
 				playerDB.set("player_url", SITE_PROFIX+url);
 				playerDB.set("team_id", teamId);
 				playerDB.set("update_time", new Date());
@@ -238,10 +242,17 @@ public class PlayerJob implements Job {
 		player.set("birth_country", CommonUtils.matcherString(CommonUtils.getPatternByName("出生国家"), playerContent));
 		player.set("birth_place", CommonUtils.matcherString(CommonUtils.getPatternByName("出生地"), playerContent));
 		player.set("position", CommonUtils.matcherString(CommonUtils.getPatternByName("位置"), playerContent));
-		player.set("height", CommonUtils.matcherString(CommonUtils.getPatternByName("高度"), playerContent));
-		player.set("weight", CommonUtils.matcherString(CommonUtils.getPatternByName("重量"), playerContent));
-		player.set("foot", CommonUtils.matcherString(CommonUtils.getPatternByName("脚"), playerContent));
+		if(FlagMask.isEditable(player.get("height"), FlagMask.PLAYER_HEIGHT_MASK)){
+			player.set("height", CommonUtils.matcherString(CommonUtils.getPatternByName("高度"), playerContent));
+		}
+		if(FlagMask.isEditable(player.get("weight"), FlagMask.PLAYER_WEIGHT_MASK)){
+			player.set("weight", CommonUtils.matcherString(CommonUtils.getPatternByName("重量"), playerContent));
+		}
+		if(FlagMask.isEditable(player.get("foot"), FlagMask.PLAYER_FOOT_MASK)){
+			player.set("foot", CommonUtils.matcherString(CommonUtils.getPatternByName("脚"), playerContent));
+		}
 		player.set("update_time", new Date());
+		
 		player.set("img_big", CommonUtils.matcherString(PLAYER_IMG_PATTERN, playerContent));
 	
 		player.update();
