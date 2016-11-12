@@ -2,11 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <script src="${ctx}/assets/global/plugins/jquery.form.min.js" type="text/javascript"></script>
 <script src="${ctx}/assets/global/plugins/bootstrap-toastr/toastr.js" type="text/javascript"></script>
-<script src="${ctx}/assets/global/plugins/reveal/jquery.reveal.js" type="text/javascript"></script>
-<link href="${ctx}/assets/global/plugins/reveal/reveal.css" rel="stylesheet" type="text/css" />
-<link href="${ctx}/assets/global/plugins/ztree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css" />
-<script src="${ctx}/assets/global/plugins/ztree/js/jquery.ztree.core.min.js" type="text/javascript"></script>
-<script src="${ctx}/assets/global/plugins/ztree/js/jquery.ztree.excheck.min.js" type="text/javascript"></script>
+<link href="${ctx}/assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+<script src="${ctx}/assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
+
 <style>
 .error{
 	color:red;
@@ -26,24 +24,31 @@
         <form class="form-horizontal" id="form" action="/admin/saveSay" enctype="multipart/form-data" method="post">
         	  <input type="hidden" name="id" value="${say.id}" />
 		      <div class="form-body">
+		          
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>球员Id：</label>
+                      <label class="control-label col-md-3"><font color="red">*</font>球员</label>
+                      <div class="col-md-4">
+                          <select class="bs-select form-control" required data-live-search="true" name="player_id">
+                          	  <c:forEach items="${lstPlayer}" var="player">
+                          	  		<option value="${player.id}">${player.name}:${player.id} / ${player.team_name}</option>
+                          	  </c:forEach>
+                          </select>
+                      </div>
+                  </div>
+		          
+		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>内容：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="player_id" name="player_id" required value="${say.player_id}" placeholder="请输入球员Id">
+		              		<textarea rows="4" cols="60" class="form-control" id="content" name="content" required placeholder="请输入内容">${say.content}</textarea>
 		              </div>
-		              <div class="col-md-3"><label for="player_id"></label></div>
+		              <div class="col-md-3"><label for="content"></label></div>
 		          </div>
+		          
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>球员名称：</label>
+		              <label class="col-md-3 control-label">发表时间：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="player_name" name="player_name" required value="${say.player_name}"  placeholder="请输入球员名称">
-		              </div>
-		              <div class="col-md-3"><label for="player_name"></label></div>
-		          </div>
-		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>发表时间：</label>
-		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="create_time" name="create_time" required value="${say.create_time}" placeholder="请输入发表时间">
+		                  <input type="text" class="form-control" id="create_time" name="create_time" onFocus="WdatePicker({el:'create_time'})" value="${say.create_time}" placeholder="请输入发表时间" style="width:180px;">
+						  <img onclick="WdatePicker({el:'create_time'})" src="assets/image/page/cal_pick.png" align="middle"  style="cursor:pointer; margin-left:-9px;">
 		              </div>
 		              <div class="col-md-3"><label for="create_time"></label></div>
 		          </div>
@@ -74,6 +79,15 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	$(".bs-select").selectpicker({
+        noneSelectedText:'请选择',
+        noneResultsText:"查询不到 {0}"
+    });
+	
+	if('${say.player_id}'!=''){
+		$('.bs-select').selectpicker('val', '${say.player_id}');
+	}
+	
 	var validator = $("#form").validate({
 		errorPlacement: function(error, element) {
 			$( element )

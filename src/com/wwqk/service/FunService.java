@@ -16,28 +16,28 @@ import com.wwqk.utils.StringUtils;
 public class FunService {
 
 	public static Map<Object, Object> funData(Controller controller){
-		String sumSql = "select count(*) from say ";
-		String sql = "select * from say ";
+		String sumSql = "select count(*) from fun ";
+		String sql = "select * from fun ";
 		String orderSql = "";
 		String whereSql = "";
 		String limitSql = "";
 		
 		String search = controller.getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
-			whereSql = " and (player_id like '%"+search+"%'"+" OR player_name like '%"+search+"%'"+" OR l.content like '%"+search+"%' )";
+			whereSql = " where (title like '%"+search+"%'"+" OR player_name like '%"+search+"%'"+" )";
 		}
 		
 		int sortColumn = controller.getParaToInt("order[0][column]");
 		String sortType = controller.getPara("order[0][dir]");
 		switch (sortColumn) {
 		case 1:
-			orderSql = " order by t.player_id "+sortType;
+			orderSql = " order by title "+sortType;
 			break;
 		case 2:
-			orderSql = " order by t.player_name "+sortType;
+			orderSql = " order by player_name "+sortType;
 			break;
-		case 3:
-			orderSql = " order by t.create_time "+sortType;
+		case 4:
+			orderSql = " order by create_time "+sortType;
 			break;
 		default:
 			break;
@@ -55,17 +55,20 @@ public class FunService {
 			lstSay = Say.dao.find(sql+whereSql+orderSql+limitSql);
 			data = new Object[lstSay.size()];
 			for(int i=0; i<lstSay.size(); i++){
-				Object[] obj = new Object[5];
+				Object[] obj = new Object[7];
 				Say say = lstSay.get(i);
 				obj[0] = say.get("id");
-				obj[1] = say.get("player_id");
-				obj[2] = say.get("player_name");
+				obj[1] = say.get("title");
+				obj[2] = say.get("type");
 				obj[3] = say.get("create_time");
-				String content = say.get("content");
-				if(StringUtils.isNotBlank(content) && content.length()>10){
-					content = content.substring(0,10);
+				String summary = say.get("summary");
+				if(StringUtils.isNotBlank(summary) && summary.length()>10){
+					summary = summary.substring(0,10);
 				}
-				obj[4] = content;
+				obj[4] = summary;
+				obj[5] = say.get("player_name");
+				obj[6] = say.get("status");
+				
 				data[i] = obj;
 			}
 		}

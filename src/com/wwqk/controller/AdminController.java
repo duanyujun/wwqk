@@ -1,5 +1,6 @@
 package com.wwqk.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
@@ -166,7 +167,9 @@ public class AdminController extends Controller {
 			Say say = Say.dao.findById(id);
 			setAttr("say", say);
 		}
-		
+		//全部player
+		List<Player> lstPlayer = Player.dao.find("select p.*, t.name team_name from player p, team t where p.team_id = t.id ");
+		setAttr("lstPlayer", lstPlayer);
 		render("admin/sayForm.jsp");
 	}
 	
@@ -187,7 +190,7 @@ public class AdminController extends Controller {
 	}
 	
 	public void listFun(){
-		render("admin/sayList.jsp");
+		render("admin/funList.jsp");
 	}
 	
 	public void funData(){
@@ -214,7 +217,7 @@ public class AdminController extends Controller {
 		String ids = getPara("ids");
 		if(StringUtils.isNotBlank(ids)){
 			String whereSql = " where id in (" + ids +")";
-			Db.update("delete from say "+whereSql);
+			Db.update("delete from fun "+whereSql);
 			renderJson(1);
 		}else{
 			renderJson(0);

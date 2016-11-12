@@ -56,9 +56,10 @@
                         <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /> 
                     </th>
                     <th> 标题  </th>
-                    <th> 摘要 </th>
                     <th> 类型 </th>
                     <th> 创建时间 </th>
+                    <th> 摘要 </th>
+                    <th> 球员名称 </th>
                     <th> 状态 </th>
                 </tr>
             </thead>
@@ -89,7 +90,7 @@ $(document).ready(function() {
                     }}
         
         ],
-        "order": [[4, 'desc']],
+        "order": [[3, 'desc']],
         "language": {
             "emptyTable": "暂 无 数  据",
             "info": "显示从_START_到_END_条，共_TOTAL_条记录",

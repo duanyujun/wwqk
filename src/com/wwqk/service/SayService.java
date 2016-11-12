@@ -1,5 +1,6 @@
 package com.wwqk.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +10,9 @@ import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.upload.UploadFile;
 import com.wwqk.model.Fun;
+import com.wwqk.model.Player;
 import com.wwqk.model.Say;
+import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.StringUtils;
 
@@ -24,20 +27,20 @@ public class SayService {
 		
 		String search = controller.getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
-			whereSql = " and (player_id like '%"+search+"%'"+" OR player_name like '%"+search+"%'"+" OR l.content like '%"+search+"%' )";
+			whereSql = " where (player_id like '%"+search+"%'"+" OR player_name like '%"+search+"%'"+" OR content like '%"+search+"%' )";
 		}
 		
 		int sortColumn = controller.getParaToInt("order[0][column]");
 		String sortType = controller.getPara("order[0][dir]");
 		switch (sortColumn) {
 		case 1:
-			orderSql = " order by t.player_id "+sortType;
+			orderSql = " order by player_id "+sortType;
 			break;
 		case 2:
-			orderSql = " order by t.player_name "+sortType;
+			orderSql = " order by player_name "+sortType;
 			break;
 		case 3:
-			orderSql = " order by t.create_time "+sortType;
+			orderSql = " order by create_time "+sortType;
 			break;
 		default:
 			break;
@@ -91,8 +94,12 @@ public class SayService {
         }
 		
 		String player_id = controller.getPara("player_id");
-		String player_name = controller.getPara("player_name");
+		if(StringUtils.isBlank(player_id)){
+			return;
+		}
+		Player player = Player.dao.findById(player_id);
 		String content = controller.getPara("content");
+		String create_time = controller.getPara("create_time");
 		String image_small = "";
 		String image_big = "";
 		long millis = System.currentTimeMillis();
@@ -113,10 +120,13 @@ public class SayService {
 		}
 		
 		say.set("player_id", player_id);
-		say.set("player_name", player_name);
+		say.set("player_name", player.get("name"));
 		say.set("content", content);
 		say.set("image_small", image_small);
 		say.set("image_big", image_big);
+		if(StringUtils.isNotBlank(create_time)){
+			say.set("create_time", create_time);
+		}
 		
 		if(StringUtils.isNotBlank(image_small)){
 			say.set("image_small", image_small);
@@ -140,8 +150,11 @@ public class SayService {
 		fun.set("image_small", image_small);
 		fun.set("image_big", image_big);
 		fun.set("player_id",player_id);
-		fun.set("player_name",player_name);
-		fun.set("player_image",image_small);
+		fun.set("player_name",player.get("name"));
+		fun.set("player_image",player.get("img_small_local"));
+		if(StringUtils.isNotBlank(create_time)){
+			fun.set("create_time", create_time);
+		}
 		FunService.save(fun);
 	}
 	
