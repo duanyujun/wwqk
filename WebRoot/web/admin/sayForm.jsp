@@ -4,6 +4,7 @@
 <script src="${ctx}/assets/global/plugins/bootstrap-toastr/toastr.js" type="text/javascript"></script>
 <link href="${ctx}/assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
 <script src="${ctx}/assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="${ctx}/assets/global/plugins/My97DatePicker/WdatePicker.js"></script> 
 
 <style>
 .error{
@@ -26,7 +27,7 @@
 		      <div class="form-body">
 		          
 		          <div class="form-group">
-                      <label class="control-label col-md-3"><font color="red">*</font>球员</label>
+                      <label class="control-label col-md-3"><font color="red">*</font>球员：</label>
                       <div class="col-md-4">
                           <select class="bs-select form-control" required data-live-search="true" name="player_id">
                           	  <c:forEach items="${lstPlayer}" var="player">
@@ -46,11 +47,9 @@
 		          
 		          <div class="form-group">
 		              <label class="col-md-3 control-label">发表时间：</label>
-		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="create_time" name="create_time" onFocus="WdatePicker({el:'create_time'})" value="${say.create_time}" placeholder="请输入发表时间" style="width:180px;">
-						  <img onclick="WdatePicker({el:'create_time'})" src="assets/image/page/cal_pick.png" align="middle"  style="cursor:pointer; margin-left:-9px;">
+		              <div class="col-md-9" >
+				           <input type="text" id="create_time" class="form-control" name="create_time" onFocus="WdatePicker({el:'create_time',dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="${say.create_time}" placeholder="请输入发表时间" style="width:180px;display:inline-block;"><img onclick="WdatePicker({el:'create_time',dateFmt:'yyyy-MM-dd HH:mm:ss'})" src="assets/image/page/cal_pick.png"  style="cursor:pointer; ">
 		              </div>
-		              <div class="col-md-3"><label for="create_time"></label></div>
 		          </div>
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>大图片（610x410）：</label>
