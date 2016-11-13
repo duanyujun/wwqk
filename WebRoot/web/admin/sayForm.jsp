@@ -58,6 +58,17 @@
 		              </div>
 		              <div class="col-md-3"><label for="image_big"></label></div>
 		          </div>
+		          <c:if test="${!empty say.image_big}">
+		          	<div class="form-group">
+			              <label class="col-md-3 control-label"></label>
+			              <div class="col-md-6">
+			                  <img src="${say.image_big}" />
+			              </div>
+			              <div class="col-md-3"><label for="image_big"></label></div>
+			          </div>
+		          </c:if>
+		          
+		          
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>小图片（180x135）：</label>
 		              <div class="col-md-6">
@@ -65,6 +76,17 @@
 		              </div>
 		              <div class="col-md-3"><label for="image_small"></label></div>
 		          </div>
+		          <c:if test="${!empty say.image_small}">
+		          	<div class="form-group">
+			              <label class="col-md-3 control-label"></label>
+			              <div class="col-md-6">
+			                  <img src="${say.image_small}" />
+			              </div>
+			              <div class="col-md-3"><label for="image_big"></label></div>
+			          </div>
+		          </c:if>
+		          
+		          
 		          <div class="form-group">
 			          <div class="col-md-offset-3 col-md-9">
 	                      <button type="button" class="btn green" onclick="save();">保 存</button>

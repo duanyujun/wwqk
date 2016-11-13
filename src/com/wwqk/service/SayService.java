@@ -122,8 +122,13 @@ public class SayService {
 		say.set("player_id", player_id);
 		say.set("player_name", player.get("name"));
 		say.set("content", content);
-		say.set("image_small", image_small);
-		say.set("image_big", image_big);
+		if(StringUtils.isNotBlank(image_small)){
+			say.set("image_small", image_small);
+		}
+		if(StringUtils.isNotBlank(image_big)){
+			say.set("image_big", image_big);
+		}
+		
 		if(StringUtils.isNotBlank(create_time)){
 			say.set("create_time", create_time);
 		}
@@ -135,10 +140,19 @@ public class SayService {
 			say.set("image_big", image_big);
 		}
 		
+		String oldSayId = null;
+		if(say.get("id")!=null){
+			oldSayId = say.get("id").toString();
+		}
 		save(say);
 		
-		//复制一份到趣点
-		Fun fun = new Fun();
+		Fun fun = null;
+		if(StringUtils.isNotBlank(oldSayId)){
+			fun = Fun.dao.findFirst("select * from fun where source_id = ? ", oldSayId);
+		}else{
+			fun = new Fun();
+		}
+		
 		String contentOld = content;
 		if(StringUtils.isNotBlank(content) && content.length()>15){
 			content = content.substring(0, 15);
@@ -155,6 +169,8 @@ public class SayService {
 		if(StringUtils.isNotBlank(create_time)){
 			fun.set("create_time", create_time);
 		}
+		
+		
 		FunService.save(fun);
 	}
 	
