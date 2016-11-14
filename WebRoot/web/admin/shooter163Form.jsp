@@ -14,66 +14,27 @@
     <div class="portlet-title">
         <div class="caption font-dark">
             <i class="icon-settings font-dark"></i>
-            <span class="caption-subject bold uppercase"> 编辑趣点 </span>
+            <span class="caption-subject bold uppercase"> 编辑射手榜 </span>
         </div>
         
     </div>
     <div class="portlet-body">
         <form class="form-horizontal" id="form" action="/admin/saveSay" enctype="multipart/form-data" method="post">
-        	  <input type="hidden" name="id" value="${say.id}" />
+        	  <input type="hidden" name="id" value="${shooter163.id}" />
 		      <div class="form-body">
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>标题：</label>
+		              <label class="col-md-3 control-label"><font color="red">*</font>球员名称（163）：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="title" name="title" required value="${fun.title}" placeholder="请输入标题">
+		                  <input type="text" class="form-control" id="player_name_163" name="player_name_163" required value="${shooter163.player_name_163}" >
 		              </div>
-		              <div class="col-md-3"><label for="title"></label></div>
+		              <div class="col-md-3"><label for="player_name_163"></label></div>
 		          </div>
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>摘要：</label>
+		              <label class="col-md-3 control-label"><font color="red">*</font>球队名称（163）：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="summary" name="summary" required value="${fun.summary}"  placeholder="请输入摘要">
+		                  <input type="text" class="form-control" id="team_name_163" name="team_name_163" required value="${shooter163.team_name_163}"  >
 		              </div>
-		              <div class="col-md-3"><label for="summary"></label></div>
-		          </div>
-		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>内容：</label>
-		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="content" name="content" required value="${fun.content}"  placeholder="请输入内容">
-		              </div>
-		              <div class="col-md-3"><label for="content"></label></div>
-		          </div>
-		          
-		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>来源名称：</label>
-		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="source_name" name="source_name" required value="${fun.source_name}"  placeholder="请输入来源名称">
-		              </div>
-		              <div class="col-md-3"><label for="source_name"></label></div>
-		          </div>
-		          
-		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>来源URL：</label>
-		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="source_url" name="source_url" required value="${fun.source_url}"  placeholder="请输入来源URL">
-		              </div>
-		              <div class="col-md-3"><label for="source_url"></label></div>
-		          </div>
-		         
-		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>大图片：</label>
-		              <div class="col-md-6">
-		                  <input type="file" class="form-control" id="file_big" name="file_big" >
-		              </div>
-		              <div class="col-md-3"><label for="file_big"></label></div>
-		          </div>
-		          
-		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>小图片（180x135）：</label>
-		              <div class="col-md-6">
-		                  <input type="file" class="form-control" id="file_small" name="file_small" >
-		              </div>
-		              <div class="col-md-3"><label for="file_small"></label></div>
+		              <div class="col-md-3"><label for="team_name_163"></label></div>
 		          </div>
 		          
 		          <div class="form-group">
