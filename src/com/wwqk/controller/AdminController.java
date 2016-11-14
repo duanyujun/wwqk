@@ -12,6 +12,7 @@ import com.jfinal.upload.UploadFile;
 import com.wwqk.constants.FlagMask;
 import com.wwqk.model.Fun;
 import com.wwqk.model.League;
+import com.wwqk.model.LeagueShooter163;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
 import com.wwqk.model.Team;
@@ -19,6 +20,7 @@ import com.wwqk.service.FunService;
 import com.wwqk.service.LeagueService;
 import com.wwqk.service.PlayerService;
 import com.wwqk.service.SayService;
+import com.wwqk.service.Shooter163Service;
 import com.wwqk.service.TeamService;
 import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.StringUtils;
@@ -218,6 +220,43 @@ public class AdminController extends Controller {
 		if(StringUtils.isNotBlank(ids)){
 			String whereSql = " where id in (" + ids +")";
 			Db.update("delete from fun "+whereSql);
+			renderJson(1);
+		}else{
+			renderJson(0);
+		}
+	}
+	
+	
+	
+	public void listShooter163(){
+		render("admin/shooter163List.jsp");
+	}
+	
+	public void shooter163Data(){
+		Map<Object, Object> map = Shooter163Service.shooter163Data(this);
+		renderJson(map);
+	}
+	
+	public void editShooter163(){
+		String id = getPara("id");
+		if(id!=null){
+			LeagueShooter163 shooter163 = LeagueShooter163.dao.findById(id);
+			setAttr("shooter163", shooter163);
+		}
+		
+		render("admin/shooter163Form.jsp");
+	}
+	
+	public void saveShooter163(){
+		Shooter163Service.saveShooter163(this);
+		renderJson(1);
+	}
+	
+	public void deleteShooter163(){
+		String ids = getPara("ids");
+		if(StringUtils.isNotBlank(ids)){
+			String whereSql = " where id in (" + ids +")";
+			Db.update("delete from league_shooter_163 "+whereSql);
 			renderJson(1);
 		}else{
 			renderJson(0);
