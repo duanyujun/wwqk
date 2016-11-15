@@ -145,6 +145,10 @@
         <script src="${ctx}/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
         <script src="${ctx}/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
 		<script src="${ctx}/assets/global/plugins/jquery-validation/js/localization/messages_zh.min.js" type="text/javascript"></script>
+		<script src="${ctx}/assets/global/plugins/select2/select2.full.min.js" type="text/javascript"></script>
+		<script src="${ctx}/assets/global/plugins/select2/zh-CN.js" type="text/javascript"></script>
+		<script src="${ctx}/assets/global/scripts/placeholders.jquery.min.js" type="text/javascript"></script>
+		
     </body>
 
 <script type="text/javascript">

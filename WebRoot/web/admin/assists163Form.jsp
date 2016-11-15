@@ -2,8 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <script src="${ctx}/assets/global/plugins/jquery.form.min.js" type="text/javascript"></script>
 <script src="${ctx}/assets/global/plugins/bootstrap-toastr/toastr.js" type="text/javascript"></script>
- <link href="${ctx}/assets/global/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
- 
+
 <style>
 .error{
 	color:red;
@@ -39,16 +38,6 @@
 		          </div>
 		          
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>关联球员：</label>
-		              <div class="col-md-6">
-		              	  <select class="form-control" id="player_id" name="player_id" required>
-		              	  	<option>xxx</option>
-		              	  </select>
-		              </div>
-		              <div class="col-md-3"><label for="team_name_163"></label></div>
-		          </div>
-		          
-		          <div class="form-group">
 			          <div class="col-md-offset-3 col-md-9">
 	                      <button type="button" class="btn green" onclick="save();">保 存</button>
 	                      <button type="button" class="btn default" onclick="cancel();" style="margin-left:10px;">取 消</button>
@@ -61,8 +50,6 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	initSelect2();
-	
 	var validator = $("#form").validate({
 		errorPlacement: function(error, element) {
 			$( element )
@@ -74,10 +61,6 @@ $(document).ready(function() {
 	});
 });
 
-function initSelect2(){
-	$("#player_id").select2({placeholder:'请选择球员'});
-	
-}
 
 function cancel(){
 	$('#main-content').load($('#urlHidden').val());

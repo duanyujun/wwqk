@@ -12,10 +12,12 @@ import com.jfinal.upload.UploadFile;
 import com.wwqk.constants.FlagMask;
 import com.wwqk.model.Fun;
 import com.wwqk.model.League;
+import com.wwqk.model.LeagueAssists163;
 import com.wwqk.model.LeagueShooter163;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
 import com.wwqk.model.Team;
+import com.wwqk.service.Assists163Service;
 import com.wwqk.service.FunService;
 import com.wwqk.service.LeagueService;
 import com.wwqk.service.PlayerService;
@@ -261,5 +263,45 @@ public class AdminController extends Controller {
 		}else{
 			renderJson(0);
 		}
+	}
+	
+	public void listAssists163(){
+		render("admin/assits163List.jsp");
+	}
+	
+	public void assists163Data(){
+		Map<Object, Object> map = Assists163Service.assists163Data(this);
+		renderJson(map);
+	}
+	
+	public void editAssists163(){
+		String id = getPara("id");
+		if(id!=null){
+			LeagueAssists163 assists163 = LeagueAssists163.dao.findById(id);
+			setAttr("assists163", assists163);
+		}
+		
+		render("admin/assists163Form.jsp");
+	}
+	
+	public void saveAssits163(){
+		Assists163Service.saveAssists163(this);
+		renderJson(1);
+	}
+	
+	public void deleteAssists163(){
+		String ids = getPara("ids");
+		if(StringUtils.isNotBlank(ids)){
+			String whereSql = " where id in (" + ids +")";
+			Db.update("delete from league_assists_163 "+whereSql);
+			renderJson(1);
+		}else{
+			renderJson(0);
+		}
+	}
+	
+	public void loadPlayer(){
+		List<Player> loadPlayer = Player.dao.find("select * from player");
+		renderJson(loadPlayer);
 	}
 }

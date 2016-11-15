@@ -9,7 +9,7 @@
     <div class="portlet-title">
         <div class="caption font-dark">
             <i class="icon-settings font-dark"></i>
-            <span class="caption-subject bold uppercase">射手榜管理</span>
+            <span class="caption-subject bold uppercase">助攻榜管理</span>
         </div>
         
     </div>
@@ -18,10 +18,10 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="btn-group">
-                        <button id="sample_editable_1_new" onclick="goInsert();" class="btn sbold green"> 添加射手
+                        <button id="sample_editable_1_new" onclick="goInsert();" class="btn sbold green"> 添加助攻
                             <i class="fa fa-plus"></i>
                         </button>
-                        <button id="deleteBtn" onclick="goDelete();" class="btn sbold red" style="margin-left:10px;"> 删除射手
+                        <button id="deleteBtn" onclick="goDelete();" class="btn sbold red" style="margin-left:10px;"> 删除助攻
                             <i class="fa fa-trash"></i>
                         </button>
                     </div>
@@ -60,7 +60,7 @@
                     <th> 排名 </th>
                     <th> 球员名称（系统） </th>
                     <th> 球队名称（系统） </th>
-                    <th> 进球数 </th>
+                    <th> 助攻数 </th>
                 </tr>
             </thead>
         </table>

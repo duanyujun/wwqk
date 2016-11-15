@@ -7,15 +7,15 @@ import java.util.Map;
 
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
-import com.wwqk.model.LeagueShooter163;
+import com.wwqk.model.LeagueAssists163;
 import com.wwqk.model.Player;
 import com.wwqk.utils.StringUtils;
 
-public class Shooter163Service {
+public class Assists163Service {
 
-	public static Map<Object, Object> shooter163Data(Controller controller){
-		String sumSql = "select count(*) from league_shooter_163 ";
-		String sql = "select * from league_shooter_163 ";
+	public static Map<Object, Object> assists163Data(Controller controller){
+		String sumSql = "select count(*) from league_assists_163 ";
+		String sql = "select * from league_assists_163 ";
 		String orderSql = "";
 		String whereSql = "";
 		String limitSql = "";
@@ -44,7 +44,7 @@ public class Shooter163Service {
 			orderSql = " order by team_name "+sortType;
 			break;
 		case 6:
-			orderSql = " order by goal_count "+sortType;
+			orderSql = " order by assists_count "+sortType;
 			break;
 		default:
 			break;
@@ -56,21 +56,21 @@ public class Shooter163Service {
 			limitSql = " limit "+start+","+length;
 		}
 		Long recordsTotal = Db.queryLong(sumSql+whereSql);
-		List<LeagueShooter163> lstShooter163 = new ArrayList<LeagueShooter163>();
+		List<LeagueAssists163> lstAssists163 = new ArrayList<LeagueAssists163>();
 		Object[] data = null;
 		if(recordsTotal!=0){
-			lstShooter163 = LeagueShooter163.dao.find(sql+whereSql+orderSql+limitSql);
-			data = new Object[lstShooter163.size()];
-			for(int i=0; i<lstShooter163.size(); i++){
+			lstAssists163 = LeagueAssists163.dao.find(sql+whereSql+orderSql+limitSql);
+			data = new Object[lstAssists163.size()];
+			for(int i=0; i<lstAssists163.size(); i++){
 				Object[] obj = new Object[7];
-				LeagueShooter163 shooter163 = lstShooter163.get(i);
-				obj[0] = shooter163.get("id");
-				obj[1] = shooter163.get("player_name_163");
-				obj[2] = shooter163.get("team_name_163");
-				obj[3] = shooter163.get("rank");
-				obj[4] = shooter163.get("player_name");
-				obj[5] = shooter163.get("team_name");
-				obj[6] = shooter163.get("goal_count");
+				LeagueAssists163 assists163 = lstAssists163.get(i);
+				obj[0] = assists163.get("id");
+				obj[1] = assists163.get("player_name_163");
+				obj[2] = assists163.get("team_name_163");
+				obj[3] = assists163.get("rank");
+				obj[4] = assists163.get("player_name");
+				obj[5] = assists163.get("team_name");
+				obj[6] = assists163.get("assists_count");
 				data[i] = obj;
 			}
 		}
@@ -88,32 +88,32 @@ public class Shooter163Service {
 	}
 	
 	//仅用于修改
-	public static void saveShooter163(Controller controller){
+	public static void saveAssists163(Controller controller){
 		
 		String id = controller.getPara("id");
 		if(StringUtils.isBlank(id)){
 			return;
 		}
-		LeagueShooter163 shooter163  = LeagueShooter163.dao.findById(id);
+		LeagueAssists163 assists163  = LeagueAssists163.dao.findById(id);
 		String player_id = controller.getPara("player_id");
 		if(StringUtils.isBlank(player_id)){
 			return;
 		}
 		
 		Player player = Player.dao.findFirst("SELECT p.*, t.id team_id, t.name team_name FROM player p, team t WHERE p.team_id = t.id and p.id = ? ", player_id);
-		shooter163.set("player_id", player.get("id"));
-		shooter163.set("player_name", player.get("name"));
-		shooter163.set("team_id", player.get("team_id"));
-		shooter163.set("team_name", player.get("team_name"));
+		assists163.set("player_id", player.get("id"));
+		assists163.set("player_name", player.get("name"));
+		assists163.set("team_id", player.get("team_id"));
+		assists163.set("team_name", player.get("team_name"));
 		
-		save(shooter163);
+		save(assists163);
 	}
 	
-	public static void save(LeagueShooter163 shooter163){
-		if(shooter163.get("id")==null){
-			shooter163.save();
+	public static void save(LeagueAssists163 assists163){
+		if(assists163.get("id")==null){
+			assists163.save();
 		}else{
-			shooter163.update();
+			assists163.update();
 		}
 	}
 	
