@@ -1,9 +1,11 @@
 <%@ include file="/common/include.jsp"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+
 <script src="${ctx}/assets/global/plugins/jquery.form.min.js" type="text/javascript"></script>
 <script src="${ctx}/assets/global/plugins/bootstrap-toastr/toastr.js" type="text/javascript"></script>
- <link href="${ctx}/assets/global/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
- 
+<script src="${ctx}/assets/global/plugins/select2/select2.min.js" type="text/javascript"></script>
+<link href="${ctx}/assets/global/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
+<script src="${ctx}/assets/global/plugins/select2/zh-CN.js" type="text/javascript"></script>
 <style>
 .error{
 	color:red;
@@ -41,9 +43,23 @@
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>关联球员：</label>
 		              <div class="col-md-6">
-		              	  <select class="form-control" id="player_id" name="player_id" required>
-		              	  	<option>xxx</option>
-		              	  </select>
+		              	  <select id="sel_menu2" class="form-control">
+					         <optgroup label="系统设置">
+					              <option value="1">用户管理</option>
+					              <option value="2">角色管理</option>
+					              <option value="3">部门管理</option>
+					              <option value="4">菜单管理</option>
+					         </optgroup>
+					         <optgroup label="订单管理">
+					              <option value="5">订单查询</option>
+					              <option value="6">订单导入</option>
+					              <option value="7">订单删除</option>
+					              <option value="8">订单撤销</option>
+					         </optgroup>
+					         <optgroup label="基础数据">
+					              <option value="9">基础数据维护</option>
+					          </optgroup>
+					     </select>
 		              </div>
 		              <div class="col-md-3"><label for="team_name_163"></label></div>
 		          </div>
@@ -75,7 +91,13 @@ $(document).ready(function() {
 });
 
 function initSelect2(){
-	$("#player_id").select2({placeholder:'请选择球员'});
+	//$("#player_id").select2({placeholder:'请选择球员'});
+	//多选
+    $("#sel_menu2").select2({
+        tags: true,
+        maximumSelectionLength: 3  //最多能够选择的个数
+    });
+	
 	
 }
 
