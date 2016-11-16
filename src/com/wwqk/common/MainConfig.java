@@ -115,7 +115,7 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("roles_permissions", RolesPermissions.class);
 		arp.addMapping("league_shooter_163", LeagueShooter163.class);
 		arp.addMapping("league_assists_163", LeagueAssists163.class);
-		arp.addMapping("ShooterAssistsSource", LeagueAssists163.class);
+		arp.addMapping("shooter_assists_source", LeagueAssists163.class);
 		
 		me.add(c3p0Plugin);
 		me.add(arp);
