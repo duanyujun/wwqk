@@ -107,7 +107,7 @@ $(document).ready(function() {
             }
         },
         "bStateSave": !0,
-        "ajax": "/admin/shooter163Data"
+        "ajax": "/admin/assists163Data"
     } );
     
     $('#sample_1').find(".group-checkable").change(function() {
@@ -134,7 +134,7 @@ $(document).ready(function() {
 } );
 
 function goInsert(id){
-	var url = "/admin/editShooter163";
+	var url = "/admin/editAssists163";
 	if(id){
 		var timestamp=new Date().getTime();
 		url = url + "?id="+id+"&t="+timestamp;
@@ -156,7 +156,7 @@ function goDelete(){
            	 function(o) {
                	if(o==true){
                		ids = ids.substring(0, ids.length-1);
-           			$.post( "/admin/deleteShooter163",
+           			$.post( "/admin/deleteAssists163",
            					{ids, ids},
            					function(result){
            						$('#main-content').load($('#urlHidden').val());

@@ -245,6 +245,8 @@ public class AdminController extends Controller {
 			LeagueShooter163 shooter163 = LeagueShooter163.dao.findById(id);
 			setAttr("shooter163", shooter163);
 		}
+		List<Player> lstPlayer = Player.dao.find("select p.*, t.name team_name from player p, team t where p.team_id = t.id ");
+		setAttr("lstPlayer", lstPlayer);
 		
 		render("admin/shooter163Form.jsp");
 	}
@@ -266,7 +268,7 @@ public class AdminController extends Controller {
 	}
 	
 	public void listAssists163(){
-		render("admin/assits163List.jsp");
+		render("admin/assists163List.jsp");
 	}
 	
 	public void assists163Data(){
@@ -280,11 +282,13 @@ public class AdminController extends Controller {
 			LeagueAssists163 assists163 = LeagueAssists163.dao.findById(id);
 			setAttr("assists163", assists163);
 		}
+		List<Player> lstPlayer = Player.dao.find("select p.*, t.name team_name from player p, team t where p.team_id = t.id ");
+		setAttr("lstPlayer", lstPlayer);
 		
 		render("admin/assists163Form.jsp");
 	}
 	
-	public void saveAssits163(){
+	public void saveAssists163(){
 		Assists163Service.saveAssists163(this);
 		renderJson(1);
 	}
@@ -300,8 +304,4 @@ public class AdminController extends Controller {
 		}
 	}
 	
-	public void loadPlayer(){
-		List<Player> loadPlayer = Player.dao.find("select * from player");
-		renderJson(loadPlayer);
-	}
 }
