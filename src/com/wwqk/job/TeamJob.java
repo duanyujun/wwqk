@@ -71,7 +71,9 @@ public class TeamJob implements Job {
 		List<Team> lstNeedUpdate = new ArrayList<Team>();
 		Map<String, String> map = new HashMap<String, String>();
 		Set<String> idSet = new HashSet<String>();
-		Document document = Jsoup.connect(leagueUrl).get();
+		String html = FetchHtmlUtils.getHtmlContent(client, leagueUrl);
+		Document document = Jsoup.parse(html);
+		//Document document = Jsoup.connect(leagueUrl).get(); 
 		Elements bodyElement = document.select(".detailed-table");
 		String roundId = null;
 		if(bodyElement.size()>0){
