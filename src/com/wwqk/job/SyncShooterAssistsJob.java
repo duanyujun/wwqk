@@ -19,6 +19,7 @@ import org.quartz.JobExecutionException;
 import com.jfinal.plugin.activerecord.Db;
 import com.wwqk.model.LeagueAssists163;
 import com.wwqk.model.LeagueShooter163;
+import com.wwqk.model.Player;
 import com.wwqk.model.ShooterAssistsSource;
 import com.wwqk.utils.FetchHtmlUtils;
 
@@ -31,6 +32,9 @@ public class SyncShooterAssistsJob implements Job {
 		System.err.println("handle SyncShooterAssistsJob start!!!");
 		syncShooter();
 		syncAssists();
+		translateShooter();
+		translateAssists();
+		//copy to league_shooter， league_assists
 		System.err.println("handle SyncShooterAssistsJob end!!!");
 	}
 	
@@ -153,4 +157,34 @@ public class SyncShooterAssistsJob implements Job {
 		}
 	}
 
+	private void translateShooter(){
+		List<LeagueShooter163> lstShooter = LeagueShooter163.dao.find("select * from league_shooter_163");
+		for(LeagueShooter163 shooter163:lstShooter){
+			Player player = Player.dao.findFirst("select p.*, t.name team_name from player p, team t where p.team_id = t.id and p.name = ? t.name = ?",
+					shooter163.get("player_name_163"), shooter163.get("team_name_163"));
+			if(player!=null){
+				shooter163.set("player_id", player.get("id"));
+				shooter163.set("player_name", player.get("name"));
+				shooter163.set("team_id", player.get("team_id"));
+				shooter163.set("team_name", player.get("team_name"));
+			}
+		}
+		Db.batchUpdate(lstShooter, lstShooter.size());
+	}
+	
+	private void translateAssists(){
+		List<LeagueAssists163> lstAssists = LeagueAssists163.dao.find("select * from league_assists_163");
+		for(LeagueAssists163 assists163:lstAssists){
+			Player player = Player.dao.findFirst("select p.*, t.name team_name from player p, team t where p.team_id = t.id and p.name = ? t.name = ?",
+					assists163.get("player_name_163"), assists163.get("team_name_163"));
+			if(player!=null){
+				assists163.set("player_id", player.get("id"));
+				assists163.set("player_name", player.get("name"));
+				assists163.set("team_id", player.get("team_id"));
+				assists163.set("team_name", player.get("team_name"));
+			}
+		}
+		Db.batchUpdate(lstAssists, lstAssists.size());
+	}
+	
 }

@@ -122,7 +122,7 @@ public class PlayerJob implements Job {
 		updatePlayerTeamInfo(lstNeedInsert, lstNeedUpdate, teamId);
 		
 		//教练
-		handleCouchInfo(htmlTeam, teamId);
+		//handleCouchInfo(htmlTeam, teamId);
 		
 		for(Entry<String, String> entry : map.entrySet()){
 			handlePlayerDetail(entry);
