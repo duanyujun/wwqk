@@ -104,7 +104,7 @@ public class PlayerJob implements Job {
 				player.set("update_time", new Date());
 				lstNeedInsert.add(player);
 			}else{
-				if(FlagMask.isEditable(playerDB.get("name"), FlagMask.PLAYER_NAME_MASK)){
+				if(FlagMask.isEditable(playerDB.get("edit_flag"), FlagMask.PLAYER_NAME_MASK)){
 					playerDB.set("name", matcher.group(2));
 				}
 				
@@ -242,13 +242,13 @@ public class PlayerJob implements Job {
 		player.set("birth_country", CommonUtils.matcherString(CommonUtils.getPatternByName("出生国家"), playerContent));
 		player.set("birth_place", CommonUtils.matcherString(CommonUtils.getPatternByName("出生地"), playerContent));
 		player.set("position", CommonUtils.matcherString(CommonUtils.getPatternByName("位置"), playerContent));
-		if(FlagMask.isEditable(player.get("height"), FlagMask.PLAYER_HEIGHT_MASK)){
+		if(FlagMask.isEditable(player.get("edit_flag"), FlagMask.PLAYER_HEIGHT_MASK)){
 			player.set("height", CommonUtils.matcherString(CommonUtils.getPatternByName("高度"), playerContent));
 		}
-		if(FlagMask.isEditable(player.get("weight"), FlagMask.PLAYER_WEIGHT_MASK)){
+		if(FlagMask.isEditable(player.get("edit_flag"), FlagMask.PLAYER_WEIGHT_MASK)){
 			player.set("weight", CommonUtils.matcherString(CommonUtils.getPatternByName("重量"), playerContent));
 		}
-		if(FlagMask.isEditable(player.get("foot"), FlagMask.PLAYER_FOOT_MASK)){
+		if(FlagMask.isEditable(player.get("edit_flag"), FlagMask.PLAYER_FOOT_MASK)){
 			player.set("foot", CommonUtils.matcherString(CommonUtils.getPatternByName("脚"), playerContent));
 		}
 		player.set("update_time", new Date());
