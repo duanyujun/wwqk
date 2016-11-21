@@ -30,8 +30,8 @@ public class SyncShooterAssistsJob implements Job {
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		System.err.println("handle SyncShooterAssistsJob start!!!");
-		//syncShooter();
-		//syncAssists();
+		syncShooter();
+		syncAssists();
 		translateShooter();
 		translateAssists();
 		//copy to league_shooter， league_assists

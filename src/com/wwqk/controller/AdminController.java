@@ -1,18 +1,25 @@
 package com.wwqk.controller;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
+import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.tx.Tx;
 import com.jfinal.upload.UploadFile;
+import com.wwqk.constants.CommonConstants;
 import com.wwqk.constants.FlagMask;
 import com.wwqk.model.Fun;
 import com.wwqk.model.League;
+import com.wwqk.model.LeagueAssists;
 import com.wwqk.model.LeagueAssists163;
+import com.wwqk.model.LeagueShooter;
 import com.wwqk.model.LeagueShooter163;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
@@ -302,6 +309,70 @@ public class AdminController extends Controller {
 		}else{
 			renderJson(0);
 		}
+	}
+	
+	public void copyShooter(){
+		List<League> lstLeagues = League.dao.find("select * from league ");
+		for(League league:lstLeagues){
+			List<LeagueShooter163> lstShooter163 = LeagueShooter163.dao.find("select * from league_shooter_163 where league_id = ? order by rank asc limit 0, ? ", league.get("id"), CommonConstants.DEFAULT_RANK_SIZE);
+			List<LeagueShooter> lstShooter = new ArrayList<LeagueShooter>(CommonConstants.DEFAULT_RANK_SIZE);
+			if(lstShooter163.size()==CommonConstants.DEFAULT_RANK_SIZE){
+				for(LeagueShooter163 shooter163:lstShooter163){
+					LeagueShooter shooter = new LeagueShooter();
+					shooter.set("player_id", shooter163.get("player_id"));
+					shooter.set("player_name", shooter163.get("player_name"));
+					shooter.set("rank", shooter163.get("rank"));
+					shooter.set("team_id", shooter163.get("team_id"));
+					shooter.set("team_name", shooter163.get("team_name"));
+					shooter.set("goal_count", shooter163.get("goal_count"));
+					shooter.set("penalty_count", shooter163.get("penalty_count"));
+					shooter.set("league_id", shooter163.get("league_id"));
+					shooter.set("update_time", new Date());
+					lstShooter.add(shooter);
+				}
+				updateShooter(league.get("id"), lstShooter);
+			}
+		}
+		
+		renderJson(1);
+	}
+	
+	public void copyAssists(){
+		List<League> lstLeagues = League.dao.find("select * from league ");
+		for(League league:lstLeagues){
+			List<LeagueAssists163> lstAssists163 = LeagueAssists163.dao.find("select * from league_assists_163 where league_id = ? order by rank asc limit 0, ? ", league.get("id"), CommonConstants.DEFAULT_RANK_SIZE);
+			List<LeagueAssists> lstAssists = new ArrayList<LeagueAssists>(CommonConstants.DEFAULT_RANK_SIZE);
+			if(lstAssists163.size()==CommonConstants.DEFAULT_RANK_SIZE){
+				for(LeagueAssists163 assists163:lstAssists163){
+					LeagueAssists assists = new LeagueAssists();
+					assists.set("player_id", assists163.get("player_id"));
+					assists.set("player_name", assists163.get("player_name"));
+					assists.set("rank", assists163.get("rank"));
+					assists.set("team_id", assists163.get("team_id"));
+					assists.set("team_name", assists163.get("team_name"));
+					assists.set("goal_count", assists163.get("goal_count"));
+					assists.set("penalty_count", assists163.get("penalty_count"));
+					assists.set("league_id", assists163.get("league_id"));
+					assists.set("update_time", new Date());
+					lstAssists.add(assists);
+				}
+				updateAssists(league.get("id"), lstAssists);
+			}
+		}
+		
+		renderJson(1);
+	}
+	
+	@Before(Tx.class)
+	private void updateShooter(String leagueId, List<LeagueShooter> lstShooter){
+		Db.update("delete from league_shooter where league_id = ? ", leagueId);
+		Db.batchSave(lstShooter, lstShooter.size());
+	}
+	
+	@Before(Tx.class)
+	private void updateAssists(String leagueId, List<LeagueAssists> lstAssists){
+		Db.update("delete from league_assists where league_id = ? ", leagueId);
+		Db.batchSave(lstAssists, lstAssists.size());
 	}
 	
 }

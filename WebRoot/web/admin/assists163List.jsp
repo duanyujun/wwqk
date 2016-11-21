@@ -18,12 +18,10 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="btn-group">
-                        <button id="sample_editable_1_new" onclick="goInsert();" class="btn sbold green"> 添加助攻
+                        <button id="sample_editable_1_new" onclick="updateAssists();" class="btn sbold green"> 更新助攻
                             <i class="fa fa-plus"></i>
                         </button>
-                        <button id="deleteBtn" onclick="goDelete();" class="btn sbold red" style="margin-left:10px;"> 删除助攻
-                            <i class="fa fa-trash"></i>
-                        </button>
+                        
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -140,6 +138,15 @@ function goInsert(id){
 		url = url + "?id="+id+"&t="+timestamp;
 	}
 	$('#main-content').load(url);
+}
+
+function updateAssists(){
+	$.ajax({ 
+		url: "/admin/copyAssists", 
+    	success: function(data){
+    		showToast(1, "更新成功！", "温馨提示");
+        }
+	});
 }
 
 function goDelete(){
