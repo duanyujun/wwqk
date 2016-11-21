@@ -44,6 +44,7 @@ import com.wwqk.model.Player;
 import com.wwqk.model.Roles;
 import com.wwqk.model.RolesPermissions;
 import com.wwqk.model.Say;
+import com.wwqk.model.ShooterAssistsSource;
 import com.wwqk.model.Team;
 import com.wwqk.model.Transfer;
 import com.wwqk.model.Trophy;
@@ -115,7 +116,7 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("roles_permissions", RolesPermissions.class);
 		arp.addMapping("league_shooter_163", LeagueShooter163.class);
 		arp.addMapping("league_assists_163", LeagueAssists163.class);
-		arp.addMapping("shooter_assists_source", LeagueAssists163.class);
+		arp.addMapping("shooter_assists_source", ShooterAssistsSource.class);
 		
 		me.add(c3p0Plugin);
 		me.add(arp);
