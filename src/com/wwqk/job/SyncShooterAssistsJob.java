@@ -22,6 +22,7 @@ import com.wwqk.model.LeagueShooter163;
 import com.wwqk.model.Player;
 import com.wwqk.model.ShooterAssistsSource;
 import com.wwqk.utils.FetchHtmlUtils;
+import com.wwqk.utils.StringUtils;
 
 public class SyncShooterAssistsJob implements Job {
 	
@@ -30,8 +31,8 @@ public class SyncShooterAssistsJob implements Job {
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		System.err.println("handle SyncShooterAssistsJob start!!!");
-		syncShooter();
-		syncAssists();
+		//syncShooter();
+		//syncAssists();
 		translateShooter();
 		translateAssists();
 		
@@ -183,6 +184,14 @@ public class SyncShooterAssistsJob implements Job {
 				assists163.set("player_name", player.get("name"));
 				assists163.set("team_id", player.get("team_id"));
 				assists163.set("team_name", player.get("team_name"));
+			}else{
+				LeagueShooter163 shooter163 = LeagueShooter163.dao.findFirst("select * from league_shooter_163 where player_name_163 = ? and team_name_163 = ? ", assists163.get("player_name_163"), assists163.get("team_name_163"));
+				if(shooter163!=null && StringUtils.isNotBlank(shooter163.get("player_id"))){
+					assists163.set("player_id", shooter163.get("player_id"));
+					assists163.set("player_name", shooter163.get("player_name"));
+					assists163.set("team_id", shooter163.get("team_id"));
+					assists163.set("team_name", shooter163.get("team_name"));
+				}
 			}
 		}
 		Db.batchUpdate(lstAssists, lstAssists.size());
