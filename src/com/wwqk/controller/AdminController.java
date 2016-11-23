@@ -154,12 +154,8 @@ public class AdminController extends Controller {
 	}
 	
 	public void savePlayer(){
-		String id = getPara("id");
-		if(id == null){
-			return;
-		}
 		PlayerService.updatePlayer(this);
-		renderJson(1);
+		render("admin/playerList.jsp");
 	}
 	
 	

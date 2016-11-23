@@ -5,10 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.tx.Tx;
 import com.jfinal.upload.UploadFile;
 import com.wwqk.constants.FlagMask;
+import com.wwqk.model.LeagueAssists;
+import com.wwqk.model.LeagueAssists163;
+import com.wwqk.model.LeagueShooter;
+import com.wwqk.model.LeagueShooter163;
 import com.wwqk.model.Player;
 import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.StringUtils;
@@ -24,7 +30,7 @@ public class PlayerService {
 		
 		String search = controller.getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
-			whereSql = " and (p.name like '%"+search+"%'"+" OR t.name like '%"+search+"%'"+" OR t.first_name like '%"+search+"%'"+" OR t.last_name like '%"+search+"%'"+" OR p.nationality like '%"+search+"%' )";
+			whereSql = " and (p.name like '%"+search+"%'"+" OR t.name like '%"+search+"%'"+" OR p.first_name like '%"+search+"%'"+" OR p.last_name like '%"+search+"%'"+" OR p.nationality like '%"+search+"%' )";
 		}
 		
 		int sortColumn = controller.getParaToInt("order[0][column]");
@@ -80,6 +86,7 @@ public class PlayerService {
 		return map;
 	}
 	
+	@Before(Tx.class)
 	public static void updatePlayer(Controller controller){
 		List<UploadFile> files = new ArrayList<UploadFile>();
 		try {
@@ -89,6 +96,10 @@ public class PlayerService {
         }
 		
 		String id = controller.getPara("id");
+		if(StringUtils.isBlank(id)){
+			return;
+		}
+		
 		String img_small_local = "";
 		String img_big_local = "";
 		
@@ -101,8 +112,10 @@ public class PlayerService {
 		}
 		
 		Player player = Player.dao.findById(id);
+		updateShooterAssistsName(player, controller.getPara("name"));
 		player.set("name", controller.getPara("name"));
 		FlagMask.setModelFlag(player, "name", controller.getPara("name"), FlagMask.PLAYER_NAME_MASK);
+		
 		
 		player.set("height", controller.getPara("height"));
 		FlagMask.setModelFlag(player, "height", controller.getPara("height"), FlagMask.PLAYER_HEIGHT_MASK);
@@ -121,6 +134,31 @@ public class PlayerService {
 		player.set("img_big_local", img_big_local);
 		FlagMask.setModelFlag(player, "img_big_local", img_big_local, FlagMask.PLAYER_BIG_IMG_MASK);
 		player.update();
+	}
+	
+	private static void updateShooterAssistsName(Player playerDB, String nameNew){
+		if(StringUtils.isNotBlank(nameNew) && !nameNew.equals(playerDB.get("name"))){
+			LeagueShooter163 shooter163 = LeagueShooter163.dao.findFirst("select * from league_shooter_163 where player_id = ?", playerDB.get("id"));
+			if(shooter163!=null){
+				shooter163.set("player_name", nameNew);
+				shooter163.update();
+			}
+			LeagueShooter shooter = LeagueShooter.dao.findFirst("select * from league_shooter where player_id = ?", playerDB.get("id"));
+			if(shooter!=null){
+				shooter.set("player_name", nameNew);
+				shooter.update();
+			}
+			LeagueAssists163 assists163 = LeagueAssists163.dao.findFirst("select * from league_assists_163 where player_id = ?", playerDB.get("id"));
+			if(assists163!=null){
+				assists163.set("player_name", nameNew);
+				assists163.update();
+			}
+			LeagueAssists assists = LeagueAssists.dao.findFirst("select * from league_assists where player_id = ?", playerDB.get("id"));
+			if(assists!=null){
+				assists.set("player_name", nameNew);
+				assists.update();
+			}
+		}
 	}
 	
 }

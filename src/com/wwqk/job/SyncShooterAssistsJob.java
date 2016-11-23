@@ -34,6 +34,7 @@ public class SyncShooterAssistsJob implements Job {
 		syncAssists();
 		translateShooter();
 		translateAssists();
+		
 		//copy to league_shooter， league_assists
 		System.err.println("handle SyncShooterAssistsJob end!!!");
 	}
