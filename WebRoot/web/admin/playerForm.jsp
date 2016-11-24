@@ -24,8 +24,14 @@
     </div>
     <div class="portlet-body">
         <form class="form-horizontal" id="form" action="/admin/savePlayer" enctype="multipart/form-data" method="post">
-        	  <input type="hidden" name="id" value="${player.id}" />
 		      <div class="form-body">
+		      	  <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>球员ID：</label>
+		              <div class="col-md-6">
+		                  <input type="text" class="form-control" id="id" name="id" required value="${player.id}" >
+		              </div>
+		              <div class="col-md-3"><label for="id"></label></div>
+		          </div>
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>球员名称：</label>
 		              <div class="col-md-6">
@@ -55,9 +61,9 @@
 		              <div class="col-md-3"><label for="foot"></label></div>
 		          </div>
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>球衣号码：</label>
+		              <label class="col-md-3 control-label">球衣号码：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="number" name="number" required value="${player.number}" placeholder="请输入球衣号码">
+		                  <input type="text" class="form-control" id="number" name="number" value="${player.number}" placeholder="请输入球衣号码">
 		              </div>
 		              <div class="col-md-3"><label for="number"></label></div>
 		          </div>
@@ -68,6 +74,16 @@
 		              </div>
 		              <div class="col-md-3"><label for="file_small"></label></div>
 		          </div>
+		          <c:if test="${!empty player.img_small_local}">
+		          	<div class="form-group">
+			              <label class="col-md-3 control-label"></label>
+			              <div class="col-md-6">
+			                  <img src="${player.img_small_local}" />
+			              </div>
+			              <div class="col-md-3"><label for="img_small_local"></label></div>
+			          </div>
+		          </c:if>
+		          
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>球员大图片（150x150）：</label>
 		              <div class="col-md-6">
@@ -75,6 +91,16 @@
 		              </div>
 		              <div class="col-md-3"><label for="file_big"></label></div>
 		          </div>
+		          <c:if test="${!empty player.img_big_local}">
+		          	<div class="form-group">
+			              <label class="col-md-3 control-label"></label>
+			              <div class="col-md-6">
+			                  <img src="${player.img_big_local}" />
+			              </div>
+			              <div class="col-md-3"><label for="img_big_local"></label></div>
+			          </div>
+		          </c:if>
+		          
 		          <div class="form-group">
 		              <label class="col-md-3 control-label">球员链接：</label>
 		              <div class="col-md-6">

@@ -5,15 +5,13 @@ import java.util.List;
 
 import com.jfinal.core.Controller;
 import com.wwqk.model.Player;
+import com.wwqk.model.Say;
 
 public class SayController extends Controller {
 
 	public void index(){
-		List<String> list = new ArrayList<String>();
-		for(int i=0; i<10; i++){
-			list.add(i+"");
-		}
-		setAttr("list", list);
+		List<Say> lstSay = Say.dao.find("select * from say");
+		setAttr("lstSay", lstSay);
 		render("say.jsp");
 	}
 	

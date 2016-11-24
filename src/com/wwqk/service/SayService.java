@@ -121,6 +121,7 @@ public class SayService {
 		
 		say.set("player_id", player_id);
 		say.set("player_name", player.get("name"));
+		say.set("player_img_local", player.get("img_small_local"));
 		say.set("content", content);
 		if(StringUtils.isNotBlank(image_small)){
 			say.set("image_small", image_small);

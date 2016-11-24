@@ -34,28 +34,35 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</ul>	
 			</div>
 		</div>
-		
+	</div>
+	
+	<div class="row clear_row_margin" style="margin-top:20px;">
+		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
+			<div class="col-lg-9 col-md-9 bread">
+				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;说说
+			</div>
+		</div>
 	</div>
 	
 	<div class="row clear_row_margin" style="margin-top:20px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-9 col-md-9">
-				<c:forEach items="${list}" var="l" varStatus="status">
+				<c:forEach items="${lstSay}" var="say" varStatus="status">
 					<div class="col-lg-12 col-md-12" style="border:1px solid #E3E7EA;${status.index!=0?'border-top:0;':''}padding:5px;padding-left:0;padding-bottom:10px;">
 						<div class="col-lg-1 col-md-1">
-							<img src="assets/image/page/14.png" style="width:48px;height:48px;" />
+							<a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:48px;height:48px;" /></a>
 						</div>
 						<div class="col-lg-11 col-md-11" >
 							<div class="col-lg-12 col-md-12 say-info">
-								<span style="font-weight:bold;color:#292f33;">拉姆</span>
-								<span style="color:#8899a6;font-size:13px;"> - 10月14日</span>
-								&nbsp;<a href="say/list" target="_blank" title="拉姆的更多说说">查看更多</a>
+								<span style="font-weight:bold;color:#292f33;"><a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
+								<span style="color:#8899a6;font-size:13px;"> - <fmt:formatDate value="${say.create_time}" pattern="MM月dd日"/> </span>
+								&nbsp;<a href="say/list?id=${say.player_id}" target="_blank" title="${say.player_name}的更多说说">查看更多</a>
 							</div>
 							<div class="col-lg-12 col-md-12">
-								<span style="color:#292f33;font-size:14px;">今晚的团队的伟大胜利。现在我可以享受周末庆祝我的生日，今晚的团队的伟大胜利。现在我可以享受周末庆祝我的生日:)</span>
+								<span style="color:#292f33;font-size:14px;">${say.content}</span>
 							</div>
 							<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-								<img src="assets/image/page/t-1.jpg" class="img-responsive img-rounded" />
+								<img src="${say.image_big}" class="img-responsive img-rounded" />
 							</div>
 						</div>
 					</div>

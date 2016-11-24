@@ -346,8 +346,7 @@ public class AdminController extends Controller {
 					assists.set("rank", assists163.get("rank"));
 					assists.set("team_id", assists163.get("team_id"));
 					assists.set("team_name", assists163.get("team_name"));
-					assists.set("goal_count", assists163.get("goal_count"));
-					assists.set("penalty_count", assists163.get("penalty_count"));
+					assists.set("assists_count", assists163.get("assists_count"));
 					assists.set("league_id", assists163.get("league_id"));
 					assists.set("update_time", new Date());
 					lstAssists.add(assists);

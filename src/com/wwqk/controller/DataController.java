@@ -1,9 +1,9 @@
 package com.wwqk.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.jfinal.core.Controller;
+import com.wwqk.model.LeagueAssists;
 import com.wwqk.model.LeaguePosition;
 import com.wwqk.model.LeagueShooter;
 import com.wwqk.utils.StringUtils;
@@ -25,11 +25,8 @@ public class DataController extends Controller {
 		List<LeagueShooter> shooterList = LeagueShooter.dao.find("select * from league_shooter where league_id = ? ORDER BY rank ASC ", leagueId);
 		setAttr("shooterList", shooterList);
 		
-		List<String> assistlist = new ArrayList<String>();
-		for(int i=0; i<15; i++){
-			assistlist.add(i+"");
-		}
-		setAttr("assistlist", assistlist);
+		List<LeagueAssists> assistsList = LeagueAssists.dao.find("select * from league_assists where league_id = ? ORDER BY rank ASC ", leagueId);
+		setAttr("assistsList", assistsList);
 		
 		render("data.jsp");
 	}

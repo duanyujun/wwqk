@@ -8,6 +8,9 @@ body{font-family:"Source Sans Pro", "Open Sans", "Helvetica Neue", "WenQuanYi Mi
 .menu_sel{background:#167D12;}
 .menu_bg{background:#00A50D;}
 .menu_width{width:100px;}
+.bread{color:#8899a6;}
+.bread a{text-decoration:none;}
+.bread a:hover{cursor:pointer;text-decoration:none;}
 .clear_row_margin{margin-left:0px;margin-right:0px;}
 .msg-img{width:220px;height:140px;}
 .msg-title{color:#2C3447;font-size:18px;}

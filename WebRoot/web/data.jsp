@@ -35,6 +35,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		
 		<div class="row clear_row_margin" style="margin-top:20px;">
 			<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
+				<div class="col-lg-9 col-md-9 bread">
+					当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;数据
+				</div>
+			</div>
+		</div>
+		
+		<div class="row clear_row_margin" style="margin-top:20px;">
+			<div id="main_content" style="min-height:20px;" class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2 col-sm-12 col-xs-12">		
 				<div class="row">
 					<div class="col-lg-2 col-md-2">
 						<a href="data" class="link-img"><img src="assets/image/page/league-logo1.jpg" style="width:60px;height:60px;"/></a>
@@ -73,7 +81,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<div class="row" style="margin-top:20px;">
 					<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 						<table class="table table-hover" style="border:1px solid #dddddd;">
-						  <caption style="min-height:60px;"><img src="assets/image/page/cup-${leagueId}.jpg" />&nbsp;联赛积分榜</caption>
+						  <caption style="min-height:60px;"><img src="assets/image/page/cup-${leagueId}.jpg" />&nbsp;<span style="font-size:18px;">联赛积分榜</span></caption>
 						  <thead>
 						    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
 						      <th>排名</th>
@@ -148,17 +156,16 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</div>
 				
 				<div class="row" style="margin-top:20px;">
-					<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+					<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
 						<table class="table table-striped table-hover " style="border:1px solid #dddddd;">
-						  <caption>射手榜</caption>
+						  <caption><span style="font-size:18px;">射手榜</span></caption>
 						  <thead>
 						    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
 						      <th>排名</th>
 						      <th>球员</th>
 						      <th>球队</th>
-						      <th align="center">进球数</th>
-						      <th align="center">点球数</th>
-						      <th align="center">第一进球</th>
+						      <th><center>进球数</center></th>
+						      <th><center>点球数</center></th>
 						    </tr>
 						  </thead>
 						  <tbody>
@@ -167,18 +174,17 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							      <td>${status.count}</td>
 							      <td class="team-title" ><img src="assets/image/soccer/players/50x50/${shooter.player_id}.png" style="width:25px;height:25px;" />&nbsp;${shooter.player_name}</td>
 							      <td class="team-title" ><a href="team?id=${shooter.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${shooter.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${shooter.team_name}</a></td>
-							      <td align="center">${shooter.goal_count}</td>
-							      <td align="center">${shooter.penalty_count}</td>
-							      <td align="center">${shooter.first_goal_count}</td>
+							      <td ><center>${shooter.goal_count}</center></td>
+							      <td ><center>${shooter.penalty_count}</center></td>
 							    </tr>
 							</c:forEach>
 						  </tbody>
 						</table>
 					</div>
 					
-					<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" style="display:none;">
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" >
 						<table class="table table-striped table-hover " style="border:1px solid #dddddd;">
-						  <caption>助攻榜</caption>
+						  <caption><span style="font-size:18px;">助攻榜</span></caption>
 						  <thead>
 						    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
 						      <th>排名</th>
@@ -188,12 +194,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						    </tr>
 						  </thead>
 						  <tbody>
-						  	<c:forEach items="${assistlist}"  var="assist" varStatus="status">
+						  	<c:forEach items="${assistsList}"  var="assists" varStatus="status">
 							    <tr>
 							      <td>${status.count}</td>
-							      <td class="team-title" ><a href="" target="_blank"><img src="assets/image/page/14.png" style="width:25px;height:25px;" />&nbsp;迭戈-科斯塔</a></td>
-							      <td class="team-title" ><a href="" target="_blank"><img src="assets/image/page/flag-1.png" style="width:25px;height:25px;"/>&nbsp;切尔西</a></td>
-							      <td align="center">7</td>
+							      <td class="team-title" ><img src="assets/image/soccer/players/50x50/${assists.player_id}.png" style="width:25px;height:25px;" />&nbsp;${assists.player_name}</td>
+							      <td class="team-title" ><a href="team?id=${assists.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${assists.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${assists.team_name}</a></td>
+							      <td ><center>${assists.assists_count}</center></td>
 							    </tr>
 						    </c:forEach>
 						  </tbody>
