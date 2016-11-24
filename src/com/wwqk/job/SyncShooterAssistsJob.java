@@ -31,8 +31,8 @@ public class SyncShooterAssistsJob implements Job {
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		System.err.println("handle SyncShooterAssistsJob start!!!");
-		//syncShooter();
-		//syncAssists();
+		syncShooter();
+		syncAssists();
 		translateShooter();
 		translateAssists();
 		
@@ -55,6 +55,7 @@ public class SyncShooterAssistsJob implements Job {
 					Element trElement = playerElements.get(i);
 					String rank = trElement.child(0).text();
 					String playerName = trElement.child(1).text();
+					String playerURL163 = trElement.child(1).child(0).attr("href");
 					String teamName = trElement.child(2).text();
 					String goalCount = trElement.child(5).text();
 					String penaltyCount = trElement.child(6).text();
@@ -64,6 +65,7 @@ public class SyncShooterAssistsJob implements Job {
 					shooter163.set("team_name_163", teamName);
 					shooter163.set("goal_count", goalCount);
 					shooter163.set("penalty_count", penaltyCount);
+					shooter163.set("player_url_163", playerURL163);
 					lstShooter163.add(shooter163);
 				}
 				//查询数据库
@@ -116,6 +118,7 @@ public class SyncShooterAssistsJob implements Job {
 					Element trElement = playerElements.get(i);
 					String rank = trElement.child(0).text();
 					String playerName = trElement.child(1).text();
+					String playerURL163 = trElement.child(1).child(0).attr("href");
 					String teamName = trElement.child(2).text();
 					String assistsCount = trElement.child(7).text();
 					LeagueAssists163 assists163 = new LeagueAssists163();
@@ -123,6 +126,7 @@ public class SyncShooterAssistsJob implements Job {
 					assists163.set("player_name_163", playerName);
 					assists163.set("team_name_163", teamName);
 					assists163.set("assists_count", assistsCount);
+					assists163.set("player_url_163", playerURL163);
 					lstAssists163.add(assists163);
 				}
 				//查询数据库
@@ -162,6 +166,11 @@ public class SyncShooterAssistsJob implements Job {
 	private void translateShooter(){
 		List<LeagueShooter163> lstShooter = LeagueShooter163.dao.find("select * from league_shooter_163");
 		for(LeagueShooter163 shooter163:lstShooter){
+			//判断 丹尼斯.苏亚雷斯
+			if(shooter163.getStr("player_url_163").contains("/602708.html")){
+				shooter163.set("player_name_163", "丹尼斯.苏亚雷斯");
+			}
+			
 			Player player = Player.dao.findFirst("select p.*, t.name team_name from player p, team t where p.team_id = t.id and p.name = ? and t.name = ?",
 					shooter163.getStr("player_name_163"), shooter163.getStr("team_name_163"));
 			if(player!=null){
@@ -185,6 +194,10 @@ public class SyncShooterAssistsJob implements Job {
 	private void translateAssists(){
 		List<LeagueAssists163> lstAssists = LeagueAssists163.dao.find("select * from league_assists_163");
 		for(LeagueAssists163 assists163:lstAssists){
+			//判断 丹尼斯.苏亚雷斯
+			if(assists163.getStr("player_url_163").contains("/602708.html")){
+				assists163.set("player_name_163", "丹尼斯.苏亚雷斯");
+			}
 			Player player = Player.dao.findFirst("select p.*, t.name team_name from player p, team t where p.team_id = t.id and p.name = ? and t.name = ?",
 					assists163.get("player_name_163"), assists163.get("team_name_163"));
 			if(player!=null){

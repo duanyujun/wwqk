@@ -23,6 +23,7 @@ import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wwqk.model.League;
 import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeaguePosition;
+import com.wwqk.model.Team;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.FetchHtmlUtils;
 import com.wwqk.utils.StringUtils;
@@ -91,10 +92,18 @@ public class ProductJob implements Job {
 			LeagueMatch match = new LeagueMatch();
 			match.set("match_date", CommonUtils.getDateByString(matchDate));
 			match.set("match_weekday", matchWeekday);
+			Team homeTeamDB = Team.dao.findById(homeTeamId);
+			if(homeTeamDB!=null){
+				homeTeamName = homeTeamDB.get("name");
+			}
 			match.set("home_team_id", homeTeamId);
 			match.set("home_team_name", homeTeamName);
 			match.set("home_team_url", homeTeamUrl);
 			match.set("away_team_id", awayTeamId);
+			Team awayTeamDB = Team.dao.findById(awayTeamId);
+			if(awayTeamId!=null){
+				awayTeamName = awayTeamDB.get("name");
+			}
 			match.set("away_team_name", awayTeamName);
 			match.set("away_team_url", awayTeamUrl);
 			match.set("result", filterMatchPoints(matchPoints));
@@ -137,6 +146,10 @@ public class ProductJob implements Job {
 			leaguePosition.set("round_id", roundId);
 			leaguePosition.set("rank", rank);
 			leaguePosition.set("team_id", teamId);
+			Team teamDB = Team.dao.findById(teamId);
+			if(teamDB!=null){
+				teamName = teamDB.get("name");
+			}
 			leaguePosition.set("team_name", teamName);
 			leaguePosition.set("team_url", teamUrl);
 			leaguePosition.set("round_count", roundCount);
