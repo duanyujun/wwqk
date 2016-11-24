@@ -86,6 +86,7 @@ public class SyncShooterAssistsJob implements Job {
 						shooterDB.set("goal_count", shooter163.get("goal_count"));
 						shooterDB.set("penalty_count", shooter163.get("penalty_count"));
 						shooterDB.set("update_time", new Date());
+						shooterDB.set("player_url_163", shooter163.get("player_url_163"));
 						needUpdateList.add(shooterDB);
 					}else{
 						shooter163.set("league_id", source.getStr("league_id"));
@@ -139,18 +140,19 @@ public class SyncShooterAssistsJob implements Job {
 				
 				List<LeagueAssists163> needUpdateList = new ArrayList<LeagueAssists163>();
 				List<LeagueAssists163> needInsertList = new ArrayList<LeagueAssists163>();
-				for(LeagueAssists163 shooter163:lstAssists163){
-					String key = shooter163.getStr("player_name_163")+"_"+shooter163.getStr("team_name_163");
+				for(LeagueAssists163 assists163:lstAssists163){
+					String key = assists163.getStr("player_name_163")+"_"+assists163.getStr("team_name_163");
 					if(map.get(key)!=null){
-						LeagueAssists163 shooterDB = map.get(key);
-						shooterDB.set("rank", shooter163.get("rank"));
-						shooterDB.set("assists_count", shooter163.get("assists_count"));
-						shooterDB.set("update_time", new Date());
-						needUpdateList.add(shooterDB);
+						LeagueAssists163 assistsDB = map.get(key);
+						assistsDB.set("rank", assists163.get("rank"));
+						assistsDB.set("assists_count", assists163.get("assists_count"));
+						assistsDB.set("update_time", new Date());
+						assistsDB.set("player_url_163", assists163.get("player_url_163"));
+						needUpdateList.add(assistsDB);
 					}else{
-						shooter163.set("league_id", source.getStr("league_id"));
-						shooter163.set("update_time", new Date());
-						needInsertList.add(shooter163);
+						assists163.set("league_id", source.getStr("league_id"));
+						assists163.set("update_time", new Date());
+						needInsertList.add(assists163);
 					}
 				}
 				if(needInsertList.size()>0){
@@ -167,7 +169,7 @@ public class SyncShooterAssistsJob implements Job {
 		List<LeagueShooter163> lstShooter = LeagueShooter163.dao.find("select * from league_shooter_163");
 		for(LeagueShooter163 shooter163:lstShooter){
 			//判断 丹尼斯.苏亚雷斯
-			if(shooter163.getStr("player_url_163").contains("/602708.html")){
+			if(StringUtils.isNotBlank(shooter163.getStr("player_url_163")) && shooter163.getStr("player_url_163").contains("/602708.html")){
 				shooter163.set("player_name_163", "丹尼斯.苏亚雷斯");
 			}
 			
@@ -195,7 +197,7 @@ public class SyncShooterAssistsJob implements Job {
 		List<LeagueAssists163> lstAssists = LeagueAssists163.dao.find("select * from league_assists_163");
 		for(LeagueAssists163 assists163:lstAssists){
 			//判断 丹尼斯.苏亚雷斯
-			if(assists163.getStr("player_url_163").contains("/602708.html")){
+			if(StringUtils.isNotBlank(assists163.getStr("player_url_163")) &&  assists163.getStr("player_url_163").contains("/602708.html")){
 				assists163.set("player_name_163", "丹尼斯.苏亚雷斯");
 			}
 			Player player = Player.dao.findFirst("select p.*, t.name team_name from player p, team t where p.team_id = t.id and p.name = ? and t.name = ?",
