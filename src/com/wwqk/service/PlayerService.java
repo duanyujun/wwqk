@@ -126,7 +126,9 @@ public class PlayerService {
 		player.set("foot", controller.getPara("foot"));
 		FlagMask.setModelFlag(player, "foot", controller.getPara("foot"), FlagMask.PLAYER_FOOT_MASK);
 		
-		player.set("number", controller.getPara("number"));
+		if(StringUtils.isNotBlank(controller.getPara("number"))){
+			player.set("number", controller.getPara("number"));
+		}
 		FlagMask.setModelFlag(player, "number", controller.getPara("number"), FlagMask.PLAYER_NUMBER_MASK);
 		
 		player.set("img_small_local", img_small_local);
