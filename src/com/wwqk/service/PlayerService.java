@@ -133,9 +133,14 @@ public class PlayerService {
 		}
 		FlagMask.setModelFlag(player, "number", controller.getPara("number"), FlagMask.PLAYER_NUMBER_MASK);
 		
-		player.set("img_small_local", img_small_local);
+		if(StringUtils.isNotBlank(img_small_local)){
+			player.set("img_small_local", img_small_local);
+		}
 		FlagMask.setModelFlag(player, "img_small_local", img_small_local, FlagMask.PLAYER_SMALL_IMG_MASK);
-		player.set("img_big_local", img_big_local);
+		
+		if(StringUtils.isNotBlank(img_big_local)){
+			player.set("img_big_local", img_big_local);
+		}
 		FlagMask.setModelFlag(player, "img_big_local", img_big_local, FlagMask.PLAYER_BIG_IMG_MASK);
 		player.update();
 	}
