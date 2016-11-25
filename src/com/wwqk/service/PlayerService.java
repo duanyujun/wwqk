@@ -58,7 +58,7 @@ public class PlayerService {
 			lstPalyer = Player.dao.find(sql+whereSql+orderSql+limitSql);
 			data = new Object[lstPalyer.size()];
 			for(int i=0; i<lstPalyer.size(); i++){
-				Object[] obj = new Object[10];
+				Object[] obj = new Object[12];
 				Player player = lstPalyer.get(i);
 				obj[0] = player.get("id");
 				obj[1] = player.get("name");
@@ -70,6 +70,8 @@ public class PlayerService {
 				obj[7] = player.get("height");
 				obj[8] = player.get("weight");
 				obj[9] = player.get("foot");
+				obj[10] = player.get("number");
+				obj[11] = player.get("position");
 				data[i] = obj;
 			}
 		}

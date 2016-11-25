@@ -64,6 +64,8 @@
                     <th> 身高 </th>
                     <th> 体重 </th>
                     <th> 惯用脚 </th>
+                    <th> 号码 </th>
+                    <th> 位置 </th>
                 </tr>
             </thead>
         </table>

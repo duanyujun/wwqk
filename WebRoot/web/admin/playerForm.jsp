@@ -28,7 +28,7 @@
 		      	  <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>球员ID：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="id" name="id" required value="${player.id}" >
+		                  <input type="text" class="form-control" id="id" name="id" required value="${player.id}" readonly>
 		              </div>
 		              <div class="col-md-3"><label for="id"></label></div>
 		          </div>
@@ -38,6 +38,20 @@
 		                  <input type="text" class="form-control" id="name" name="name" required value="${player.name}" placeholder="请输入球员名称">
 		              </div>
 		              <div class="col-md-3"><label for="name"></label></div>
+		          </div>
+		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>First Name：</label>
+		              <div class="col-md-6">
+		                  <input type="text" class="form-control" id="first_name" name="first_name" required value="${player.first_name}" placeholder="请输入球员first name">
+		              </div>
+		              <div class="col-md-3"><label for="first_name"></label></div>
+		          </div>
+		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>Last Name：</label>
+		              <div class="col-md-6">
+		                  <input type="text" class="form-control" id="last_name" name="last_name" required value="${player.last_name}" placeholder="请输入球员last name">
+		              </div>
+		              <div class="col-md-3"><label for="last_name"></label></div>
 		          </div>
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>身高：</label>
@@ -54,11 +68,25 @@
 		              <div class="col-md-3"><label for="weight"></label></div>
 		          </div>
 		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>年龄：</label>
+		              <div class="col-md-6">
+		                  <input type="text" class="form-control" id="age" name="age" required value="${player.age}" placeholder="请输入年龄">
+		              </div>
+		              <div class="col-md-3"><label for="age"></label></div>
+		          </div>
+		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>惯用脚（如：右）：</label>
 		              <div class="col-md-6">
 		                  <input type="text" class="form-control" id="foot" name="foot" required value="${player.foot}" placeholder="请输入惯用脚">
 		              </div>
 		              <div class="col-md-3"><label for="foot"></label></div>
+		          </div>
+		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>位置：</label>
+		              <div class="col-md-6">
+		                  <input type="text" class="form-control" id="position" name="position" required value="${player.position}" placeholder="请输入位置">
+		              </div>
+		              <div class="col-md-3"><label for="position"></label></div>
 		          </div>
 		          <div class="form-group">
 		              <label class="col-md-3 control-label">球衣号码：</label>
