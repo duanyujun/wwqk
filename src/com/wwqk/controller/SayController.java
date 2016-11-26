@@ -12,7 +12,7 @@ import com.wwqk.utils.PageUtils;
 public class SayController extends Controller {
 
 	public void index(){
-		Page<Say> sayPage = Say.dao.paginate(getParaToInt("pageNumber", 1), 1);
+		Page<Say> sayPage = Say.dao.paginate(getParaToInt("pageNumber", 1), 10);
 		setAttr("sayPage", sayPage);
 		setAttr("pageUI", PageUtils.calcStartEnd(sayPage));
 		render("say.jsp");

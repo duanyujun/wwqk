@@ -36,7 +36,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 	</div>
 	
-	<div class="row clear_row_margin" style="margin-top:20px;">
+	<div class="row clear_row_margin" style="margin-top:70px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-9 col-md-9 bread">
 				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;说说
@@ -61,16 +61,18 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<div class="col-lg-12 col-md-12">
 								<span style="color:#292f33;font-size:14px;">${say.content}</span>
 							</div>
-							<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-								<img src="${say.image_big}" class="img-responsive img-rounded" />
-							</div>
+							<c:if test="${!empty say.image_big}">
+								<div class="col-lg-12 col-md-12" style="margin-top:10px;">
+									<img src="${say.image_big}" class="img-responsive img-rounded" />
+								</div>
+							</c:if>
 						</div>
 					</div>
 				</c:forEach>
 				
 				
-				<div class="col-lg-12 col-md-12" style="margin-top:20px;">
-					<div class="scott">
+				<div class="col-lg-12 col-md-12 " style="margin-top:20px;">
+					<div class="scott pull-right">
 						<a href="/say?pageNumber=1" title="首页"> &lt;&lt; </a>
 						
 						<c:if test="${sayPage.pageNumber == 1}">
@@ -114,6 +116,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 	</div>
 	
-		
+	<%@ include file="/common/footer.jsp"%>	
 </body>	
 

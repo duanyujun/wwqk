@@ -6,7 +6,7 @@ body{font-family:"Source Sans Pro", "Open Sans", "Helvetica Neue", "WenQuanYi Mi
 .logo_div{float:left;height:60px;min-height:60px;width:195px;}
 .logo_div a{font-size:22px;color:white;text-decoration:none;}
 .menu_sel{background:#167D12;}
-.menu_bg{background:#00A50D;}
+.menu_bg{background:#00A50D;position:fixed;top:0;left:0;z-index:10000;box-sizing:content-box;width:100%;height:60px;}
 .menu_width{width:100px;}
 .bread{color:#8899a6;}
 .bread a{text-decoration:none;color:#8899a6;}
@@ -75,4 +75,7 @@ DIV.green-black SPAN.current {
 }
 DIV.green-black SPAN.disabled {
 	BORDER-RIGHT: #f3f3f3 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #f3f3f3 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 2px; BORDER-LEFT: #f3f3f3 1px solid; COLOR: #ccc; MARGIN-RIGHT: 2px; PADDING-TOP: 2px; BORDER-BOTTOM: #f3f3f3 1px solid
+}
+.footer{
+	height:120px;min-height:120px;width:100%;background:#404040;margin-top:40px;color:white;padding-top:18px;
 }
