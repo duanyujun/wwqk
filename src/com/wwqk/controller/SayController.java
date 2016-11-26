@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Page;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
+import com.wwqk.utils.PageUtils;
 
 public class SayController extends Controller {
 
 	public void index(){
-		List<Say> lstSay = Say.dao.find("select * from say");
-		setAttr("lstSay", lstSay);
+		Page<Say> sayPage = Say.dao.paginate(getParaToInt("pageNumber", 1), 1);
+		setAttr("sayPage", sayPage);
+		setAttr("pageUI", PageUtils.calcStartEnd(sayPage));
 		render("say.jsp");
 	}
 	

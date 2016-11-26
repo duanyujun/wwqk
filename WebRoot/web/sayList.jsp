@@ -70,7 +70,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			
 			<div class="col-lg-9 col-md-9" style="margin-top:15px;">
 				<c:forEach items="${list}" var="l" varStatus="status">
-					<div class="col-lg-12 col-md-12" style="border:1px solid #E3E7EA;${status.index!=0?'border-top:0;':''}padding:5px;padding-left:0;padding-bottom:10px;">
+					<div class="col-lg-12 col-md-12" style="border:1px solid #E3E7EA;${status.index!=0?'border-top:0;':''}padding:20px;padding-left:0;padding-bottom:10px;">
 						<div class="col-lg-1 col-md-1">
 							<img src="assets/image/page/14.png" style="width:48px;height:48px;" />
 						</div>

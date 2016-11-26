@@ -47,8 +47,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin" style="margin-top:20px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-9 col-md-9">
-				<c:forEach items="${lstSay}" var="say" varStatus="status">
-					<div class="col-lg-12 col-md-12" style="border:1px solid #E3E7EA;${status.index!=0?'border-top:0;':''}padding:5px;padding-left:0;padding-bottom:10px;">
+				<c:forEach items="${sayPage.list}" var="say" varStatus="status">
+					<div class="col-lg-12 col-md-12" style="border:1px solid #E3E7EA;${status.index!=0?'border-top:0;':''}padding:20px;padding-left:0;padding-bottom:10px;">
 						<div class="col-lg-1 col-md-1">
 							<a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:48px;height:48px;" /></a>
 						</div>
@@ -68,6 +68,48 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 				</c:forEach>
 				
+				
+				<div class="col-lg-12 col-md-12" style="margin-top:20px;">
+					<div class="scott">
+						<a href="/say?pageNumber=1" title="首页"> &lt;&lt; </a>
+						
+						<c:if test="${sayPage.pageNumber == 1}">
+							<span class="disabled"> &lt; </span>
+						</c:if>
+						<c:if test="${sayPage.pageNumber != 1}">
+							<a href="/say?pageNumber=${sayPage.pageNumber - 1}" > &lt; </a>
+						</c:if>
+						<c:if test="${sayPage.pageNumber > 8}">
+							<a href="/say?pageNumber=1">1</a>
+							<a href="/say?pageNumber=2">2</a>
+							...
+						</c:if>
+						<c:if test="${!empty pageUI.list}">
+							<c:forEach items="${pageUI.list}" var="pageNo">
+								<c:if test="${sayPage.pageNumber == pageNo }">
+									<span class="current">${pageNo}</span>
+								</c:if>
+								<c:if test="${sayPage.pageNumber != pageNo }">
+									<a href="/say?pageNumber=${pageNo}">${pageNo}</a>
+								</c:if>
+							</c:forEach>
+						</c:if>
+						<c:if test="${(sayPage.totalPage - sayPage.pageNumber) >= 8 }">
+							...
+							<a href="/say?pageNumber=${sayPage.totalPage - 1}">${sayPage.totalPage - 1}</a>
+							<a href="/say?pageNumber=${sayPage.totalPage}">${sayPage.totalPage}</a>
+						</c:if>
+						
+						<c:if test="${sayPage.pageNumber == sayPage.totalPage}">
+							<span class="disabled"> &gt; </span>
+						</c:if>
+						<c:if test="${sayPage.pageNumber != sayPage.totalPage}">
+							<a href="/say?pageNumber=${sayPage.pageNumber + 1}"> &gt; </a>
+						</c:if>
+						
+						<a href="/say?pageNumber=${sayPage.totalPage}" title="尾页"> &gt;&gt; </a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
