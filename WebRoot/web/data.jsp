@@ -61,19 +61,19 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 				</div>
 				<div class="row" style="margin-top:8px;">
-					<div class="col-lg-2 col-md-2">
+					<div class="col-lg-2 col-md-2 team-title" style="font-size:14px;">
 						<a href="data" ><div class="${leagueId==1?'select-league':'common-league'}">英超</div></a>
 					</div>
-					<div class="col-lg-2 col-md-2">
+					<div class="col-lg-2 col-md-2 team-title" style="font-size:14px;">
 						<a href="data?leagueId=2" ><div class="${leagueId==2?'select-league':'common-league'}">西甲</div></a>
 					</div>
-					<div class="col-lg-2 col-md-2">
+					<div class="col-lg-2 col-md-2 team-title" style="font-size:14px;">
 						<a href="data?leagueId=3" ><div class="${leagueId==3?'select-league':'common-league'}">德甲</div></a>
 					</div>
-					<div class="col-lg-2 col-md-2">
+					<div class="col-lg-2 col-md-2 team-title" style="font-size:14px;">
 						<a href="data?leagueId=4" ><div class="${leagueId==4?'select-league':'common-league'}">意甲</div></a>
 					</div>
-					<div class="col-lg-2 col-md-2">
+					<div class="col-lg-2 col-md-2 team-title" style="font-size:14px;">
 						<a href="data?leagueId=5" ><div class="${leagueId==5?'select-league':'common-league'}">法甲</div></a>
 					</div>
 				</div>

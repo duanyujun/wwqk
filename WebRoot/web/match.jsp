@@ -52,24 +52,31 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<c:forEach items="${lstGroup}" var="group">
 					<div class="table-responsive" style="margin-top:10px;">
 						<table class="table table-condensed table-hover" style="border-bottom:1px solid #dddddd;">
-						  <caption><img src="assets/image/page/league-logo${group[0].league_id}.jpg" style="width:80px;height:80px;"/></caption>
+						  <caption><a href="/say" title="去看看${group[0].league_name}的说说" target="_blank" ><img src="assets/image/page/league-logo${group[0].league_id}.jpg" style="width:80px;height:80px;"/></a></caption>
 						  <thead>
 						    <tr>
-						      <th>比赛时间（${group[0].league_name}）</th>
-						      <th></th>
-						      <th></th>
-						      <th></th>
-						      <th></th>	
+						      <th style="width:230px;">比赛时间（${group[0].league_name}）</th>
+						      <th style="width:180px;"></th>
+						      <th style="width:180px;"></th>
+						      <th style="width:180px;"></th>
+						      <th style="width:10px;"></th>	
 						    </tr>
 						  </thead>
 						  <tbody>
 						  	<c:forEach items="${group}" var="match">
 						    <tr>
-						      <td>${match.match_date} 星期${match.match_weekday}</td>
-						      <td><img src="assets/image/soccer/teams/150x150/${match.home_team_id}.png" style="width:25px;height:25px;"/>&nbsp;${match.home_team_name}</td>
-						      <td>${match.result}</td>
-						      <td><img src="assets/image/soccer/teams/150x150/${match.away_team_id}.png" style="width:25px;height:25px;"/>&nbsp;${match.away_team_name}</td>
-						      <td></td>
+						      <td>${match.match_date} &nbsp;&nbsp;星期${match.match_weekday}</td>
+						      <td class="team-title"><a href="team?id=${match.home_team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${match.home_team_id}.png" style="width:25px;height:25px;"/>&nbsp;${match.home_team_name}</a></td>
+						      <td>
+						      	<c:if test="${fn:contains(match.result, '-')}">
+						      		<b>${match.result}</b>
+						      	</c:if>
+						      	<c:if test="${!fn:contains(match.result, '-')}">
+						      		${match.result}
+						      	</c:if>
+						      </td>
+						      <td class="team-title"><a href="team?id=${match.away_team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${match.away_team_id}.png" style="width:25px;height:25px;"/>&nbsp;${match.away_team_name}</a></td>
+						      <td><span style="color:gray;"></span></td>
 						    </tr>
 						    </c:forEach>
 						    

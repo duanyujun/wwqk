@@ -37,7 +37,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		
 	</div>
 	
-	<div class="row clear_row_margin" style="margin-top:70px;">
+	<div class="row clear_row_margin" style="margin-top:80px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-9 col-md-9" style="padding-left:0px;">
 				<c:forEach items="${funPage.list}" var="fun" varStatus="status">

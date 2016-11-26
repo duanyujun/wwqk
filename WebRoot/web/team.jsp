@@ -39,7 +39,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<div class="row">
 					<div class="col-lg-4 col-md-4">
 						<div class="col-lg-12 col-md-12">						
-							<img src="assets/image/soccer/teams/150x150/${team.id}.png" style="width:150px;height:150px;"/>
+							<img src="assets/image/soccer/teams/150x150/${team.id}.png"  style="width:150px;height:150px;"/>
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
 							<span style="font-size:24px;font-weight:bold;">${team.name}</span>
@@ -59,7 +59,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 					<div class="col-lg-4 col-md-4">
 						<div class="col-lg-12 col-md-12">
-							<img src="${team.venue_small_img_local}" style="width:300px;height:225px;"/>
+							<img src="${team.venue_small_img_local}" class="img-responsive img-rounded" style="width:300px;height:225px;"/>
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
 							球场名称：${team.venue_name}
@@ -77,16 +77,30 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<div class="row" style="margin-top:20px;">
 						<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
 							<table class="table " >
-							  <caption style="min-height:30px;"><b>${group[0].position}</b></caption>
+							  <caption style="min-height:30px;text-align:left;"><b style="margin-left:15px;">${group[0].position}</b></caption>
 							  <tbody >
 							  	<c:set var="i" value="1"/>
 							  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
 								<c:forEach items="${group}" var="player">
 									<td style="width:50px;border:none;"><img src="assets/image/soccer/players/50x50/${player.id}.png" /></td>
-							      	<td colspan="${i==group.size()?3:1}" style="border:none;">${player.name}<br>${player.age}岁</td>
+							      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:13px;">
+							      		<p>
+							      		<a href="say/list?id=${player.id}" target="_blank">${player.name}</a>&nbsp;&nbsp;
+							      		<c:if test="${!empty player.number}">
+								      		${player.number}号
+							      		</c:if>
+							      		</p>
+							      		
+							      		<p style="line-height:20px;height:20px;">
+							      		${player.age}岁&nbsp;
+							      		<c:if test="${player.goal_count!=0}">
+							      			<img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" title="进球数：${player.goal_count}"/> ${player.goal_count}
+							      		</c:if>
+							      		</p>
+							      	</td>
 							      	<c:if test="${i%2==0}">
 									</tr>
-									<tr style="${i+2 ge group.size()?'border-bottom:1px solid #dddddd;':''}">
+									<tr style="${i+2 ge group.size()?'border-bottom:1px solid #dddddd;':''};width:250px;">
 									</c:if>
 									<c:set var="i" value="${i+1}"></c:set>
 								</c:forEach>
