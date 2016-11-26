@@ -40,31 +40,59 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin" style="margin-top:70px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-9 col-md-9" style="padding-left:0px;">
-				<c:forEach items="${list}" var="l" varStatus="status">
+				<c:forEach items="${funPage.list}" var="fun" varStatus="status">
 					<c:if test="${status.index!=0}">
 						<div class="col-lg-12 col-md-12" style="margin-top:19px;height:1px;"></div>
 					</c:if>
 				
 					<div class="col-lg-4 col-md-4">
-						<img src="assets/image/page/1.jpg" class="msg-img" />
+						<c:if test="${fun.type==1}">
+							<a href="fun/detail?id=${fun.id}" target="_blank"><img src="${fun.image_small}" class="msg-img" /></a>
+						</c:if>
+						<c:if test="${fun.type==2}">
+							<a href="say/detail?id=${fun.source_id}" target="_blank"><img src="${fun.image_small}" class="msg-img" /></a>
+						</c:if>
 					</div>
 					<div class="col-lg-8 col-md-8" style="padding-left:0px;">
 						<div class="col-lg-12 col-md-12">
-							<span class="msg-title"><a href="fun/detail" target="_blank">早报：同城双雄，命运各异</a></span>
+							<span class="msg-title">
+								<c:if test="${fun.type==1}">
+									<a href="fun/detail?id=${fun.id}" target="_blank">${fun.title}</a>
+								</c:if>
+								<c:if test="${fun.type==2}">
+									<a href="say/detail?id=${fun.source_id}" target="_blank">${fun.title}</a>
+								</c:if>
+							</span>
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:5px;">
 							<div class="mob-author">
 	                                <div class="author-face">
-		                                <a href="/member/1450385.html" target="_blank"><img src="https://imgs.bipush.com/auth/data/avatar/001/45/03/85_1462766181.jpg!40x40?imageMogr2/strip/interlace/1/quality/85/format/jpg"></a>
+				                        <c:if test="${fun.type==1}">
+											<img src="${fun.player_image}">
+										</c:if>
+										<c:if test="${fun.type==2}">
+											<a href="say/list?id=${fun.player_id}" target="_blank"><img src="${fun.player_image}"></a>
+										</c:if>
 		                            </div>
-		                            <a href="/member/1450385.html" target="_blank" class="mob-author-a">
-		                                <span class="author-name">话题小助手</span>
-		                            </a>
-		                            <span class="author-name">2016-10-17 07:30:00</span>
+		                            
+		                            <c:if test="${fun.type==1}">
+										<a href="fun" target="_blank" class="mob-author-a">
+			                                <span class="author-name">趣点网</span>
+			                            </a>
+									</c:if>
+									<c:if test="${fun.type==2}">
+										<a href="say/list?id=${fun.player_id}" target="_blank" class="mob-author-a">
+			                                <span class="author-name">${fun.player_name}</span>
+			                            </a>
+									</c:if>
+		                            
+		                            <span class="author-name">
+										&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-mm-dd MM:hh:ss"/>
+									</span>
 		                    </div>
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:20px;padding-right:0;">
-							<span class="summary">AC米兰3-1客胜重回欧冠区；国际米兰主场遭升班马逆转绝杀。升班马逆转绝杀AC米兰3-1客胜重回欧冠区；国际米兰主场遭升班马逆转绝杀。</span>
+							<span class="summary">${fun.summary}</span>
 						</div>
 					</div>
 					<div class="col-lg-12 col-md-12">
@@ -72,6 +100,49 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 					
 				</c:forEach>
+				
+				<div class="col-lg-12 col-md-12 " style="margin-top:20px;">
+					<div class="scott pull-right">
+						<a href="/fun?pageNumber=1" title="首页"> &lt;&lt; </a>
+						
+						<c:if test="${funPage.pageNumber == 1}">
+							<span class="disabled"> &lt; </span>
+						</c:if>
+						<c:if test="${funPage.pageNumber != 1}">
+							<a href="/fun?pageNumber=${funPage.pageNumber - 1}" > &lt; </a>
+						</c:if>
+						<c:if test="${funPage.pageNumber > 8}">
+							<a href="/fun?pageNumber=1">1</a>
+							<a href="/fun?pageNumber=2">2</a>
+							...
+						</c:if>
+						<c:if test="${!empty pageUI.list}">
+							<c:forEach items="${pageUI.list}" var="pageNo">
+								<c:if test="${funPage.pageNumber == pageNo }">
+									<span class="current">${pageNo}</span>
+								</c:if>
+								<c:if test="${funPage.pageNumber != pageNo }">
+									<a href="/fun?pageNumber=${pageNo}">${pageNo}</a>
+								</c:if>
+							</c:forEach>
+						</c:if>
+						<c:if test="${(funPage.totalPage - funPage.pageNumber) >= 8 }">
+							...
+							<a href="/fun?pageNumber=${funPage.totalPage - 1}">${funPage.totalPage - 1}</a>
+							<a href="/fun?pageNumber=${funPage.totalPage}">${funPage.totalPage}</a>
+						</c:if>
+						
+						<c:if test="${funPage.pageNumber == funPage.totalPage}">
+							<span class="disabled"> &gt; </span>
+						</c:if>
+						<c:if test="${funPage.pageNumber != funPage.totalPage}">
+							<a href="/fun?pageNumber=${funPage.pageNumber + 1}"> &gt; </a>
+						</c:if>
+						
+						<a href="/fun?pageNumber=${funPage.totalPage}" title="尾页"> &gt;&gt; </a>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 	</div>

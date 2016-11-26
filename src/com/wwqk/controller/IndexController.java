@@ -1,19 +1,17 @@
 package com.wwqk.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Page;
+import com.wwqk.model.Fun;
+import com.wwqk.utils.PageUtils;
 
 public class IndexController extends Controller {
 
 	public void index(){
+		Page<Fun> funPage = Fun.dao.paginate(getParaToInt("pageNumber", 1), 10);
+		setAttr("funPage", funPage);
+		setAttr("pageUI", PageUtils.calcStartEnd(funPage));
 		
-		List<String> list = new ArrayList<String>();
-		for(int i=0; i<10; i++){
-			list.add(i+"");
-		}
-		setAttr("list", list);
 		render("index.jsp");
 	}
 	

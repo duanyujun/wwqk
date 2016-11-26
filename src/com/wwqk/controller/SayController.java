@@ -8,6 +8,7 @@ import com.jfinal.plugin.activerecord.Page;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
 import com.wwqk.utils.PageUtils;
+import com.wwqk.utils.StringUtils;
 
 public class SayController extends Controller {
 
@@ -34,4 +35,14 @@ public class SayController extends Controller {
 		render("sayList.jsp");
 	}
 	
+	public void detail(){
+		String id = getPara("id");
+		if(StringUtils.isNotBlank(id)){
+			Say say = Say.dao.findById(id);
+			setAttr("say", say);
+		}else{
+			redirect("/say");
+		}
+		render("sayDetail.jsp");
+	}
 }
