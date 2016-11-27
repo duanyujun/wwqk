@@ -50,7 +50,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<div class="col-lg-9 col-md-9">
 				<div class="col-lg-12 col-md-12" >
 					<div class="col-lg-3 col-md-3">
-						<img src="assets/image/soccer/players/150x150/${player.id}.png" style="width:150px;height:150px;" />
+						<img src="${player.img_big_local}" style="width:150px;height:150px;" />
 					</div>
 					<div class="col-lg-9 col-md-9">
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">名字：${player.first_name}</div>

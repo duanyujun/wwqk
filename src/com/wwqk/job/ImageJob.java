@@ -1,11 +1,18 @@
 package com.wwqk.job;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import com.jfinal.plugin.activerecord.Db;
 import com.wwqk.constants.CommonConstants;
 import com.wwqk.constants.FlagMask;
 import com.wwqk.model.Coach;
@@ -19,9 +26,10 @@ public class ImageJob implements Job {
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		System.err.println("handle image start!!!");
-		handleTeamImage();
-		handlePlayerImage();
-		handleCoachImage();
+		//handleTeamImage();
+		//handlePlayerImage();
+		//handleCoachImage();
+		replaceEmptyImage();
 		System.err.println("handle image end!!!");
 	}
 	
@@ -49,7 +57,7 @@ public class ImageJob implements Job {
 	}
 	
 	private void handlePlayerImage(){
-		List<Team> lstTeam = Team.dao.find("select * from team order by id+0 asc ");
+		List<Team> lstTeam = Team.dao.find("select * from team where NAME ='拉齐奥' OR NAME = '汉堡' OR NAME ='乌迪内斯' OR NAME = '沙尔克04' order by id+0 asc ");
 		for(Team team : lstTeam){
 			List<Player> lstPlayers = Player.dao.find("select * from player where team_id = ? ", team.getStr("id"));
 			for(Player player : lstPlayers){
@@ -88,6 +96,35 @@ public class ImageJob implements Job {
 				coach.set("img_small_local", ImageUtils.getInstance().getImgName(imgSmallStr));
 			}
 			coach.update();
+		}
+	}
+	
+	private void replaceEmptyImage(){
+		String path = ImageUtils.getInstance().getDiskPath();
+		File imgSmallFile = null;
+		File imgBigFile = null;
+		List<Player> lstPlayer = Player.dao.find("select * from player");
+		List<Player> lstNeedUpdate = new ArrayList<Player>();
+		try {
+			for(Player player:lstPlayer){
+				imgSmallFile = new File(path+"/"+player.getStr("img_small_local"));
+				if(new Long(imgSmallFile.length()).intValue()<CommonConstants.SMALL_IMG_LENGTH){
+					imgBigFile = new File(path+"/"+player.getStr("img_big_local"));
+					if(imgBigFile.length()>CommonConstants.BIG_IMG_LENGTH){
+						ImageUtils.resizeImage(new FileInputStream(imgBigFile), new FileOutputStream(imgSmallFile), 50, "png");
+					}else{
+						player.set("img_small_local", CommonConstants.HEAD_SMALL_PATH);
+						player.set("img_big_local", CommonConstants.HEAD_BIG_PATH);
+						player.set("update_time", new Date());
+						lstNeedUpdate.add(player);
+					}
+				}
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		if(lstNeedUpdate.size()>0){
+			Db.batchUpdate(lstNeedUpdate, lstNeedUpdate.size());
 		}
 	}
 

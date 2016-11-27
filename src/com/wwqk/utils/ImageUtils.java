@@ -3,6 +3,8 @@ package com.wwqk.utils;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -78,7 +80,7 @@ public class ImageUtils {
 		return folderStr;
 	}
 	
-	private String getDiskPath(){
+	public String getDiskPath(){
 		String path = this.getClass().getClassLoader().getResource("").getPath();
 		if(path.startsWith("/")){
 			path = path.substring(1);
@@ -172,7 +174,12 @@ public class ImageUtils {
 		}  
 	}
 	
-	public static void main(String[] args) {
-		System.err.println(getInstance().getImgName("http://cache.images.core.optasports.com/soccer/venues/300x225/81.jpg"));
+	public static void main(String[] args) throws FileNotFoundException {
+		//System.err.println(getInstance().getImgName("http://cache.images.core.optasports.com/soccer/venues/300x225/81.jpg"));
+		File fileBig = new File("D:/big.png");
+		File fileSmall = new File("D:/small.png");
+		//resizeImage(new FileInputStream(fileBig), new FileOutputStream(fileSmall), 50, "png");
+		System.err.println(fileSmall.length());
+		
 	}
 }
