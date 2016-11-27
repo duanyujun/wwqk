@@ -21,7 +21,7 @@
                         <button id="sample_editable_1_new" onclick="goInsert();" class="btn sbold green"> 添加球队
                             <i class="fa fa-plus"></i>
                         </button>
-                        <button id="deleteBtn" onclick="goDelete();" class="btn sbold red" style="margin-left:10px;"> 删除球队
+                        <button id="deleteBtn" onclick="goDelete();" class="btn sbold red" style="margin-left:10px;display:none;"> 删除球队
                             <i class="fa fa-trash"></i>
                         </button>
                     </div>

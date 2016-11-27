@@ -21,7 +21,7 @@
                         <button id="sample_editable_1_new" onclick="goInsert();" class="btn sbold green"> 添加球员
                             <i class="fa fa-plus"></i>
                         </button>
-                        <button id="deleteBtn" onclick="goDelete();" class="btn sbold red" style="margin-left:10px;"> 删除球员
+                        <button id="deleteBtn" onclick="goDelete();" class="btn sbold red" style="margin-left:10px;display:none;"> 删除球员
                             <i class="fa fa-trash"></i>
                         </button>
                     </div>
@@ -66,6 +66,7 @@
                     <th> 惯用脚 </th>
                     <th> 号码 </th>
                     <th> 位置 </th>
+                    <th> 头像 </th>
                 </tr>
             </thead>
         </table>
@@ -92,8 +93,14 @@ $(document).ready(function() {
                   "searchable": true,
                   "render": function ( data, type, full, meta ) {
                       return '<a href="" class="editClass" >'+data+'</a>';
+                    }},
+              {
+                  "targets": 12,
+                  "orderable": false,
+                  "searchable": false,
+                  "render": function ( data, type, full, meta ) {
+                      return '<img src="'+data+'" />';
                     }}
-        
         ],
         "order": [[1, 'asc']],
         "language": {
