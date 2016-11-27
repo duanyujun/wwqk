@@ -15,7 +15,7 @@ public class Say extends Model<Say> {
 	    return super.getAttrs();
 	}
 	
-	public Page<Say> paginate(int pageNumber, int pageSize) {
-		return paginate(pageNumber, pageSize, "select *", "from say order by create_time desc");
+	public Page<Say> paginate(int pageNumber, int pageSize, String whereSql) {
+		return paginate(pageNumber, pageSize, "select *", "from say where 1=1 " + whereSql +" order by create_time desc");
 	}
 }

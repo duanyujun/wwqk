@@ -13,4 +13,9 @@ public class Player extends Model<Player> {
 	public Map<String, Object> getAttrs(){
 	    return super.getAttrs();
 	}
+	
+	public Player findByIdWithTeamName(String id){
+		Player player = dao.findFirst("select p.*, t.name team_name from player p, team t where p.team_id = t.id and p.id = ? ", id);
+		return player;
+	}
 }

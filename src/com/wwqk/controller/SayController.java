@@ -1,7 +1,6 @@
 package com.wwqk.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.eclipse.jetty.util.StringUtil;
 
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
@@ -9,11 +8,12 @@ import com.wwqk.model.Player;
 import com.wwqk.model.Say;
 import com.wwqk.utils.PageUtils;
 import com.wwqk.utils.StringUtils;
+import com.wwqk.utils.ValidateUtils;
 
 public class SayController extends Controller {
 
 	public void index(){
-		Page<Say> sayPage = Say.dao.paginate(getParaToInt("pageNumber", 1), 10);
+		Page<Say> sayPage = Say.dao.paginate(getParaToInt("pageNumber", 1), 10, "");
 		setAttr("sayPage", sayPage);
 		setAttr("pageUI", PageUtils.calcStartEnd(sayPage));
 		render("say.jsp");
@@ -21,17 +21,16 @@ public class SayController extends Controller {
 	
 	public void list(){
 		String playerId = getPara("id");
-		if(playerId==null){
-			playerId = "3051";
+		if(!ValidateUtils.validatePlayerId(playerId)){
+			redirect("/say");
 		}
-		Player player = Player.dao.findFirst("select p.*, t.name team_name from player p, team t where p.team_id = t.id and p.id = ? ", playerId);
-		setAttr("player", player);
+		setAttr("player", Player.dao.findByIdWithTeamName(playerId));
 		
-		List<String> list = new ArrayList<String>();
-		for(int i=0; i<10; i++){
-			list.add(i+"");
-		}
-		setAttr("list", list);
+		//说说
+		Page<Say> sayPage = Say.dao.paginate(getParaToInt("pageNumber", 1), 10, "and player_id = '"+playerId+"'");
+		setAttr("sayPage", sayPage);
+		setAttr("pageUI", PageUtils.calcStartEnd(sayPage));
+		
 		render("sayList.jsp");
 	}
 	
