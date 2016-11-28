@@ -99,7 +99,7 @@ $(document).ready(function() {
                   "orderable": false,
                   "searchable": false,
                   "render": function ( data, type, full, meta ) {
-                      return '<img src="'+data+'" />';
+                      return '<img src="'+data+'" style="width:30px;height:30px;"/>';
                     }}
         ],
         "order": [[1, 'asc']],

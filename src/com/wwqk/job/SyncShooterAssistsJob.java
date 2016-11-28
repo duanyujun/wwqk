@@ -173,6 +173,11 @@ public class SyncShooterAssistsJob implements Job {
 				shooter163.set("player_name_163", "丹尼斯.苏亚雷斯");
 			}
 			
+			//判断亚当史密斯
+			if(StringUtils.isNotBlank(shooter163.getStr("player_url_163")) && shooter163.getStr("player_url_163").contains("/434972.html")){
+				shooter163.set("player_name_163", "亚当·史密斯");
+			}
+			
 			Player player = Player.dao.findFirst("select p.*, t.name team_name from player p, team t where p.team_id = t.id and p.name = ? and t.name = ?",
 					shooter163.getStr("player_name_163"), shooter163.getStr("team_name_163"));
 			if(player!=null){
@@ -200,6 +205,11 @@ public class SyncShooterAssistsJob implements Job {
 			if(StringUtils.isNotBlank(assists163.getStr("player_url_163")) &&  assists163.getStr("player_url_163").contains("/602708.html")){
 				assists163.set("player_name_163", "丹尼斯.苏亚雷斯");
 			}
+			//判断亚当史密斯
+			if(StringUtils.isNotBlank(assists163.getStr("player_url_163")) && assists163.getStr("player_url_163").contains("/434972.html")){
+				assists163.set("player_name_163", "亚当·史密斯");
+			}
+			
 			Player player = Player.dao.findFirst("select p.*, t.name team_name from player p, team t where p.team_id = t.id and p.name = ? and t.name = ?",
 					assists163.get("player_name_163"), assists163.get("team_name_163"));
 			if(player!=null){

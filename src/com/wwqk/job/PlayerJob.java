@@ -234,9 +234,15 @@ public class PlayerJob implements Job {
 		Player player = Player.dao.findById(entry.getKey());
 		System.err.println("handle player： "+player.getStr("name")+" ing!!!");
 		String playerContent = FetchHtmlUtils.getHtmlContent(httpClient, entry.getValue());
-		player.set("first_name", CommonUtils.matcherString(CommonUtils.getPatternByName("名字"), playerContent));
-		player.set("last_name", CommonUtils.matcherString(CommonUtils.getPatternByName("姓氏"), playerContent));
-		player.set("nationality", CommonUtils.matcherString(CommonUtils.getPatternByName("国籍"), playerContent));
+		if(FlagMask.isEditable(player.get("edit_flag"), FlagMask.PLAYER_FIRST_NAME_MASK)){
+			player.set("first_name", CommonUtils.matcherString(CommonUtils.getPatternByName("名字"), playerContent));
+		}
+		if(FlagMask.isEditable(player.get("edit_flag"), FlagMask.PLAYER_LAST_NAME_MASK)){
+			player.set("last_name", CommonUtils.matcherString(CommonUtils.getPatternByName("姓氏"), playerContent));
+		}
+		if(FlagMask.isEditable(player.get("edit_flag"), FlagMask.PLAYER_NATIONALITY_MASK)){
+			player.set("nationality", CommonUtils.matcherString(CommonUtils.getPatternByName("国籍"), playerContent));
+		}
 		player.set("birthday", CommonUtils.getCNDate(CommonUtils.matcherString(CommonUtils.getPatternByName("出生日期"), playerContent)));
 		player.set("age", CommonUtils.matcherString(CommonUtils.getPatternByName("年龄"), playerContent));
 		player.set("birth_country", CommonUtils.matcherString(CommonUtils.getPatternByName("出生国家"), playerContent));
@@ -248,9 +254,12 @@ public class PlayerJob implements Job {
 		if(FlagMask.isEditable(player.get("edit_flag"), FlagMask.PLAYER_WEIGHT_MASK)){
 			player.set("weight", CommonUtils.matcherString(CommonUtils.getPatternByName("重量"), playerContent));
 		}
-		if(FlagMask.isEditable(player.get("edit_flag"), FlagMask.PLAYER_FOOT_MASK)){
-			player.set("foot", CommonUtils.matcherString(CommonUtils.getPatternByName("脚"), playerContent));
+		
+		
+		if(FlagMask.isEditable(player.get("edit_flag"), FlagMask.PLAYER_FIRST_NAME_MASK)){
+			player.set("first_name", CommonUtils.matcherString(CommonUtils.getPatternByName("脚"), playerContent));
 		}
+		
 		player.set("update_time", new Date());
 		
 		player.set("img_big", CommonUtils.matcherString(PLAYER_IMG_PATTERN, playerContent));

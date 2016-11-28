@@ -26,15 +26,15 @@ public class ImageJob implements Job {
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		System.err.println("handle image start!!!");
-		//handleTeamImage();
+		handleTeamImage();
 		//handlePlayerImage();
 		//handleCoachImage();
-		replaceEmptyImage();
+		//replaceEmptyImage();
 		System.err.println("handle image end!!!");
 	}
 	
 	private void handleTeamImage(){
-		List<Team> lstTeam = Team.dao.find("select * from team order by id+0 asc ");
+		List<Team> lstTeam = Team.dao.find("select * from team where name='拉齐奥' or name='汉堡' or name='乌迪内斯' or name='沙尔克04' order by id+0 asc ");
 		for(Team team : lstTeam){
 			if(StringUtils.isNotBlank(team.getStr("team_img"))){
 				team.set("team_img_local", ImageUtils.getInstance().getImgName(team.getStr("team_img")));

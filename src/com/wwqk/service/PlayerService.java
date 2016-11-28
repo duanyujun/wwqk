@@ -134,6 +134,22 @@ public class PlayerService {
 		}
 		FlagMask.setModelFlag(player, "number", controller.getPara("number"), FlagMask.PLAYER_NUMBER_MASK);
 		
+		
+		if(StringUtils.isNotBlank(controller.getPara("first_name"))){
+			player.set("first_name", controller.getPara("first_name"));
+		}
+		FlagMask.setModelFlag(player, "first_name", controller.getPara("first_name"), FlagMask.PLAYER_FIRST_NAME_MASK);
+		
+		if(StringUtils.isNotBlank(controller.getPara("last_name"))){
+			player.set("last_name", controller.getPara("last_name"));
+		}
+		FlagMask.setModelFlag(player, "last_name", controller.getPara("last_name"), FlagMask.PLAYER_LAST_NAME_MASK);
+		
+		if(StringUtils.isNotBlank(controller.getPara("nationality"))){
+			player.set("nationality", controller.getPara("nationality"));
+		}
+		FlagMask.setModelFlag(player, "nationality", controller.getPara("nationality"), FlagMask.PLAYER_NATIONALITY_MASK);
+		
 		if(StringUtils.isNotBlank(img_small_local)){
 			player.set("img_small_local", img_small_local);
 		}

@@ -54,6 +54,13 @@
 		              <div class="col-md-3"><label for="last_name"></label></div>
 		          </div>
 		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>国籍：</label>
+		              <div class="col-md-6">
+		                  <input type="text" class="form-control" id="nationality" name="nationality" required value="${player.nationality}" placeholder="请输入球员国籍">
+		              </div>
+		              <div class="col-md-3"><label for="nationality"></label></div>
+		          </div>
+		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>身高：</label>
 		              <div class="col-md-6">
 		                  <input type="text" class="form-control" id="height" name="height" required value="${player.height}"  placeholder="请输入身高">

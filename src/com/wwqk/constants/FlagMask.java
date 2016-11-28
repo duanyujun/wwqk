@@ -34,11 +34,20 @@ public class FlagMask {
 	/** 球衣号码 */
 	public static final int PLAYER_NUMBER_MASK = 0x00000010;
 	
-	/** 球员号码 */
+	/** 球员小图片 */
 	public static final int PLAYER_SMALL_IMG_MASK = 0x00000020;
 	
-	/** 球员出生国家 */
+	/** 球员大图片 */
 	public static final int PLAYER_BIG_IMG_MASK = 0x00000040;
+	
+	/** 球员国家 */
+	public static final int PLAYER_NATIONALITY_MASK = 0x00000080;
+	
+	/** 球员first name */
+	public static final int PLAYER_FIRST_NAME_MASK = 0x00000100;
+	
+	/** 球员last name */
+	public static final int PLAYER_LAST_NAME_MASK = 0x00000200;
 	
 	/**
 	 * 如果编辑位上有设置标记，则不允许修改
