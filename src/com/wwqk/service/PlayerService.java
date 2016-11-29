@@ -164,22 +164,22 @@ public class PlayerService {
 	
 	private static void updateShooterAssistsName(Player playerDB, String nameNew){
 		if(StringUtils.isNotBlank(nameNew) && !nameNew.equals(playerDB.get("name"))){
-			LeagueShooter163 shooter163 = LeagueShooter163.dao.findFirst("select * from league_shooter_163 where player_id = ?", playerDB.get("id"));
+			LeagueShooter163 shooter163 = LeagueShooter163.dao.findFirst("select * from league_shooter_163 where player_id = ?", playerDB.getStr("id"));
 			if(shooter163!=null){
 				shooter163.set("player_name", nameNew);
 				shooter163.update();
 			}
-			LeagueShooter shooter = LeagueShooter.dao.findFirst("select * from league_shooter where player_id = ?", playerDB.get("id"));
+			LeagueShooter shooter = LeagueShooter.dao.findFirst("select * from league_shooter where player_id = ?", playerDB.getStr("id"));
 			if(shooter!=null){
 				shooter.set("player_name", nameNew);
 				shooter.update();
 			}
-			LeagueAssists163 assists163 = LeagueAssists163.dao.findFirst("select * from league_assists_163 where player_id = ?", playerDB.get("id"));
+			LeagueAssists163 assists163 = LeagueAssists163.dao.findFirst("select * from league_assists_163 where player_id = ?", playerDB.getStr("id"));
 			if(assists163!=null){
 				assists163.set("player_name", nameNew);
 				assists163.update();
 			}
-			LeagueAssists assists = LeagueAssists.dao.findFirst("select * from league_assists where player_id = ?", playerDB.get("id"));
+			LeagueAssists assists = LeagueAssists.dao.findFirst("select * from league_assists where player_id = ?", playerDB.getStr("id"));
 			if(assists!=null){
 				assists.set("player_name", nameNew);
 				assists.update();
