@@ -59,6 +59,7 @@
                     <th> 球员名称（系统） </th>
                     <th> 球队名称（系统） </th>
                     <th> 进球数 </th>
+                    <th> 球员图片 </th>
                 </tr>
             </thead>
         </table>
@@ -85,6 +86,13 @@ $(document).ready(function() {
                   "searchable": true,
                   "render": function ( data, type, full, meta ) {
                       return '<a href="" class="editClass" >'+data+'</a>';
+                    }},
+              {
+                  "targets": 7,
+                  "orderable": false,
+                  "searchable": false,
+                  "render": function ( data, type, full, meta ) {
+                      return '<img src="'+data+'" style="width:30px;height:30px;"/>';
                     }}
         
         ],

@@ -1,6 +1,7 @@
 package com.wwqk.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -159,6 +160,8 @@ public class PlayerService {
 			player.set("img_big_local", img_big_local);
 		}
 		FlagMask.setModelFlag(player, "img_big_local", img_big_local, FlagMask.PLAYER_BIG_IMG_MASK);
+		
+		player.set("update_time", new Date());
 		player.update();
 	}
 	

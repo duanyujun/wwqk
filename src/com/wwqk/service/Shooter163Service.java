@@ -62,7 +62,7 @@ public class Shooter163Service {
 			lstShooter163 = LeagueShooter163.dao.find(sql+whereSql+orderSql+limitSql);
 			data = new Object[lstShooter163.size()];
 			for(int i=0; i<lstShooter163.size(); i++){
-				Object[] obj = new Object[7];
+				Object[] obj = new Object[8];
 				LeagueShooter163 shooter163 = lstShooter163.get(i);
 				obj[0] = shooter163.get("id");
 				obj[1] = shooter163.get("player_name_163");
@@ -71,6 +71,7 @@ public class Shooter163Service {
 				obj[4] = shooter163.get("player_name");
 				obj[5] = shooter163.get("team_name");
 				obj[6] = shooter163.get("goal_count");
+				obj[7] = shooter163.get("player_img");
 				data[i] = obj;
 			}
 		}
@@ -105,6 +106,7 @@ public class Shooter163Service {
 		shooter163.set("player_name", player.get("name"));
 		shooter163.set("team_id", player.get("team_id"));
 		shooter163.set("team_name", player.get("team_name"));
+		shooter163.set("player_img", player.get("img_small_local"));
 		
 		save(shooter163);
 	}

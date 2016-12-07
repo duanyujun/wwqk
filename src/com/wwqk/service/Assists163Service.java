@@ -62,7 +62,7 @@ public class Assists163Service {
 			lstAssists163 = LeagueAssists163.dao.find(sql+whereSql+orderSql+limitSql);
 			data = new Object[lstAssists163.size()];
 			for(int i=0; i<lstAssists163.size(); i++){
-				Object[] obj = new Object[7];
+				Object[] obj = new Object[8];
 				LeagueAssists163 assists163 = lstAssists163.get(i);
 				obj[0] = assists163.get("id");
 				obj[1] = assists163.get("player_name_163");
@@ -71,6 +71,7 @@ public class Assists163Service {
 				obj[4] = assists163.get("player_name");
 				obj[5] = assists163.get("team_name");
 				obj[6] = assists163.get("assists_count");
+				obj[7] = assists163.get("player_img");
 				data[i] = obj;
 			}
 		}
@@ -105,6 +106,7 @@ public class Assists163Service {
 		assists163.set("player_name", player.get("name"));
 		assists163.set("team_id", player.get("team_id"));
 		assists163.set("team_name", player.get("team_name"));
+		assists163.set("player_img", player.get("img_small_local"));
 		
 		save(assists163);
 	}
