@@ -149,11 +149,6 @@ public class ProductTeamPlayerJob implements Job {
 			player.set("weight", CommonUtils.matcherString(CommonUtils.getPatternByName("重量"), playerContent));
 		}
 		
-		
-		if(FlagMask.isEditable(player.get("edit_flag"), FlagMask.PLAYER_FIRST_NAME_MASK)){
-			player.set("first_name", CommonUtils.matcherString(CommonUtils.getPatternByName("脚"), playerContent));
-		}
-		
 		player.set("update_time", new Date());
 		player.set("img_big", CommonUtils.matcherString(PLAYER_IMG_PATTERN, playerContent));
 		player.update();
