@@ -1,6 +1,5 @@
 package com.wwqk.service;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +11,6 @@ import com.jfinal.upload.UploadFile;
 import com.wwqk.model.Fun;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
-import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.StringUtils;
 
@@ -162,8 +160,12 @@ public class SayService {
 		fun.set("summary", contentOld);
 		fun.set("type", 2);
 		fun.set("source_id", say.get("id"));
-		fun.set("image_small", image_small);
-		fun.set("image_big", image_big);
+		if(StringUtils.isNotBlank(image_small)){
+			fun.set("image_small", image_small);
+		}
+		if(StringUtils.isNotBlank(image_big)){
+			fun.set("image_big", image_big);
+		}
 		fun.set("player_id",player_id);
 		fun.set("player_name",player.get("name"));
 		fun.set("player_image",player.get("img_small_local"));
