@@ -15,8 +15,13 @@ public class Fun extends Model<Fun> {
 	    return super.getAttrs();
 	}
 	
-	public Page<Fun> paginate(int pageNumber, int pageSize) {
-		//TODO 记得加类型条件
-		return paginate(pageNumber, pageSize, "select *", "from fun order by create_time desc");
+	public Page<Fun> paginate(int pageNumber, int pageSize, int type) {
+		if(type==0){
+			return paginate(pageNumber, pageSize, "select *", "from fun order by create_time desc");
+		}else{
+			//TODO 记得加类型条件
+			return paginate(pageNumber, pageSize, "select *", "from fun where type = ? order by create_time desc", type);
+		}
+		
 	}
 }

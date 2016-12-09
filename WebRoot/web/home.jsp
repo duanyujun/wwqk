@@ -31,6 +31,8 @@
         <link href="${ctx}/assets/layouts/layout4/css/themes/light.min.css" rel="stylesheet" type="text/css" id="style_color" />
         <link href="${ctx}/assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css" />
         <link href="${ctx}/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+        <link href="${ctx}/assets/global/plugins/wangEditor/css/wangEditor.min.css" rel="stylesheet" type="text/css" />
+        
         <link rel="shortcut icon" href="favicon.ico" /> 
     	<style type="text/css">
     		.page-content-wrapper .page-content{padding:0 0 0 20px;}
@@ -149,6 +151,9 @@
 		
     </body>
 
+<script src="${ctx}/assets/global/plugins/wangEditor/js/wangEditor.min.js" type="text/javascript"></script>
+       
+       
 <script type="text/javascript">
 
 $(function(){  

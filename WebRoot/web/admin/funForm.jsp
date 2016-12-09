@@ -3,6 +3,8 @@
 <script src="${ctx}/assets/global/plugins/jquery.form.min.js" type="text/javascript"></script>
 <script src="${ctx}/assets/global/plugins/bootstrap-toastr/toastr.js" type="text/javascript"></script>
 
+
+
 <style>
 .error{
 	color:red;
@@ -19,8 +21,9 @@
         
     </div>
     <div class="portlet-body">
-        <form class="form-horizontal" id="form" action="/admin/saveSay" enctype="multipart/form-data" method="post">
+        <form class="form-horizontal" id="form" action="/admin/saveFun" enctype="multipart/form-data" method="post">
         	  <input type="hidden" name="id" value="${say.id}" />
+        	  <input type="hidden" id="content" name="content" value="" />
 		      <div class="form-body">
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>标题：</label>
@@ -39,7 +42,9 @@
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>内容：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="content" name="content" required value="${fun.content}"  placeholder="请输入内容">
+			              	<div id="div_content" style="height:400px;max-height:900px;">
+							    
+							</div>
 		              </div>
 		              <div class="col-md-3"><label for="content"></label></div>
 		          </div>
@@ -47,7 +52,7 @@
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>来源名称：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="source_name" name="source_name" required value="${fun.source_name}"  placeholder="请输入来源名称">
+		                  <input type="text" class="form-control" id="source_name" name="source_name"  value="${fun.source_name}"  placeholder="请输入来源名称">
 		              </div>
 		              <div class="col-md-3"><label for="source_name"></label></div>
 		          </div>
@@ -55,25 +60,25 @@
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>来源URL：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="source_url" name="source_url" required value="${fun.source_url}"  placeholder="请输入来源URL">
+		                  <input type="text" class="form-control" id="source_url" name="source_url"  value="${fun.source_url}"  placeholder="请输入来源URL">
 		              </div>
 		              <div class="col-md-3"><label for="source_url"></label></div>
 		          </div>
 		         
-		          <div class="form-group">
+		          <div class="form-group" style="display:none;">
 		              <label class="col-md-3 control-label"><font color="red">*</font>大图片：</label>
 		              <div class="col-md-6">
-		                  <input type="file" class="form-control" id="file_big" name="file_big" >
+		                  <input type="file" class="form-control" id="image_big" name="image_big" >
 		              </div>
-		              <div class="col-md-3"><label for="file_big"></label></div>
+		              <div class="col-md-3"><label for="image_big"></label></div>
 		          </div>
 		          
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>小图片（180x135）：</label>
 		              <div class="col-md-6">
-		                  <input type="file" class="form-control" id="file_small" name="file_small" >
+		                  <input type="file" class="form-control" id="image_small" name="image_small" >
 		              </div>
-		              <div class="col-md-3"><label for="file_small"></label></div>
+		              <div class="col-md-3"><label for="image_small"></label></div>
 		          </div>
 		          
 		          <div class="form-group">
@@ -100,6 +105,8 @@ $(document).ready(function() {
 	});
 });
 
+var editor = new wangEditor('div_content');
+editor.create();
 
 function cancel(){
 	$('#main-content').load($('#urlHidden').val());
@@ -118,6 +125,7 @@ $(function(){
    		success:showSuccess
     };
     $('#form').submit(function(){
+    	$("#content").val(editor.$txt.html());
         $(this).ajaxSubmit(options);
         return false;
     });

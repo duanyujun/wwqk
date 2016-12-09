@@ -16,15 +16,15 @@ import com.wwqk.utils.StringUtils;
 public class FunService {
 
 	public static Map<Object, Object> funData(Controller controller){
-		String sumSql = "select count(*) from fun ";
-		String sql = "select * from fun ";
+		String sumSql = "select count(*) from fun where type = 1  ";
+		String sql = "select * from fun where type = 1 ";
 		String orderSql = "";
 		String whereSql = "";
 		String limitSql = "";
 		
 		String search = controller.getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
-			whereSql = " where (title like '%"+search+"%'"+" OR player_name like '%"+search+"%'"+" )";
+			whereSql = " and (title like '%"+search+"%'"+" OR player_name like '%"+search+"%'"+" )";
 		}
 		
 		int sortColumn = controller.getParaToInt("order[0][column]");

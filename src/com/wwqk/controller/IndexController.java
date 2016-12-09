@@ -8,7 +8,7 @@ import com.wwqk.utils.PageUtils;
 public class IndexController extends Controller {
 
 	public void index(){
-		Page<Fun> funPage = Fun.dao.paginate(getParaToInt("pageNumber", 1), 10);
+		Page<Fun> funPage = Fun.dao.paginate(getParaToInt("pageNumber", 1), 10, 0);
 		setAttr("funPage", funPage);
 		setAttr("pageUI", PageUtils.calcStartEnd(funPage));
 		
