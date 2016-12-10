@@ -114,8 +114,6 @@ public class FunService {
 		fun.set("title", controller.getPara("title"));
 		fun.set("summary", controller.getPara("summary"));
 		fun.set("content", controller.getPara("content"));
-		fun.set("image_small", image_small);
-		fun.set("image_big", image_big);
 		fun.set("source_name", controller.getPara("source_name"));
 		fun.set("source_url", controller.getPara("source_url"));
 	

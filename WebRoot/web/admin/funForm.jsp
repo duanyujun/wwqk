@@ -81,6 +81,16 @@
 		              <div class="col-md-3"><label for="image_small"></label></div>
 		          </div>
 		          
+		          <c:if test="${!empty fun.image_small}">
+		          	<div class="form-group">
+			              <label class="col-md-3 control-label"></label>
+			              <div class="col-md-6">
+			                  <img src="${fun.image_small}" />
+			              </div>
+			              <div class="col-md-3"><label for=""></label></div>
+			          </div>
+		          </c:if>
+		          
 		          <div class="form-group">
 			          <div class="col-md-offset-3 col-md-9">
 	                      <button type="button" class="btn green" onclick="save();">保 存</button>
