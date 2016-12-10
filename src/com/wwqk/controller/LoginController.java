@@ -20,12 +20,14 @@ public class LoginController extends Controller {
 		try {
 			currentUser.login(token);
 			getSession().setAttribute("username", username);
-			redirect("/home");
+			if(getSession().getAttribute("loginError")!=null){
+				getSession().removeAttribute("loginError");
+			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
 			// 登录失败
-			forwardAction("/login");
+			getSession().setAttribute("loginError", "loginError");
 		}
+		redirect("/home");
 	}
 	
 	public void logout() {
@@ -33,7 +35,7 @@ public class LoginController extends Controller {
 		if (currentUser.isAuthenticated()) {
 			currentUser.logout();
 		}
-		render("login.jsp");
+		redirect("/home");
 	}
 	
 }

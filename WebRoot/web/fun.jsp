@@ -15,7 +15,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
-    
+   
 </head>
 
 <body>
@@ -65,7 +65,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="col-lg-12 col-md-12">
 							<span class="msg-title">
 								<c:if test="${fun.type==1}">
-									<a href="fun/detail?id=${fun.id}" target="_blank">${fun.title}</a>
+									<a href="fun/detail?id=${fun.id}" target="_blank" title="${fun.title}">${fun.title}</a>
 								</c:if>
 								<c:if test="${fun.type==2}">
 									<a href="say/detail?id=${fun.source_id}" target="_blank">${fun.title}</a>
@@ -75,27 +75,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="col-lg-12 col-md-12" style="margin-top:5px;">
 							<div class="mob-author">
 	                                <div class="author-face">
-				                        <c:if test="${fun.type==1}">
-											<img src="${fun.player_image}">
-										</c:if>
-										<c:if test="${fun.type==2}">
-											<a href="say/list?id=${fun.player_id}" target="_blank"><img src="${fun.player_image}"></a>
-										</c:if>
+				                       	<img src="assets/image/page/logo-small.png">	
 		                            </div>
 		                            
-		                            <c:if test="${fun.type==1}">
-										<a href="fun" target="_blank" class="mob-author-a">
-			                                <span class="author-name">趣点网</span>
-			                            </a>
-									</c:if>
-									<c:if test="${fun.type==2}">
-										<a href="say/list?id=${fun.player_id}" target="_blank" class="mob-author-a">
-			                                <span class="author-name">${fun.player_name}</span>
-			                            </a>
-									</c:if>
-		                            
+		                            <span class="mob-author-a">
+		                                <span class="author-name">趣点网</span>
+		                            </span>
 		                            <span class="author-name">
-										&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-mm-dd MM:hh:ss"/>
+										&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>
 									</span>
 		                    </div>
 						</div>
@@ -157,4 +144,5 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	<%@ include file="/common/footer.jsp"%>		
 </body>	
+
 

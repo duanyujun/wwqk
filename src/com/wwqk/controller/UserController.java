@@ -148,7 +148,6 @@ public class UserController extends Controller {
 		int ustatus = getParaToInt("ustatus");
 		Users users = new Users();
 		users.set("username", username);
-		users.set("password", password);
 		users.set("name",name);
 		users.set("mobile_no",mobile_no);
 		users.set("qq",qq);
@@ -158,9 +157,21 @@ public class UserController extends Controller {
 		String roleIds = getPara("roleIds");
 		
 		if(StringUtils.isNotBlank(getPara("id"))){
+			Users userDB = Users.dao.findById(getPara("id"));
+			//如果传过来的密码和数据库中的密码不一致，则进行md5
+			if(!userDB.getStr("password").equals(password)){
+				password = StringUtils.md5(password);
+			}else{
+				//如果传过来的密码和数据库中的md5一致，说明用户并没有修改，不需要再次md5
+				//do nothing
+			}
+			users.set("password", password);
 			users.set("id", getPara("id"));
+			users.set("password", userDB.getStr("password"));
 			users.update();
 		}else{
+			//如果新建用户，md5
+			users.set("password", StringUtils.md5(password));
 			users.save();
 		}
 		

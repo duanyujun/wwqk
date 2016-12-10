@@ -39,31 +39,48 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	<div class="row clear_row_margin" style="margin-top:70px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
+			<div class="col-lg-9 col-md-9 bread">
+				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/fun" target="_blank">趣点</a>&nbsp;&gt;&nbsp;明细
+			</div>
+		</div>
+	</div>
+	
+	<div class="row clear_row_margin" style="margin-top:20px;">
+		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-9 col-md-9">
 				<div class="col-lg-12 col-md-12"><h2 style="font-weight:bold;">${fun.title}</h2></div>
 				<div class="col-lg-12 col-md-12">
 					<div class="mob-author">
                             <div class="author-face">
-                                <a href="/member/1450385.html" target="_blank"><img src="https://imgs.bipush.com/auth/data/avatar/001/45/03/85_1462766181.jpg!40x40?imageMogr2/strip/interlace/1/quality/85/format/jpg"></a>
+	                           <img src="assets/image/page/logo-small.png">
                             </div>
-                            <a href="/member/1450385.html" target="_blank" class="mob-author-a">
-                                <span class="author-name">话题小助手</span>
-                            </a>
-                            <span class="author-name">2016-10-17 07:30:00</span>
+                            <span class="mob-author-a">
+                            	<span class="author-name">趣点网</span>
+                            </span>
+                            <span class="author-name">
+                            	<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>
+                            </span>
                     </div>
 				</div>
 				
 				<div class="col-lg-12 col-md-12" style="margin-top:20px;">
-					<blockquote style="background-color:#f3f7f0;">
+					<blockquote style="background-color:#f3f7f0;font-size:16px;">
 						<img src="assets/image/page/quote.png">${fun.summary}
 					</blockquote>
 				</div>
 				
-				<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-					<div class="well well-lg">
+				<div class="col-lg-12 col-md-12" style="margin-top:10px;font-size:16px;">
+					<div class="well well-lg" style="line-height:2;text-indent:20px;">
 						${fun.content}
 					</div>
 				</div>
+				
+				<c:if test="${!empty fun.source_name}">
+					<div class="col-lg-12 col-md-12 bread" style="margin-top:10px;font-size:14px;">
+						来源：<a href="${fun.source_url}" target="_blank">${fun.source_name}</a>
+					</div>
+				</c:if>
+				
 			</div>
 		</div>
 	</div>

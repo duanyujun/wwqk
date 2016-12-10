@@ -22,7 +22,7 @@
     </div>
     <div class="portlet-body">
         <form class="form-horizontal" id="form" action="/admin/saveFun" enctype="multipart/form-data" method="post">
-        	  <input type="hidden" name="id" value="${say.id}" />
+        	  <input type="hidden" name="id" value="${fun.id}" />
         	  <input type="hidden" id="content" name="content" value="" />
 		      <div class="form-body">
 		          <div class="form-group">

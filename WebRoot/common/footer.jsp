@@ -24,3 +24,17 @@
 		</div>
 	</div>
 </div>
+
+<script src="${ctx}/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+$(function(){
+	  if($(window).height()==$(document).height()){
+        $(".footer").addClass("navbar-fixed-bottom");
+      }
+      else{
+        $(".footer").removeClass("navbar-fixed-bottom");
+      }
+});
+
+</script>

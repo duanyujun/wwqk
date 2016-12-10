@@ -27,6 +27,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
         <link href="${ctx}/assets/global/css/components-md.min.css" rel="stylesheet" id="style_components" type="text/css" />
         <link href="${ctx}/assets/global/css/plugins-md.min.css" rel="stylesheet" type="text/css" />
         <link href="${ctx}/assets/pages/css/login-4.min.css" rel="stylesheet" type="text/css" />
+        <link href="${ctx}/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+       
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
 
@@ -56,7 +58,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                     <label class="control-label visible-ie8 visible-ie9">Password</label>
                     <div class="input-icon">
                         <i class="fa fa-lock"></i>
-                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="password" /> </div>
+                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" id="password" name="password" onkeydown='if(event.keyCode==13){return false;}' /> </div>
                 </div>
                 <div class="form-actions">
                     <label class="checkbox">
@@ -119,9 +121,62 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
         <!-- END THEME GLOBAL SCRIPTS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <script src="${ctx}/assets/pages/scripts/login-4.min.js" type="text/javascript"></script>
-        <!-- END PAGE LEVEL SCRIPTS -->
-        <!-- BEGIN THEME LAYOUT SCRIPTS -->
-        <!-- END THEME LAYOUT SCRIPTS -->
+        <script src="${ctx}/assets/global/plugins/bootstrap-toastr/toastr.js" type="text/javascript"></script>
+        <script src="${ctx}/assets/global/scripts/md5.min.js" type="text/javascript"></script>
+        
     </body>
+
+<script type="text/javascript">
+function showToast(type, title, content){
+	toastr.options = {
+			  "closeButton": true,
+			  "debug": false,
+			  "positionClass": "toast-top-center",
+			  "onclick": null,
+			  "showDuration": "1000",
+			  "hideDuration": "1000",
+			  "timeOut": "5000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut"
+			};
+	
+	if(type==1){
+		toastr.success(title, content);
+	}else if(type==2){
+		
+		toastr.info(title, content);
+	}else if(type==3){
+		
+		toastr.warning(title, content);
+	}else if(type==4){
+		
+		toastr.error(title, content);
+	}
+}
+
+$(function(){  
+	var loginError = '${sessionScope.loginError}';
+	if(loginError!=''){
+		$("#password").val("");
+		showToast(4, "您的用户名或密码错误", "警告");
+	}
+	
+	$('.login-form').submit(function(){
+		
+		if($("#password").val()!=''){
+			var password = md5($("#password").val());
+	    	$("#password").val(password);
+		}
+		
+        //$(this).ajaxSubmit(options);
+        return false;
+    });
+});
+	
+	
+</script>
 
 </html>

@@ -68,7 +68,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<div class="mob-author">
 	                                <div class="author-face">
 				                        <c:if test="${fun.type==1}">
-											<img src="${fun.player_image}">
+											<img src="assets/image/page/logo-small.png">
 										</c:if>
 										<c:if test="${fun.type==2}">
 											<a href="say/list?id=${fun.player_id}" target="_blank"><img src="${fun.player_image}"></a>
