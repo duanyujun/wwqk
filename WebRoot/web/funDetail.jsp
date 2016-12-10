@@ -55,7 +55,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	                           <img src="assets/image/page/logo-small.png">
                             </div>
                             <span class="mob-author-a">
-                            	<span class="author-name">趣点网</span>
+                            	<span class="author-name">趣点足球网</span>
                             </span>
                             <span class="author-name">
                             	<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>

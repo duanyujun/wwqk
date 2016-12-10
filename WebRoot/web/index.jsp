@@ -77,7 +77,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		                            
 		                            <c:if test="${fun.type==1}">
 										<a href="fun" target="_blank" class="mob-author-a">
-			                                <span class="author-name">趣点网</span>
+			                                <span class="author-name">趣点足球网</span>
 			                            </a>
 									</c:if>
 									<c:if test="${fun.type==2}">

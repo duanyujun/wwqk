@@ -43,7 +43,7 @@
 		              <label class="col-md-3 control-label"><font color="red">*</font>内容：</label>
 		              <div class="col-md-6">
 			              	<div id="div_content" style="height:400px;max-height:900px;">
-							    
+							    ${fun.content}
 							</div>
 		              </div>
 		              <div class="col-md-3"><label for="content"></label></div>
