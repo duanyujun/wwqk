@@ -151,6 +151,7 @@ public class ProductTeamPlayerJob implements Job {
 		
 		player.set("update_time", new Date());
 		player.set("img_big", CommonUtils.matcherString(PLAYER_IMG_PATTERN, playerContent));
+		player.set("en_url", CommonUtils.getPlayerENLink(player.getStr("player_url")));
 		player.update();
 		
 	}

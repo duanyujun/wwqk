@@ -246,4 +246,14 @@ public class CommonUtils {
 		return source;
 	}
 	
+	public static final String getPlayerENLink(String url){
+		if(StringUtils.isBlank(url)){
+			return url;
+		}
+		int startIdx = url.indexOf("players/")+8;
+		url = url.substring(startIdx);
+		url = url.substring(0, url.indexOf("/"));
+		return url;
+	}
+	
 }
