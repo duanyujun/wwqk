@@ -104,8 +104,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="col-lg-11 col-md-11" >
 							<div class="col-lg-12 col-md-12 say-info">
 								<span style="font-weight:bold;color:#292f33;"><a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
-								<span style="color:#8899a6;font-size:13px;"> - <fmt:formatDate value="${say.create_time}" pattern="MM月dd日"/> </span>
-								&nbsp;<a href="say/list?id=${say.player_id}" target="_blank" title="${say.player_name}的更多说说">查看更多</a>
+								<span style="color:#8899a6;font-size:13px;" title="<fmt:formatDate value="${say.create_time}" pattern="yyyy-MM-dd hh:mm"/>"> - <fmt:formatDate value="${say.create_time}" pattern="MM月dd日"/> </span>
 							</div>
 							<div class="col-lg-12 col-md-12">
 								<span style="color:#292f33;font-size:14px;">${say.content}</span>
