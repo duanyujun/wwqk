@@ -1,7 +1,5 @@
 package com.wwqk.controller;
 
-import org.eclipse.jetty.util.StringUtil;
-
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 import com.wwqk.model.Player;
@@ -28,6 +26,10 @@ public class SayController extends Controller {
 		
 		//说说
 		Page<Say> sayPage = Say.dao.paginate(getParaToInt("pageNumber", 1), 10, "and player_id = '"+playerId+"'");
+		if(sayPage.getTotalRow()==0){
+			setAttr("NO_SAY", "1");
+			sayPage = Say.dao.paginate(getParaToInt("pageNumber", 1), 5, "");
+		}
 		setAttr("sayPage", sayPage);
 		setAttr("pageUI", PageUtils.calcStartEnd(sayPage));
 		
