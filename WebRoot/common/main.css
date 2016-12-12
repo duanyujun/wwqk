@@ -33,6 +33,7 @@ body{font-family:"Source Sans Pro", "Open Sans", "Helvetica Neue", "WenQuanYi Mi
 .team-title a{color:#2C3447;text-decoration:none;}
 .team-title a:hover{color:#00A50D;cursor:pointer;}
 .content-size{font-size:12px;}
+.text_cut{text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
 
 
 /*CSS scott style pagination*/

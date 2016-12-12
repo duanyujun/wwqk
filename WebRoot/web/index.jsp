@@ -60,7 +60,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									<a href="fun/detail?id=${fun.id}" target="_blank">${fun.title}</a>
 								</c:if>
 								<c:if test="${fun.type==2}">
-									<a href="say/detail?id=${fun.source_id}" target="_blank">${fun.title}</a>
+									<a href="say/detail?id=${fun.source_id}" target="_blank"><div class="text_cut" style="width:380px;line-height:32px;" title="${fun.summary}">${fun.summary}</div></a>
 								</c:if>
 							</span>
 						</div>

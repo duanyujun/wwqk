@@ -14,7 +14,7 @@ public class LoginController extends Controller {
 
 	public void enter() {
 		String username = getPara("username");
-		String password = getPara("password");
+		String password = getPara("password1");
 		Subject currentUser = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 		try {

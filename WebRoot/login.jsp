@@ -41,7 +41,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
         <!-- BEGIN LOGIN -->
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
-            <form class="login-form" action="${ctx}/login/enter" method="post">
+            <form class="login-form" id="login-form" action="${ctx}/login/enter" method="post">
                 <h3 class="form-title">登 录 系 统</h3>
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
@@ -57,6 +57,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                 <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">Password</label>
                     <div class="input-icon">
+                    	<input type="hidden" name="password1" id="password1"/>
                         <i class="fa fa-lock"></i>
                         <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" id="password" name="password" onkeydown='if(event.keyCode==13){return false;}' /> </div>
                 </div>
@@ -102,6 +103,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 <![endif]-->
         <!-- BEGIN CORE PLUGINS -->
         <script src="${ctx}/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="${ctx}/assets/global/plugins/jquery.form.min.js" type="text/javascript"></script>
         <script src="${ctx}/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="${ctx}/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
         <script src="${ctx}/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
@@ -158,24 +160,36 @@ function showToast(type, title, content){
 }
 
 $(function(){  
+
 	var loginError = '${sessionScope.loginError}';
 	if(loginError!=''){
 		$("#password").val("");
 		showToast(4, "您的用户名或密码错误", "警告");
 	}
 	
-	$('.login-form').submit(function(){
-		
+	var options = {
+	        target: '#login-form',
+	   		success:showSuccess
+	};
+	
+	$('#login-form').submit(function(){
 		if($("#password").val()!=''){
 			var password = md5($("#password").val());
-	    	$("#password").val(password);
+			$("#password1").val(password);
+	    	$("#password").attr("disabled", "true");
 		}
-		
-        //$(this).ajaxSubmit(options);
-        return false;
+        $(this).ajaxSubmit(options);
+        return true;
     });
+	
+
+	
+	
 });
 	
+function showSuccess(data){
+	showToast(1, "登录成功！", "温馨提示");
+}
 	
 </script>
 
