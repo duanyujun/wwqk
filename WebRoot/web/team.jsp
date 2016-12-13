@@ -87,20 +87,20 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							      		<p>
 							      		<a href="say/list?id=${player.id}" target="_blank">${player.name}</a>&nbsp;&nbsp;
 							      		<c:if test="${!empty player.number}">
-								      		<img src="assets/pages/img/cloth.png" style="margin-top:-3px;" title="球衣：${player.number}号"/> ${player.number}号
+								      		<span title="球衣：${player.number}号"><img src="assets/pages/img/cloth.png" style="margin-top:-3px;" /> ${player.number}号</span>
 							      		</c:if>
 							      		</p>
 							      		
 							      		<p style="line-height:20px;height:20px;">
 							      		${player.age}岁&nbsp;
 							      		<c:if test="${player.goal_count!=0}">
-							      			<img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" title="进球数：${player.goal_count}"/> <b>${player.goal_count}</b>
+							      			<span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span>
 							      		</c:if>
 							      		<c:if test="${player.goal_count!=0 && player.assists_count!=0}">
 							      		&nbsp;
 							      		</c:if>
 							      		<c:if test="${player.assists_count!=0}">
-							      			<img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" title="助攻数：${player.assists_count}"/> <b>${player.assists_count}</b>
+							      			<span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span>
 							      		</c:if>
 							      		</p>
 							      	</td>
