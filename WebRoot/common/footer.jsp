@@ -10,12 +10,12 @@
 				<div class="col-lg-12 col-md-12" style="margin-top:15px;">
 					Copyright © 趣点足球网   粤ICP备16048166号-4 &nbsp;&nbsp;&nbsp;友情链接：<a href="http://www.rich888.cn/app.htm" style="color:white;text-decoration: none;" target="_blank">飞达网</a>
 				</div>
-				<div class="col-lg-12 col-md-12" style="margin-top:15px;color:#222;">
+				<div class="col-lg-12 col-md-12 hidden-sm hidden-xs" style="margin-top:15px;color:#222;">
 					免责声明：本网站内容来源于互联网，如有侵权，请联系QQ：920841228
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-5 col-md-5">
+		<div class="col-lg-5 col-md-5 hidden-sm hidden-xs">
 			<div class="row">
 				<div class="col-lg-12 col-md-12">
 					<img src="assets/pages/img/rich888.png" class="img-responsive img-rounded" />
@@ -35,6 +35,13 @@ $(function(){
       else{
         $(".footer").removeClass("navbar-fixed-bottom");
       }
+	  
+	  $('#menuSelect').change(function(){ 
+			var link = $(this).children('option:selected').val();
+			window.location.href = link;
+	  }) 
 });
+
+</script>
 
 </script>

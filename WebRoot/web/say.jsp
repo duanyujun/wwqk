@@ -20,47 +20,71 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <body>
 	<div class="row menu_bg clear_row_margin" >
-		<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
+		<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">	
 			<div>
 				<div class="logo_div">
-					<a style="margin-left:12px;">趣点足球网</a>
+					<a href="" title="首页">趣点足球网</a>
 				</div>
-				<ul style="float:left;">
+				<ul style="float:left;" class="hidden-sm hidden-xs">
 					<li class="menu_width"><a href="">首页</a></li>
 					<li class="menu_width"><a href="fun">趣点</a></li>
-					<li class="menu_sel menu_width"><a href="say">说说</a></li>
+					<li class="menu_width menu_sel"><a href="say">说说</a></li>
 					<li class="menu_width"><a href="match">比赛</a></li>
 					<li class="menu_width"><a href="data">数据</a></li>
-				</ul>	
+				</ul>
+				<div class="visible-sm visible-xs small-menu">
+					<select id="menuSelect" class="form-control small-select">
+						<option value="">首页</option>
+						<option value="fun">趣点</option>
+						<option selected value="say">说说</option>
+						<option value="match">比赛</option>
+						<option value="data">数据</option>
+					</select>	
+				</div>
 			</div>
 		</div>
+		
 	</div>
+	
 	
 	<div class="row clear_row_margin" style="margin-top:70px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
-			<div class="col-lg-9 col-md-9 bread">
+			<div class="bread">
 				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;说说广场
 			</div>
 		</div>
 	</div>
 	
-	<div class="row clear_row_margin" style="margin-top:20px;">
+	<div class="row clear_row_margin" style="margin-top:10px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
-			<div class="col-lg-9 col-md-9">
 				<c:forEach items="${sayPage.list}" var="say" varStatus="status">
-					<div class="col-lg-12 col-md-12" style="border:1px solid #E3E7EA;${status.index!=0?'border-top:0;':''}padding:20px;padding-left:0;padding-bottom:10px;">
-						<div class="col-lg-1 col-md-1">
+					<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="border:1px solid #E3E7EA;${status.index!=0?'border-top:0;':''}padding:20px;padding-left:0;padding-bottom:10px;">
+						<div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
 							<a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:48px;height:48px;" /></a>
 						</div>
-						<div class="col-lg-11 col-md-11" >
-							<div class="col-lg-12 col-md-12 say-info">
-								<span style="font-weight:bold;color:#292f33;"><a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
-								<span style="color:#8899a6;font-size:13px;"> - <fmt:formatDate value="${say.create_time}" pattern="MM月dd日"/> </span>
+						<div class="col-lg-11 col-md-11 col-sm-12 col-xs-12" >
+							<div class="col-lg-12 col-md-12 say-info hidden-sm hidden-xs">
+								<span style="display:block;font-weight:bold;color:#292f33;float:left;"><a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
+								<span style="display:block;color:#8899a6;font-size:13px;float:left;"> - <fmt:formatDate value="${say.create_time}" pattern="MM月dd日"/> </span>
 								&nbsp;<a href="say/list?id=${say.player_id}" target="_blank" title="${say.player_name}的更多说说">查看更多</a>
 							</div>
-							<div class="col-lg-12 col-md-12">
+							
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 say-info visible-sm visible-xs" style="line-height:30px;height:30px;padding-left:0px;padding-right:0px;">
+								<span style="display:block;float:left;"><a class="visible-sm visible-xs" href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:30px;height:30px;" /></a></span>
+								<span style="display:block;font-weight:bold;color:#292f33;float:left;"><a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
+								<span style="display:block;color:#8899a6;font-size:13px;float:left;"> - <fmt:formatDate value="${say.create_time}" pattern="MM月dd日"/> </span>
+								&nbsp;<a href="say/list?id=${say.player_id}" target="_blank" title="${say.player_name}的更多说说">查看更多</a>
+							</div>
+						
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-sm hidden-xs">
 								<span style="color:#292f33;font-size:14px;">${say.content}</span>
 							</div>
+							
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-sm visible-xs" style="padding-right:0px;margin-top:8px;">
+								<span style="color:#292f33;font-size:14px;">${say.content}</span>
+							</div>
+							
+							
 							<c:if test="${!empty say.image_big}">
 								<div class="col-lg-12 col-md-12" style="margin-top:10px;">
 									<img src="${say.image_big}" class="img-responsive img-rounded" />
@@ -71,8 +95,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</c:forEach>
 				
 				
-				<div class="col-lg-12 col-md-12 " style="margin-top:20px;">
-					<div class="scott pull-right">
+				<div class="col-lg-9 col-md-9" style="margin-top:20px;padding-right:0px;">
+					<div class="scott pull-right" >
 						<a href="/say?pageNumber=1" title="首页"> &lt;&lt; </a>
 						
 						<c:if test="${sayPage.pageNumber == 1}">
@@ -109,10 +133,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<a href="/say?pageNumber=${sayPage.pageNumber + 1}"> &gt; </a>
 						</c:if>
 						
-						<a href="/say?pageNumber=${sayPage.totalPage}" title="尾页"> &gt;&gt; </a>
+						<a href="/say?pageNumber=${sayPage.totalPage}" title="尾页" > &gt;&gt; </a>
 					</div>
 				</div>
-			</div>
 		</div>
 	</div>
 	

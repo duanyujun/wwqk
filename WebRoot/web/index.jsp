@@ -15,23 +15,31 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
-    
 </head>
 
 <body>
 	<div class="row menu_bg clear_row_margin" >
-		<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
+		<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">	
 			<div>
 				<div class="logo_div">
-					<a style="margin-left:12px;">趣点足球网</a>
+					<a href="">趣点足球网</a>
 				</div>
-				<ul style="float:left;">
+				<ul style="float:left;" class="hidden-sm hidden-xs">
 					<li class="menu_sel menu_width"><a href="">首页</a></li>
 					<li class="menu_width"><a href="fun">趣点</a></li>
 					<li class="menu_width"><a href="say">说说</a></li>
 					<li class="menu_width"><a href="match">比赛</a></li>
 					<li class="menu_width"><a href="data">数据</a></li>
-				</ul>	
+				</ul>
+				<div class="visible-sm visible-xs small-menu">
+					<select id="menuSelect" class="form-control small-select">
+						<option value="">首页</option>
+						<option value="fun">趣点</option>
+						<option value="say">说说</option>
+						<option value="match">比赛</option>
+						<option value="data">数据</option>
+					</select>	
+				</div>
 			</div>
 		</div>
 		
@@ -45,7 +53,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="col-lg-12 col-md-12" style="margin-top:19px;height:1px;"></div>
 					</c:if>
 				
-					<div class="col-lg-4 col-md-4">
+					<div class="col-lg-4 col-md-4 hidden-sm hidden-xs" style="padding-left:0px;">
 						<c:if test="${fun.type==1}">
 							<a href="fun/detail?id=${fun.id}" target="_blank"><img src="${fun.image_small}" class="msg-img" /></a>
 						</c:if>
@@ -57,10 +65,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="col-lg-12 col-md-12">
 							<span class="msg-title">
 								<c:if test="${fun.type==1}">
-									<a href="fun/detail?id=${fun.id}" target="_blank">${fun.title}</a>
+									<a href="fun/detail?id=${fun.id}" target="_blank" class="hidden-sm hidden-xs" title="${fun.title}">${fun.title}</a><a href="fun/detail?id=${fun.id}" target="_blank" class="visible-sm visible-xs"><div class="text_cut" style="width:280px;line-height:32px;font-size:15px;" title="${fun.title}">${fun.title}</div></a>
 								</c:if>
 								<c:if test="${fun.type==2}">
-									<a href="say/detail?id=${fun.source_id}" target="_blank"><div class="text_cut" style="width:380px;line-height:32px;" title="${fun.summary}">${fun.summary}</div></a>
+									<a href="say/detail?id=${fun.source_id}" target="_blank" class="hidden-sm hidden-xs"><div class="text_cut" style="width:420px;line-height:32px;" title="${fun.summary}">${fun.summary}</div></a>
+									<a href="say/detail?id=${fun.source_id}" target="_blank" class="visible-sm visible-xs"><div class="text_cut" style="width:280px;line-height:32px;font-size:15px;" title="${fun.summary}">${fun.summary}</div></a>
 								</c:if>
 							</span>
 						</div>
@@ -91,11 +100,19 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									</span>
 		                    </div>
 						</div>
+						<div class="col-lg-12 col-md-12 visible-sm visible-xs" style="margin-top:10px;">
+							<c:if test="${fun.type==1}">
+								<a href="fun/detail?id=${fun.id}" target="_blank"><img src="${fun.image_small}" class="img-responsive" /></a>
+							</c:if>
+							<c:if test="${fun.type==2}">
+								<a href="say/detail?id=${fun.source_id}" target="_blank"><img src="${fun.image_small}" class="img-responsive" /></a>
+							</c:if>
+						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:20px;padding-right:0;">
 							<span class="summary">${fun.summary}</span>
 						</div>
 					</div>
-					<div class="col-lg-12 col-md-12">
+					<div class="col-lg-12 col-md-12" style="padding-left:0px;">
 						<div class="index-line"></div>
 					</div>
 					
@@ -148,5 +165,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	</div>
 	
 	<%@ include file="/common/footer.jsp"%>		
+	
 </body>	
 

@@ -19,31 +19,42 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <body>
 		<div class="row menu_bg clear_row_margin" >
-			<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
-				<div class="logo_div">
-					<a style="margin-left:12px;">趣点足球网</a>
+			<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">	
+				<div>
+					<div class="logo_div">
+						<a href="" title="首页">趣点足球网</a>
+					</div>
+					<ul style="float:left;" class="hidden-sm hidden-xs">
+						<li class="menu_width"><a href="">首页</a></li>
+						<li class="menu_width"><a href="fun">趣点</a></li>
+						<li class="menu_width"><a href="say">说说</a></li>
+						<li class="menu_width"><a href="match">比赛</a></li>
+						<li class="menu_width menu_sel"><a href="data">数据</a></li>
+					</ul>
+					<div class="visible-sm visible-xs small-menu">
+						<select id="menuSelect" class="form-control small-select">
+							<option value="">首页</option>
+							<option value="fun">趣点</option>
+							<option value="say">说说</option>
+							<option value="match">比赛</option>
+							<option selected value="data">数据</option>
+						</select>	
+					</div>
 				</div>
-				<ul style="float:left;">
-					<li class="menu_width"><a href="">首页</a></li>
-					<li class="menu_width"><a href="fun">趣点</a></li>
-					<li class="menu_width"><a href="say">说说</a></li>
-					<li class="menu_width"><a href="match">比赛</a></li>
-					<li class="menu_width menu_sel"><a href="data">数据</a></li>
-				</ul>	
 			</div>
 		</div>
 		
 		<div class="row clear_row_margin" style="margin-top:70px;">
-			<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
-				<div class="col-lg-9 col-md-9 bread">
+			<div id="main_content" style="min-height:10px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
+				<div class="bread">
 					当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;数据
 				</div>
 			</div>
 		</div>
 		
 		<div class="row clear_row_margin" style="margin-top:20px;">
-			<div id="main_content" style="min-height:20px;" class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2 col-sm-12 col-xs-12">		
-				<div class="row">
+			<div id="main_content" class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2 col-sm-12 col-xs-12">		
+				<div class="row hidden-sm hidden-xs">
 					<div class="col-lg-2 col-md-2">
 						<a href="data" class="link-img"><img src="assets/image/page/league-logo1.jpg" style="width:60px;height:60px;"/></a>
 					</div>
@@ -61,24 +72,24 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 				</div>
 				<div class="row" style="margin-top:8px;">
-					<div class="col-lg-2 col-md-2 team-title" style="font-size:14px;">
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2  team-title" style="font-size:14px;">
 						<a href="data" ><div class="${leagueId==1?'select-league':'common-league'}">英超</div></a>
 					</div>
-					<div class="col-lg-2 col-md-2 team-title" style="font-size:14px;">
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 team-title" style="font-size:14px;">
 						<a href="data?leagueId=2" ><div class="${leagueId==2?'select-league':'common-league'}">西甲</div></a>
 					</div>
-					<div class="col-lg-2 col-md-2 team-title" style="font-size:14px;">
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 team-title" style="font-size:14px;">
 						<a href="data?leagueId=3" ><div class="${leagueId==3?'select-league':'common-league'}">德甲</div></a>
 					</div>
-					<div class="col-lg-2 col-md-2 team-title" style="font-size:14px;">
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 team-title" style="font-size:14px;">
 						<a href="data?leagueId=4" ><div class="${leagueId==4?'select-league':'common-league'}">意甲</div></a>
 					</div>
-					<div class="col-lg-2 col-md-2 team-title" style="font-size:14px;">
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 team-title" style="font-size:14px;">
 						<a href="data?leagueId=5" ><div class="${leagueId==5?'select-league':'common-league'}">法甲</div></a>
 					</div>
 				</div>
 				
-				<div class="row" style="margin-top:20px;">
+				<div class="row hidden-sm hidden-xs" style="margin-top:10px;">
 					<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 						<table class="table table-hover" style="border:1px solid #dddddd;">
 						  <caption style="min-height:60px;"><img src="assets/image/page/cup-${leagueId}.jpg" />&nbsp;<span style="font-size:18px;">联赛积分榜</span></caption>
@@ -155,7 +166,82 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 				</div>
 				
-				<div class="row" style="margin-top:20px;">
+				
+				<div class="row visible-sm visible-xs" style="margin-top:10px;">
+					<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+						<table class="table small-table" style="border:1px solid #dddddd;">
+						  <caption ><img src="assets/image/page/cup-${leagueId}.jpg" style="height:40px;"/>&nbsp;<span style="font-size:15px;">联赛积分榜</span></caption>
+						  <thead>
+						    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
+						      <th style="max-width:20px;">排<br/>名</th>
+						      <th style="min-width:106px;" >球队</th>
+						      <th style="width:35px;">场次</th>
+						      <th style="width:35px;">胜</th>
+						      <th style="width:35px;">平</th>
+						      <th style="width:35px;">负</th>
+						      <th style="width:35px;">净胜球</th>
+						      <th >积分</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						  <c:forEach items="${positionList}"  var="team" varStatus="status">
+						  	<c:if test="${leagueId==4}">
+						  		<c:choose> 
+								  <c:when test="${status.index<3}">   
+								    <tr style="background:#E0F4F0;">
+								  </c:when> 
+								  <c:when test="${status.index>16}">   
+								    <tr style="background:#EEEEEE;">
+								  </c:when> 
+								  <c:otherwise>   
+								    <tr> 
+								  </c:otherwise> 
+								</c:choose> 
+						  	</c:if>
+						  	<c:if test="${leagueId==5}">
+						  		<c:choose> 
+								  <c:when test="${status.index<2}">   
+								    <tr style="background:#E0F4F0;">
+								  </c:when> 
+								  <c:when test="${status.index>17}">   
+								    <tr style="background:#EEEEEE;">
+								  </c:when> 
+								  <c:otherwise>   
+								    <tr> 
+								  </c:otherwise> 
+								</c:choose> 
+						  	</c:if>
+						  	<c:if test="${leagueId!=4 && leagueId!=5}">
+						  		<c:choose> 
+								  <c:when test="${status.index<4}">   
+								    <tr style="background:#E0F4F0;">
+								  </c:when> 
+								  <c:when test="${status.index>16}">   
+								    <tr style="background:#EEEEEE;">
+								  </c:when> 
+								  <c:otherwise>   
+								    <tr> 
+								  </c:otherwise> 
+								</c:choose> 
+						  	</c:if>
+							  <td>${status.count}</td>
+						      <td class="team-title" style=""><a href="team?id=${team.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${team.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${team.team_name}</a></td>
+						      <td>${team.round_count}</td>
+						      <td>${team.win_count}</td>
+						      <td>${team.even_count}</td>
+						      <td>${team.lose_count}</td>
+						      <td>${team.goal_count}</td>
+						      <td>${team.points}</td>
+						    </tr>
+						    
+						   </c:forEach>
+						  </tbody>
+						</table>
+					</div>
+				</div>
+				
+				
+				<div class="row hidden-sm hidden-xs" style="margin-top:20px;">
 					<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
 						<table class="table table-striped table-hover " style="border:1px solid #dddddd;">
 						  <caption><span style="font-size:18px;">射手榜</span></caption>
@@ -185,6 +271,59 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" >
 						<table class="table table-striped table-hover " style="border:1px solid #dddddd;">
 						  <caption><span style="font-size:18px;">助攻榜</span></caption>
+						  <thead>
+						    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
+						      <th>排名</th>
+						      <th>球员</th>
+						      <th>球队</th>
+						      <th align="center">助攻数</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						  	<c:forEach items="${assistsList}"  var="assists" varStatus="status">
+							    <tr>
+							      <td>${status.count}</td>
+							      <td class="team-title" ><a href="say/list?id=${assists.player_id}" target="_blank"><img src="${assists.player_img}" style="width:25px;height:25px;" />&nbsp;${assists.player_name}</a></td>
+							      <td class="team-title" ><a href="team?id=${assists.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${assists.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${assists.team_name}</a></td>
+							      <td ><center>${assists.assists_count}</center></td>
+							    </tr>
+						    </c:forEach>
+						  </tbody>
+						</table>
+					</div>
+				</div>
+				
+				
+				<div class="row visible-sm visible-xs" style="margin-top:20px;">
+					<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+						<table class="table table-striped small-table " style="border:1px solid #dddddd;">
+						  <caption><span style="font-size:16px;">射手榜</span></caption>
+						  <thead>
+						    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
+						      <th>排名</th>
+						      <th>球员</th>
+						      <th style="min-width:110px;">球队</th>
+						      <th><center>进球数</center></th>
+						      <th><center>点球数</center></th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						  	<c:forEach items="${shooterList}"  var="shooter" varStatus="status">
+							    <tr>
+							      <td>${status.count}</td>
+							      <td class="team-title" ><a href="say/list?id=${shooter.player_id}" target="_blank"><img src="${shooter.player_img}" style="width:25px;height:25px;" />&nbsp;${shooter.player_name}</a></td>
+							      <td class="team-title" ><a href="team?id=${shooter.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${shooter.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${shooter.team_name}</a></td>
+							      <td ><center>${shooter.goal_count}</center></td>
+							      <td ><center>${shooter.penalty_count}</center></td>
+							    </tr>
+							</c:forEach>
+						  </tbody>
+						</table>
+					</div>
+					
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" >
+						<table class="table table-striped small-table " style="border:1px solid #dddddd;">
+						  <caption><span style="font-size:16px;">助攻榜</span></caption>
 						  <thead>
 						    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
 						      <th>排名</th>

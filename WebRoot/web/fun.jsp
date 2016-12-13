@@ -20,46 +20,51 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <body>
 	<div class="row menu_bg clear_row_margin" >
-		<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
+		<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">	
 			<div>
 				<div class="logo_div">
-					<a style="margin-left:12px;">趣点足球网</a>
+					<a href="" title="首页">趣点足球网</a>
 				</div>
-				<ul style="float:left;">
+				<ul style="float:left;" class="hidden-sm hidden-xs">
 					<li class="menu_width"><a href="">首页</a></li>
-					<li class="menu_sel menu_width"><a href="fun">趣点</a></li>
+					<li class="menu_width menu_sel"><a href="fun">趣点</a></li>
 					<li class="menu_width"><a href="say">说说</a></li>
 					<li class="menu_width"><a href="match">比赛</a></li>
 					<li class="menu_width"><a href="data">数据</a></li>
-				</ul>	
+				</ul>
+				<div class="visible-sm visible-xs small-menu">
+					<select id="menuSelect" class="form-control small-select">
+						<option value="">首页</option>
+						<option selected value="fun">趣点</option>
+						<option value="say">说说</option>
+						<option value="match">比赛</option>
+						<option value="data">数据</option>
+					</select>	
+				</div>
 			</div>
 		</div>
 		
 	</div>
 	
+	
 	<div class="row clear_row_margin" style="margin-top:70px;">
-		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
-			<div class="col-lg-9 col-md-9 bread">
+		<div id="main_content" style="min-height:10px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
+			<div class="bread">
 				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;趣点
 			</div>
 		</div>
 	</div>
 	
 	<div class="row clear_row_margin" style="margin-top:20px;">
-		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
+		<div id="main_content" style="min-height:10px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-9 col-md-9" style="padding-left:0px;">
 				<c:forEach items="${funPage.list}" var="fun" varStatus="status">
 					<c:if test="${status.index!=0}">
 						<div class="col-lg-12 col-md-12" style="margin-top:19px;height:1px;"></div>
 					</c:if>
 				
-					<div class="col-lg-4 col-md-4">
-						<c:if test="${fun.type==1}">
+					<div class="col-lg-4 col-md-4 hidden-sm hidden-xs" style="padding-left:0px;">
 							<a href="fun/detail?id=${fun.id}" target="_blank"><img src="${fun.image_small}" class="msg-img" /></a>
-						</c:if>
-						<c:if test="${fun.type==2}">
-							<a href="say/detail?id=${fun.source_id}" target="_blank"><img src="${fun.image_small}" class="msg-img" /></a>
-						</c:if>
 					</div>
 					<div class="col-lg-8 col-md-8" style="padding-left:0px;">
 						<div class="col-lg-12 col-md-12">
@@ -86,11 +91,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									</span>
 		                    </div>
 						</div>
+						
+						<div class="col-lg-12 col-md-12 visible-sm visible-xs" style="margin-top:10px;">
+								<a href="fun/detail?id=${fun.id}" target="_blank"><img src="${fun.image_small}" class="msg-img" /></a>
+						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:20px;padding-right:0;">
 							<span class="summary">${fun.summary}</span>
 						</div>
 					</div>
-					<div class="col-lg-12 col-md-12">
+					<div class="col-lg-12 col-md-12" style="padding-left:0px;">
 						<div class="index-line"></div>
 					</div>
 					

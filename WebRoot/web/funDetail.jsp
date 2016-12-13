@@ -20,18 +20,27 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <body>
 	<div class="row menu_bg clear_row_margin" >
-		<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
+		<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">	
 			<div>
 				<div class="logo_div">
 					<a style="margin-left:12px;">趣点足球网</a>
 				</div>
-				<ul style="float:left;">
+				<ul style="float:left;" class="hidden-sm hidden-xs">
 					<li class="menu_width"><a href="">首页</a></li>
-					<li class="menu_sel menu_width"><a href="fun">趣点</a></li>
+					<li class="menu_width menu_sel"><a href="fun">趣点</a></li>
 					<li class="menu_width"><a href="say">说说</a></li>
 					<li class="menu_width"><a href="match">比赛</a></li>
 					<li class="menu_width"><a href="data">数据</a></li>
-				</ul>	
+				</ul>
+				<div class="visible-sm visible-xs small-menu">
+					<select id="menuSelect" class="form-control small-select">
+						<option value="">首页</option>
+						<option selected value="fun">趣点</option>
+						<option value="say">说说</option>
+						<option value="match">比赛</option>
+						<option value="data">数据</option>
+					</select>	
+				</div>
 			</div>
 		</div>
 		
@@ -39,15 +48,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	<div class="row clear_row_margin" style="margin-top:70px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
-			<div class="col-lg-9 col-md-9 bread">
-				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/fun" target="_blank">趣点</a>&nbsp;&gt;&nbsp;明细
+			<div class="col-lg-9 col-md-9 col-sm-11 col-xs-11 bread">
+				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/fun" target="_blank">趣点</a>&nbsp;&gt;&nbsp;详情
 			</div>
 		</div>
 	</div>
 	
 	<div class="row clear_row_margin" style="margin-top:20px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
-			<div class="col-lg-9 col-md-9">
+			<div class="col-lg-9 col-md-9 col-lg-12 col-md-12">
 				<div class="col-lg-12 col-md-12"><h2 style="font-weight:bold;">${fun.title}</h2></div>
 				<div class="col-lg-12 col-md-12">
 					<div class="mob-author">

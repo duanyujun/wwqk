@@ -74,7 +74,7 @@
 		          </div>
 		          
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>小图片（180x135）：</label>
+		              <label class="col-md-3 control-label"><font color="red">*</font>小图片（220x140）：</label>
 		              <div class="col-md-6">
 		                  <input type="file" class="form-control" id="image_small" name="image_small" >
 		              </div>
