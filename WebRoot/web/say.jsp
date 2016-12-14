@@ -62,7 +62,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<c:forEach items="${sayPage.list}" var="say" varStatus="status">
 					<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="border:1px solid #E3E7EA;${status.index!=0?'border-top:0;':''}padding:20px;padding-left:0;padding-bottom:10px;">
 						<div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
-							<a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:48px;height:48px;" /></a>
+							<a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:48px;height:48px;" alt="${say.player_name}" title="${say.player_name}"/></a>
 						</div>
 						<div class="col-lg-11 col-md-11 col-sm-12 col-xs-12" >
 							<div class="col-lg-12 col-md-12 say-info hidden-sm hidden-xs">
@@ -89,7 +89,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							
 							<c:if test="${!empty say.image_big}">
 								<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-									<img src="${say.image_big}" class="img-responsive img-rounded" />
+									<img src="${say.image_big}" class="img-responsive img-rounded" alt="${say.content}" title="${say.player_name} - ${say.content}"/>
 								</div>
 							</c:if>
 						</div>

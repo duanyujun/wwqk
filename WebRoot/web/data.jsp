@@ -152,7 +152,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</c:choose> 
 						  	</c:if>
 							  <td>${status.count}</td>
-						      <td class="team-title" ><a href="team?id=${team.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${team.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${team.team_name}</a></td>
+						      <td class="team-title" ><a href="team?id=${team.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${team.team_id}.png" style="width:25px;height:25px;" alt="${team.team_name}" title="${team.team_name}"/>&nbsp;${team.team_name}</a></td>
 						      <td>${team.round_count}</td>
 						      <td>${team.win_count}</td>
 						      <td>${team.even_count}</td>
@@ -228,7 +228,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</c:choose> 
 						  	</c:if>
 							  <td>${status.count}</td>
-						      <td class="team-title" style=""><a href="team?id=${team.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${team.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${team.team_name}</a></td>
+						      <td class="team-title" style=""><a href="team?id=${team.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${team.team_id}.png" style="width:25px;height:25px;" title="${team.team_name}" alt="${team.team_name}"/>&nbsp;${team.team_name}</a></td>
 						      <td>${team.round_count}</td>
 						      <td>${team.win_count}</td>
 						      <td>${team.even_count}</td>
@@ -261,8 +261,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  	<c:forEach items="${shooterList}"  var="shooter" varStatus="status">
 							    <tr>
 							      <td>${status.count}</td>
-							      <td class="team-title" ><a href="say/list?id=${shooter.player_id}" target="_blank"><img src="${shooter.player_img}" style="width:25px;height:25px;" />&nbsp;${shooter.player_name}</a></td>
-							      <td class="team-title" ><a href="team?id=${shooter.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${shooter.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${shooter.team_name}</a></td>
+							      <td class="team-title" ><a href="say/list?id=${shooter.player_id}" target="_blank"><img src="${shooter.player_img}" style="width:25px;height:25px;" alt="${shooter.player_name}" title="${shooter.player_name}"/>&nbsp;${shooter.player_name}</a></td>
+							      <td class="team-title" ><a href="team?id=${shooter.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${shooter.team_id}.png" style="width:25px;height:25px;" alt="${shooter.team_name}" title="${shooter.team_name}"/>&nbsp;${shooter.team_name}</a></td>
 							      <td ><center>${shooter.goal_count}</center></td>
 							      <td ><center>${shooter.penalty_count}</center></td>
 							    </tr>
@@ -286,8 +286,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  	<c:forEach items="${assistsList}"  var="assists" varStatus="status">
 							    <tr>
 							      <td>${status.count}</td>
-							      <td class="team-title" ><a href="say/list?id=${assists.player_id}" target="_blank"><img src="${assists.player_img}" style="width:25px;height:25px;" />&nbsp;${assists.player_name}</a></td>
-							      <td class="team-title" ><a href="team?id=${assists.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${assists.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${assists.team_name}</a></td>
+							      <td class="team-title" ><a href="say/list?id=${assists.player_id}" target="_blank"><img src="${assists.player_img}" style="width:25px;height:25px;" alt="${assists.player_name}" title="${assists.player_name}" />&nbsp;${assists.player_name}</a></td>
+							      <td class="team-title" ><a href="team?id=${assists.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${assists.team_id}.png" style="width:25px;height:25px;" alt="${assists.team_name}" title="${assists.team_name}"/>&nbsp;${assists.team_name}</a></td>
 							      <td ><center>${assists.assists_count}</center></td>
 							    </tr>
 						    </c:forEach>
@@ -314,8 +314,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  	<c:forEach items="${shooterList}"  var="shooter" varStatus="status">
 							    <tr>
 							      <td>${status.count}</td>
-							      <td class="team-title" ><a href="say/list?id=${shooter.player_id}" target="_blank"><img src="${shooter.player_img}" style="width:25px;height:25px;" />&nbsp;${shooter.player_name}</a></td>
-							      <td class="team-title" ><a href="team?id=${shooter.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${shooter.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${shooter.team_name}</a></td>
+							      <td class="team-title" ><a href="say/list?id=${shooter.player_id}" target="_blank"><img src="${shooter.player_img}" style="width:25px;height:25px;" alt="${shooter.player_name}" title="${shooter.player_name}"/>&nbsp;${shooter.player_name}</a></td>
+							      <td class="team-title" ><a href="team?id=${shooter.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${shooter.team_id}.png" style="width:25px;height:25px;" alt="${shooter.team_name}" title="${shooter.team_name}"/>&nbsp;${shooter.team_name}</a></td>
 							      <td ><center>${shooter.goal_count}</center></td>
 							      <td ><center>${shooter.penalty_count}</center></td>
 							    </tr>
@@ -339,8 +339,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  	<c:forEach items="${assistsList}"  var="assists" varStatus="status">
 							    <tr>
 							      <td>${status.count}</td>
-							      <td class="team-title" ><a href="say/list?id=${assists.player_id}" target="_blank"><img src="${assists.player_img}" style="width:25px;height:25px;" />&nbsp;${assists.player_name}</a></td>
-							      <td class="team-title" ><a href="team?id=${assists.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${assists.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${assists.team_name}</a></td>
+							      <td class="team-title" ><a href="say/list?id=${assists.player_id}" target="_blank"><img src="${assists.player_img}" style="width:25px;height:25px;" alt="${assists.player_name}" title="${assists.player_name}" />&nbsp;${assists.player_name}</a></td>
+							      <td class="team-title" ><a href="team?id=${assists.team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${assists.team_id}.png" style="width:25px;height:25px;" alt="${assists.team_name}" title="${assists.team_name}"/>&nbsp;${assists.team_name}</a></td>
 							      <td ><center>${assists.assists_count}</center></td>
 							    </tr>
 						    </c:forEach>

@@ -52,7 +52,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<div class="row">
 					<div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
 						<div class="col-lg-12 col-md-12">						
-							<img src="assets/image/soccer/teams/150x150/${team.id}.png"  style="width:150px;height:150px;"/>
+							<img src="assets/image/soccer/teams/150x150/${team.id}.png"  style="width:150px;height:150px;" alt="${team.name}" title="${team.name}"/>
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
 							<span style="font-size:24px;font-weight:bold;">${team.name}</span>
@@ -73,7 +73,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<div class="col-sm-12 col-xs-12 visible-sm visible-xs">
 						<div class="row">
 							<div class="col-sm-6 col-xs-6">						
-								<img src="assets/image/soccer/teams/150x150/${team.id}.png"  style="width:150px;height:150px;"/>
+								<img src="assets/image/soccer/teams/150x150/${team.id}.png"  style="width:150px;height:150px;" alt="${team.name}" title="${team.name}"/>
 							</div>
 							<div class="col-sm-6 col-xs-6" style="margin-top:10px;">
 								<span style="font-size:18px;font-weight:bold;">${team.name}</span>
@@ -100,7 +100,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 						<div class="row" style="margin-top:10px;">
 							<div class="col-lg-12 col-md-12">
-								<img src="${team.venue_small_img_local}" class="img-responsive img-rounded" style="width:300px;height:225px;"/>
+								<img src="${team.venue_small_img_local}" class="img-responsive img-rounded" style="width:300px;height:225px;" alt="${team.name}球场名称：${team.venue_name}" title="${team.name}球场名称：${team.venue_name}"/>
 							</div>
 							<div class="col-lg-12 col-md-12" style="margin-top:10px;">
 								球场名称：${team.venue_name}
@@ -124,7 +124,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							  	<c:set var="i" value="1"/>
 							  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
 								<c:forEach items="${group}" var="player">
-									<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" /></td>
+									<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}"/></td>
 							      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:13px;">
 							      		<p>
 							      		<a href="say/list?id=${player.id}" target="_blank">${player.name}</a>&nbsp;&nbsp;
@@ -167,7 +167,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							  	<c:set var="i" value="1"/>
 							  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
 								<c:forEach items="${group}" var="player">
-									<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" /></td>
+									<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}" title="${player.name}"/></td>
 							      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:13px;">
 							      		<p>
 							      		<a href="say/list?id=${player.id}" target="_blank">${player.name}</a>

@@ -58,10 +58,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				
 					<div class="col-lg-4 col-md-4 hidden-sm hidden-xs" style="padding-left:0px;">
 						<c:if test="${fun.type==1}">
-							<a href="fun/detail?id=${fun.id}" target="_blank"><img src="${fun.image_small}" class="msg-img" /></a>
+							<a href="fun/detail?id=${fun.id}" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.title}" title="${fun.title}"/></a>
 						</c:if>
 						<c:if test="${fun.type==2}">
-							<a href="say/detail?id=${fun.source_id}" target="_blank"><img src="${fun.image_small}" class="msg-img" /></a>
+							<a href="say/detail?id=${fun.source_id}" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.summary}" title="${fun.summary}"/></a>
 						</c:if>
 					</div>
 					<div class="col-lg-8 col-md-8" style="padding-left:0px;">

@@ -61,7 +61,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<div class="col-lg-9 col-md-9 hidden-sm hidden-xs">
 				<div class="col-lg-12 col-md-12" >
 					<div class="col-lg-3 col-md-3">
-						<img src="${player.img_big_local}" style="width:150px;height:150px;" />
+						<img src="${player.img_big_local}" style="width:150px;height:150px;" alt="${player.name}" title="${player.name}"/>
 					</div>
 					<div class="col-lg-9 col-md-9">
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">名字：${player.first_name}</div>
@@ -100,7 +100,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<div class="col-sm-12 col-xs-12">
 						<div class="row">
 							<div class="col-sm-12 col-xs-12">
-								<img src="${player.img_big_local}" class="img-responsive" />
+								<img src="${player.img_big_local}" class="img-responsive" alt="${player.name}" title="${player.name}" />
 							</div>
 						</div>
 						<div class="row">
@@ -127,7 +127,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						</div>
 						<div class="row">
 							<div class="col-sm-12 col-xs-12 team-title" style="margin-top:10px;font-size:14px;">
-								<a href="team?id=${player.team_id}" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a>
+								<a href="team?id=${player.team_id}" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;" alt="${player.team_name}" title="${player.team_name}"/>&nbsp;${player.team_name}</a>
 								&nbsp;
 								<c:if test="${player.goal_count!=0}">
 					      			<span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span>
@@ -173,7 +173,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border:1px solid #E3E7EA;${status.index!=0?'border-top:0;':''}padding:10px;padding-bottom:10px;">
 								<div class="row">
 									<div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
-										<a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:48px;height:48px;" /></a>
+										<a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:48px;height:48px;" alt="${say.player_name}" title="${say.player_name}"/></a>
 									</div>
 									<div class="col-lg-11 col-md-11 col-sm-12 col-xs-12" >
 										<div class="row hidden-sm hidden-xs">
@@ -208,7 +208,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										<c:if test="${!empty say.image_big}">
 											<div class="row">
 												<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-													<img src="${say.image_big}" class="img-responsive img-rounded" />
+													<img src="${say.image_big}" class="img-responsive img-rounded" alt="${say.content}" title="${say.player_name} - ${say.content}" />
 												</div>
 											</div>
 										</c:if>
