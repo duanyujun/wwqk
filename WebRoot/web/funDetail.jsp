@@ -12,10 +12,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta content="telephone=no" name="format-detection">
+	<meta name="keywords" content="${fun.title},足球趣点,数据分析,新星挖掘,球员评价" />
+	<meta name="description" content="${fun.summary}" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
-    
+    <title>趣点足球网 - ${fun.title}|足球趣点|数据分析|新星挖掘|球员评价</title>
 </head>
 
 <body>

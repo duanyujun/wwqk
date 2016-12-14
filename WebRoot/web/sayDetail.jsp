@@ -12,10 +12,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta content="telephone=no" name="format-detection">
+	<meta name="keywords" content="趣点足球网,${say.player_name}的动态,${say.player_name}的近况,${say.content}" />
+	<meta name="description" content="${say.content}" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
-    
+    <title>趣点足球网 - ${say.player_name}的近况|${say.content}</title>
 </head>
 
 <body>
