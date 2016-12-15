@@ -3,6 +3,7 @@ package com.wwqk.model;
 import java.util.Map;
 
 import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.plugin.activerecord.Page;
 
 public class LeagueMatchHistory extends Model<LeagueMatchHistory> {
 	
@@ -14,4 +15,7 @@ public class LeagueMatchHistory extends Model<LeagueMatchHistory> {
 	    return super.getAttrs();
 	}
 	
+	public Page<LeagueMatchHistory> paginate(int pageNumber, int pageSize, String whereSql) {
+		return paginate(pageNumber, pageSize, "select *", "from league_match_history where 1=1 " + whereSql +" order by match_date desc");
+	}
 }

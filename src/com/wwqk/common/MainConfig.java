@@ -21,6 +21,7 @@ import com.wwqk.controller.HomeController;
 import com.wwqk.controller.IndexController;
 import com.wwqk.controller.LoginController;
 import com.wwqk.controller.MatchController;
+import com.wwqk.controller.MatchHistoryController;
 import com.wwqk.controller.PermissionController;
 import com.wwqk.controller.RoleController;
 import com.wwqk.controller.SayController;
@@ -36,6 +37,7 @@ import com.wwqk.model.League;
 import com.wwqk.model.LeagueAssists;
 import com.wwqk.model.LeagueAssists163;
 import com.wwqk.model.LeagueMatch;
+import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.LeaguePosition;
 import com.wwqk.model.LeagueShooter;
 import com.wwqk.model.LeagueShooter163;
@@ -85,6 +87,7 @@ public class MainConfig extends JFinalConfig {
 		me.add("/permission", PermissionController.class, "web");
 		me.add("/home", HomeController.class, "web");
 		me.add("/admin",AdminController.class, "web");
+		me.add("/history",MatchHistoryController.class, "web");
 	}
 
 	@Override
@@ -119,6 +122,7 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("league_assists_163", LeagueAssists163.class);
 		arp.addMapping("shooter_assists_source", ShooterAssistsSource.class);
 		arp.addMapping("qq_email", QQEmail.class);
+		arp.addMapping("league_match_history", LeagueMatchHistory.class);
 		
 		me.add(c3p0Plugin);
 		me.add(arp);

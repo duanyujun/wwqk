@@ -13,7 +13,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta content="telephone=no" name="format-detection">
 	<meta name="keywords" content="足球比赛,比赛时间,比赛结果,巴萨比赛,皇马比赛,曼联比赛,阿森纳比赛,曼城比赛,利物浦比赛,切尔西比赛,拜仁比赛,尤文图斯比赛,巴黎圣日耳曼比赛" />
-	<meta name="description" content="趣点足球网为球迷们提供五大联赛最新的足球比赛预告，比赛结果。" />
+	<meta name="description" content="趣点足球网为球迷们提供五大联赛最新的足球比赛预告，比赛结果。获取免费足球直播，上趣点足球网。" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
@@ -52,7 +52,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin" style="margin-top:70px;">
 		<div id="main_content" style="min-height:10px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="bread">
-				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;比赛
+				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/match" target="_blank">比赛</a>&gt;&nbsp;全部
 			</div>
 		</div>
 	</div>
@@ -60,23 +60,23 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin" style="margin-top:1px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-9 col-md-9" style="padding-left:0px;padding-right:0px;">
-				<c:forEach items="${lstGroup}" var="group">
-					<div class="table-responsive hidden-sm hidden-xs" style="margin-top:10px;">
+				<div class="table-responsive hidden-sm hidden-xs" style="margin-top:10px;">
 						<table class="table table-condensed table-hover" style="border-bottom:1px solid #dddddd;">
-						  <caption style="text-align:center;"><img title="${group[0].league_name}" src="assets/image/page/league-logo${group[0].league_id}.jpg" style="width:80px;height:80px;"/></caption>
 						  <thead>
 						    <tr>
-						      <th style="width:230px;">比赛时间（${group[0].league_name}）</th>
-						      <th style="width:180px;"></th>
-						      <th style="width:180px;"></th>
-						      <th style="width:180px;"></th>
-						      <th style="width:10px;"></th>	
+						      <th style="width:160px;">比赛时间</th>
+						      <th style="width:50px;"></th>
+						      <th style="width:150px;"></th>
+						      <th style="width:150px;"></th>
+						      <th style="width:150px;"></th>
+						      <th style="width:40px;"></th>	
 						    </tr>
 						  </thead>
 						  <tbody>
-						  	<c:forEach items="${group}" var="match">
+						  	<c:forEach items="${matchPage.list}" var="match">
 						    <tr>
-						      <td>${match.match_date} &nbsp;&nbsp;星期${match.match_weekday}</td>
+						      <td>${match.match_date} &nbsp;&nbsp;星期${match.match_weekday}&nbsp;&nbsp;</td>
+						      <td>${match.league_name}</td>
 						      <td class="team-title"><a href="team?id=${match.home_team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${match.home_team_id}.png" style="width:25px;height:25px;" alt="${match.home_team_name}" title="${match.home_team_name}"/>&nbsp;${match.home_team_name}</a></td>
 						      <td>
 						      	<c:if test="${fn:contains(match.result, '-')}">
@@ -87,7 +87,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						      	</c:if>
 						      </td>
 						      <td class="team-title"><a href="team?id=${match.away_team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${match.away_team_id}.png" style="width:25px;height:25px;" alt="${match.away_team_name}" title="${match.away_team_name}"/>&nbsp;${match.away_team_name}</a></td>
-						      <td><span style="color:gray;"></span></td>
+						      <td>
+						      		<c:if test="${fn:contains(match.result, '-')}">
+							      		<span style="color:gray;">集锦</span>
+							      	</c:if>
+							      	<c:if test="${!fn:contains(match.result, '-')}">
+							      		<b>直播</b>
+							      	</c:if>
+						      </td>
 						    </tr>
 						    </c:forEach>
 						    
@@ -95,10 +102,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						</table>
 					</div>
 					
-					
 					<div class="table-responsive visible-sm visible-xs" style="margin-top:10px;">
 						<table class="table table-condensed table-hover" style="border-bottom:1px solid #dddddd;">
-						  <caption style="text-align:left;"><img title="${group[0].league_name}" src="assets/image/page/league-logo${group[0].league_id}.jpg" style="width:80px;height:80px;"/></caption>
 						  <thead>
 						    <tr>
 						      <th>比赛时间</th>
@@ -127,10 +132,49 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  </tbody>
 						</table>
 					</div>
-				</c:forEach>
-				<div class="pull-right say-info" style="margin-top:10px;">
-					<a href="/history" target="_blank" title="更多比赛">查看更多比赛&gt;&gt;</a>
-				</div>
+					
+					<div class="col-lg-9 col-md-9" style="margin-top:20px;padding-right:0px;">
+						<div class="scott pull-right" >
+							<a href="/history?pageNumber=1" title="首页"> &lt;&lt; </a>
+							
+							<c:if test="${matchPage.pageNumber == 1}">
+								<span class="disabled"> &lt; </span>
+							</c:if>
+							<c:if test="${matchPage.pageNumber != 1}">
+								<a href="/history?pageNumber=${matchPage.pageNumber - 1}" > &lt; </a>
+							</c:if>
+							<c:if test="${matchPage.pageNumber > 8}">
+								<a href="/history?pageNumber=1">1</a>
+								<a href="/history?pageNumber=2">2</a>
+								...
+							</c:if>
+							<c:if test="${!empty pageUI.list}">
+								<c:forEach items="${pageUI.list}" var="pageNo">
+									<c:if test="${matchPage.pageNumber == pageNo }">
+										<span class="current">${pageNo}</span>
+									</c:if>
+									<c:if test="${matchPage.pageNumber != pageNo }">
+										<a href="/history?pageNumber=${pageNo}">${pageNo}</a>
+									</c:if>
+								</c:forEach>
+							</c:if>
+							<c:if test="${(matchPage.totalPage - matchPage.pageNumber) >= 8 }">
+								...
+								<a href="/history?pageNumber=${matchPage.totalPage - 1}">${matchPage.totalPage - 1}</a>
+								<a href="/history?pageNumber=${matchPage.totalPage}">${matchPage.totalPage}</a>
+							</c:if>
+							
+							<c:if test="${matchPage.pageNumber == matchPage.totalPage}">
+								<span class="disabled"> &gt; </span>
+							</c:if>
+							<c:if test="${matchPage.pageNumber != matchPage.totalPage}">
+								<a href="/history?pageNumber=${matchPage.pageNumber + 1}"> &gt; </a>
+							</c:if>
+							
+							<a href="/history?pageNumber=${matchPage.totalPage}" title="尾页" > &gt;&gt; </a>
+						</div>
+					</div>
+					
 			</div>
 			<div class="col-lg-3 col-md-3">
 				
