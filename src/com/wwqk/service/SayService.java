@@ -103,7 +103,7 @@ public class SayService {
 		long millis = System.currentTimeMillis();
 		for(UploadFile file : files){
 			if("image_small".equals(file.getParameterName())){
-				image_small = ImageUtils.getInstance().saveFiles(file, "say", "180x135", player_id+"-"+millis, true);
+				image_small = ImageUtils.getInstance().saveFiles(file, "say", "220x140", player_id+"-"+millis, true);
 			}else{
 				image_big = ImageUtils.getInstance().saveFiles(file, "say", "610x410", player_id+"-"+millis, true);
 			}

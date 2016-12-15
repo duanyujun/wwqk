@@ -97,7 +97,7 @@ public class FunService {
 		long millis = System.currentTimeMillis();
 		for(UploadFile file : files){
 			if("image_small".equals(file.getParameterName())){
-				image_small = ImageUtils.getInstance().saveFiles(file, "fun", "180x135", millis+"", true);
+				image_small = ImageUtils.getInstance().saveFiles(file, "fun", "220x140", millis+"", true);
 			}else{
 				image_big = ImageUtils.getInstance().saveFiles(file, "fun", "610x410", millis+"", true);
 			}
