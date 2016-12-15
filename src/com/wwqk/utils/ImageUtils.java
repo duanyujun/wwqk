@@ -82,7 +82,8 @@ public class ImageUtils {
 	
 	public String getDiskPath(){
 		String path = this.getClass().getClassLoader().getResource("").getPath();
-		if(path.startsWith("/")){
+		String os = System.getProperty("os.name");  
+		if(os.toLowerCase().startsWith("win") && path.startsWith("/")){
 			path = path.substring(1);
 		}
 		//截取到WEB-INF上一个目录

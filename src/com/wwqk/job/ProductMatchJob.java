@@ -1,5 +1,9 @@
 package com.wwqk.job;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,16 +14,20 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import com.jfinal.plugin.activerecord.Db;
+import com.wwqk.constants.CommonConstants;
 import com.wwqk.constants.LeagueEnum;
 import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeagueMatchHistory;
+import com.wwqk.model.Player;
 import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.EnumUtils;
+import com.wwqk.utils.ImageUtils;
 
 /**
  * 
  * TODO 1、对已经同步的比赛进行归档
  * 		2、获取直播地址
+ * 	    3、替换小图片
  * 在ProductJob运行完后执行
  */
 public class ProductMatchJob implements Job {
@@ -31,6 +39,7 @@ public class ProductMatchJob implements Job {
 		System.err.println("ProductMatchJob start");
 		archiveMatch();
 		getLiveWebsite();
+		replaceEmptyImage();
 		System.err.println("ProductMatchJob end");
 	}
 	
@@ -75,6 +84,35 @@ public class ProductMatchJob implements Job {
 	
 	private void getLiveWebsite(){
 		
+	}
+	
+	private void replaceEmptyImage(){
+		String path = ImageUtils.getInstance().getDiskPath();
+		File imgSmallFile = null;
+		File imgBigFile = null;
+		List<Player> lstPlayer = Player.dao.find("select * from player");
+		List<Player> lstNeedUpdate = new ArrayList<Player>();
+		try {
+			for(Player player:lstPlayer){
+				imgSmallFile = new File(path+"/"+player.getStr("img_small_local"));
+				if(new Long(imgSmallFile.length()).intValue()<CommonConstants.SMALL_IMG_LENGTH){
+					imgBigFile = new File(path+"/"+player.getStr("img_big_local"));
+					if(imgBigFile.length()>CommonConstants.BIG_IMG_LENGTH){
+						ImageUtils.resizeImage(new FileInputStream(imgBigFile), new FileOutputStream(imgSmallFile), 50, "png");
+					}else{
+						player.set("img_small_local", CommonConstants.HEAD_SMALL_PATH);
+						player.set("img_big_local", CommonConstants.HEAD_BIG_PATH);
+						player.set("update_time", new Date());
+						lstNeedUpdate.add(player);
+					}
+				}
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		if(lstNeedUpdate.size()>0){
+			Db.batchUpdate(lstNeedUpdate, lstNeedUpdate.size());
+		}
 	}
 	
 }
