@@ -77,7 +77,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  	<c:forEach items="${group}" var="match">
 						    <tr>
 						      <td>${match.match_date} &nbsp;&nbsp;星期${match.match_weekday}</td>
-						      <td class="team-title"><a href="team?id=${match.home_team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${match.home_team_id}.png" style="width:25px;height:25px;" alt="${match.home_team_name}" title="${match.home_team_name}"/>&nbsp;${match.home_team_name}</a></td>
+						      <td class="team-title"><a href="team?id=${match.home_team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.home_team_id}.png" style="width:25px;height:25px;" alt="${match.home_team_name}" title="${match.home_team_name}"/>&nbsp;${match.home_team_name}</a></td>
 						      <td>
 						      	<c:if test="${fn:contains(match.result, '-')}">
 						      		<b>${match.result}</b>
@@ -86,7 +86,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						      		${match.result}
 						      	</c:if>
 						      </td>
-						      <td class="team-title"><a href="team?id=${match.away_team_id}" target="_blank"><img src="assets/image/soccer/teams/150x150/${match.away_team_id}.png" style="width:25px;height:25px;" alt="${match.away_team_name}" title="${match.away_team_name}"/>&nbsp;${match.away_team_name}</a></td>
+						      <td class="team-title"><a href="team?id=${match.away_team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.away_team_id}.png" style="width:25px;height:25px;" alt="${match.away_team_name}" title="${match.away_team_name}"/>&nbsp;${match.away_team_name}</a></td>
 						      <td><span style="color:gray;"></span></td>
 						    </tr>
 						    </c:forEach>
