@@ -126,7 +126,6 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("league_match_history", LeagueMatchHistory.class);
 		arp.addMapping("match_source", MatchSource.class);
 		
-		
 		me.add(c3p0Plugin);
 		me.add(arp);
 		

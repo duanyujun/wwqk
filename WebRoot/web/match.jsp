@@ -67,16 +67,16 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  <thead>
 						    <tr>
 						      <th style="width:230px;">比赛时间（${group[0].league_name}）</th>
-						      <th style="width:180px;"></th>
-						      <th style="width:180px;"></th>
-						      <th style="width:180px;"></th>
-						      <th style="width:10px;"></th>	
+						      <th style="width:160px;"></th>
+						      <th style="width:160px;"></th>
+						      <th style="width:160px;"></th>
+						      <th style="width:40px;"></th>	
 						    </tr>
 						  </thead>
 						  <tbody>
 						  	<c:forEach items="${group}" var="match">
 						    <tr>
-						      <td><fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/> &nbsp;&nbsp;${match.match_weekday}</td>
+						      <td><fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/>&nbsp;&nbsp;<b>${match.match_weekday}</b>&nbsp;&nbsp;&nbsp;<span style="color:#888;">第${match.round}轮</span></td>
 						      <td class="a-title"><a href="team?id=${match.home_team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.home_team_id}.png" style="width:25px;height:25px;" alt="${match.home_team_name}" title="${match.home_team_name}"/>&nbsp;${match.home_team_name}</a></td>
 						      <td>
 						      	<c:if test="${fn:contains(match.result, '-')}">
@@ -87,7 +87,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						      	</c:if>
 						      </td>
 						      <td class="a-title"><a href="team?id=${match.away_team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.away_team_id}.png" style="width:25px;height:25px;" alt="${match.away_team_name}" title="${match.away_team_name}"/>&nbsp;${match.away_team_name}</a></td>
-						      <td><span style="color:gray;"></span></td>
+						      <td>
+						      		<c:if test="${fn:contains(match.result, '-')}">
+							      		<span style="color:gray;">集锦</span>
+							      	</c:if>
+							      	<c:if test="${!fn:contains(match.result, '-')}">
+							      		<b>直播</b>
+							      	</c:if>
+						      </td>
 						    </tr>
 						    </c:forEach>
 						    

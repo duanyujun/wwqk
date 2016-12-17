@@ -1,6 +1,7 @@
 package com.wwqk.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,11 +24,22 @@ public class MatchController extends Controller {
 			}
 			//进行排序
 			List<List<LeagueMatch>> lstGroup = new ArrayList<List<LeagueMatch>>();
-			lstGroup.add(groupMap.get("英超"));
-			lstGroup.add(groupMap.get("西甲"));
-			lstGroup.add(groupMap.get("德甲"));
-			lstGroup.add(groupMap.get("意甲"));
-			lstGroup.add(groupMap.get("法甲"));
+			List<LeagueMatch> lstYC = groupMap.get("英超");
+			List<LeagueMatch> lstXJ = groupMap.get("西甲");
+			List<LeagueMatch> lstDJ = groupMap.get("德甲");
+			List<LeagueMatch> lstYJ = groupMap.get("意甲");
+			List<LeagueMatch> lstFJ = groupMap.get("法甲");
+			Collections.sort(lstYC);
+			Collections.sort(lstXJ);
+			Collections.sort(lstDJ);
+			Collections.sort(lstYJ);
+			Collections.sort(lstFJ);
+			
+			lstGroup.add(lstYC);
+			lstGroup.add(lstXJ);
+			lstGroup.add(lstDJ);
+			lstGroup.add(lstYJ);
+			lstGroup.add(lstFJ);
 			setAttr("lstGroup", lstGroup);
 		}
 		render("match.jsp");

@@ -75,7 +75,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  <tbody>
 						  	<c:forEach items="${matchPage.list}" var="match">
 						    <tr>
-						      <td><fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/> &nbsp;&nbsp;${match.match_weekday}&nbsp;&nbsp;</td>
+						      <td><fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/> &nbsp;&nbsp;<b>${match.match_weekday}</b>&nbsp;&nbsp;&nbsp;<span style="color:#888;">第${match.round}轮</span></td>
 						      <td>${match.league_name}</td>
 						      <td class="a-title"><a href="team?id=${match.home_team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.home_team_id}.png" style="width:25px;height:25px;" alt="${match.home_team_name}" title="${match.home_team_name}"/>&nbsp;${match.home_team_name}</a></td>
 						      <td>
