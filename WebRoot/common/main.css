@@ -35,6 +35,9 @@ body{font-family:"Source Sans Pro", "Open Sans", "Helvetica Neue", "WenQuanYi Mi
 .a-title{color:#2C3447;font-size:14px;}
 .a-title a{color:#2C3447;text-decoration:none;}
 .a-title a:hover{color:#00A50D;cursor:pointer;}
+.grey-title{color:gray;font-size:14px;}
+.grey-title a{color:gray;text-decoration:none;}
+.grey-title a:hover{color:#00A50D;cursor:pointer;}
 .content-size{font-size:12px;}
 .text_cut{text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
 .small-menu{float:left;line-height:60px;height:60px;overflow:hidden;padding-top:13px;}

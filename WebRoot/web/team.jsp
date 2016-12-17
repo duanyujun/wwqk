@@ -111,7 +111,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								所在城市：${team.venue_address}
 							</div>
 							<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-								观众容量：${team.venue_capacity}
+								观众容量：${team.venue_capacity}人
 							</div>
 						</div>
 					</div>

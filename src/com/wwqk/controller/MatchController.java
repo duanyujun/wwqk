@@ -7,7 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.jfinal.core.Controller;
+import com.wwqk.constants.LeagueEnum;
 import com.wwqk.model.LeagueMatch;
+import com.wwqk.model.LeagueMatchHistory;
+import com.wwqk.model.MatchLive;
+import com.wwqk.model.Team;
+import com.wwqk.utils.EnumUtils;
+import com.wwqk.utils.StringUtils;
 
 public class MatchController extends Controller {
 
@@ -43,6 +49,26 @@ public class MatchController extends Controller {
 			setAttr("lstGroup", lstGroup);
 		}
 		render("match.jsp");
+	}
+	
+	public void detail(){
+		String matchKey = getPara("matchKey");
+		if(StringUtils.isBlank(matchKey)){
+			redirect("/match");
+		}
+		List<MatchLive> lstMatchLive = MatchLive.dao.find("select * from match_live where match_key = ?", matchKey);
+		if(lstMatchLive.size()>0){
+			setAttr("lstMatchLive", lstMatchLive);
+		}
+		//主队球场
+		LeagueMatchHistory history = LeagueMatchHistory.dao.findById(matchKey);
+		Team homeTeam = Team.dao.findById(history.getStr("home_team_id"));
+		Team awayTeam = Team.dao.findById(history.getStr("away_team_id"));
+		setAttr("homeTeam", homeTeam);
+		setAttr("awayTeam", awayTeam);
+		setAttr("history", history);
+		setAttr("leagueName", EnumUtils.getValue(LeagueEnum.values(), homeTeam.getStr("league_id")));
+		render("matchDetail.jsp");
 	}
 	
 }

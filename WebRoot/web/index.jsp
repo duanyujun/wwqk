@@ -17,7 +17,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
-    <title>趣点足球网 - 一个有意思的足球网站|足球说说|足球趣闻|足球数据|球星生活</title>
+    <title>趣点足球网 - 一个有意思的足球网站|足球说说|足球趣闻|足球数据|球星生活|免费直播</title>
 </head>
 
 <body>
