@@ -75,9 +75,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  <tbody>
 						  	<c:forEach items="${matchPage.list}" var="match">
 						    <tr>
-						      <td>${match.match_date} &nbsp;&nbsp;星期${match.match_weekday}&nbsp;&nbsp;</td>
+						      <td><fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/> &nbsp;&nbsp;${match.match_weekday}&nbsp;&nbsp;</td>
 						      <td>${match.league_name}</td>
-						      <td class="team-title"><a href="team?id=${match.home_team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.home_team_id}.png" style="width:25px;height:25px;" alt="${match.home_team_name}" title="${match.home_team_name}"/>&nbsp;${match.home_team_name}</a></td>
+						      <td class="a-title"><a href="team?id=${match.home_team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.home_team_id}.png" style="width:25px;height:25px;" alt="${match.home_team_name}" title="${match.home_team_name}"/>&nbsp;${match.home_team_name}</a></td>
 						      <td>
 						      	<c:if test="${fn:contains(match.result, '-')}">
 						      		<b>${match.result}</b>
@@ -86,7 +86,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						      		${match.result}
 						      	</c:if>
 						      </td>
-						      <td class="team-title"><a href="team?id=${match.away_team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.away_team_id}.png" style="width:25px;height:25px;" alt="${match.away_team_name}" title="${match.away_team_name}"/>&nbsp;${match.away_team_name}</a></td>
+						      <td class="a-title"><a href="team?id=${match.away_team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.away_team_id}.png" style="width:25px;height:25px;" alt="${match.away_team_name}" title="${match.away_team_name}"/>&nbsp;${match.away_team_name}</a></td>
 						      <td>
 						      		<c:if test="${fn:contains(match.result, '-')}">
 							      		<span style="color:gray;">集锦</span>

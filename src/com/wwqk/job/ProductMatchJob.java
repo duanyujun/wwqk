@@ -1,23 +1,35 @@
 package com.wwqk.job;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
-import org.apache.http.client.HttpClient;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wwqk.constants.CommonConstants;
 import com.wwqk.constants.LeagueEnum;
 import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeagueMatchHistory;
+import com.wwqk.model.MatchSource;
+import com.wwqk.model.Team;
 import com.wwqk.model.Player;
 import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.EnumUtils;
@@ -32,8 +44,6 @@ import com.wwqk.utils.ImageUtils;
  */
 public class ProductMatchJob implements Job {
 	
-	private HttpClient client;
-
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		System.err.println("ProductMatchJob start");
@@ -44,36 +54,77 @@ public class ProductMatchJob implements Job {
 	}
 	
 	private void archiveMatch(){
-		List<LeagueMatchHistory> lstNeedInsert = new ArrayList<LeagueMatchHistory>();
-		List<LeagueMatchHistory> lstNeedUpdate = new ArrayList<LeagueMatchHistory>();
-		List<LeagueMatch> lstMatch = LeagueMatch.dao.find("select * from league_match");
-		String matchKey = null; //格式：2016-12-17-1210vs1100
-		for(LeagueMatch match : lstMatch){
-			matchKey = DateTimeUtils.formatDate(match.getDate("match_date"))+"-"+match.getStr("home_team_id")
-					+"vs"+match.getStr("away_team_id");
-			LeagueMatchHistory matchHistory = LeagueMatchHistory.dao.findById(matchKey);
-			if(matchHistory==null){
-				matchHistory = new LeagueMatchHistory();
-				matchHistory.set("id", matchKey);
-				matchHistory.set("match_date", match.getDate("match_date"));
-				matchHistory.set("match_weekday", match.get("match_weekday"));
-				matchHistory.set("home_team_id", match.get("home_team_id"));
-				matchHistory.set("home_team_name", match.get("home_team_name"));
-				matchHistory.set("away_team_id", match.get("away_team_id"));
-				matchHistory.set("away_team_name", match.get("away_team_name"));
-				matchHistory.set("result", match.get("result"));
-				matchHistory.set("league_id", match.getStr("league_id"));
-				matchHistory.set("league_name", EnumUtils.getValue(LeagueEnum.values(), match.getStr("league_id")));
-				matchHistory.set("round_id", match.getStr("round_id"));
-				matchHistory.set("update_time", new Date());
-				lstNeedInsert.add(matchHistory);
-			}else{
-				if(match.getStr("result").contains("-")){
-					matchHistory.set("result", match.getStr("result"));
-					lstNeedUpdate.add(matchHistory);
+		List<MatchSource> lstMatchSources = MatchSource.dao.find("select * from match_source");
+		Map<String, String> nameIdMap = getTeamNameIdMap();
+		//http://goal.sports.163.com/39/schedule/team/0_17_2016.html
+		for(MatchSource source : lstMatchSources){
+			Map<String, LeagueMatchHistory> currentMap = null;
+			for(int i=1; i<=source.getInt("current_round"); i++){
+				List<LeagueMatchHistory> lstNeedInsert = new ArrayList<LeagueMatchHistory>();
+				List<LeagueMatchHistory> lstNeedUpdate = new ArrayList<LeagueMatchHistory>();
+				LeagueMatchHistory historyExist = LeagueMatchHistory.dao.findFirst("select * from league_match_history where league_id =? and year=? and round=?", source.getStr("league_id"), source.getInt("year"), i);
+				String matchUrl = "http://goal.sports.163.com/"+source.getStr("league_id_163")+"/schedule/team/0_"+i+"_"+source.getInt("year")+".html";
+				System.err.println("~~~~url:"+matchUrl);
+				if(historyExist==null){
+					Map<String, LeagueMatchHistory> map = getMatchHistory(matchUrl, source, nameIdMap);
+					lstNeedInsert.addAll(map2List(map));
+					if(i == source.getInt("current_round")){
+						currentMap = map;
+					}
+				}else{
+					//更新当前轮历史数据
+					if(i == source.getInt("current_round")){
+						currentMap = getMatchHistory(matchUrl, source, nameIdMap);
+						lstNeedUpdate.addAll(map2List(currentMap));
+					}
+				}
+				
+				saveOneRound(lstNeedInsert, lstNeedUpdate);
+			}
+			
+			//处理当前轮次：1、更新联赛当前赛事；2、是否需要将当前轮次+1；
+			if(currentMap!=null){
+				List<LeagueMatch> lstMatch = new ArrayList<LeagueMatch>();
+				for(Entry<String, LeagueMatchHistory> entry : currentMap.entrySet()){
+					LeagueMatch match = new LeagueMatch();
+					match.set("match_date", entry.getValue().getDate("match_date"));
+					match.set("home_team_id", entry.getValue().getStr("home_team_id"));
+					match.set("home_team_name", entry.getValue().getStr("home_team_name"));
+					match.set("away_team_id", entry.getValue().getStr("away_team_id"));
+					match.set("away_team_name", entry.getValue().getStr("away_team_name"));
+					match.set("match_weekday", entry.getValue().getStr("match_weekday"));
+					match.set("result", entry.getValue().getStr("result"));
+					match.set("league_id", entry.getValue().getStr("league_id"));
+					match.set("round", entry.getValue().getStr("round"));
+					match.set("update_time", new Date());
+					lstMatch.add(match);
+				}
+				
+				Db.update("delete from league_match where league_id = ? ", source.getStr("league_id"));
+				Db.batchSave(lstMatch, lstMatch.size());
+				
+				//是否需要将当前轮次+1；
+				boolean updateCurrentRound = true;
+				for(LeagueMatch match : lstMatch){
+					if(!match.getStr("result").contains("-") && match.getDate("match_date").after(new Date())){
+						updateCurrentRound = false;
+					}
+				}
+				if(updateCurrentRound){
+					int currentRound = source.getInt("current_round");
+					source.set("current_round", currentRound+1>source.getInt("round_max")?source.getInt("round_max"):currentRound+1);
+					source.update();
 				}
 			}
 		}
+	}
+	
+	private void getLiveWebsite(){
+		
+	}
+	
+	@Before(Tx.class)
+	private void saveOneRound(List<LeagueMatchHistory> lstNeedInsert, List<LeagueMatchHistory> lstNeedUpdate){
 		if(lstNeedInsert.size()>0){
 			Db.batchSave(lstNeedInsert, lstNeedInsert.size());
 		}
@@ -82,10 +133,75 @@ public class ProductMatchJob implements Job {
 		}
 	}
 	
-	private void getLiveWebsite(){
-		
+	private Map<String, String> getTeamNameIdMap(){
+		Map<String, String> map = new HashMap<String, String>();
+		List<Team> lstTeams = Team.dao.find("select id,name from team");
+		for(Team team : lstTeams){
+			map.put(team.getStr("name"), team.getStr("id"));
+		}
+		return map;
 	}
 	
+	private Map<String, LeagueMatchHistory> getMatchHistory(String matchUrl, MatchSource source, Map<String, String> nameIdMap){
+		Map<String, LeagueMatchHistory> map = new HashMap<String, LeagueMatchHistory>();
+		try {
+			Document document = Jsoup.connect(matchUrl).get();
+			Elements matchAreaElements = document.select(".leftList4");
+			if(matchAreaElements.size()>0){
+				Elements trElements = matchAreaElements.get(0).select("tr");
+				for(Element element : trElements){
+					if(element.attr("id")!=null && element.attr("id").contains("hide_")){
+						continue;
+					}
+					Elements tdElements = element.select("td");
+					if(tdElements.size()>0){
+						LeagueMatchHistory history = new LeagueMatchHistory();
+						history.set("round", tdElements.get(0).text());
+						history.set("match_date", DateTimeUtils.parseDate(tdElements.get(1).text(), DateTimeUtils.ISO_DATETIME_NOSEC_FORMAT_ARRAY));
+						history.set("home_team_id", nameIdMap.get(tdElements.get(3).text()));
+						history.set("home_team_name", tdElements.get(3).text());
+						history.set("away_team_id", nameIdMap.get(tdElements.get(5).text()));
+						history.set("away_team_name", tdElements.get(5).text());
+						if(!tdElements.get(4).text().contains("-")){
+							history.set("result", tdElements.get(1).text().substring(tdElements.get(1).text().indexOf(" ")+1));
+						}else{
+							history.set("result", tdElements.get(4).text().replace("-", " - "));
+						}
+						history.set("league_id", source.getStr("league_id"));
+						history.set("league_name", EnumUtils.getValue(LeagueEnum.values(), source.getStr("league_id")));
+						history.set("year", source.getInt("year"));
+						if(map.get(tdElements.get(3).text())==null){
+							map.put(tdElements.get(3).text(), history);
+						}else{
+							//判断是否有重复的
+							if("完场".equals(tdElements.get(2).text())){
+								map.put(tdElements.get(3).text(), history);
+							}
+						}
+						
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return map;
+	}
+	
+	private List<LeagueMatchHistory> map2List(Map<String, LeagueMatchHistory> map){
+		List<LeagueMatchHistory> lstHistory = new ArrayList<LeagueMatchHistory>();
+		for(Entry<String, LeagueMatchHistory> entry:map.entrySet()){
+			LeagueMatchHistory history = entry.getValue();
+			history.set("id", DateTimeUtils.formatDate(history.getDate("match_date"))+"-"+history.getStr("home_team_id")+"vs"+history.getStr("away_team_id"));
+			history.set("match_weekday", DateTimeUtils.formatDate(history.getDate("match_date"), DateTimeUtils.ISO_WEEK_FORMAT));
+			lstHistory.add(history);
+		}
+		return lstHistory;
+	}
+
 	private void replaceEmptyImage(){
 		String path = ImageUtils.getInstance().getDiskPath();
 		File imgSmallFile = null;

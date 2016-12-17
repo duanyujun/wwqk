@@ -41,6 +41,7 @@ import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.LeaguePosition;
 import com.wwqk.model.LeagueShooter;
 import com.wwqk.model.LeagueShooter163;
+import com.wwqk.model.MatchSource;
 import com.wwqk.model.Permissions;
 import com.wwqk.model.Player;
 import com.wwqk.model.QQEmail;
@@ -123,6 +124,8 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("shooter_assists_source", ShooterAssistsSource.class);
 		arp.addMapping("qq_email", QQEmail.class);
 		arp.addMapping("league_match_history", LeagueMatchHistory.class);
+		arp.addMapping("match_source", MatchSource.class);
+		
 		
 		me.add(c3p0Plugin);
 		me.add(arp);

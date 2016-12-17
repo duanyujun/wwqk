@@ -105,6 +105,12 @@ public final class DateTimeUtils {
     public final static String ISO_TIME_FORMAT = "HH:mm:ss";
     
     public final static String[] ISO_DATETIME_FORMAT_ARRAY = {ISO_DATETIME_FORMAT};
+    
+    public final static String ISO_DATETIME_NOSEC_FORMAT = "yyyy-MM-dd HH:mm";
+    
+    public final static String[] ISO_DATETIME_NOSEC_FORMAT_ARRAY = {ISO_DATETIME_NOSEC_FORMAT};
+    
+    public final static String ISO_WEEK_FORMAT = "E";
 
     /**
      * 根据配置的默认日期时间格式来获取指定的对象的字符串信息

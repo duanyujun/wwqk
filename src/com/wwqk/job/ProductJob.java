@@ -101,7 +101,7 @@ public class ProductJob implements Job {
 		//排名
 		handleLeaguePosition(document, leagueId, roundId);
 		//比赛
-		handleMatch(document, leagueId, roundId);
+		//handleMatch(document, leagueId, roundId);
 		
 	}
 	
