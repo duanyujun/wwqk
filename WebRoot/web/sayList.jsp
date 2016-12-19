@@ -66,7 +66,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<div class="col-lg-9 col-md-9">
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">名字：${player.first_name}</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">姓氏：${player.last_name}</div>
-						<div class="col-lg-6 col-md-6" style="margin-top:10px;">生日：${player.birthday}</div>
+						<div class="col-lg-6 col-md-6" style="margin-top:10px;">生日：${player.birthday}（${player.age}岁）</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">国籍：${player.nationality}</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">身高：${player.height}</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">体重：${player.weight}</div>
