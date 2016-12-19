@@ -98,7 +98,7 @@ public class ProductMatchJob implements Job {
 					match.set("home_team_name", entry.getValue().getStr("home_team_name"));
 					match.set("away_team_id", entry.getValue().getStr("away_team_id"));
 					match.set("away_team_name", entry.getValue().getStr("away_team_name"));
-					match.set("match_weekday", entry.getValue().getStr("match_weekday"));
+					match.set("match_weekday", DateTimeUtils.formatDate2WeekDay(entry.getValue().getDate("match_date")) );
 					match.set("result", entry.getValue().getStr("result"));
 					match.set("league_id", entry.getValue().getStr("league_id"));
 					match.set("round", entry.getValue().getStr("round"));
@@ -305,7 +305,7 @@ public class ProductMatchJob implements Job {
 		for(Entry<String, LeagueMatchHistory> entry:map.entrySet()){
 			LeagueMatchHistory history = entry.getValue();
 			history.set("id", DateTimeUtils.formatDate(history.getDate("match_date"))+"-"+history.getStr("home_team_id")+"vs"+history.getStr("away_team_id"));
-			history.set("match_weekday", DateTimeUtils.formatDate(history.getDate("match_date"), DateTimeUtils.ISO_WEEK_FORMAT));
+			history.set("match_weekday", DateTimeUtils.formatDate2WeekDay(history.getDate("match_date")));
 			lstHistory.add(history);
 		}
 		return lstHistory;

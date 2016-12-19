@@ -110,7 +110,7 @@ public final class DateTimeUtils {
     
     public final static String[] ISO_DATETIME_NOSEC_FORMAT_ARRAY = {ISO_DATETIME_NOSEC_FORMAT};
     
-    public final static String ISO_WEEK_FORMAT = "E";
+    public final static String DAY_NAMES[] = { "周日", "周一", "周二", "周三", "周四", "周五", "周六" };
 
     /**
      * 根据配置的默认日期时间格式来获取指定的对象的字符串信息
@@ -188,7 +188,7 @@ public final class DateTimeUtils {
         SimpleDateFormat objSimpleDateFormat = new SimpleDateFormat(strFormatStyle);
         return objSimpleDateFormat.format(value);
     }
-
+    
     public static String formatTime(Time value) {
         return formatTime(value, ISO_TIME_FORMAT);
     }
@@ -1152,6 +1152,20 @@ public final class DateTimeUtils {
 		}
 		return age;
 	}
-
+	
+	/**
+	 * 得到是周几
+	 * @param date
+	 */
+	public static String formatDate2WeekDay(Date date){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+		if(dayOfWeek<0){
+			dayOfWeek = 0;
+		}
+		
+		return DAY_NAMES[dayOfWeek];
+	}
 
 }
