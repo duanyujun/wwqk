@@ -90,9 +90,9 @@ public class AdminController extends Controller {
 	}
 	
 	public void saveTeam(){
-		UploadFile file = null;
+		List<UploadFile> files = new ArrayList<UploadFile>();
 		try {
-			file = getFile();
+			files = getFiles();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -101,6 +101,17 @@ public class AdminController extends Controller {
 		if(id == null){
 			return;
 		}
+		
+		String img_small_local = "";
+		String img_big_local = "";
+		for(UploadFile file : files){
+			if("file_small".equals(file.getParameterName())){
+				img_small_local = ImageUtils.getInstance().saveFiles(file, "venues", "300x225", id, false);
+			}else{
+				img_big_local = ImageUtils.getInstance().saveFiles(file, "venues", "600x450", id, false);
+			}
+		}
+		
 		Team team = Team.dao.findById(id);
 		
 		String name = getPara("name");
@@ -108,8 +119,14 @@ public class AdminController extends Controller {
 		String venue_name = getPara("venue_name");
 		FlagMask.setModelFlag(team, "venue_name", venue_name, FlagMask.TEAM_VENUE_NAME_MASK);
 		String team_url = getPara("team_url");
-		String venue_small_img_local = ImageUtils.getInstance().saveFiles(file, "venues", "300x225", id, false);
-		FlagMask.setModelFlag(team, "venue_small_img_local", venue_small_img_local, FlagMask.TEAM_VENUE_IMG_MASK);
+		if(StringUtils.isNotBlank(img_small_local)){
+			team.set("venue_small_img_local", img_small_local);
+		}
+		FlagMask.setModelFlag(team, "venue_small_img_local", img_small_local, FlagMask.TEAM_VENUE_IMG_MASK);
+		if(StringUtils.isNotBlank(img_big_local)){
+			team.set("venue_img_local", img_big_local);
+		}
+		FlagMask.setModelFlag(team, "venue_img_local", img_big_local, FlagMask.TEAM_VENUE_IMG_BIG_MASK);
 		String venue_address = getPara("venue_address");
 		FlagMask.setModelFlag(team, "venue_address", venue_address, FlagMask.TEAM_VENUE_CITY_MASK);
 		
@@ -118,9 +135,7 @@ public class AdminController extends Controller {
 		team.set("venue_name", venue_name);
 		team.set("venue_address", venue_address);
 		team.set("team_url", team_url);
-		if(StringUtils.isNotBlank(venue_small_img_local)){
-			team.set("venue_small_img_local", venue_small_img_local);
-		}
+		
 		team.update();
 		
 		renderJson(1);

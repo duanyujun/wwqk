@@ -55,12 +55,39 @@
 		              <div class="col-md-3"><label for="venue_address"></label></div>
 		          </div>
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>球场图片：</label>
+		              <label class="col-md-3 control-label"><font color="red">*</font>球场小图片（300x225）：</label>
 		              <div class="col-md-6">
-		                  <input type="file" class="form-control" id="file" name="file" >
+		                  <input type="file" class="form-control" id="file_small" name="file_small" >
 		              </div>
-		              <div class="col-md-3"><label for="file"></label></div>
+		              <div class="col-md-3"><label for="file_small"></label></div>
 		          </div>
+		          <c:if test="${!empty team.venue_small_img_local}">
+		          	<div class="form-group">
+			              <label class="col-md-3 control-label"></label>
+			              <div class="col-md-6">
+			                  <img src="${team.venue_small_img_local}" class="img-responsive"/>
+			              </div>
+			              <div class="col-md-3"><label for="venue_small_img_local"></label></div>
+			          </div>
+		          </c:if>
+		          
+		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>球场大图片：</label>
+		              <div class="col-md-6">
+		                  <input type="file" class="form-control" id="file_big" name="file_big" >
+		              </div>
+		              <div class="col-md-3"><label for="file_big"></label></div>
+		          </div>
+		          <c:if test="${!empty team.venue_img_local}">
+		          	<div class="form-group">
+			              <label class="col-md-3 control-label"></label>
+			              <div class="col-md-6">
+			                  <img src="${team.venue_img_local}" class="img-responsive"/>
+			              </div>
+			              <div class="col-md-3"><label for="venue_img_local"></label></div>
+			          </div>
+		          </c:if>
+		          
 		          <div class="form-group">
 		              <label class="col-md-3 control-label">球队链接：</label>
 		              <div class="col-md-6">

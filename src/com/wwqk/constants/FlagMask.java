@@ -12,11 +12,14 @@ public class FlagMask {
 	/** 球场名称  */
 	public static final int TEAM_VENUE_NAME_MASK = 0x00000002;
 	
-	/** 球场照片 */
+	/** 球场小照片 */
 	public static final int TEAM_VENUE_IMG_MASK = 0x00000004;
 	
+	/** 球场大图片 */
+	public static final int TEAM_VENUE_IMG_BIG_MASK = 0x00000008;
+	
 	/** 球场城市 */
-	public static final int TEAM_VENUE_CITY_MASK = 0x00000008;
+	public static final int TEAM_VENUE_CITY_MASK = 0x00000010;
 	
 	//球员相关
 	/** 球员名称 */
