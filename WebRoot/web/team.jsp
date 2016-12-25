@@ -147,98 +147,147 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</table>
 							</div>
 						</div>
+						
 					</div>
 					
 				</div>
 				
-				<c:forEach items="${lstGroup}" var="group">
-					<div class="row hidden-sm hidden-xs" style="margin-top:20px;">
-						<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-							<table class="table" >
-							  <caption style="min-height:30px;text-align:left;"><b style="margin-left:15px;">${group[0].position}</b></caption>
-							  <tbody >
-							  	<c:set var="i" value="1"/>
-							  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
-								<c:forEach items="${group}" var="player">
-									<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}"/></td>
-							      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:13px;">
-							      		<p>
-							      		<a href="say/list?id=${player.id}" target="_blank">${player.name}</a>&nbsp;&nbsp;
-							      		<c:if test="${!empty player.number}">
-							      			<c:if test="${!empty team.cloth}">
-							      				<nobr><span title="球衣：${player.number}号"><span style="<c:if test="${!empty clothBg }">display:line-block;background:#ddd;</c:if>"><img src="${team.cloth}" style="margin-top:-3px;" /></span> ${player.number}号</span></nobr>
-							      			</c:if>
-							      			<c:if test="${empty team.cloth}">
-									      		<nobr><span title="球衣：${player.number}号"><img src="assets/pages/img/cloth.png" style="margin-top:-3px;" /> ${player.number}号</span></nobr>
-							      			</c:if>
-							      		</c:if>
-							      		</p>
-							      		<p style="line-height:20px;height:20px;">
-							      		${player.age}岁 &nbsp;
-							      		<c:if test="${player.goal_count!=0}">
-							      			<nobr><span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span></nobr>
-							      		</c:if>
-							      		<c:if test="${player.goal_count!=0 && player.assists_count!=0}">
-							      		&nbsp;
-							      		</c:if>
-							      		<c:if test="${player.assists_count!=0}">
-							      			<nobr><span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span></nobr>
-							      		</c:if>
-							      		</p>
-							      	</td>
-							      	<c:if test="${i%2==0}">
-									</tr>
-									<tr style="${i+2 ge group.size()?'border-bottom:1px solid #dddddd;':''};width:250px;">
-									</c:if>
-									<c:set var="i" value="${i+1}"></c:set>
-								</c:forEach>
-								</tr>
+				<div class="row">
+					<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+							<c:forEach items="${lstGroup}" var="group">
+								<div class="row hidden-sm hidden-xs" style="margin-top:20px;">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<table class="table" >
+										  <caption style="min-height:30px;text-align:left;"><b style="margin-left:15px;">${group[0].position}</b></caption>
+										  <tbody >
+										  	<c:set var="i" value="1"/>
+										  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
+											<c:forEach items="${group}" var="player">
+												<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}"/></td>
+										      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:13px;">
+										      		<p>
+										      		<a href="say/list?id=${player.id}" target="_blank">${player.name}</a>&nbsp;&nbsp;
+										      		<c:if test="${!empty player.number}">
+										      			<c:if test="${!empty team.cloth}">
+										      				<nobr><span title="球衣：${player.number}号"><span style="<c:if test="${!empty clothBg }">display:line-block;background:#ddd;</c:if>"><img src="${team.cloth}" style="margin-top:-3px;" /></span> ${player.number}号</span></nobr>
+										      			</c:if>
+										      			<c:if test="${empty team.cloth}">
+												      		<nobr><span title="球衣：${player.number}号"><img src="assets/pages/img/cloth.png" style="margin-top:-3px;" /> ${player.number}号</span></nobr>
+										      			</c:if>
+										      		</c:if>
+										      		</p>
+										      		<p style="line-height:20px;height:20px;">
+										      		${player.age}岁 &nbsp;
+										      		<c:if test="${player.goal_count!=0}">
+										      			<nobr><span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span></nobr>
+										      		</c:if>
+										      		<c:if test="${player.goal_count!=0 && player.assists_count!=0}">
+										      		&nbsp;
+										      		</c:if>
+										      		<c:if test="${player.assists_count!=0}">
+										      			<nobr><span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span></nobr>
+										      		</c:if>
+										      		</p>
+										      	</td>
+										      	<c:if test="${i%2==0}">
+												</tr>
+												<tr style="${i+2 ge group.size()?'border-bottom:1px solid #dddddd;':''};width:250px;">
+												</c:if>
+												<c:set var="i" value="${i+1}"></c:set>
+											</c:forEach>
+											</tr>
+											
+										  </tbody>
+										</table>
+									</div>
+									
+								</div>
 								
-							  </tbody>
-							</table>
+								
+								<div class="row visible-sm visible-xs" style="margin-top:20px;">
+									<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+										<table class="table small-table" >
+										  <caption style="min-height:30px;text-align:left;"><b style="margin-left:15px;">${group[0].position}</b></caption>
+										  <tbody >
+										  	<c:set var="i" value="1"/>
+										  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
+											<c:forEach items="${group}" var="player">
+												<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}" title="${player.name}"/></td>
+										      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:13px;">
+										      		<p>
+										      		<a href="say/list?id=${player.id}" target="_blank">${player.name}</a>
+										      		<c:if test="${!empty player.number}">
+											      		<nobr><span title="球衣：${player.number}号"><img src="assets/pages/img/cloth.png" style="margin-top:-3px;" /> ${player.number}号</span></nobr>
+										      		</c:if>
+										      		</p>
+										      		<p style="line-height:20px;height:20px;margin-top:-7px;">
+										      		${player.age}岁 
+										      		<c:if test="${player.goal_count!=0}">
+										      			<nobr><span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span></nobr>
+										      		</c:if>
+										      		<c:if test="${player.assists_count!=0}">
+										      			<nobr><span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span></nobr>
+										      		</c:if>
+										      		</p>
+										      	</td>
+										      	<c:if test="${i%2==0}">
+												</tr>
+												<tr style="${i+2 ge group.size()?'border-bottom:1px solid #dddddd;':''};width:250px;">
+												</c:if>
+												<c:set var="i" value="${i+1}"></c:set>
+											</c:forEach>
+											</tr>
+											
+										  </tbody>
+										</table>
+									</div>
+								</div>
+							</c:forEach>
+					</div>
+					<div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
+						<div class="row " style="margin-top:10px;">
+								<div class="col-lg-12 col-md-12">
+									<table class="table" style="border:1px solid #dddddd;">
+									  <caption style="min-height:30px;text-align:left;"><b style="margin-left:15px;">联赛排名</b></caption>
+									  <thead>
+									    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
+									      <th>排名</th>
+									      <th>球队</th>
+									      <th>场次</th>
+									      <th>净胜球</th>
+									      <th>积分</th>
+									    </tr>
+									  </thead>
+									  <tbody>
+									  <c:forEach items="${positionList}"  var="position" varStatus="status">
+									  	<c:if test="${position.team_id!=team.id}">
+									  		<tr>
+											  <td>${status.count}</td>
+										      <td class="team-title" ><a href="team?id=${position.team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${position.team_id}.png" style="width:25px;height:25px;" alt="${position.team_name}" title="${position.team_name}"/>&nbsp;${position.team_name}</a></td>
+										      <td>${position.round_count}</td>
+										      <td>${position.goal_count}</td>
+										      <td>${position.points}</td>
+										    </tr>
+									  	</c:if>
+									  	<c:if test="${position.team_id==team.id}">
+									  		<tr>
+											  <td style="border:1px solid #00A50D;border-right:0;">${status.count}</td>
+										      <td class="team-title" style="border:1px solid #00A50D;border-right:0;border-left:0;"><a href="team?id=${position.team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${position.team_id}.png" style="width:25px;height:25px;" alt="${position.team_name}" title="${position.team_name}"/>&nbsp;${position.team_name}</a></td>
+										      <td style="border:1px solid #00A50D;border-right:0;border-left:0;">${position.round_count}</td>
+										      <td style="border:1px solid #00A50D;border-right:0;border-left:0;">${position.goal_count}</td>
+										      <td style="border:1px solid #00A50D;border-left:0;">${position.points}</td>
+										    </tr>
+									  	</c:if>
+									   </c:forEach>
+									  </tbody>
+									</table>
+								</div>
 						</div>
 					</div>
-					
-					
-					<div class="row visible-sm visible-xs" style="margin-top:20px;">
-						<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-							<table class="table small-table" >
-							  <caption style="min-height:30px;text-align:left;"><b style="margin-left:15px;">${group[0].position}</b></caption>
-							  <tbody >
-							  	<c:set var="i" value="1"/>
-							  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
-								<c:forEach items="${group}" var="player">
-									<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}" title="${player.name}"/></td>
-							      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:13px;">
-							      		<p>
-							      		<a href="say/list?id=${player.id}" target="_blank">${player.name}</a>
-							      		<c:if test="${!empty player.number}">
-								      		<nobr><span title="球衣：${player.number}号"><img src="assets/pages/img/cloth.png" style="margin-top:-3px;" /> ${player.number}号</span></nobr>
-							      		</c:if>
-							      		</p>
-							      		<p style="line-height:20px;height:20px;margin-top:-7px;">
-							      		${player.age}岁 
-							      		<c:if test="${player.goal_count!=0}">
-							      			<nobr><span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span></nobr>
-							      		</c:if>
-							      		<c:if test="${player.assists_count!=0}">
-							      			<nobr><span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span></nobr>
-							      		</c:if>
-							      		</p>
-							      	</td>
-							      	<c:if test="${i%2==0}">
-									</tr>
-									<tr style="${i+2 ge group.size()?'border-bottom:1px solid #dddddd;':''};width:250px;">
-									</c:if>
-									<c:set var="i" value="${i+1}"></c:set>
-								</c:forEach>
-								</tr>
-								
-							  </tbody>
-							</table>
-						</div>
-					</div>
-				</c:forEach>
+				</div>
+				
+				
+				
 				
 			</div>
 			

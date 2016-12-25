@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.jfinal.core.Controller;
 import com.wwqk.model.LeagueMatchHistory;
+import com.wwqk.model.LeaguePosition;
 import com.wwqk.model.Player;
 import com.wwqk.model.Team;
 import com.wwqk.utils.CommonUtils;
@@ -47,6 +48,11 @@ public class TeamController extends Controller {
 			if(CommonUtils.clothNeedBgColor(teamId)){
 				setAttr("clothBg", 1);
 			}
+			
+			//联赛排名
+			List<LeaguePosition> positionList = LeaguePosition.dao.find("select * from league_position where league_id = ? ORDER BY rank ASC ", team.getStr("league_id"));
+			setAttr("positionList", positionList);
+			
 		}else{
 			redirect("/match");
 		}
