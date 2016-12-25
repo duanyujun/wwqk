@@ -11,8 +11,8 @@ import org.quartz.JobExecutionException;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.wwqk.model.Player;
+import com.wwqk.model.Team;
 import com.wwqk.utils.CommonUtils;
-import com.wwqk.utils.FetchHtmlUtils;
 
 public class ChangePlayerJob implements Job {
 	
@@ -22,6 +22,19 @@ public class ChangePlayerJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
+		updateTeamEnName();
+	}
+
+	
+	private void updateTeamEnName(){
+		List<Team> lstTeam = Team.dao.find("select * from team");
+		for(Team team : lstTeam){
+			team.set("name_en", CommonUtils.getEnName(team.getStr("team_url")));
+		}
+		Db.batchUpdate(lstTeam, lstTeam.size());
+	}
+	
+	private void updatePlayer(){
 		List<Player> lstNeedUpdate = new ArrayList<Player>();
 		List<Player> lstPlayers = Player.dao.find("select * from player order by id+0 asc");
 		int count = 1;
@@ -42,16 +55,13 @@ public class ChangePlayerJob implements Job {
 //				lstNeedUpdate.add(player);
 //			}
 			System.err.println(count++);
-			player.set("en_url", CommonUtils.getPlayerENLink(player.getStr("player_url")));
+			player.set("en_url", CommonUtils.getEnName(player.getStr("player_url")));
 			lstNeedUpdate.add(player);
 		}
 		if(lstNeedUpdate.size()>0){
 			Db.batchUpdate(lstNeedUpdate, lstNeedUpdate.size());
 		}
 	}
-
-	
-	
 }
 
 

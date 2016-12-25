@@ -248,16 +248,6 @@ public class CommonUtils {
 		return source;
 	}
 	
-	public static final String getPlayerENLink(String url){
-		if(StringUtils.isBlank(url)){
-			return url;
-		}
-		int startIdx = url.indexOf("players/")+8;
-		url = url.substring(startIdx);
-		url = url.substring(0, url.indexOf("/"));
-		return url;
-	}
-	
 	public static final boolean clothNeedBgColor(String teamId){
 		Set<String> set = new HashSet<String>();
 		String[] needArrayId = {"738","967","895","1000","2015","2016","2021","13410"};
@@ -269,6 +259,16 @@ public class CommonUtils {
  		}
  		
  		return false;
+	}
+	
+	public static final String getEnName(String sourceUrl){
+		if(StringUtils.isBlank(sourceUrl)){
+			return "";
+		}
+		sourceUrl = sourceUrl.substring(0, sourceUrl.length() - 1);
+		sourceUrl = sourceUrl.substring(0, sourceUrl.lastIndexOf("/"));
+		sourceUrl = sourceUrl.substring(sourceUrl.lastIndexOf("/")+1);
+		return sourceUrl;
 	}
 	
 }

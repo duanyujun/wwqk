@@ -300,7 +300,7 @@ public class TeamJob implements Job {
 		team.set("telphone", CommonUtils.matcherString(CommonUtils.getPatternByName("电话"), teamContent));
 		team.set("fax", CommonUtils.matcherString(CommonUtils.getPatternByName("传真"), teamContent));
 		team.set("email", CommonUtils.matcherString(CommonUtils.getPatternByName("电子邮件"), teamContent).replaceAll(tagString, ""));
-		
+		team.set("name_en", CommonUtils.getEnName(entry.getValue()));
 		
 		Elements venueImgElements = document.select(".block_team_venue");
 		if(venueImgElements.size()>0){
