@@ -165,7 +165,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							      		<p>
 							      		<a href="say/list?id=${player.id}" target="_blank">${player.name}</a>&nbsp;&nbsp;
 							      		<c:if test="${!empty player.number}">
-								      		<nobr><span title="球衣：${player.number}号"><img src="assets/pages/img/cloth.png" style="margin-top:-3px;" /> ${player.number}号</span></nobr>
+							      			<c:if test="${!empty team.cloth}">
+							      				<nobr><span title="球衣：${player.number}号"><span style="<c:if test="${!empty clothBg }">display:line-block;background:#ddd;</c:if>"><img src="${team.cloth}" style="margin-top:-3px;" /></span> ${player.number}号</span></nobr>
+							      			</c:if>
+							      			<c:if test="${empty team.cloth}">
+									      		<nobr><span title="球衣：${player.number}号"><img src="assets/pages/img/cloth.png" style="margin-top:-3px;" /> ${player.number}号</span></nobr>
+							      			</c:if>
 							      		</c:if>
 							      		</p>
 							      		<p style="line-height:20px;height:20px;">

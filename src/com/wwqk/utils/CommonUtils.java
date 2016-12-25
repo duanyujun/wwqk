@@ -5,7 +5,9 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -254,6 +256,19 @@ public class CommonUtils {
 		url = url.substring(startIdx);
 		url = url.substring(0, url.indexOf("/"));
 		return url;
+	}
+	
+	public static final boolean clothNeedBgColor(String teamId){
+		Set<String> set = new HashSet<String>();
+		String[] needArrayId = {"738","967","895","1000","2015","2016","2021","13410"};
+ 		for(String id:needArrayId){
+ 			set.add(id);
+ 		}
+ 		if(set.contains(teamId)){
+ 			return true;
+ 		}
+ 		
+ 		return false;
 	}
 	
 }

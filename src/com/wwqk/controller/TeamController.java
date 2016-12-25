@@ -9,6 +9,7 @@ import com.jfinal.core.Controller;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.Player;
 import com.wwqk.model.Team;
+import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.StringUtils;
 
 public class TeamController extends Controller {
@@ -41,6 +42,11 @@ public class TeamController extends Controller {
 			//最近五场比赛
 			List<LeagueMatchHistory> lstMatchHistory = LeagueMatchHistory.dao.find("select * from league_match_history where home_team_id = ? or away_team_id = ? order by round desc limit 0,5 ", teamId, teamId);
 			setAttr("lstMatchHistory", lstMatchHistory);
+			
+			//衣服是否需要背景色
+			if(CommonUtils.clothNeedBgColor(teamId)){
+				setAttr("clothBg", 1);
+			}
 		}else{
 			redirect("/match");
 		}
