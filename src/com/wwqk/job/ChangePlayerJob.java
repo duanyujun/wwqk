@@ -1,7 +1,9 @@
 package com.wwqk.job;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -10,6 +12,9 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import com.jfinal.plugin.activerecord.Db;
+import com.wwqk.model.League;
+import com.wwqk.model.LeagueMatch;
+import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.Player;
 import com.wwqk.model.Team;
 import com.wwqk.utils.CommonUtils;
@@ -22,7 +27,8 @@ public class ChangePlayerJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		updateTeamEnName();
+		//updateTeamEnName();
+		updateMatch();
 	}
 
 	
@@ -62,6 +68,29 @@ public class ChangePlayerJob implements Job {
 			Db.batchUpdate(lstNeedUpdate, lstNeedUpdate.size());
 		}
 	}
+	
+	private void updateMatch(){
+		Map<String, String> nameENNameMap = new HashMap<String, String>();
+		List<Team> lstTeams = Team.dao.find("select id,name,name_en from team");
+		for(Team team : lstTeams){
+			nameENNameMap.put(team.getStr("name"), team.getStr("name_en"));
+		}
+		List<LeagueMatch> lstMatch = LeagueMatch.dao.find("select * from league_match");
+		for(LeagueMatch match : lstMatch){
+			match.set("home_team_en_name", nameENNameMap.get(match.getStr("home_team_name")));
+			match.set("away_team_en_name", nameENNameMap.get(match.getStr("away_team_name")));
+		}
+		Db.batchUpdate(lstMatch, lstMatch.size());
+		
+		List<LeagueMatchHistory> lstHistory = LeagueMatchHistory.dao.find("select * from league_match_history ");
+		for(LeagueMatchHistory history : lstHistory){
+			history.set("home_team_en_name", nameENNameMap.get(history.getStr("home_team_name")));
+			history.set("away_team_en_name", nameENNameMap.get(history.getStr("away_team_name")));
+		}
+		
+		Db.batchUpdate(lstHistory, lstHistory.size());
+	}
+	
 }
 
 
