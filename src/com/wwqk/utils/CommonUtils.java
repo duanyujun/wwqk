@@ -250,7 +250,7 @@ public class CommonUtils {
 	
 	public static final boolean clothNeedBgColor(String teamId){
 		Set<String> set = new HashSet<String>();
-		String[] needArrayId = {"738","967","895","1000","2015","2016","2021","13410"};
+		String[] needArrayId = {"738","967","895","1000","2015","2016","2021","13410","971"};
  		for(String id:needArrayId){
  			set.add(id);
  		}

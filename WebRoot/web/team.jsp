@@ -130,8 +130,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									  <tbody>
 									  		<c:forEach items="${lstMatchHistory}" var="history">
 									  			<tr>
-									  				<td class="a-title"><a href="team?id=${history.home_team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${history.home_team_id}.png" style="width:25px;height:25px;" alt="${history.home_team_name}" title="${history.home_team_name}"/>&nbsp;${history.home_team_name}</a></td>
-									  				<td class="a-title" style="text-align:center;">
+									  				<td class="a-title"><a href="team?id=${history.home_team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${history.home_team_id}.png" style="width:25px;height:25px;" alt="${history.home_team_name}" title="${history.home_team_name}"/>&nbsp;<span style="font-size:12px;">${history.home_team_name}</span></a></td>
+									  				<td class="a-title" style="text-align:center;min-width:100px;">
 									  					<c:if test="${fn:contains(history.result, '-')}">
 												      		<b><a title="观看集锦" href="/match/detail?matchKey=<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/>-${history.home_team_id}vs${history.away_team_id}" target="_blank">${history.result}</a></b>
 												      	</c:if>
@@ -139,7 +139,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 												      		<a title="直播地址" href="/match/detail?matchKey=<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/>-${history.home_team_id}vs${history.away_team_id}" target="_blank"><fmt:formatDate value="${history.match_date}" pattern="yy/MM/dd hh:mm"/></a>
 												      	</c:if>
 									  				</td>
-									  				<td class="a-title"><a href="team?id=${history.away_team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${history.away_team_id}.png" style="width:25px;height:25px;" alt="${history.away_team_name}" title="${history.away_team_name}"/>&nbsp;${history.away_team_name}</a></td>
+									  				<td class="a-title"><a href="team?id=${history.away_team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${history.away_team_id}.png" style="width:25px;height:25px;" alt="${history.away_team_name}" title="${history.away_team_name}"/>&nbsp;<span style="font-size:12px;">${history.away_team_name}</span></a></td>
 									  				
 									  			</tr>
 									  		</c:forEach>
