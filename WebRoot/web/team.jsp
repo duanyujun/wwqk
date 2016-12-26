@@ -60,7 +60,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<div class="row">
 					<div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
 						<div class="col-lg-12 col-md-12">						
-							<img src="assets/image/soccer/teams/150x150/${team.id}.png"  style="width:150px;height:150px;" alt="${team.name}" title="${team.name}"/>
+							<a href="${team.offical_site}" target="_blank" title="查看${team.name}官网"><img src="assets/image/soccer/teams/150x150/${team.id}.png"  style="width:150px;height:150px;" alt="${team.name}" /></a>
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
 							<span style="font-size:24px;font-weight:bold;">${team.name}</span>
