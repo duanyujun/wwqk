@@ -115,7 +115,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  <tbody>
 						  	<c:forEach items="${group}" var="match">
 						    <tr>
-						      <td><fmt:formatDate value="${match.match_date}" pattern="yy/MM/dd"/></td>
+						      <td style="font-size:12px;"><fmt:formatDate value="${match.match_date}" pattern="yy/MM/dd"/></td>
 						      <td class="team-title">
 						      	<span style="display:block;min-width:106px;float:left;"><a href="team?id=${match.home_team_id}" ><img src="assets/image/soccer/teams/150x150/${match.home_team_id}.png" style="width:25px;height:25px;"/>&nbsp;${match.home_team_name}</a></span>
 						      	<span style="display:block;min-width:40px;float:left;">

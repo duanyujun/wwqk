@@ -89,7 +89,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				      		&nbsp;
 				      		</c:if>
 				      		<c:if test="${!empty player.number}">
-					      		<span title="球衣：${player.number}号"><img src="assets/pages/img/cloth.png" style="margin-top:-3px;" /> ${player.number}号</span>
+					      		<span title="球衣：${player.number}号"><img src="${player.cloth}" style="margin-top:-3px;" /> ${player.number}号</span>
 				      		</c:if>
 						</div>
 					</div>
@@ -154,12 +154,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="margin-top:15px;">
 					<div class="row hidden-sm hidden-xs">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="font-size:16px;">
-						<nobr><span style="font-weight:bold;">${player.name}</span>目前还木有发表说说，去瞅瞅其他人的吧 <img src="assets/image/page/smile.png"  style="width:32px;height:32px;"/></nobr>
+						<nobr><span style="font-weight:bold;">${player.name}</span>目前还没发表说说，去瞅瞅<b>${leagueName}</b>其他人的吧 <img src="assets/image/page/smile.png"  style="width:32px;height:32px;"/></nobr>
 						</div>
 					</div>
 					<div class="row visible-sm visible-xs">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-						<nobr><span style="font-weight:bold;">${player.name}</span>目前还木有说说，去瞅瞅其他人 <img src="assets/image/page/smile.png"  style="width:32px;height:32px;"/></nobr>
+						<nobr><span style="font-weight:bold;">${player.name}</span>目前还没说说，去瞅瞅<b>${leagueName}</b>其他人 <img src="assets/image/page/smile.png"  style="width:32px;height:32px;"/></nobr>
 						</div>
 					</div>
 				</div>
