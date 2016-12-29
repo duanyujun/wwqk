@@ -29,6 +29,7 @@ import com.wwqk.model.LeagueShooter;
 import com.wwqk.model.LeagueShooter163;
 import com.wwqk.model.Player;
 import com.wwqk.model.ShooterAssistsSource;
+import com.wwqk.model.Team;
 import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.FetchHtmlUtils;
 import com.wwqk.utils.ImageUtils;
@@ -312,6 +313,11 @@ public class ProductJob implements Job {
 	}
 
 	public void copyShooter(){
+		Map<String, String> idENNameMap = new HashMap<String, String>();
+		List<Team> lstTeams = Team.dao.find("select id,name_en from team");
+		for(Team team : lstTeams){
+			idENNameMap.put(team.getStr("id"), team.getStr("name_en"));
+		}
 		List<League> lstLeagues = League.dao.find("select * from league ");
 		for(League league:lstLeagues){
 			List<LeagueShooter163> lstShooter163 = LeagueShooter163.dao.find("select * from league_shooter_163 where league_id = ? order by goal_count desc, penalty_count asc limit 0, ? ", league.get("id"), CommonConstants.DEFAULT_RANK_SIZE);
@@ -327,6 +333,7 @@ public class ProductJob implements Job {
 					shooter.set("rank", shooter163.get("rank"));
 					shooter.set("team_id", shooter163.get("team_id"));
 					shooter.set("team_name", shooter163.get("team_name"));
+					shooter.set("team_name_en", idENNameMap.get(shooter163.getStr("team_id")));
 					shooter.set("goal_count", shooter163.get("goal_count"));
 					shooter.set("penalty_count", shooter163.get("penalty_count"));
 					shooter.set("league_id", shooter163.get("league_id"));
@@ -341,6 +348,11 @@ public class ProductJob implements Job {
 	}
 	
 	public void copyAssists(){
+		Map<String, String> idENNameMap = new HashMap<String, String>();
+		List<Team> lstTeams = Team.dao.find("select id,name_en from team");
+		for(Team team : lstTeams){
+			idENNameMap.put(team.getStr("id"), team.getStr("name_en"));
+		}
 		List<League> lstLeagues = League.dao.find("select * from league ");
 		for(League league:lstLeagues){
 			List<LeagueAssists163> lstAssists163 = LeagueAssists163.dao.find("select * from league_assists_163 where league_id = ? order by rank asc limit 0, ? ", league.get("id"), CommonConstants.DEFAULT_RANK_SIZE);
@@ -356,6 +368,7 @@ public class ProductJob implements Job {
 					assists.set("rank", assists163.get("rank"));
 					assists.set("team_id", assists163.get("team_id"));
 					assists.set("team_name", assists163.get("team_name"));
+					assists.set("team_name_en", idENNameMap.get(assists163.getStr("team_id")));
 					assists.set("assists_count", assists163.get("assists_count"));
 					assists.set("league_id", assists163.get("league_id"));
 					assists.set("update_time", new Date());
