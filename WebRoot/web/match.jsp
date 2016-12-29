@@ -77,7 +77,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  	<c:forEach items="${group}" var="match">
 						    <tr>
 						      <td><fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/>&nbsp;&nbsp;<b>${match.match_weekday}</b>&nbsp;&nbsp;&nbsp;<span style="color:#888;">第${match.round}轮</span></td>
-						      <td class="a-title"><a href="team?id=${match.home_team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.home_team_id}.png" style="width:25px;height:25px;" alt="${match.home_team_name}" title="${match.home_team_name}"/>&nbsp;${match.home_team_name}</a></td>
+						      <td class="a-title"><a href="team-${match.home_team_en_name}-${match.home_team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.home_team_id}.png" style="width:25px;height:25px;" alt="${match.home_team_name}" title="${match.home_team_name}"/>&nbsp;${match.home_team_name}</a></td>
 						      <td>
 						      	<c:if test="${fn:contains(match.result, '-')}">
 						      		<b>${match.result}</b>
@@ -86,7 +86,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						      		${match.result}
 						      	</c:if>
 						      </td>
-						      <td class="a-title"><a href="team?id=${match.away_team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.away_team_id}.png" style="width:25px;height:25px;" alt="${match.away_team_name}" title="${match.away_team_name}"/>&nbsp;${match.away_team_name}</a></td>
+						      <td class="a-title"><a href="team-${match.away_team_en_name}-${match.away_team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.away_team_id}.png" style="width:25px;height:25px;" alt="${match.away_team_name}" title="${match.away_team_name}"/>&nbsp;${match.away_team_name}</a></td>
 						      <td>
 						      		<c:if test="${match.status=='完场'}">
 							      		<span class="grey-title"><a href="/match/detail?matchKey=<fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/>-${match.home_team_id}vs${match.away_team_id}" target="_blank">集锦</a></span>
