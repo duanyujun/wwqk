@@ -334,6 +334,7 @@ public class AdminController extends Controller {
 					Player player = Player.dao.findById(shooter163.getStr("player_id"));
 					shooter.set("player_img", player.get("img_small_local"));
 					shooter.set("player_name", player.get("name"));
+					shooter.set("player_name_en", player.get("en_url"));
 					shooter.set("rank", shooter163.get("rank"));
 					shooter.set("team_id", shooter163.get("team_id"));
 					shooter.set("team_name", shooter163.get("team_name"));
@@ -341,6 +342,7 @@ public class AdminController extends Controller {
 					shooter.set("penalty_count", shooter163.get("penalty_count"));
 					shooter.set("league_id", shooter163.get("league_id"));
 					shooter.set("update_time", new Date());
+					
 					lstShooter.add(shooter);
 				}
 				updateShooter(league.get("id"), lstShooter);
@@ -362,6 +364,7 @@ public class AdminController extends Controller {
 					Player player = Player.dao.findById(assists.getStr("player_id"));
 					assists.set("player_img", player.get("img_small_local"));
 					assists.set("player_name", assists163.get("player_name"));
+					assists.set("player_name_en", player.get("en_url"));
 					assists.set("rank", assists163.get("rank"));
 					assists.set("team_id", assists163.get("team_id"));
 					assists.set("team_name", assists163.get("team_name"));

@@ -166,7 +166,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 												<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}"/></td>
 										      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:13px;">
 										      		<p>
-										      		<a href="say/list?id=${player.id}" target="_blank">${player.name}</a>&nbsp;&nbsp;
+										      		<a href="player-${player.en_url}-${player.id}.html" target="_blank">${player.name}</a>&nbsp;&nbsp;
 										      		<c:if test="${!empty player.number}">
 										      			<c:if test="${!empty team.cloth}">
 										      				<nobr><span title="球衣：${player.number}号"><span style="<c:if test="${!empty clothBg }">display:line-block;background:#ddd;</c:if>"><img src="${team.cloth}" style="margin-top:-3px;" /></span> ${player.number}号</span></nobr>

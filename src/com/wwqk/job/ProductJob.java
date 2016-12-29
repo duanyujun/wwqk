@@ -323,6 +323,7 @@ public class ProductJob implements Job {
 					Player player = Player.dao.findById(shooter163.getStr("player_id"));
 					shooter.set("player_img", player.get("img_small_local"));
 					shooter.set("player_name", player.get("name"));
+					shooter.set("player_name_en", player.get("en_url"));
 					shooter.set("rank", shooter163.get("rank"));
 					shooter.set("team_id", shooter163.get("team_id"));
 					shooter.set("team_name", shooter163.get("team_name"));
@@ -350,6 +351,7 @@ public class ProductJob implements Job {
 					assists.set("player_id", assists163.get("player_id"));
 					Player player = Player.dao.findById(assists.getStr("player_id"));
 					assists.set("player_img", player.get("img_small_local"));
+					assists.set("player_name_en", player.get("en_url"));
 					assists.set("player_name", assists163.get("player_name"));
 					assists.set("rank", assists163.get("rank"));
 					assists.set("team_id", assists163.get("team_id"));
