@@ -374,6 +374,7 @@ public class ProductMatchJob implements Job {
 			Team teamDB = Team.dao.findById(teamId);
 			if(teamDB!=null){
 				teamName = teamDB.get("name");
+				leaguePosition.set("team_name_en", teamDB.getStr("name_en"));
 			}
 			leaguePosition.set("team_name", teamName);
 			leaguePosition.set("team_url", teamUrl);
