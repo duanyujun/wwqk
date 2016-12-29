@@ -271,4 +271,25 @@ public class CommonUtils {
 		return sourceUrl;
 	}
 	
+	/**
+	 * 
+	 * @param rewriteId 格式：aissa-mandi-100878
+	 * @return
+	 */
+	public static final String getRewriteId(String rewriteId){
+		if(StringUtils.isBlank(rewriteId)){
+			return "";
+		}
+		if(rewriteId.contains("-")){
+			rewriteId = rewriteId.substring(rewriteId.lastIndexOf("-")+1);
+		}
+		
+		if(!ValidateUtils.validatePlayerId(rewriteId)){
+			return "";
+		}else{
+			return rewriteId;
+		}
+		
+	}
+	
 }

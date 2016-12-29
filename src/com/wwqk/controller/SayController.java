@@ -5,6 +5,7 @@ import com.jfinal.plugin.activerecord.Page;
 import com.wwqk.constants.LeagueEnum;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
+import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.EnumUtils;
 import com.wwqk.utils.PageUtils;
 import com.wwqk.utils.StringUtils;
@@ -21,9 +22,11 @@ public class SayController extends Controller {
 	
 	public void list(){
 		String playerId = getPara("id");
-		if(!ValidateUtils.validatePlayerId(playerId)){
+		playerId = CommonUtils.getRewriteId(playerId);
+		if(StringUtils.isBlank(playerId)){
 			redirect("/say");
 		}
+		
 		Player player = Player.dao.findByIdWithTeamName(playerId);
 		if(player==null){
 			redirect("/say");

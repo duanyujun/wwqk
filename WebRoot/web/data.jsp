@@ -29,18 +29,18 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 					<ul style="float:left;" class="hidden-sm hidden-xs">
 						<li class="menu_width"><a href="">首页</a></li>
-						<li class="menu_width"><a href="fun">趣点</a></li>
-						<li class="menu_width"><a href="say">说说</a></li>
-						<li class="menu_width"><a href="match">比赛</a></li>
-						<li class="menu_width menu_sel"><a href="data">数据</a></li>
+						<li class="menu_width"><a href="fun.html">趣点</a></li>
+						<li class="menu_width"><a href="say.html">说说</a></li>
+						<li class="menu_width"><a href="match.html">比赛</a></li>
+						<li class="menu_width menu_sel"><a href="data.html">数据</a></li>
 					</ul>
 					<div class="visible-sm visible-xs small-menu">
 						<select id="menuSelect" class="form-control small-select">
 							<option value="">首页</option>
-							<option value="fun">趣点</option>
-							<option value="say">说说</option>
-							<option value="match">比赛</option>
-							<option selected value="data">数据</option>
+							<option value="fun.html">趣点</option>
+							<option value="say.html">说说</option>
+							<option value="match.html">比赛</option>
+							<option selected value="data.html">数据</option>
 						</select>	
 					</div>
 				</div>
@@ -59,7 +59,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<div id="main_content" class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2 col-sm-12 col-xs-12">		
 				<div class="row hidden-sm hidden-xs">
 					<div class="col-lg-2 col-md-2">
-						<a href="data" class="link-img"><img src="assets/image/page/league-logo1.jpg" style="width:60px;height:60px;"/></a>
+						<a href="data.html" class="link-img"><img src="assets/image/page/league-logo1.jpg" style="width:60px;height:60px;"/></a>
 					</div>
 					<div class="col-lg-2 col-md-2">
 						<a href="data?leagueId=2" class="link-img"><img src="assets/image/page/league-logo2.jpg" style="width:60px;height:60px;"/></a>
@@ -76,7 +76,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</div>
 				<div class="row" style="margin-top:8px;">
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2  team-title" style="font-size:14px;">
-						<a href="data" ><div class="${leagueId==1?'select-league':'common-league'}">英超</div></a>
+						<a href="data.html" ><div class="${leagueId==1?'select-league':'common-league'}">英超</div></a>
 					</div>
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 team-title" style="font-size:14px;">
 						<a href="data?leagueId=2" ><div class="${leagueId==2?'select-league':'common-league'}">西甲</div></a>
