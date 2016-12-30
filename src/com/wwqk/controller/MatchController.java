@@ -12,6 +12,7 @@ import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.MatchLive;
 import com.wwqk.model.Team;
+import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.EnumUtils;
 import com.wwqk.utils.StringUtils;
 
@@ -53,6 +54,7 @@ public class MatchController extends Controller {
 	
 	public void detail(){
 		String matchKey = getPara("matchKey");
+		matchKey = CommonUtils.getRewriteMatchKey(matchKey);
 		if(StringUtils.isBlank(matchKey)){
 			redirect("/match");
 		}

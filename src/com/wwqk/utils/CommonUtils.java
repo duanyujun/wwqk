@@ -292,4 +292,21 @@ public class CommonUtils {
 		
 	}
 	
+	/**
+	 * 
+	 * @param rewriteId 格式：hull-city-afc-vs-everton-football-club_2016-12-31-725vs674
+	 * @return
+	 */
+	public static final String getRewriteMatchKey(String matchKey){
+		if(StringUtils.isBlank(matchKey)){
+			return "";
+		}
+		if(matchKey.contains("_")){
+			matchKey = matchKey.substring(matchKey.lastIndexOf("_")+1);
+		}
+		
+		return matchKey;
+		
+	}
+	
 }
