@@ -98,6 +98,8 @@ public class ProductMatchJob2 implements Job {
 					match.set("home_team_name", entry.getValue().getStr("home_team_name"));
 					match.set("away_team_id", entry.getValue().getStr("away_team_id"));
 					match.set("away_team_name", entry.getValue().getStr("away_team_name"));
+					match.set("home_team_en_name", nameENNameMap.get(entry.getValue().getStr("home_team_name")));
+					match.set("away_team_en_name", nameENNameMap.get(entry.getValue().getStr("away_team_name")));
 					match.set("match_weekday", DateTimeUtils.formatDate2WeekDay(entry.getValue().getDate("match_date")) );
 					match.set("result", entry.getValue().getStr("result"));
 					match.set("league_id", entry.getValue().getStr("league_id"));
@@ -241,11 +243,13 @@ public class ProductMatchJob2 implements Job {
 		}
 	}
 	
+	private Map<String, String> nameENNameMap = new HashMap<String, String>();
 	private Map<String, String> getTeamNameIdMap(){
 		Map<String, String> map = new HashMap<String, String>();
-		List<Team> lstTeams = Team.dao.find("select id,name from team");
+		List<Team> lstTeams = Team.dao.find("select id,name,name_en from team");
 		for(Team team : lstTeams){
 			map.put(team.getStr("name"), team.getStr("id"));
+			nameENNameMap.put(team.getStr("name"), team.getStr("name_en"));
 		}
 		return map;
 	}
@@ -271,6 +275,9 @@ public class ProductMatchJob2 implements Job {
 						history.set("home_team_name", tdElements.get(3).text());
 						history.set("away_team_id", nameIdMap.get(tdElements.get(5).text()));
 						history.set("away_team_name", tdElements.get(5).text());
+						history.set("home_team_en_name", nameENNameMap.get(tdElements.get(3).text()));
+						history.set("away_team_en_name", nameENNameMap.get(tdElements.get(5).text()));
+						
 						if(!tdElements.get(4).text().contains("-")){
 							history.set("result", tdElements.get(1).text().substring(tdElements.get(1).text().indexOf(" ")+1));
 						}else{
