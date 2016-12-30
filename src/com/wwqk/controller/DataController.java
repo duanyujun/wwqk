@@ -7,6 +7,7 @@ import com.wwqk.constants.LeagueEnum;
 import com.wwqk.model.LeagueAssists;
 import com.wwqk.model.LeaguePosition;
 import com.wwqk.model.LeagueShooter;
+import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.EnumUtils;
 import com.wwqk.utils.StringUtils;
 
@@ -14,12 +15,12 @@ public class DataController extends Controller {
 
 	public void index(){
 		String leagueId = getPara("leagueId");
+		leagueId = CommonUtils.getRewriteId(leagueId);
 		if(StringUtils.isBlank(leagueId)){
 			leagueId = "1";
-			setAttr("leagueId", leagueId);
-		}else{
-			setAttr("leagueId", leagueId);
 		}
+		
+		setAttr("leagueId", leagueId);
 		setAttr("leagueName", EnumUtils.getValue(LeagueEnum.values(), leagueId));
 		
 		List<LeaguePosition> positionList = LeaguePosition.dao.find("select * from league_position where league_id = ? ORDER BY rank ASC ", leagueId);

@@ -136,7 +136,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 				</c:forEach>
 				<div class="pull-right say-info" style="margin-top:10px;">
-					<a href="/history" target="_blank" title="更多比赛">查看更多比赛&gt;&gt;</a>
+					<a href="/history.html" target="_blank" title="更多比赛">查看更多比赛&gt;&gt;</a>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-3">
