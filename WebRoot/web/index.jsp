@@ -83,7 +83,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 											<img src="assets/image/page/logo-small.png">
 										</c:if>
 										<c:if test="${fun.type==2}">
-											<a href="say/list?id=${fun.player_id}" target="_blank"><img src="${fun.player_image}"></a>
+											<a href="player-${fun.player_name_en}-${fun.player_id}.html" target="_blank"><img src="${fun.player_image}"></a>
 										</c:if>
 		                            </div>
 		                            
@@ -93,7 +93,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			                            </a>
 									</c:if>
 									<c:if test="${fun.type==2}">
-										<a href="say/list?id=${fun.player_id}" target="_blank" class="mob-author-a">
+										<a href="player-${fun.player_name_en}-${fun.player_id}.html" target="_blank" class="mob-author-a">
 			                                <span class="author-name">${fun.player_name}</span>
 			                            </a>
 									</c:if>

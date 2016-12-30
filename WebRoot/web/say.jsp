@@ -62,20 +62,20 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<c:forEach items="${sayPage.list}" var="say" varStatus="status">
 					<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="border:1px solid #E3E7EA;${status.index!=0?'border-top:0;':''}padding:20px;padding-left:0;padding-bottom:10px;">
 						<div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
-							<a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:48px;height:48px;" alt="${say.player_name}" title="${say.player_name}"/></a>
+							<a href="player-${say.player_name_en}-${say.player_id}.html" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:48px;height:48px;" alt="${say.player_name}" title="${say.player_name}"/></a>
 						</div>
 						<div class="col-lg-11 col-md-11 col-sm-12 col-xs-12" >
 							<div class="col-lg-12 col-md-12 say-info hidden-sm hidden-xs">
-								<span style="display:block;font-weight:bold;color:#292f33;float:left;"><a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
+								<span style="display:block;font-weight:bold;color:#292f33;float:left;"><a href="player-${say.player_name_en}-${say.player_id}.html" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
 								<span style="display:block;color:#8899a6;font-size:13px;float:left;"> - <fmt:formatDate value="${say.create_time}" pattern="MM月dd日"/> </span>
-								&nbsp;<a href="say/list?id=${say.player_id}" target="_blank" title="${say.player_name}的更多说说">查看更多</a>
+								&nbsp;<a href="player-${say.player_name_en}-${say.player_id}.html" target="_blank" title="${say.player_name}的更多说说">查看更多</a>
 							</div>
 							
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 say-info visible-sm visible-xs" style="line-height:30px;height:30px;padding-left:0px;padding-right:0px;">
-								<span style="display:block;float:left;"><a class="visible-sm visible-xs" href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:30px;height:30px;" /></a></span>
-								<span style="display:block;font-weight:bold;color:#292f33;float:left;"><a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
+								<span style="display:block;float:left;"><a class="visible-sm visible-xs" href="player-${say.player_name_en}-${say.player_id}.html" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:30px;height:30px;" /></a></span>
+								<span style="display:block;font-weight:bold;color:#292f33;float:left;"><a href="player-${say.player_name_en}-${say.player_id}.html" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
 								<span style="display:block;color:#8899a6;font-size:13px;float:left;"> - <fmt:formatDate value="${say.create_time}" pattern="MM月dd日"/> </span>
-								&nbsp;<a href="say/list?id=${say.player_id}" target="_blank" title="${say.player_name}的更多说说">查看更多</a>
+								&nbsp;<a href="player-${say.player_name_en}-${say.player_id}.html" target="_blank" title="${say.player_name}的更多说说">查看更多</a>
 							</div>
 						
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-sm hidden-xs">

@@ -119,6 +119,7 @@ public class SayService {
 		
 		say.set("player_id", player_id);
 		say.set("player_name", player.get("name"));
+		say.set("player_name_en", player.get("en_url"));
 		say.set("player_img_local", player.get("img_small_local"));
 		say.set("content", content);
 		if(StringUtils.isNotBlank(image_small)){
@@ -168,6 +169,7 @@ public class SayService {
 		}
 		fun.set("player_id",player_id);
 		fun.set("player_name",player.get("name"));
+		fun.set("player_name_en", player.get("en_url"));
 		fun.set("player_image",player.get("img_small_local"));
 		if(StringUtils.isNotBlank(create_time)){
 			fun.set("create_time", create_time);
