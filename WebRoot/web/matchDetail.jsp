@@ -64,7 +64,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="well well-lg" style="line-height:2;text-indent:20px;">
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									【所属联赛】：<span class="a-title" style="font-size:16px;"><a href="/data?leagueId=${history.league_id}" target="_blank">${leagueName}</a></span>
+									【所属联赛】：<span class="a-title" style="font-size:16px;"><a href="data-lg-${history.league_id}.html" target="_blank">${leagueName}</a></span>
 								</div>
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									【对阵球队】：<span class="a-title" style="font-size:16px;"><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank">${homeTeam.name}</a>vs<a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank">${history.away_team_name}</a></span>
