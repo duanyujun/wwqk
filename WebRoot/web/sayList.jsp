@@ -73,7 +73,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">位置：${player.position}</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">用脚：${player.foot}</div>
 						<div class="col-lg-6 col-md-6 team-title" style="margin-top:10px;font-size:14px;">目前效力球队：
-							<a href="team?id=${player.team_id}" target="_blank" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a>
+							<a href="team-${player.team_name_en}-${player.team_id}.html" target="_blank" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a>
 						</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">
 							<c:if test="${player.goal_count!=0}">
@@ -127,7 +127,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						</div>
 						<div class="row">
 							<div class="col-sm-12 col-xs-12 team-title" style="margin-top:10px;font-size:14px;">
-								<a href="team?id=${player.team_id}" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;" alt="${player.team_name}" title="${player.team_name}"/>&nbsp;${player.team_name}</a>
+								<a href="team-${player.team_name_en}-${player.team_id}.html" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;" alt="${player.team_name}" title="${player.team_name}"/>&nbsp;${player.team_name}</a>
 								&nbsp;
 								<c:if test="${player.goal_count!=0}">
 					      			<span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span>
@@ -173,23 +173,23 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border:1px solid #E3E7EA;${status.index!=0?'border-top:0;':''}padding:10px;padding-bottom:10px;">
 								<div class="row">
 									<div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
-										<a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:48px;height:48px;" alt="${say.player_name}" title="${say.player_name}"/></a>
+										<a href="player-${say.player_name_en}-${say.player_id}.html" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:48px;height:48px;" alt="${say.player_name}" title="${say.player_name}"/></a>
 									</div>
 									<div class="col-lg-11 col-md-11 col-sm-12 col-xs-12" >
 										<div class="row hidden-sm hidden-xs">
 											<div class="col-lg-12 col-md-12 say-info">
-												<span style="display:block;font-weight:bold;color:#292f33;float:left;"><a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
+												<span style="display:block;font-weight:bold;color:#292f33;float:left;"><a href="player-${say.player_name_en}-${say.player_id}.html" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
 												<span style="display:block;color:#8899a6;font-size:13px;float:left;"> - <fmt:formatDate value="${say.create_time}" pattern="MM月dd日"/> </span>
-												&nbsp;<a href="say/list?id=${say.player_id}" target="_blank" title="${say.player_name}的更多说说">查看更多</a>
+												&nbsp;<a href="player-${say.player_name_en}-${say.player_id}.html" target="_blank" title="${say.player_name}的更多说说">查看更多</a>
 											</div>
 										</div>
 										
 										<div class="row visible-sm visible-xs">
 											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 say-info" style="line-height:30px;height:30px;">
-												<span style="display:block;float:left;"><a class="visible-sm visible-xs" href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:30px;height:30px;" /></a></span>
-												<span style="display:block;font-weight:bold;color:#292f33;float:left;"><a href="say/list?id=${say.player_id}" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
+												<span style="display:block;float:left;"><a class="visible-sm visible-xs" href="player-${say.player_name_en}-${say.player_id}.html" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:30px;height:30px;" /></a></span>
+												<span style="display:block;font-weight:bold;color:#292f33;float:left;"><a href="player-${say.player_name_en}-${say.player_id}.html" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
 												<span style="display:block;color:#8899a6;font-size:13px;float:left;"> - <fmt:formatDate value="${say.create_time}" pattern="MM月dd日"/> </span>
-												&nbsp;<a href="say/list?id=${say.player_id}" target="_blank" title="${say.player_name}的更多说说">查看更多</a>
+												&nbsp;<a href="player-${say.player_name_en}-${say.player_id}.html" target="_blank" title="${say.player_name}的更多说说">查看更多</a>
 											</div>
 										</div>
 										
@@ -266,7 +266,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					
 					<c:if test="${!empty NO_SAY}">
 						<div class="pull-right say-info" style="margin-top:10px;">
-							<a href="/say" target="_blank" title="更多说说">查看更多&gt;&gt;</a>
+							<a href="/say.html" target="_blank" title="更多说说">查看更多&gt;&gt;</a>
 						</div>
 					</c:if>
 				</div>

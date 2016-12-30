@@ -12,12 +12,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta content="telephone=no" name="format-detection">
-	<meta name="keywords" content="${homeTeam.name}vs${awayTeam.name}直播,${awayTeam.name}vs${homeTeam.name}免费直播,${awayTeam.name}vs${homeTeam.name}在线直播,${awayTeam.name}vs${homeTeam.name}视频直播,${homeTeam.name}直播,${awayTeam.name}直播" />
-	<meta name="description" content='<fmt:formatDate value="${history.match_date}" pattern="yyyy年MM月dd日"/>${homeTeam.name}vs${awayTeam.name}直播,${homeTeam.name}vs${awayTeam.name}免费直播,${awayTeam.name}vs${homeTeam.name}直播,${homeTeam.name}直播,${awayTeam.name}直播,更多${leagueName}视频直播尽在趣点足球网' />
+	<meta name="keywords" content="${homeTeam.name}vs${history.away_team_name}直播,${history.away_team_name}vs${homeTeam.name}免费直播,${history.away_team_name}vs${homeTeam.name}在线直播,${history.away_team_name}vs${homeTeam.name}视频直播,${homeTeam.name}直播,${history.away_team_name}直播" />
+	<meta name="description" content='<fmt:formatDate value="${history.match_date}" pattern="yyyy年MM月dd日"/>${homeTeam.name}vs${history.away_team_name}直播,${homeTeam.name}vs${history.away_team_name}免费直播,${history.away_team_name}vs${homeTeam.name}直播,${homeTeam.name}直播,${history.away_team_name}直播,更多${leagueName}视频直播尽在趣点足球网' />
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
-    <title>${leagueName}${homeTeam.name}vs${awayTeam.name}直播|${homeTeam.name}vs${awayTeam.name}免费直播|${homeTeam.name}vs${awayTeam.name}直播信号|趣点足球网直播</title>
+    <title>${leagueName}${homeTeam.name}vs${history.away_team_name}直播|${homeTeam.name}vs${history.away_team_name}免费直播|${homeTeam.name}vs${history.away_team_name}直播信号|趣点足球网直播</title>
 </head>
 
 <body>
@@ -51,7 +51,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin" style="margin-top:70px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-9 col-md-9 col-sm-11 col-xs-11 bread">
-				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/match" target="_blank">比赛</a>&nbsp;&gt;&nbsp;${homeTeam.name}vs${awayTeam.name}
+				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/match" target="_blank">比赛</a>&nbsp;&gt;&nbsp;${homeTeam.name}vs${history.away_team_name}
 			</div>
 		</div>
 	</div>
@@ -67,7 +67,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									【所属联赛】：<span class="a-title" style="font-size:16px;"><a href="/data?leagueId=${history.league_id}" target="_blank">${leagueName}</a></span>
 								</div>
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									【对阵球队】：<span class="a-title" style="font-size:16px;"><a href="/team?id=${homeTeam.id}" target="_blank">${homeTeam.name}</a>vs<a href="/team?id=${awayTeam.id}" target="_blank">${awayTeam.name}</a></span>
+									【对阵球队】：<span class="a-title" style="font-size:16px;"><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank">${homeTeam.name}</a>vs<a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank">${history.away_team_name}</a></span>
 								</div>
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									【赛事时间】：<fmt:formatDate value="${history.match_date}" pattern="yyyy年MM月dd日  hh:mm"/>

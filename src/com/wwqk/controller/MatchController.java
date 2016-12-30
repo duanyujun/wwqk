@@ -63,9 +63,9 @@ public class MatchController extends Controller {
 		//主队球场
 		LeagueMatchHistory history = LeagueMatchHistory.dao.findById(matchKey);
 		Team homeTeam = Team.dao.findById(history.getStr("home_team_id"));
-		Team awayTeam = Team.dao.findById(history.getStr("away_team_id"));
+		//Team awayTeam = Team.dao.findById(history.getStr("away_team_id"));
 		setAttr("homeTeam", homeTeam);
-		setAttr("awayTeam", awayTeam);
+		//setAttr("awayTeam", awayTeam);
 		setAttr("history", history);
 		setAttr("leagueName", EnumUtils.getValue(LeagueEnum.values(), homeTeam.getStr("league_id")));
 		render("matchDetail.jsp");
