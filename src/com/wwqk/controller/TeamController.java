@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.jfinal.core.Controller;
+import com.wwqk.constants.LeagueEnum;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.LeaguePosition;
 import com.wwqk.model.Player;
 import com.wwqk.model.Team;
 import com.wwqk.utils.CommonUtils;
+import com.wwqk.utils.EnumUtils;
 import com.wwqk.utils.StringUtils;
 
 public class TeamController extends Controller {
@@ -52,6 +54,8 @@ public class TeamController extends Controller {
 		if(CommonUtils.clothNeedBgColor(teamId)){
 			setAttr("clothBg", 1);
 		}
+		
+		setAttr("leagueName", EnumUtils.getValue(LeagueEnum.values(), team.getStr("league_id")));
 		
 		//联赛排名
 		List<LeaguePosition> positionList = LeaguePosition.dao.find("select * from league_position where league_id = ? ORDER BY rank ASC ", team.getStr("league_id"));

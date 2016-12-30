@@ -49,7 +49,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		<div class="row clear_row_margin" style="margin-top:70px;">
 			<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 				<div class="bread">
-					当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/data" target="_blank">数据</a>&nbsp;&gt;&nbsp;${team.name}
+					当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/data-lg-${team.league_id}.html" title="${leagueName}" target="_blank">数据</a>&nbsp;&gt;&nbsp;${team.name}
 				</div>
 			</div>
 		</div>
@@ -63,7 +63,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<a href="${team.offical_site}" target="_blank" title="查看${team.name}官网"><img src="assets/image/soccer/teams/150x150/${team.id}.png"  style="width:150px;height:150px;" alt="${team.name}" /></a>
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-							<span style="font-size:24px;font-weight:bold;">${team.name}</span>
+							<span style="font-size:24px;font-weight:bold;">${team.name}</span> <span class="a-title"><a href="${team.offical_site}" target="_blank" title="查看${team.name}官网">官网</a></span>
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:10px;">
 							成立时间：${team.setup_time}
