@@ -47,12 +47,13 @@ public class SayController extends Controller {
 	
 	public void detail(){
 		String id = getPara("id");
-		if(StringUtils.isNotBlank(id)){
-			Say say = Say.dao.findById(id);
-			setAttr("say", say);
-		}else{
+		id = CommonUtils.getRewriteId(id);
+		if(StringUtils.isBlank(id)){
 			redirect("/say");
 		}
+		Say say = Say.dao.findById(id);
+		setAttr("say", say);
+		
 		render("sayDetail.jsp");
 	}
 }

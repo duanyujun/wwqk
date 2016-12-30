@@ -3,6 +3,7 @@ package com.wwqk.controller;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 import com.wwqk.model.Fun;
+import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.PageUtils;
 import com.wwqk.utils.StringUtils;
 
@@ -18,12 +19,14 @@ public class FunController extends Controller {
 	
 	public void detail(){
 		String id = getPara("id");
-		if(StringUtils.isNotBlank(id)){
-			Fun fun = Fun.dao.findById(id);
-			setAttr("fun", fun);
-		}else{
+		id = CommonUtils.getRewriteId(id);
+		if(StringUtils.isBlank(id)){
 			redirect("/fun");
 		}
+		
+		Fun fun = Fun.dao.findById(id);
+		setAttr("fun", fun);
+		
 		render("funDetail.jsp");
 	}
 	

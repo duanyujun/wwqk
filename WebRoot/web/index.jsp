@@ -58,21 +58,21 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				
 					<div class="col-lg-4 col-md-4 hidden-sm hidden-xs" style="padding-left:0px;">
 						<c:if test="${fun.type==1}">
-							<a href="fun/detail?id=${fun.id}" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.title}" title="${fun.title}"/></a>
+							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.title}" title="${fun.title}"/></a>
 						</c:if>
 						<c:if test="${fun.type==2}">
-							<a href="say/detail?id=${fun.source_id}" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.summary}" title="${fun.summary}"/></a>
+							<a href="sdetail-${fun.player_name_en}-${fun.source_id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.summary}" title="${fun.summary}"/></a>
 						</c:if>
 					</div>
 					<div class="col-lg-8 col-md-8" style="padding-left:0px;">
 						<div class="col-lg-12 col-md-12">
 							<span class="msg-title">
 								<c:if test="${fun.type==1}">
-									<a href="fun/detail?id=${fun.id}" target="_blank" class="hidden-sm hidden-xs" title="${fun.title}">${fun.title}</a><a href="fun/detail?id=${fun.id}" target="_blank" class="visible-sm visible-xs"><div class="text_cut" style="width:280px;line-height:32px;font-size:15px;" title="${fun.title}">${fun.title}</div></a>
+									<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank" class="hidden-sm hidden-xs" title="${fun.title}">${fun.title}</a><a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank" class="visible-sm visible-xs"><div class="text_cut" style="width:280px;line-height:32px;font-size:15px;" title="${fun.title}">${fun.title}</div></a>
 								</c:if>
 								<c:if test="${fun.type==2}">
-									<a href="say/detail?id=${fun.source_id}" target="_blank" class="hidden-sm hidden-xs"><div class="text_cut" style="width:420px;line-height:32px;" title="${fun.summary}">${fun.summary}</div></a>
-									<a href="say/detail?id=${fun.source_id}" target="_blank" class="visible-sm visible-xs"><div class="text_cut" style="width:280px;line-height:32px;font-size:15px;" title="${fun.summary}">${fun.summary}</div></a>
+									<a href="sdetail-${fun.player_name_en}-${fun.source_id}.html" target="_blank" class="hidden-sm hidden-xs"><div class="text_cut" style="width:420px;line-height:32px;" title="${fun.summary}">${fun.summary}</div></a>
+									<a href="sdetail-${fun.player_name_en}-${fun.source_id}.html" target="_blank" class="visible-sm visible-xs"><div class="text_cut" style="width:280px;line-height:32px;font-size:15px;" title="${fun.summary}">${fun.summary}</div></a>
 								</c:if>
 							</span>
 						</div>
@@ -105,10 +105,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						</div>
 						<div class="col-lg-12 col-md-12 visible-sm visible-xs" style="margin-top:10px;">
 							<c:if test="${fun.type==1}">
-								<a href="fun/detail?id=${fun.id}" target="_blank"><img src="${fun.image_small}" class="img-responsive" /></a>
+								<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank"><img src="${fun.image_small}" class="img-responsive" /></a>
 							</c:if>
 							<c:if test="${fun.type==2}">
-								<a href="say/detail?id=${fun.source_id}" target="_blank"><img src="${fun.image_small}" class="img-responsive" /></a>
+								<a href="sdetail-${fun.player_name_en}-${fun.source_id}.html" target="_blank"><img src="${fun.image_small}" class="img-responsive" /></a>
 							</c:if>
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:20px;padding-right:0;">
