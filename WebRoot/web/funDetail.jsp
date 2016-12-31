@@ -51,7 +51,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin" style="margin-top:70px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-9 col-md-9 col-sm-11 col-xs-11 bread">
-				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/fun" target="_blank">趣点</a>&nbsp;&gt;&nbsp;详情
+				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/fun.html" target="_blank">趣点</a>&nbsp;&gt;&nbsp;详情
 			</div>
 		</div>
 	</div>

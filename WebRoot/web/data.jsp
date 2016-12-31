@@ -59,7 +59,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<div id="main_content" class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2 col-sm-12 col-xs-12">		
 				<div class="row hidden-sm hidden-xs">
 					<div class="col-lg-2 col-md-2">
-						<a href="data.html" class="link-img"><img src="assets/image/page/league-logo1.jpg" style="width:60px;height:60px;"/></a>
+						<a href="data-premier-league-1.html" class="link-img"><img src="assets/image/page/league-logo1.jpg" style="width:60px;height:60px;"/></a>
 					</div>
 					<div class="col-lg-2 col-md-2">
 						<a href="data-primera-division-2.html" class="link-img"><img src="assets/image/page/league-logo2.jpg" style="width:60px;height:60px;"/></a>
@@ -76,7 +76,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</div>
 				<div class="row" style="margin-top:8px;">
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2  team-title" style="font-size:14px;">
-						<a href="data.html" ><div class="${leagueId==1?'select-league':'common-league'}">英超</div></a>
+						<a href="data-premier-league-1.html" ><div class="${leagueId==1?'select-league':'common-league'}">英超</div></a>
 					</div>
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 team-title" style="font-size:14px;">
 						<a href="data-primera-division-2.html" ><div class="${leagueId==2?'select-league':'common-league'}">西甲</div></a>

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.jfinal.core.Controller;
+import com.wwqk.constants.LeagueENEnum;
 import com.wwqk.constants.LeagueEnum;
 import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeagueMatchHistory;
@@ -70,6 +71,7 @@ public class MatchController extends Controller {
 		//setAttr("awayTeam", awayTeam);
 		setAttr("history", history);
 		setAttr("leagueName", EnumUtils.getValue(LeagueEnum.values(), homeTeam.getStr("league_id")));
+		setAttr("leagueENName", EnumUtils.getValue(LeagueENEnum.values(), homeTeam.getStr("league_id")));
 		render("matchDetail.jsp");
 	}
 	
