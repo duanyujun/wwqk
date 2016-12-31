@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.jfinal.core.Controller;
+import com.wwqk.constants.LeagueENEnum;
 import com.wwqk.constants.LeagueEnum;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.LeaguePosition;
@@ -56,6 +57,7 @@ public class TeamController extends Controller {
 		}
 		
 		setAttr("leagueName", EnumUtils.getValue(LeagueEnum.values(), team.getStr("league_id")));
+		setAttr("leagueENName", EnumUtils.getValue(LeagueENEnum.values(), team.getStr("league_id")));
 		
 		//联赛排名
 		List<LeaguePosition> positionList = LeaguePosition.dao.find("select * from league_position where league_id = ? ORDER BY rank ASC ", team.getStr("league_id"));

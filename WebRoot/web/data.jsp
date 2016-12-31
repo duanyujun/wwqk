@@ -62,16 +62,16 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<a href="data.html" class="link-img"><img src="assets/image/page/league-logo1.jpg" style="width:60px;height:60px;"/></a>
 					</div>
 					<div class="col-lg-2 col-md-2">
-						<a href="data-lg-2.html" class="link-img"><img src="assets/image/page/league-logo2.jpg" style="width:60px;height:60px;"/></a>
+						<a href="data-primera-division-2.html" class="link-img"><img src="assets/image/page/league-logo2.jpg" style="width:60px;height:60px;"/></a>
 					</div>
 					<div class="col-lg-2 col-md-2">
-						<a href="data-lg-3.html" class="link-img"><img src="assets/image/page/league-logo3.jpg" style="width:60px;height:60px;"/></a>
+						<a href="data-bundesliga-3.html" class="link-img"><img src="assets/image/page/league-logo3.jpg" style="width:60px;height:60px;"/></a>
 					</div>
 					<div class="col-lg-2 col-md-2">
-						<a href="data-lg-4.html" class="link-img"><img src="assets/image/page/league-logo4.jpg" style="width:60px;height:60px;"/></a>
+						<a href="data-sesie-a-4.html" class="link-img"><img src="assets/image/page/league-logo4.jpg" style="width:60px;height:60px;"/></a>
 					</div>
 					<div class="col-lg-2 col-md-2">
-						<a href="data-lg-5.html" class="link-img"><img src="assets/image/page/league-logo5.jpg" style="width:60px;height:60px;"/></a>
+						<a href="data-ligue-1-5.html" class="link-img"><img src="assets/image/page/league-logo5.jpg" style="width:60px;height:60px;"/></a>
 					</div>
 				</div>
 				<div class="row" style="margin-top:8px;">
@@ -79,16 +79,16 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<a href="data.html" ><div class="${leagueId==1?'select-league':'common-league'}">英超</div></a>
 					</div>
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 team-title" style="font-size:14px;">
-						<a href="data-lg-2.html" ><div class="${leagueId==2?'select-league':'common-league'}">西甲</div></a>
+						<a href="data-primera-division-2.html" ><div class="${leagueId==2?'select-league':'common-league'}">西甲</div></a>
 					</div>
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 team-title" style="font-size:14px;">
-						<a href="data-lg-3.html" ><div class="${leagueId==3?'select-league':'common-league'}">德甲</div></a>
+						<a href="data-bundesliga-3.html" ><div class="${leagueId==3?'select-league':'common-league'}">德甲</div></a>
 					</div>
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 team-title" style="font-size:14px;">
-						<a href="data-lg-4.html" ><div class="${leagueId==4?'select-league':'common-league'}">意甲</div></a>
+						<a href="data-sesie-a-4.html" ><div class="${leagueId==4?'select-league':'common-league'}">意甲</div></a>
 					</div>
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 team-title" style="font-size:14px;">
-						<a href="data-lg-5.html" ><div class="${leagueId==5?'select-league':'common-league'}">法甲</div></a>
+						<a href="data-ligue-1-5.html" ><div class="${leagueId==5?'select-league':'common-league'}">法甲</div></a>
 					</div>
 				</div>
 				

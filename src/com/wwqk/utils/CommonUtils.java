@@ -284,7 +284,7 @@ public class CommonUtils {
 			rewriteId = rewriteId.substring(rewriteId.lastIndexOf("-")+1);
 		}
 		
-		if(!ValidateUtils.validatePlayerId(rewriteId)){
+		if(!ValidateUtils.validateId(rewriteId)){
 			return "";
 		}else{
 			return rewriteId;
