@@ -123,17 +123,17 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				
 				<div class="col-lg-12 col-md-12 " style="margin-top:20px;">
 					<div class="scott pull-right">
-						<a href="/?pageNumber=1" title="首页"> &lt;&lt; </a>
+						<a href="/index-page-1.html" title="首页"> &lt;&lt; </a>
 						
 						<c:if test="${funPage.pageNumber == 1}">
 							<span class="disabled"> &lt; </span>
 						</c:if>
 						<c:if test="${funPage.pageNumber != 1}">
-							<a href="/?pageNumber=${funPage.pageNumber - 1}" > &lt; </a>
+							<a href="/index-page-${funPage.pageNumber - 1}.html" > &lt; </a>
 						</c:if>
 						<c:if test="${funPage.pageNumber > 8}">
-							<a href="/?pageNumber=1">1</a>
-							<a href="/?pageNumber=2">2</a>
+							<a href="/index-page-1.html">1</a>
+							<a href="/index-page-2.html">2</a>
 							...
 						</c:if>
 						<c:if test="${!empty pageUI.list}">
@@ -142,24 +142,24 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									<span class="current">${pageNo}</span>
 								</c:if>
 								<c:if test="${funPage.pageNumber != pageNo }">
-									<a href="/?pageNumber=${pageNo}">${pageNo}</a>
+									<a href="/index-page-${pageNo}.html">${pageNo}</a>
 								</c:if>
 							</c:forEach>
 						</c:if>
 						<c:if test="${(funPage.totalPage - funPage.pageNumber) >= 8 }">
 							...
-							<a href="/?pageNumber=${funPage.totalPage - 1}">${funPage.totalPage - 1}</a>
-							<a href="/?pageNumber=${funPage.totalPage}">${funPage.totalPage}</a>
+							<a href="/index-page-${funPage.totalPage - 1}.html">${funPage.totalPage - 1}</a>
+							<a href="/index-page-${funPage.totalPage}.html">${funPage.totalPage}</a>
 						</c:if>
 						
 						<c:if test="${funPage.pageNumber == funPage.totalPage}">
 							<span class="disabled"> &gt; </span>
 						</c:if>
 						<c:if test="${funPage.pageNumber != funPage.totalPage}">
-							<a href="/?pageNumber=${funPage.pageNumber + 1}"> &gt; </a>
+							<a href="/index-page-${funPage.pageNumber + 1}.html"> &gt; </a>
 						</c:if>
 						
-						<a href="/?pageNumber=${funPage.totalPage}" title="尾页"> &gt;&gt; </a>
+						<a href="/index-page-${funPage.totalPage}.html" title="尾页"> &gt;&gt; </a>
 					</div>
 				</div>
 				
