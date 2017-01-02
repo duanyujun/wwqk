@@ -1,5 +1,6 @@
 package com.wwqk.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,14 +21,18 @@ import com.wwqk.model.Fun;
 import com.wwqk.model.League;
 import com.wwqk.model.LeagueAssists;
 import com.wwqk.model.LeagueAssists163;
+import com.wwqk.model.LeagueMatch;
+import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.LeagueShooter;
 import com.wwqk.model.LeagueShooter163;
+import com.wwqk.model.MatchLive;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
 import com.wwqk.model.Team;
 import com.wwqk.service.Assists163Service;
 import com.wwqk.service.FunService;
 import com.wwqk.service.LeagueService;
+import com.wwqk.service.MatchHistoryService;
 import com.wwqk.service.PlayerService;
 import com.wwqk.service.SayService;
 import com.wwqk.service.Shooter163Service;
@@ -403,6 +408,67 @@ public class AdminController extends Controller {
 	private void updateAssists(String leagueId, List<LeagueAssists> lstAssists){
 		Db.update("delete from league_assists where league_id = ? ", leagueId);
 		Db.batchSave(lstAssists, lstAssists.size());
+	}
+	
+	public void listMatchHistory(){
+		render("admin/matchHistoryList.jsp");
+	}
+	
+	public void matchHistoryData(){
+		
+		Map<Object, Object> map = MatchHistoryService.matchHistoryData(this);
+		renderJson(map);
+	}
+	
+	public void editMatchHistory(){
+		String id = getPara("id");
+		if(id!=null){
+			LeagueMatchHistory history = LeagueMatchHistory.dao.findById(id);
+			setAttr("history", history);
+			
+			List<MatchLive> lstMatchLive = MatchLive.dao.find("select * from match_live where match_key = ? ", id);
+			setAttr("lstMatchLive", lstMatchLive);
+		}
+		
+		render("admin/matchHistoryForm.jsp");
+	}
+	
+	public void saveMatchLive() throws UnsupportedEncodingException{
+		String id = getPara("id");
+		String liveName = null;
+		if(StringUtils.isNotBlank(getPara("live_name"))){
+			liveName = new String(getPara("live_name").getBytes("ISO-8859-1"),"UTF-8");
+		}
+		if(StringUtils.isNotBlank(id)){
+			MatchLive matchLive = MatchLive.dao.findById(id);
+			if(matchLive!=null){
+				matchLive.set("live_name", java.net.URLDecoder.decode(liveName , "UTF-8"));
+				matchLive.set("live_url", getPara("live_url"));
+				matchLive.update();
+			}
+		}else{
+			LeagueMatchHistory history = LeagueMatchHistory.dao.findById(getPara("matchKey"));
+			MatchLive matchLive = new MatchLive();
+			matchLive.set("match_key", getPara("matchKey"));
+			matchLive.set("live_name", java.net.URLDecoder.decode(liveName , "UTF-8"));
+			matchLive.set("live_url", getPara("live_url"));
+			matchLive.set("league_id", history.get("league_id"));
+			matchLive.set("home_team_id", history.get("home_team_id"));
+			matchLive.set("home_team_name", history.get("home_team_name"));
+			matchLive.set("away_team_id", history.get("away_team_id"));
+			matchLive.set("away_team_name", history.get("away_team_name"));
+			matchLive.set("match_date", history.get("match_date"));
+			matchLive.save();
+		}
+		renderJson(1);
+	}
+	
+	public void deleteMatchLive(){
+		String id = getPara("id");
+		if(StringUtils.isNotBlank(id)){
+			MatchLive.dao.deleteById(id);
+		}
+		renderJson(1);
 	}
 	
 }
