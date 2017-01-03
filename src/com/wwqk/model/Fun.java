@@ -17,7 +17,7 @@ public class Fun extends Model<Fun> {
 	
 	public Page<Fun> paginate(int pageNumber, int pageSize, int type) {
 		if(type==0){
-			return paginate(pageNumber, pageSize, "select *", "from fun order by create_time desc");
+			return paginate(pageNumber, pageSize, "select *", "from fun where image_small is not null order by create_time desc");
 		}else{
 			//TODO 记得加类型条件
 			return paginate(pageNumber, pageSize, "select *", "from fun where type = ? order by create_time desc", type);
