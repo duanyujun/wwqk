@@ -20,7 +20,7 @@ import com.wwqk.utils.StringUtils;
 public class MatchController extends Controller {
 
 	public void index(){
-		List<LeagueMatch> lstMatch = LeagueMatch.dao.find("select m.*,l.id league_id, l.name league_name from league_match m, league l where m.league_id = l.id order by m.id asc ");
+		List<LeagueMatch> lstMatch = LeagueMatch.dao.find("select m.*,l.id league_id, l.name league_name, l.name_en league_name_en from league_match m, league l where m.league_id = l.id order by m.id asc ");
 		Map<String, List<LeagueMatch>> groupMap = new HashMap<String, List<LeagueMatch>>();
 		if(lstMatch.size()>0){
 			for(LeagueMatch match : lstMatch){

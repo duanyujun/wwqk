@@ -70,7 +70,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						      <th style="width:160px;"></th>
 						      <th style="width:160px;"></th>
 						      <th style="width:160px;"></th>
-						      <th style="width:40px;"></th>	
+						      <th style="width:60px;" class="say-info"><a href="/history-${group[0].league_name_en}-${group[0].league_id}.html" target="_blank" title="更多${group[0].league_name}比赛">更多&gt;&gt;</a></th>	
 						    </tr>
 						  </thead>
 						  <tbody>
@@ -136,7 +136,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 				</c:forEach>
 				<div class="pull-right say-info" style="margin-top:10px;">
-					<a href="/history.html" target="_blank" title="更多比赛">查看更多比赛&gt;&gt;</a>
+					<a href="/history.html" target="_blank" title="查看全部比赛">查看全部比赛&gt;&gt;</a>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-3">

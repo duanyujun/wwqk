@@ -86,7 +86,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		                            </div>
 		                            
 		                            <span class="mob-author-a">
-		                                <span class="author-name">趣点网</span>
+		                                <span class="author-name">趣点足球网</span>
 		                            </span>
 		                            <span class="author-name">
 										&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>
