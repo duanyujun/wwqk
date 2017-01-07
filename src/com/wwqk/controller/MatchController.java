@@ -1,10 +1,13 @@
 package com.wwqk.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 import com.jfinal.core.Controller;
 import com.wwqk.constants.LeagueENEnum;
@@ -65,6 +68,28 @@ public class MatchController extends Controller {
 		}
 		//主队球场
 		LeagueMatchHistory history = LeagueMatchHistory.dao.findById(matchKey);
+		//处理改时间的问题
+		if(history==null){
+			String matchDateStr = matchKey.substring(0, matchKey.lastIndexOf("-"));
+			String homeAwayId = matchKey.substring(matchKey.lastIndexOf("-")+1);
+			LeagueMatch leagueMatch = LeagueMatch.dao.findFirst("select * from league_match where home_team_id = ? and away_team_id = ? and date_format(match_date,'%Y-%m-%d') = ? ", 
+					homeAwayId.split("vs")[0], homeAwayId.split("vs")[1], matchDateStr);
+			if(leagueMatch!=null){
+				history = LeagueMatchHistory.dao.findFirst("select * from league_match_history where home_team_id = ? and away_team_id = ? and round = ? ", 
+						leagueMatch.getStr("home_team_id"), leagueMatch.getStr("away_team_id"), leagueMatch.getStr("round"));
+				if(history!=null){
+					history.set("match_date", leagueMatch.getDate("match_date"));
+					history.set("match_weekday", leagueMatch.getStr("match_weekday"));
+					LeagueMatchHistory newHistory = new LeagueMatchHistory();
+					newHistory._setAttrs(history.getAttrs());
+					newHistory.set("id", matchKey);
+					newHistory.save();
+					history.delete();
+					history = newHistory;
+				}
+			}
+		}
+		
 		Team homeTeam = Team.dao.findById(history.getStr("home_team_id"));
 		//Team awayTeam = Team.dao.findById(history.getStr("away_team_id"));
 		setAttr("homeTeam", homeTeam);

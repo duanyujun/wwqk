@@ -20,6 +20,7 @@ import com.wwqk.controller.FunController;
 import com.wwqk.controller.HomeController;
 import com.wwqk.controller.IndexController;
 import com.wwqk.controller.LoginController;
+import com.wwqk.controller.ManageController;
 import com.wwqk.controller.MatchController;
 import com.wwqk.controller.MatchHistoryController;
 import com.wwqk.controller.PermissionController;
@@ -90,6 +91,8 @@ public class MainConfig extends JFinalConfig {
 		me.add("/home", HomeController.class, "web");
 		me.add("/admin",AdminController.class, "web");
 		me.add("/history",MatchHistoryController.class, "web");
+		me.add("/manage",ManageController.class, "web");
+		
 	}
 
 	@Override
@@ -107,7 +110,7 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("league_position", LeaguePosition.class);
 		arp.addMapping("league_shooter", LeagueShooter.class);
 		arp.addMapping("league_match", LeagueMatch.class);
-		//arp.addMapping("league_match_history", LeagueMatchHistory.class);
+		arp.addMapping("league_match_history", LeagueMatchHistory.class);
 		arp.addMapping("transfer", Transfer.class);
 		arp.addMapping("trophy", Trophy.class);
 		arp.addMapping("coach", Coach.class);

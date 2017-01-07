@@ -32,6 +32,7 @@ import com.wwqk.model.ShooterAssistsSource;
 import com.wwqk.model.Team;
 import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.FetchHtmlUtils;
+import com.wwqk.utils.GeneratorUtils;
 import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.StringUtils;
 
@@ -45,10 +46,14 @@ public class ProductJob implements Job {
 	String clearString = "<.*?/>";
 	String tagString = "<.*?>";
 	private HttpClient client;
+	private Map<String, String> specialNameMap = new HashMap<String, String>();
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		client = new DefaultHttpClient();  
+		
+		//初始化特殊球员名称列表
+		initSpecialNameMap();
 		
 		//同步射手和助攻王
 		syncShooterAndAssists();
@@ -63,6 +68,9 @@ public class ProductJob implements Job {
 		
 		//替换默认图片
 		replaceEmptyImage();
+		
+		//生成网站地图
+		GeneratorUtils.generateSitemap();
 		
 		client.getConnectionManager().shutdown();
 	}
@@ -200,18 +208,12 @@ public class ProductJob implements Job {
 	private void translateShooter(){
 		List<LeagueShooter163> lstShooter = LeagueShooter163.dao.find("select * from league_shooter_163");
 		for(LeagueShooter163 shooter163:lstShooter){
-			//判断 丹尼斯.苏亚雷斯
-			if(StringUtils.isNotBlank(shooter163.getStr("player_url_163")) && shooter163.getStr("player_url_163").contains("/602708.html")){
-				shooter163.set("player_name_163", "丹尼斯.苏亚雷斯");
+			Player player = getSpecialNamePlayer(shooter163.getStr("player_url_163"));
+			if(player==null){
+				player = Player.dao.findFirst("select p.*, t.name team_name from player p, team t where p.team_id = t.id and p.name = ? and t.name = ?",
+						shooter163.getStr("player_name_163"), shooter163.getStr("team_name_163"));
 			}
-			
-			//判断亚当史密斯
-			if(StringUtils.isNotBlank(shooter163.getStr("player_url_163")) && shooter163.getStr("player_url_163").contains("/434972.html")){
-				shooter163.set("player_name_163", "亚当·史密斯");
-			}
-			
-			Player player = Player.dao.findFirst("select p.*, t.name team_name from player p, team t where p.team_id = t.id and p.name = ? and t.name = ?",
-					shooter163.getStr("player_name_163"), shooter163.getStr("team_name_163"));
+			 
 			if(player!=null){
 				shooter163.set("player_id", player.get("id"));
 				shooter163.set("player_name", player.get("name"));
@@ -233,17 +235,12 @@ public class ProductJob implements Job {
 	private void translateAssists(){
 		List<LeagueAssists163> lstAssists = LeagueAssists163.dao.find("select * from league_assists_163");
 		for(LeagueAssists163 assists163:lstAssists){
-			//判断 丹尼斯.苏亚雷斯
-			if(StringUtils.isNotBlank(assists163.getStr("player_url_163")) &&  assists163.getStr("player_url_163").contains("/602708.html")){
-				assists163.set("player_name_163", "丹尼斯.苏亚雷斯");
-			}
-			//判断亚当史密斯
-			if(StringUtils.isNotBlank(assists163.getStr("player_url_163")) && assists163.getStr("player_url_163").contains("/434972.html")){
-				assists163.set("player_name_163", "亚当·史密斯");
+			Player player = getSpecialNamePlayer(assists163.getStr("player_url_163"));
+			if(player==null){
+				player = Player.dao.findFirst("select p.*, t.name team_name from player p, team t where p.team_id = t.id and p.name = ? and t.name = ?",
+						assists163.getStr("player_name_163"), assists163.getStr("team_name_163"));
 			}
 			
-			Player player = Player.dao.findFirst("select p.*, t.name team_name from player p, team t where p.team_id = t.id and p.name = ? and t.name = ?",
-					assists163.get("player_name_163"), assists163.get("team_name_163"));
 			if(player!=null){
 				assists163.set("player_id", player.get("id"));
 				assists163.set("player_name", player.get("name"));
@@ -260,6 +257,24 @@ public class ProductJob implements Job {
 			}
 		}
 		Db.batchUpdate(lstAssists, lstAssists.size());
+	}
+	
+	/**
+	 * 处理同一个队相同名字的问题
+	 */
+	private void initSpecialNameMap(){
+		//苏亚雷斯
+		specialNameMap.put("/54/player/348217.html", "2290");
+		//丹尼斯.苏亚雷斯
+		specialNameMap.put("/54/player/602708.html", "149750");
+	}
+	
+	private Player getSpecialNamePlayer(String playerURL163){
+		String realPlayerId = specialNameMap.get(playerURL163);
+		if(realPlayerId!=null){
+			return Player.dao.findById(realPlayerId);
+		}
+		return null;
 	}
 	
 	private void calcAge(){
