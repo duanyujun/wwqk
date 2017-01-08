@@ -5,7 +5,7 @@
 		<div class="col-lg-7 col-md-7">
 			<div class="row">
 				<div class="col-lg-12 col-md-12">
-					趣点足球网 - 做有意思的足球网站
+					趣点足球网 - 做有意思的足球网站&nbsp;<a href="http://www.yutet.com/sitemap.html" target="_blank" style="color:white;">网站地图</a>
 				</div>
 				<div class="col-lg-12 col-md-12" style="margin-top:15px;">
 					Copyright © 趣点足球网   粤ICP备16048166号-4 &nbsp;&nbsp;&nbsp;友情链接：<a href="http://www.rich888.cn/app.htm" style="color:white;text-decoration: none;" target="_blank">飞达网</a>
