@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.wwqk.model.Fun;
@@ -83,6 +84,14 @@ public class GeneratorUtils{
 			String filePathStr = FileUtils.getWebDiskPath()+File.separator+"sitemap.html";
 			FileUtils.deleteFile(filePathStr);
 			FileUtils.writeFile(document.html(), filePathStr);
+			
+			//生成site.txt
+			Elements elements = document.select("a");
+			StringBuilder sb = new StringBuilder();
+			for(Element element : elements){
+				sb.append(element.attr("href")).append("\n");
+			}
+			FileUtils.writeFile(sb.toString(), FileUtils.getWebDiskPath()+File.separator+"site.txt");
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
