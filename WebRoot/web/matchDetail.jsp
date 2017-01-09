@@ -68,6 +68,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</div>
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									【对阵球队】：<span class="a-title" style="font-size:16px;"><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank">${homeTeam.name}</a>vs<a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank">${history.away_team_name}</a></span>
+									<c:if test="${history.status=='完场'}">
+									（完场：<span style="color:red;">${history.result}</span>）
+									</c:if>
 								</div>
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									【赛事时间】：<fmt:formatDate value="${history.match_date}" pattern="yyyy年MM月dd日  hh:mm"/>

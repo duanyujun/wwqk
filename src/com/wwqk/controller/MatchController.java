@@ -1,13 +1,10 @@
 package com.wwqk.controller;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.beanutils.BeanUtils;
 
 import com.jfinal.core.Controller;
 import com.wwqk.constants.LeagueENEnum;
@@ -80,6 +77,7 @@ public class MatchController extends Controller {
 				if(history!=null){
 					history.set("match_date", leagueMatch.getDate("match_date"));
 					history.set("match_weekday", leagueMatch.getStr("match_weekday"));
+					history.set("status", leagueMatch.getStr("status"));
 					LeagueMatchHistory newHistory = new LeagueMatchHistory();
 					newHistory._setAttrs(history.getAttrs());
 					newHistory.set("id", matchKey);
