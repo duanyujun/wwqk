@@ -59,7 +59,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                     <div class="input-icon">
                     	<input type="hidden" name="password1" id="password1"/>
                         <i class="fa fa-lock"></i>
-                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" id="password" name="password" onkeydown='if(event.keyCode==13){return false;}' /> </div>
+                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" id="password" name="password"  /> </div>
                 </div>
                 <div class="form-actions">
                     <label class="checkbox">
