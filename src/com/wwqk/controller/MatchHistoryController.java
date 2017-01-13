@@ -29,7 +29,7 @@ public class MatchHistoryController extends Controller {
 					whereSql = " and league_id = " + id;
 					area = EnumUtils.getValue(LeagueEnum.values(), id);
 				}else{
-					whereSql = " and team_id = " + id;
+					whereSql = " and (home_team_id = " + id+" or away_team_id = "+id+")";
 					Team team = Team.dao.findById(id);
 					area = team.getStr("name");
 				}

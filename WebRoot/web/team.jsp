@@ -126,7 +126,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="row" style="margin-top:10px;">
 							<div class="col-lg-12 col-md-12">
 								<table class="table small-table" >
-									  <caption style="min-height:30px;text-align:left;"><b style="margin-left:15px;">最近五场比赛</b></caption>
+									  <caption style="min-height:30px;text-align:left;"><b style="margin-left:10px;">最近五场比赛</b><span class="say-info pull-right"><a href="/history-${team.name_en}-${team.id}.html" target="_blank" title="更多${team.name}的比赛">更多&gt;&gt;</a></span></caption>
 									  <tbody>
 									  		<c:forEach items="${lstMatchHistory}" var="history">
 									  			<tr>
