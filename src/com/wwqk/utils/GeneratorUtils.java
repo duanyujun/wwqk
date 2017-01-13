@@ -81,6 +81,18 @@ public class GeneratorUtils{
 				lstMatch = null;
 			}
 			
+			//球队比赛列表
+			Elements teamMatchTds = document.select("#team_match_td");
+			if(teamMatchTds.size()>0){
+				List<Team> lstTeam = Team.dao.find("select id, name, name_en from team");
+				StringBuilder sb = new StringBuilder();
+				for(Team team : lstTeam){
+					sb.append("<a target=\"_blank\" href=\"http://www.yutet.com/history-"+team.getStr("name_en")+"-"+team.getStr("id")+".html\">"+team.getStr("name")+"的比赛</a>&nbsp;");
+				}
+				teamMatchTds.get(0).html(sb.toString());
+			}
+			
+			
 			String filePathStr = FileUtils.getWebDiskPath()+File.separator+"sitemap.html";
 			FileUtils.deleteFile(filePathStr);
 			FileUtils.writeFile(document.html(), filePathStr);
