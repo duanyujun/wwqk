@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -13,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.wwqk.constants.InjuryTypeEnum;
+import com.wwqk.constants.LeagueENEnum;
 
 /**
  * 常用Id
@@ -309,4 +311,22 @@ public class CommonUtils {
 		
 	}
 	
+	/**
+	 * 是否是从联赛过来
+	 * @param param
+	 * @return
+	 */
+	public static final boolean isFromLeague(String param){
+		if(StringUtils.isBlank(param)){
+			return false;
+		}
+		param = param.substring(0, param.lastIndexOf("-"));
+		List values = EnumUtils.getEnumValues(LeagueENEnum.values());
+		for(Object value : values){
+			if((((IEnum)value).getValue()).equals(param)){
+				return true;
+			}
+		}
+		return false;
+	}
 }

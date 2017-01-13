@@ -99,7 +99,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									</c:if>
 		                            
 		                            <span class="author-name">
-										&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd hh:mm:ss"/>
+										&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd HH:mm"/>
 									</span>
 		                    </div>
 						</div>

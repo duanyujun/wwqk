@@ -52,7 +52,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin" style="margin-top:70px;">
 		<div id="main_content" style="min-height:10px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="bread">
-				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/match.html" target="_blank">比赛</a>&gt;&nbsp;全部
+				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/match.html" target="_blank">比赛</a>&gt;&nbsp;${area}
 			</div>
 		</div>
 	</div>
