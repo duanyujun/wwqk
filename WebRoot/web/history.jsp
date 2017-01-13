@@ -135,17 +135,17 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					
 					<div class="col-lg-9 col-md-9" style="margin-top:20px;padding-right:0px;">
 						<div class="scott pull-right" >
-							<a href="/hisotry-page-1.html" title="首页"> &lt;&lt; </a>
+							<a href="/history<c:if test="${!empty filter}">-${filter}</c:if>-page-1.html" title="首页"> &lt;&lt; </a>
 							
 							<c:if test="${matchPage.pageNumber == 1}">
 								<span class="disabled"> &lt; </span>
 							</c:if>
 							<c:if test="${matchPage.pageNumber != 1}">
-								<a href="/hisotry-page-${matchPage.pageNumber - 1}.html" > &lt; </a>
+								<a href="/history<c:if test="${!empty filter}">-${filter}</c:if>-page-${matchPage.pageNumber - 1}.html" > &lt; </a>
 							</c:if>
 							<c:if test="${matchPage.pageNumber > 8}">
-								<a href="/hisotry-page-1.html">1</a>
-								<a href="/hisotry-page-2.html">2</a>
+								<a href="/history<c:if test="${!empty filter}">-${filter}</c:if>-page-1.html">1</a>
+								<a href="/history<c:if test="${!empty filter}">-${filter}</c:if>-page-2.html">2</a>
 								...
 							</c:if>
 							<c:if test="${!empty pageUI.list}">
@@ -154,24 +154,24 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										<span class="current">${pageNo}</span>
 									</c:if>
 									<c:if test="${matchPage.pageNumber != pageNo }">
-										<a href="/hisotry-page-${pageNo}.html">${pageNo}</a>
+										<a href="/history<c:if test="${!empty filter}">-${filter}</c:if>-page-${pageNo}.html">${pageNo}</a>
 									</c:if>
 								</c:forEach>
 							</c:if>
 							<c:if test="${(matchPage.totalPage - matchPage.pageNumber) >= 8 }">
 								...
-								<a href="/hisotry-page-${matchPage.totalPage - 1}.html">${matchPage.totalPage - 1}</a>
-								<a href="/hisotry-page-${matchPage.totalPage}.html">${matchPage.totalPage}</a>
+								<a href="/history<c:if test="${!empty filter}">-${filter}</c:if>-page-${matchPage.totalPage - 1}.html">${matchPage.totalPage - 1}</a>
+								<a href="/history<c:if test="${!empty filter}">-${filter}</c:if>-page-${matchPage.totalPage}.html">${matchPage.totalPage}</a>
 							</c:if>
 							
 							<c:if test="${matchPage.pageNumber == matchPage.totalPage}">
 								<span class="disabled"> &gt; </span>
 							</c:if>
 							<c:if test="${matchPage.pageNumber != matchPage.totalPage}">
-								<a href="/hisotry-page-${matchPage.pageNumber + 1}.html"> &gt; </a>
+								<a href="/history<c:if test="${!empty filter}">-${filter}</c:if>-page-${matchPage.pageNumber + 1}.html"> &gt; </a>
 							</c:if>
 							
-							<a href="/hisotry-page-${matchPage.totalPage}.html" title="尾页" > &gt;&gt; </a>
+							<a href="/history<c:if test="${!empty filter}">-${filter}</c:if>-page-${matchPage.totalPage}.html" title="尾页" > &gt;&gt; </a>
 						</div>
 					</div>
 					

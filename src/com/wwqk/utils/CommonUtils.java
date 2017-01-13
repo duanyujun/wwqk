@@ -329,4 +329,24 @@ public class CommonUtils {
 		}
 		return false;
 	}
+	
+	private static final Pattern PAGE_PATTERN = Pattern.compile("-page-(\\d+)");
+	/**
+	 * 获取页码
+	 * @param param
+	 * @return 
+	 */
+	public static final int getPageNo(String param){
+		if(StringUtils.isBlank(param)){
+			return 1;
+		}
+		Matcher matcher = PAGE_PATTERN.matcher(param);
+		if(matcher.find()){
+			String pageNO = matcher.group(1);
+			return Integer.parseInt(pageNO);
+		}
+		
+		return 1;
+	}
+	
 }

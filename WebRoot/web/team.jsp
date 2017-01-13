@@ -248,7 +248,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="row " style="margin-top:10px;">
 								<div class="col-lg-12 col-md-12">
 									<table class="table" style="border:1px solid #dddddd;">
-									  <caption style="min-height:30px;text-align:left;"><b style="margin-left:15px;">联赛排名</b></caption>
+									  <caption style="min-height:30px;text-align:left;"><b style="margin-left:10px;">联赛排名</b></caption>
 									  <thead>
 									    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
 									      <th>排名</th>

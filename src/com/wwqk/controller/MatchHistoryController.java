@@ -16,7 +16,15 @@ public class MatchHistoryController extends Controller {
 		String area = "全部";
 		String whereSql = "";
 		String id = getPara("id");
+		int pageNumber = getParaToInt("pageNumber", 1);
 		if(StringUtils.isNotBlank(id)){
+			if(id.contains("-page-")){
+				pageNumber = CommonUtils.getPageNo(id);
+				//去掉pageNo段
+				id = id.replaceAll("-page-\\d+", "");
+			}
+			setAttr("filter", id);
+			
 			boolean isFromLeague = false;
 			//判断是从league还是team来的
 			if(CommonUtils.isFromLeague(id)){
@@ -38,7 +46,7 @@ public class MatchHistoryController extends Controller {
 			}
 		}
 		
-		Page<LeagueMatchHistory> matchPage = LeagueMatchHistory.dao.paginate(getParaToInt("pageNumber", 1), 50, whereSql);
+		Page<LeagueMatchHistory> matchPage = LeagueMatchHistory.dao.paginate(pageNumber, 50, whereSql);
 		setAttr("matchPage", matchPage);
 		setAttr("pageUI", PageUtils.calcStartEnd(matchPage));
 		setAttr("area", area);
