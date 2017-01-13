@@ -91,7 +91,9 @@ public class GeneratorUtils{
 			for(Element element : elements){
 				sb.append(element.attr("href")).append("\n");
 			}
-			FileUtils.writeFile(sb.toString(), FileUtils.getWebDiskPath()+File.separator+"site.txt");
+			String txtPath = FileUtils.getWebDiskPath()+File.separator+"site.txt";
+			FileUtils.deleteFile(txtPath);
+			FileUtils.writeFile(sb.toString(), txtPath);
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
