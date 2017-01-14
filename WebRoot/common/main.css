@@ -45,6 +45,20 @@ body{font-family:"Source Sans Pro", "Open Sans", "Helvetica Neue", "WenQuanYi Mi
 .small-table>thead>tr>th, .small-table>tbody>tr>th, .small-table>tfoot>tr>th, .small-table>thead>tr>td, .small-table>tbody>tr>td, .small-table>tfoot>tr>td{
 	padding:2px;padding-top:5px;padding-bottom:5px;
 }
+.content-title:hover img{
+	-webkit-transform:scale(1.04);
+	-moz-transform:scale(1.04);
+	-ms-transform:scale(1.04);
+	-o-transform:scale(1.04);
+	transform:scale(1.04);
+}
+.content-title img{
+	-webkit-transition:all .5s ease-in-out;
+	-moz-transition:all .5s ease-in-out;
+	-ms-transition:all .5s ease-in-out;
+	-o-transition:all .5s ease-in-out;
+	transition:all .5s ease-in-out;
+}
 
 
 /*CSS scott style pagination*/

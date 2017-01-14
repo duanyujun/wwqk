@@ -56,7 +56,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="col-lg-12 col-md-12" style="margin-top:19px;height:1px;"></div>
 					</c:if>
 				
-					<div class="col-lg-4 col-md-4 hidden-sm hidden-xs" style="padding-left:0px;">
+					<div class="col-lg-4 col-md-4 hidden-sm hidden-xs content-title" style="padding-left:0px;">
 						<c:if test="${fun.type==1}">
 							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.title}" title="${fun.title}"/></a>
 						</c:if>
