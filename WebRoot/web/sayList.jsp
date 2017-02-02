@@ -66,13 +66,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<div class="col-lg-9 col-md-9">
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">名字：${player.first_name}</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">姓氏：${player.last_name}</div>
-						<div class="col-lg-6 col-md-6" style="margin-top:10px;">生日：${player.birthday}（${player.age}岁）</div>
+						<div class="col-lg-6 col-md-6" style="margin-top:10px;"><nobr>生日：${player.birthday}（${player.age}岁）</nobr></div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">国籍：${player.nationality}</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">身高：${player.height}</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">体重：${player.weight}</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">位置：${player.position}</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">用脚：${player.foot}</div>
-						<div class="col-lg-6 col-md-6 team-title" style="margin-top:10px;font-size:14px;">目前效力球队：
+						<div class="col-lg-6 col-md-6 team-title" style="margin-top:10px;font-size:14px;">效力球队：
 							<a href="team-${player.team_name_en}-${player.team_id}.html" target="_blank" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a>
 						</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">
