@@ -130,7 +130,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									  <tbody>
 									  		<c:forEach items="${lstMatchHistory}" var="history">
 									  			<tr>
-									  				<td class="a-title"><a href="team-${history.home_team_en_name}-${history.home_team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${history.home_team_id}.png" style="width:25px;height:25px;" alt="${history.home_team_name}" title="${history.home_team_name}"/>&nbsp;<span style="font-size:12px;">${history.home_team_name}</span></a></td>
+									  				<td class="a-title"><a href="team-${history.home_team_en_name}-${history.home_team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${history.home_team_id}.png" style="width:25px;height:25px;" alt="${history.home_team_name}" title="${history.home_team_name}"/>&nbsp;<span style="font-size:12px;">${history.home_team_name}</span></nobr></a></td>
 									  				<td class="a-title" style="text-align:center;min-width:100px;">
 									  					<c:if test="${fn:contains(history.result, '-')}">
 												      		<b><a title="观看集锦" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/>-${history.home_team_id}vs${history.away_team_id}.html" target="_blank">${history.result}</a></b>
@@ -139,7 +139,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 												      		<a title="直播地址" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/>-${history.home_team_id}vs${history.away_team_id}.html" target="_blank"><fmt:formatDate value="${history.match_date}" pattern="yy/MM/dd hh:mm"/></a>
 												      	</c:if>
 									  				</td>
-									  				<td class="a-title"><a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${history.away_team_id}.png" style="width:25px;height:25px;" alt="${history.away_team_name}" title="${history.away_team_name}"/>&nbsp;<span style="font-size:12px;">${history.away_team_name}</span></a></td>
+									  				<td class="a-title"><a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${history.away_team_id}.png" style="width:25px;height:25px;" alt="${history.away_team_name}" title="${history.away_team_name}"/>&nbsp;<span style="font-size:12px;">${history.away_team_name}</span></nobr></a></td>
 									  				
 									  			</tr>
 									  		</c:forEach>
@@ -263,7 +263,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									  	<c:if test="${position.team_id!=team.id}">
 									  		<tr>
 											  <td>${status.count}</td>
-										      <td class="team-title" ><a href="team-${position.team_name_en}-${position.team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${position.team_id}.png" style="width:25px;height:25px;" alt="${position.team_name}" title="${position.team_name}"/>&nbsp;${position.team_name}</a></td>
+										      <td class="team-title" ><a href="team-${position.team_name_en}-${position.team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${position.team_id}.png" style="width:25px;height:25px;" alt="${position.team_name}" title="${position.team_name}"/>&nbsp;${position.team_name}</nobr></a></td>
 										      <td>${position.round_count}</td>
 										      <td>${position.goal_count}</td>
 										      <td>${position.points}</td>
@@ -272,7 +272,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									  	<c:if test="${position.team_id==team.id}">
 									  		<tr>
 											  <td style="border:1px solid #00A50D;border-right:0;">${status.count}</td>
-										      <td class="team-title" style="border:1px solid #00A50D;border-right:0;border-left:0;"><a href="team?id=${position.team_id}" target="_blank"><img src="assets/image/soccer/teams/25x25/${position.team_id}.png" style="width:25px;height:25px;" alt="${position.team_name}" title="${position.team_name}"/>&nbsp;${position.team_name}</a></td>
+										      <td class="team-title" style="border:1px solid #00A50D;border-right:0;border-left:0;"><a href="team?id=${position.team_id}" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${position.team_id}.png" style="width:25px;height:25px;" alt="${position.team_name}" title="${position.team_name}"/>&nbsp;${position.team_name}</nobr></a></td>
 										      <td style="border:1px solid #00A50D;border-right:0;border-left:0;">${position.round_count}</td>
 										      <td style="border:1px solid #00A50D;border-right:0;border-left:0;">${position.goal_count}</td>
 										      <td style="border:1px solid #00A50D;border-left:0;">${position.points}</td>
