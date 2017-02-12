@@ -84,7 +84,7 @@
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>惯用脚（如：右）：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="foot" name="foot" required value="${player.foot}" placeholder="请输入惯用脚">
+		                  <input type="text" class="form-control" id="foot" name="foot" value="${player.foot}" placeholder="请输入惯用脚">
 		              </div>
 		              <div class="col-md-3"><label for="foot"></label></div>
 		          </div>
