@@ -114,13 +114,13 @@ public class ProductJob implements Job {
 				//key： playerName_teamName
 				Map<String, LeagueShooter163> map = new HashMap<String, LeagueShooter163>();
 				for(LeagueShooter163 db:lstShooter163DB){
-					map.put(db.getStr("player_name_163")+"_"+db.getStr("team_name_163"), db);
+					map.put(db.getStr("player_url_163"), db);
 				}
 				
 				List<LeagueShooter163> needUpdateList = new ArrayList<LeagueShooter163>();
 				List<LeagueShooter163> needInsertList = new ArrayList<LeagueShooter163>();
 				for(LeagueShooter163 shooter163:lstShooter163){
-					String key = shooter163.getStr("player_name_163")+"_"+shooter163.getStr("team_name_163");
+					String key = shooter163.getStr("player_url_163");
 					if(map.get(key)!=null){
 						LeagueShooter163 shooterDB = map.get(key);
 						shooterDB.set("rank", shooter163.get("rank"));
@@ -175,13 +175,13 @@ public class ProductJob implements Job {
 				//key： playerName_teamName
 				Map<String, LeagueAssists163> map = new HashMap<String, LeagueAssists163>();
 				for(LeagueAssists163 db:lstAssists163DB){
-					map.put(db.getStr("player_name_163")+"_"+db.getStr("team_name_163"), db);
+					map.put(db.getStr("player_url_163"), db);
 				}
 				
 				List<LeagueAssists163> needUpdateList = new ArrayList<LeagueAssists163>();
 				List<LeagueAssists163> needInsertList = new ArrayList<LeagueAssists163>();
 				for(LeagueAssists163 assists163:lstAssists163){
-					String key = assists163.getStr("player_name_163")+"_"+assists163.getStr("team_name_163");
+					String key = assists163.getStr("player_url_163");
 					if(map.get(key)!=null){
 						LeagueAssists163 assistsDB = map.get(key);
 						assistsDB.set("rank", assists163.get("rank"));
