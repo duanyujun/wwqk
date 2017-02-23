@@ -335,7 +335,7 @@ public class ProductJob implements Job {
 		}
 		List<League> lstLeagues = League.dao.find("select * from league ");
 		for(League league:lstLeagues){
-			List<LeagueShooter163> lstShooter163 = LeagueShooter163.dao.find("select * from league_shooter_163 where league_id = ? order by goal_count desc, penalty_count asc limit 0, ? ", league.get("id"), CommonConstants.DEFAULT_RANK_SIZE);
+			List<LeagueShooter163> lstShooter163 = LeagueShooter163.dao.find("select * from league_shooter_163 where league_id = ? and player_id is not null order by goal_count desc, penalty_count asc limit 0, ? ", league.get("id"), CommonConstants.DEFAULT_RANK_SIZE);
 			List<LeagueShooter> lstShooter = new ArrayList<LeagueShooter>(CommonConstants.DEFAULT_RANK_SIZE);
 			if(lstShooter163.size()==CommonConstants.DEFAULT_RANK_SIZE){
 				for(LeagueShooter163 shooter163:lstShooter163){
@@ -370,13 +370,13 @@ public class ProductJob implements Job {
 		}
 		List<League> lstLeagues = League.dao.find("select * from league ");
 		for(League league:lstLeagues){
-			List<LeagueAssists163> lstAssists163 = LeagueAssists163.dao.find("select * from league_assists_163 where league_id = ? order by rank asc limit 0, ? ", league.get("id"), CommonConstants.DEFAULT_RANK_SIZE);
+			List<LeagueAssists163> lstAssists163 = LeagueAssists163.dao.find("select * from league_assists_163 where league_id = ? and player_id is not null order by rank asc limit 0, ? ", league.get("id"), CommonConstants.DEFAULT_RANK_SIZE);
 			List<LeagueAssists> lstAssists = new ArrayList<LeagueAssists>(CommonConstants.DEFAULT_RANK_SIZE);
 			if(lstAssists163.size()==CommonConstants.DEFAULT_RANK_SIZE){
 				for(LeagueAssists163 assists163:lstAssists163){
 					LeagueAssists assists = new LeagueAssists();
 					assists.set("player_id", assists163.get("player_id"));
-					Player player = Player.dao.findById(assists.getStr("player_id"));
+					Player player = Player.dao.findById(assists163.getStr("player_id"));
 					assists.set("player_img", player.get("img_small_local"));
 					assists.set("player_name_en", player.get("en_url"));
 					assists.set("player_name", assists163.get("player_name"));
