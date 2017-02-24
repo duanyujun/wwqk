@@ -73,7 +73,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									</c:if>
 								</div>
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									【赛事时间】：<fmt:formatDate value="${history.match_date}" pattern="yyyy年MM月dd日  hh:mm"/>
+									【赛事时间】：<fmt:formatDate value="${history.match_date}" pattern="yyyy年MM月dd日  HH:mm"/>
 								</div>
 								<c:if test="${history.status=='完场'}">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
