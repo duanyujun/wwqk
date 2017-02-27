@@ -62,19 +62,39 @@ public class PlayerJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		List<Team> lstTeam = Team.dao.find("select * from team order by id+0 asc ");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("克羅地亞", "克罗地亚");
+		map.put("加納", "加纳");
+		map.put("南韓", "韩国");
+		map.put("哥倫比亞", "哥伦比亚");
+		map.put("尼日利亞", "尼日利亚");
+		map.put("德國", "德国");
+		map.put("愛爾蘭", "爱尔兰");
+		map.put("新喀裡多尼亚", "新喀里多尼亚");
+		map.put("比利時", "比利时");
+		map.put("法國", "法国");
+		map.put("波斯尼亞 - 黑塞哥維那", "波斯尼亚 - 黑塞哥维那");
+		map.put("波蘭", "波兰");
+		map.put("美國", "美国");
+		map.put("肯尼亞", "肯尼亚");
+		map.put("荷蘭", "荷兰");
+		map.put("蘇格蘭", "苏格兰");
+		
 		String htmlTeam = null;
-		System.err.println("handle player start!!!");
-		try {
-			for(Team team : lstTeam){
-				System.err.println("handle team:"+team.getStr("id")+"_"+team.getStr("name"));
-				htmlTeam = FetchHtmlUtils.getHtmlContent(httpClient, team.getStr("team_url"));
-				handlePlayerUrl(htmlTeam, team.getStr("id"));
+		List<Player> lstPlayers = Player.dao.find("select * from player order by id+0 desc");
+		int count = 0;
+		for(Player player : lstPlayers){
+			htmlTeam = FetchHtmlUtils.getHtmlContent(httpClient, player.getStr("player_url"));
+			String nationality = CommonUtils.matcherString(CommonUtils.getPatternByName("国籍"), htmlTeam);
+			if(map.get(nationality)!=null){
+				nationality = map.get(nationality);
 			}
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			player.set("nationality", nationality);
+			System.err.println(++count+"："+nationality+"  "+player.getStr("name")+"  playerUrl："+player.getStr("player_url"));
+			player.update();
 		}
-		httpClient.getConnectionManager().shutdown();
+		
+		
 		System.err.println("handle player end!!!");
 	}
 
