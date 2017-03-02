@@ -34,7 +34,6 @@ import com.wwqk.utils.StringUtils;
 
 public class OddsJob implements Job {
 	
-	//TODO　球员小图片 http://cache.images.core.optasports.com/soccer/players/50x50/79495.png
 	private HttpClient httpClient = new DefaultHttpClient();
 	private static final Pattern START_PATTERN = Pattern.compile("初指</td>.*?>(.*?)</td>.*?>(.*?)</td>.*?>(.*?)</td>");
 	private static final Pattern END_PATTERN = Pattern.compile("终指</td>.*?>(.*?)</td>.*?>(.*?)</td>.*?>(.*?)</td>");
@@ -42,10 +41,11 @@ public class OddsJob implements Job {
 	
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		
+		initHistoryOdds();
 	}
 
 	private void initHistoryOdds(){
+		System.err.println("...........odds job start.....");
 		Set<String> leagueSet = new HashSet<String>();
 		leagueSet.add("英超");
 		leagueSet.add("西甲");
@@ -53,7 +53,7 @@ public class OddsJob implements Job {
 		leagueSet.add("意甲");
 		leagueSet.add("法甲");
 		//得到所有的比赛日期
-		List<Record> lstDateStr = Db.find("SELECT DATE_FORMAT(match_date, '%Y-%m-%d') date_str FROM league_match_history GROUP BY DATE_FORMAT(match_date, '%Y-%m-%d');");
+		List<Record> lstDateStr = Db.find("SELECT DATE_FORMAT(match_date, '%Y-%m-%d') date_str FROM league_match_history WHERE odds_wh_end IS NULL  GROUP BY DATE_FORMAT(match_date, '%Y-%m-%d') ORDER BY date_str ASC");
 		for(Record record : lstDateStr){
 			String dateStr = record.getStr("date_str");
 			String content = MatchUtils.getHtmlContent(httpClient, MatchUtils.MATCH_REFER_URL, MatchUtils.MATCH_REFER_URL+"?date="+dateStr);
@@ -82,6 +82,8 @@ public class OddsJob implements Job {
 				}
 			}
 		}
+		
+		System.err.println("...........odds job end.....");
 	}
 	
 	private void initProviderOdds(String okMatchId, String oddsProviderId, LeagueMatchHistory matchHistory){
@@ -106,18 +108,20 @@ public class OddsJob implements Job {
 		}
 		if("完场".equals(matchHistory.getStr("status"))){
 			Matcher endMatcher = END_PATTERN.matcher(oddsContent);
-			if(OddsProviderEnum.WH.getKey().equals(oddsProviderId)){
-				matchHistory.set("odds_wh_end", endMatcher.group(1)+","+endMatcher.group(2)+","+endMatcher.group(3));
-			}else if(OddsProviderEnum.BET365.getKey().equals(oddsProviderId)){
-				matchHistory.set("odds_bet365_end", endMatcher.group(1)+","+endMatcher.group(2)+","+endMatcher.group(3));
-			}else if(OddsProviderEnum.LB.getKey().equals(oddsProviderId)){
-				matchHistory.set("odds_lb_end", endMatcher.group(1)+","+endMatcher.group(2)+","+endMatcher.group(3));
-			}else if(OddsProviderEnum.ML.getKey().equals(oddsProviderId)){
-				matchHistory.set("odds_ml_end", endMatcher.group(1)+","+endMatcher.group(2)+","+endMatcher.group(3));
-			}else if(OddsProviderEnum.BWIN.getKey().equals(oddsProviderId)){
-				matchHistory.set("odds_bwin_end", endMatcher.group(1)+","+endMatcher.group(2)+","+endMatcher.group(3));
+			if(endMatcher.find()){
+				if(OddsProviderEnum.WH.getKey().equals(oddsProviderId)){
+					matchHistory.set("odds_wh_end", endMatcher.group(1)+","+endMatcher.group(2)+","+endMatcher.group(3));
+				}else if(OddsProviderEnum.BET365.getKey().equals(oddsProviderId)){
+					matchHistory.set("odds_bet365_end", endMatcher.group(1)+","+endMatcher.group(2)+","+endMatcher.group(3));
+				}else if(OddsProviderEnum.LB.getKey().equals(oddsProviderId)){
+					matchHistory.set("odds_lb_end", endMatcher.group(1)+","+endMatcher.group(2)+","+endMatcher.group(3));
+				}else if(OddsProviderEnum.ML.getKey().equals(oddsProviderId)){
+					matchHistory.set("odds_ml_end", endMatcher.group(1)+","+endMatcher.group(2)+","+endMatcher.group(3));
+				}else if(OddsProviderEnum.BWIN.getKey().equals(oddsProviderId)){
+					matchHistory.set("odds_bwin_end", endMatcher.group(1)+","+endMatcher.group(2)+","+endMatcher.group(3));
+				}
+				matchHistory.update();
 			}
-			matchHistory.update();
 		}
 		
 		Document document = Jsoup.parse(oddsContent);
@@ -186,7 +190,7 @@ public class OddsJob implements Job {
 		}
 		array = arrayStr.split("&nbsp;&nbsp;&nbsp;");
 		if(array.length!=3){
-			array = arrayStr.split("   ");
+			array = arrayStr.split("   ");
 		}
 		
 		return array;
