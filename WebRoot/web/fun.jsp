@@ -74,9 +74,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								<c:if test="${fun.type==1}">
 									<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank" title="${fun.title}">${fun.title}</a>
 								</c:if>
-								<c:if test="${fun.type==2}">
-									<a href="say/detail?id=${fun.source_id}" target="_blank">${fun.title}</a>
-								</c:if>
 							</span>
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:5px;">
@@ -95,7 +92,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						</div>
 						
 						<div class="col-lg-12 col-md-12 visible-sm visible-xs" style="margin-top:10px;">
-								<a href="fun/detail?id=${fun.id}" target="_blank"><img src="${fun.image_small}" class="msg-img" /></a>
+								<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" /></a>
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:20px;padding-right:0;">
 							<span class="summary">${fun.summary}</span>
