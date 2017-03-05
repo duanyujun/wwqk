@@ -179,6 +179,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 													</table>
 												</div>  
 											</c:if>
+											<c:if test="${empty lstOddsWH}">
+												<span style="color:grey;">暂无记录</span>
+											</c:if>
 										</div>
 										<div class="tab-pane fade" id="odds_bet365">
 											<c:if test="${!empty lstOddsBet365}">
@@ -221,6 +224,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 														</tbody>
 													</table>
 												</div>  
+											</c:if>
+											<c:if test="${empty lstOddsBet365}">
+												<span style="color:grey;">暂无记录</span>
 											</c:if>
 										</div>
 										<div class="tab-pane fade" id="odds_bwin">
@@ -265,6 +271,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 													</table>
 												</div>  
 											</c:if>
+											<c:if test="${empty lstOddsBwin}">
+												<span style="color:grey;">暂无记录</span>
+											</c:if>
 										</div>
 										<div class="tab-pane fade" id="odds_ml">
 											<c:if test="${!empty lstOddsML}">
@@ -308,6 +317,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 													</table>
 												</div>  
 											</c:if>
+											<c:if test="${empty lstOddsML}">
+												<span style="color:grey;">暂无记录</span>
+											</c:if>
 										</div>
 										<div class="tab-pane fade" id="odds_lb">
 											<c:if test="${!empty lstOddsLB}">
@@ -350,6 +362,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 														</tbody>
 													</table>
 												</div>  
+											</c:if>
+											<c:if test="${empty lstOddsLB}">
+												<span style="color:grey;">暂无记录</span>
 											</c:if>
 										</div>
 									</div>
