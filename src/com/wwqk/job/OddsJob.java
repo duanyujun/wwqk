@@ -160,9 +160,20 @@ public class OddsJob implements Job {
 			model.set("odds_draw_end", arrayEnd[1]);
 			model.set("odds_away_end", arrayEnd[2]);
 			
-			model.set("home_team_name", tr.child(4).text());
+			if("0.00".equals(array[0]) || "0.00".equals(arrayEnd[0])){
+				continue;
+			}
+			//主队
+			String homeTeamName = tr.child(4).text();
+			homeTeamName = CommonConstants.DIFF_MAP.get(homeTeamName)!=null?CommonConstants.DIFF_MAP.get(homeTeamName):homeTeamName;
+			model.set("home_team_name", homeTeamName);
+			//结果
 			model.set("result", tr.child(5).text());
-			model.set("away_team_name", tr.child(6).text());
+			//客队
+			String awayTeamName = tr.child(6).text();
+			awayTeamName = CommonConstants.DIFF_MAP.get(awayTeamName)!=null?CommonConstants.DIFF_MAP.get(awayTeamName):awayTeamName;
+			model.set("away_team_name", awayTeamName);
+			
 			String commonResult = tr.child(7).text();
 			if("负".equals(commonResult)){
 				commonResult = "<span class='green_result'>"+commonResult+"</span>";
