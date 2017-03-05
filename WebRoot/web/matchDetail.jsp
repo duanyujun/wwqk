@@ -16,6 +16,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="description" content='<fmt:formatDate value="${history.match_date}" pattern="yyyy年MM月dd日"/>${homeTeam.name}vs${history.away_team_name}直播,${homeTeam.name}vs${history.away_team_name}免费直播,${history.away_team_name}vs${homeTeam.name}直播,${homeTeam.name}直播,${history.away_team_name}直播,更多${leagueName}视频直播尽在趣点足球网' />
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="common/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <title>${leagueName}${homeTeam.name}vs${history.away_team_name}直播|${homeTeam.name}vs${history.away_team_name}免费直播|${homeTeam.name}vs${history.away_team_name}直播信号|趣点足球网直播</title>
 </head>
@@ -58,7 +61,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	<div class="row clear_row_margin" style="margin-top:5px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
-			<div class="col-lg-9 col-md-9 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="col-lg-12 col-md-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;font-size:16px;">
 						<div class="well well-lg" style="line-height:2;text-indent:20px;">
@@ -118,9 +121,242 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									<img src="${homeTeam.venue_small_img_local}" style="margin-left:20px;" class="img-responsive img-rounded"  alt="${homeTeam.name}球场名称：${homeTeam.venue_name}" title="${homeTeam.name}球场名称：${homeTeam.venue_name}"/>
 								</div>
 							</div>
+							
 						</div>
 					</div>
 				</div>
+				
+				<!-- odds start -->
+							<div class="row" style="margin-top:10px;">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<ul id="myTab" class="nav nav-tabs bread" >
+										<li class="active"><a href="#odds_wh" data-toggle="tab">威廉希尔</a></li>
+										<li><a href="#odds_bet365" data-toggle="tab">Bet365</a></li>
+										<li><a href="#odds_bwin" data-toggle="tab">Bwin</a></li>
+										<li><a href="#odds_ml" data-toggle="tab">澳门彩票</a></li>
+										<li><a href="#odds_lb" data-toggle="tab">立博</a></li>
+									</ul>
+									<div id="myTabContent" class="tab-content">
+										<div class="tab-pane fade in active" id="odds_wh">
+											<c:if test="${!empty lstOddsWH}">
+												<div class="table-responsive">
+													<table class="table table-hover table-bordered table-striped" style="border-top:none;">
+														<thead>
+															<tr>
+																<th colspan="8">初始赔率：${odds_wh_start}
+																	<c:if test="${!empty odds_wh_end}">
+																	&nbsp;&nbsp;最终赔率：${odds_wh_end}
+																	</c:if>
+																	<br>
+																	${calcStr_14}
+																</th>
+															</tr>
+															<tr>
+																<th><center>联赛</center></th>
+																<th><center>比赛时间</center></th>
+																<th><center>初始赔率</center></th>
+																<th><center>最终赔率</center></th>
+																<th>主队</th>
+																<th>比分</th>
+																<th>客队</th>
+																<th><center>彩果</center></th>
+															</tr>
+														</thead>
+														<tbody>
+															<c:forEach items="${lstOddsWH}" var="odds">
+																<tr>
+																	<td><center>${odds.league_name}</center></td>
+																	<td><center><fmt:formatDate value="${odds.match_date_time}" pattern="yyyy-MM-dd HH:mm:ss"/></center></td>
+																	<td><center>${odds.odds_home_start}&nbsp;&nbsp;${odds.odds_draw_start}&nbsp;&nbsp;${odds.odds_away_start}</center></td>
+																	<td><center>${odds.odds_home_end}&nbsp;&nbsp;${odds.odds_draw_end}&nbsp;&nbsp;${odds.odds_away_end}</center></td>
+																	<td>${odds.home_team_name}</td>
+																	<td>${odds.result}</td>
+																	<td>${odds.away_team_name}</td>
+																	<td><center>${odds.common_result}</center></td>
+																</tr>
+															</c:forEach>
+														</tbody>
+													</table>
+												</div>  
+											</c:if>
+										</div>
+										<div class="tab-pane fade" id="odds_bet365">
+											<c:if test="${!empty lstOddsBet365}">
+												<div class="table-responsive">
+													<table class="table table-hover table-bordered table-striped" style="border-top:none;">
+														<thead>
+															<tr>
+																<th colspan="8">初始赔率：${odds_bet365_start}
+																	<c:if test="${!empty odds_bet365_end}">
+																	&nbsp;&nbsp;最终赔率：${odds_bet365_end}
+																	</c:if>
+																	<br>
+																	${calcStr_27}
+																</th>
+															</tr>
+															<tr>
+																<th><center>联赛</center></th>
+																<th><center>比赛时间</center></th>
+																<th><center>初始赔率</center></th>
+																<th><center>最终赔率</center></th>
+																<th>主队</th>
+																<th>比分</th>
+																<th>客队</th>
+																<th><center>彩果</center></th>
+															</tr>
+														</thead>
+														<tbody>
+															<c:forEach items="${lstOddsBet365}" var="odds">
+																<tr>
+																	<td><center>${odds.league_name}</center></td>
+																	<td><center><fmt:formatDate value="${odds.match_date_time}" pattern="yyyy-MM-dd HH:mm:ss"/></center></td>
+																	<td><center>${odds.odds_home_start}&nbsp;&nbsp;${odds.odds_draw_start}&nbsp;&nbsp;${odds.odds_away_start}</center></td>
+																	<td><center>${odds.odds_home_end}&nbsp;&nbsp;${odds.odds_draw_end}&nbsp;&nbsp;${odds.odds_away_end}</center></td>
+																	<td>${odds.home_team_name}</td>
+																	<td>${odds.result}</td>
+																	<td>${odds.away_team_name}</td>
+																	<td><center>${odds.common_result}</center></td>
+																</tr>
+															</c:forEach>
+														</tbody>
+													</table>
+												</div>  
+											</c:if>
+										</div>
+										<div class="tab-pane fade" id="odds_bwin">
+											<c:if test="${!empty lstOddsBwin}">
+												<div class="table-responsive">
+													<table class="table table-hover table-bordered table-striped" style="border-top:none;">
+														<thead>
+															<tr>
+																<th colspan="8">初始赔率：${odds_bwin_start}
+																	<c:if test="${!empty odds_bwin_end}">
+																	&nbsp;&nbsp;最终赔率：${odds_bwin_end}
+																	</c:if>
+																	<br>
+																	${calcStr_94}
+																</th>
+															</tr>
+															<tr>
+																<th><center>联赛</center></th>
+																<th><center>比赛时间</center></th>
+																<th><center>初始赔率</center></th>
+																<th><center>最终赔率</center></th>
+																<th>主队</th>
+																<th>比分</th>
+																<th>客队</th>
+																<th><center>彩果</center></th>
+															</tr>
+														</thead>
+														<tbody>
+															<c:forEach items="${lstOddsBwin}" var="odds">
+																<tr>
+																	<td><center>${odds.league_name}</center></td>
+																	<td><center><fmt:formatDate value="${odds.match_date_time}" pattern="yyyy-MM-dd HH:mm:ss"/></center></td>
+																	<td><center>${odds.odds_home_start}&nbsp;&nbsp;${odds.odds_draw_start}&nbsp;&nbsp;${odds.odds_away_start}</center></td>
+																	<td><center>${odds.odds_home_end}&nbsp;&nbsp;${odds.odds_draw_end}&nbsp;&nbsp;${odds.odds_away_end}</center></td>
+																	<td>${odds.home_team_name}</td>
+																	<td>${odds.result}</td>
+																	<td>${odds.away_team_name}</td>
+																	<td><center>${odds.common_result}</center></td>
+																</tr>
+															</c:forEach>
+														</tbody>
+													</table>
+												</div>  
+											</c:if>
+										</div>
+										<div class="tab-pane fade" id="odds_ml">
+											<c:if test="${!empty lstOddsML}">
+												<div class="table-responsive">
+													<table class="table table-hover table-bordered table-striped" style="border-top:none;">
+														<thead>
+															<tr>
+																<th colspan="8">初始赔率：${odds_ml_start}
+																	<c:if test="${!empty odds_ml_end}">
+																	&nbsp;&nbsp;最终赔率：${odds_ml_end}
+																	</c:if>
+																	<br>
+																	${calcStr_84}
+																</th>
+															</tr>
+															<tr>
+																<th><center>联赛</center></th>
+																<th><center>比赛时间</center></th>
+																<th><center>初始赔率</center></th>
+																<th><center>最终赔率</center></th>
+																<th>主队</th>
+																<th>比分</th>
+																<th>客队</th>
+																<th><center>彩果</center></th>
+															</tr>
+														</thead>
+														<tbody>
+															<c:forEach items="${lstOddsML}" var="odds">
+																<tr>
+																	<td><center>${odds.league_name}</center></td>
+																	<td><center><fmt:formatDate value="${odds.match_date_time}" pattern="yyyy-MM-dd HH:mm:ss"/></center></td>
+																	<td><center>${odds.odds_home_start}&nbsp;&nbsp;${odds.odds_draw_start}&nbsp;&nbsp;${odds.odds_away_start}</center></td>
+																	<td><center>${odds.odds_home_end}&nbsp;&nbsp;${odds.odds_draw_end}&nbsp;&nbsp;${odds.odds_away_end}</center></td>
+																	<td>${odds.home_team_name}</td>
+																	<td>${odds.result}</td>
+																	<td>${odds.away_team_name}</td>
+																	<td><center>${odds.common_result}</center></td>
+																</tr>
+															</c:forEach>
+														</tbody>
+													</table>
+												</div>  
+											</c:if>
+										</div>
+										<div class="tab-pane fade" id="odds_lb">
+											<c:if test="${!empty lstOddsLB}">
+												<div class="table-responsive">
+													<table class="table table-hover table-bordered table-striped" style="border-top:none;">
+														<thead>
+															<tr>
+																<th colspan="8">初始赔率：${odds_lb_start}
+																	<c:if test="${!empty odds_lb_end}">
+																	&nbsp;&nbsp;最终赔率：${odds_lb_end}
+																	</c:if>
+																	<br>
+																	${calcStr_82}
+																</th>
+															</tr>
+															<tr>
+																<th><center>联赛</center></th>
+																<th><center>比赛时间</center></th>
+																<th><center>初始赔率</center></th>
+																<th><center>最终赔率</center></th>
+																<th>主队</th>
+																<th>比分</th>
+																<th>客队</th>
+																<th><center>彩果</center></th>
+															</tr>
+														</thead>
+														<tbody>
+															<c:forEach items="${lstOddsLB}" var="odds">
+																<tr>
+																	<td><center>${odds.league_name}</center></td>
+																	<td><center><fmt:formatDate value="${odds.match_date_time}" pattern="yyyy-MM-dd HH:mm:ss"/></center></td>
+																	<td><center>${odds.odds_home_start}&nbsp;&nbsp;${odds.odds_draw_start}&nbsp;&nbsp;${odds.odds_away_start}</center></td>
+																	<td><center>${odds.odds_home_end}&nbsp;&nbsp;${odds.odds_draw_end}&nbsp;&nbsp;${odds.odds_away_end}</center></td>
+																	<td>${odds.home_team_name}</td>
+																	<td>${odds.result}</td>
+																	<td>${odds.away_team_name}</td>
+																	<td><center>${odds.common_result}</center></td>
+																</tr>
+															</c:forEach>
+														</tbody>
+													</table>
+												</div>  
+											</c:if>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- odds end -->
+				
 			</div>
 		</div>
 	</div>

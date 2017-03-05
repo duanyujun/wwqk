@@ -60,6 +60,9 @@ body{font-family:"Source Sans Pro", "Open Sans", "Helvetica Neue", "WenQuanYi Mi
 	transition:all .5s ease-in-out;
 }
 
+.red_result{color:red;}
+.green_result{color:green;}
+
 
 /*CSS scott style pagination*/
 
