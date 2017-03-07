@@ -16,7 +16,13 @@ public class SayController extends Controller {
 		Page<Say> sayPage = Say.dao.paginate(getParaToInt("pageNumber", 1), 10, "");
 		setAttr("sayPage", sayPage);
 		setAttr("pageUI", PageUtils.calcStartEnd(sayPage));
+		setAttr("initCount", sayPage.getList().size());
 		render("say.jsp");
+	}
+	
+	public void listMore(){
+		Page<Say> sayPage = Say.dao.paginate(getParaToInt("pageNo", 1), 10, "");
+		renderJson(sayPage.getList());
 	}
 	
 	public void list(){

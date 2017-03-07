@@ -21,34 +21,130 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 </head>
 
 <body>
-	<div class="row menu_bg clear_row_margin" >
-		<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">	
-			<div>
-				<div class="logo_div">
-					<a href="" title="首页">趣点足球网</a>
+	<div class="container">
+		<div class="row menu_bg clear_row_margin hidden-sm hidden-xs" >
+			<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">	
+				<div>
+					<div class="logo_div">
+						<a href="" title="首页">趣点足球网</a>
+					</div>
+					<ul style="float:left;" class="hidden-sm hidden-xs">
+						<li class="menu_width"><a href="">首页</a></li>
+						<li class="menu_width"><a href="fun.html">趣点</a></li>
+						<li class="menu_width menu_sel"><a href="say.html">说说</a></li>
+						<li class="menu_width"><a href="match.html">比赛</a></li>
+						<li class="menu_width"><a href="data.html">数据</a></li>
+					</ul>
 				</div>
-				<ul style="float:left;" class="hidden-sm hidden-xs">
-					<li class="menu_width"><a href="">首页</a></li>
-					<li class="menu_width"><a href="fun.html">趣点</a></li>
-					<li class="menu_width menu_sel"><a href="say.html">说说</a></li>
-					<li class="menu_width"><a href="match.html">比赛</a></li>
-					<li class="menu_width"><a href="data.html">数据</a></li>
-				</ul>
-				<div class="visible-sm visible-xs small-menu">
-					<select id="menuSelect" class="form-control small-select">
-						<option value="">首页</option>
-						<option value="fun.html">趣点</option>
-						<option selected value="say.html">说说</option>
-						<option value="match.html">比赛</option>
-						<option value="data.html">数据</option>
-					</select>	
+			</div>
+		</div>
+		<div class="row menu_link navbar-fixed-top visible-sm visible-xs" style="background:#00A50D;min-height:35px;color:white;">
+	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
+	       		<a href="/" target="_self"><span class="wwqk_menu">首页</span></a>
+	       	</div>
+	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
+	       		<a href="/fun.html" target="_self"><span class="wwqk_menu">趣点</span></a>
+	       	</div>
+	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
+	       		<a href="/say.html" target="_self"><span class="wwqk_menu dline">说说</span></a>
+	       	</div>
+	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
+	       		<a href="/match.html" target="_self"><span class="wwqk_menu">比赛</span></a>
+	       	</div>
+	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
+	       		<a href="/data.html" target="_self"><span class="wwqk_menu">数据</span></a>
+	       	</div>
+	    </div>
+	    
+	    <!-- 导航 -->
+	    <div class="row visible-sm visible-xs" style="margin-top:40px;">
+			<div id="main_content" style="min-height:10px;" class="col-sm-12 col-xs-12">		
+				<div class="bread">
+					当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/say.html" target="_blank">说说</a>&nbsp;&gt;&nbsp;${player.name}
 				</div>
 			</div>
 		</div>
 		
+		<!-- 移动端内容开始 -->
+		<div class="row visible-sm visible-xs">
+			<div class="col-sm-6 col-xs-6">
+				<img src="${player.img_big_local}" class="img-responsive" alt="${player.name}" title="${player.name}" />
+			</div>
+			<div class="col-sm-6 col-xs-6" style="margin-top:10px;">名字：${player.first_name}</div>
+			<div class="col-sm-6 col-xs-6" style="margin-top:10px;">姓氏：${player.last_name}</div>
+			<div class="col-sm-6 col-xs-6" style="margin-top:10px;">生日：${player.birthday}</div>
+			<div class="col-sm-6 col-xs-6" style="margin-top:10px;">国籍：${player.nationality}</div>
+			<div class="col-sm-12 col-xs-12" style="margin-top:10px;">身高：${player.height} 体重：${player.weight} 惯用脚：${player.foot}</div>
+			<div class="col-sm-12 col-xs-12 team-title" style="margin-top:10px;font-size:14px;">效力球队：<a href="team-${player.team_name_en}-${player.team_id}.html" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;" alt="${player.team_name}" title="${player.team_name}"/>&nbsp;${player.team_name}</a>
+				位置：${player.position}
+			</div>
+			<div class="col-sm-12 col-xs-12 team-title" style="margin-top:10px;font-size:14px;">
+				<c:if test="${player.goal_count!=0}">
+	      			<span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span>
+	      		</c:if>
+	      		<c:if test="${player.goal_count!=0 && player.assists_count!=0}">
+	      		&nbsp;
+	      		</c:if>
+	      		<c:if test="${player.assists_count!=0}">
+	      			<span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span>
+	      		</c:if>
+	      		<c:if test="${player.goal_count!=0 || player.assists_count!=0}">
+	      		&nbsp;
+	      		</c:if>
+	      		<c:if test="${!empty player.number}">
+		      		<span title="球衣：${player.number}号"><img src="assets/pages/img/cloth.png" style="margin-top:-3px;" /> ${player.number}号</span>
+	      		</c:if>
+			</div>
+			<c:if test="${!empty NO_SAY}">
+				<div class="col-sm-12 col-xs-12" style="margin-top:15px;">
+					<div class="row visible-sm visible-xs">
+						<div class="col-sm-12 col-xs-12" >
+						<nobr><span style="font-weight:bold;">${player.name}</span>目前还没说说，去瞅瞅<b>${leagueName}</b>其他人 <img src="assets/image/page/smile.png"  style="width:32px;height:32px;"/></nobr>
+						</div>
+					</div>
+				</div>
+			</c:if>
+			<div id="list_content" class="row visible-sm visible-xs" >
+				<div class="col-sm-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
+					<div class="index-line"></div>
+				</div>
+			    <c:forEach items="${sayPage.list}" var="say" varStatus="status">
+				    	<div class="col-sm-12 col-xs-12" style="margin-top:10px;">
+			   					<div class="mob-author">
+			                            <div class="author-face">
+					                        <a href="player-${say.player_name_en}-${say.player_id}.html" target="_self"><img src="${say.player_img_local}"></a>
+			                            </div>
+			                            
+			                            <a href="player-${say.player_name_en}-${say.player_id}.html" target="_self" class="mob-author-a">
+			                                <span class="author-name">${say.player_name}</span>
+			                            </a>
+			                            
+			                            <span class="author-name say-info">
+											&nbsp;<fmt:formatDate value="${say.create_time}" pattern="yyyy-MM-dd HH:mm"/>
+										</span>
+			                    </div>
+				    	</div>
+				    	<!-- 内容 -->
+				    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:10px;padding-left:45px;">
+							<span class="summary">${say.content}</span>
+						</div>
+				    	<!-- 图片 -->
+				    	<c:if test="${!empty say.image_big}">
+					    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:8px;padding-left:45px;">
+								<img src="${say.image_big}" class="img-responsive" style="height:220px;" alt="${say.content}" title="${say.content}"/>
+							</div>
+						</c:if>
+						<div class="col-sm-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
+							<div class="index-line"></div>
+						</div>
+			    </c:forEach>
+			    </div>
+			
+		</div>
+		<!-- 移动端内容结束 -->
 	</div>
 	
-	<div class="row clear_row_margin" style="margin-top:70px;">
+	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:70px;">
 		<div id="main_content" style="min-height:10px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="bread">
 				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/say.html" target="_blank">说说</a>&nbsp;&gt;&nbsp;${player.name}
@@ -56,9 +152,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 	</div>
 	
-	<div class="row clear_row_margin" style="margin-top:20px;">
-		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
-			<div class="col-lg-9 col-md-9 hidden-sm hidden-xs">
+	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:20px;">
+		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">		
+			<div class="col-lg-9 col-md-9">
 				<div class="col-lg-12 col-md-12" >
 					<div class="col-lg-3 col-md-3">
 						<img src="${player.img_big_local}" style="width:150px;height:150px;" alt="${player.name}" title="${player.name}"/>
@@ -96,58 +192,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</div>
 			</div>
 			
-			<div class="row visible-sm visible-xs">
-				<div class="col-sm-12 col-xs-12">
-						<div class="row">
-							<div class="col-sm-12 col-xs-12">
-								<img src="${player.img_big_local}" class="img-responsive" alt="${player.name}" title="${player.name}" />
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-12 col-xs-12" style="margin-top:10px;">名字：${player.first_name}</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-12 col-xs-12" style="margin-top:10px;">姓氏：${player.last_name}</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 col-xs-6" style="margin-top:10px;">生日：${player.birthday}</div>
-							<div class="col-sm-6 col-xs-6" style="margin-top:10px;">国籍：${player.nationality}</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 col-xs-6" style="margin-top:10px;">身高：${player.height}</div>
-							<div class="col-sm-6 col-xs-6" style="margin-top:10px;">体重：${player.weight}</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 col-xs-6" style="margin-top:10px;">位置：${player.position}</div>
-							<div class="col-sm-6 col-xs-6" style="margin-top:10px;">用脚：${player.foot}</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-12 col-xs-12" style="margin-top:10px;font-size:14px;">目前效力球队：
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-12 col-xs-12 team-title" style="margin-top:10px;font-size:14px;">
-								<a href="team-${player.team_name_en}-${player.team_id}.html" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;" alt="${player.team_name}" title="${player.team_name}"/>&nbsp;${player.team_name}</a>
-								&nbsp;
-								<c:if test="${player.goal_count!=0}">
-					      			<span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span>
-					      		</c:if>
-					      		<c:if test="${player.goal_count!=0 && player.assists_count!=0}">
-					      		&nbsp;
-					      		</c:if>
-					      		<c:if test="${player.assists_count!=0}">
-					      			<span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span>
-					      		</c:if>
-					      		<c:if test="${player.goal_count!=0 || player.assists_count!=0}">
-					      		&nbsp;
-					      		</c:if>
-					      		<c:if test="${!empty player.number}">
-						      		<span title="球衣：${player.number}号"><img src="assets/pages/img/cloth.png" style="margin-top:-3px;" /> ${player.number}号</span>
-					      		</c:if>
-							</div>
-						</div>
-				</div>
-			</div>
+			
 			
 			<c:if test="${!empty NO_SAY}">
 			<div class="row">
@@ -155,11 +200,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<div class="row hidden-sm hidden-xs">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="font-size:16px;">
 						<nobr><span style="font-weight:bold;">${player.name}</span>目前还没发表说说，去瞅瞅<b>${leagueName}</b>其他人的吧 <img src="assets/image/page/smile.png"  style="width:32px;height:32px;"/></nobr>
-						</div>
-					</div>
-					<div class="row visible-sm visible-xs">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-						<nobr><span style="font-weight:bold;">${player.name}</span>目前还没说说，去瞅瞅<b>${leagueName}</b>其他人 <img src="assets/image/page/smile.png"  style="width:32px;height:32px;"/></nobr>
 						</div>
 					</div>
 				</div>

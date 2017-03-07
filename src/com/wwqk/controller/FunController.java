@@ -13,8 +13,13 @@ public class FunController extends Controller {
 		Page<Fun> funPage = Fun.dao.paginate(getParaToInt("pageNumber", 1), 10, 1);
 		setAttr("funPage", funPage);
 		setAttr("pageUI", PageUtils.calcStartEnd(funPage));
-		
+		setAttr("initCount", funPage.getList().size());
 		render("fun.jsp");
+	}
+	
+	public void listMore(){
+		Page<Fun> funPage = Fun.dao.paginate(getParaToInt("pageNo", 1), 10, 1);
+		renderJson(funPage.getList());
 	}
 	
 	public void detail(){

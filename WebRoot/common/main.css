@@ -62,7 +62,11 @@ body{font-family:"Source Sans Pro", "Open Sans", "Helvetica Neue", "WenQuanYi Mi
 
 .red_result{color:red;}
 .green_result{color:green;}
-
+.dline{ padding-bottom:3px; border-bottom:2px solid #FFFFFF;color:#FFFFFF;} 
+.wwqk_menu{font-size:13px;font-weight:bold;}
+.wwqk_menu_wh{min-height:35px;line-height:35px;padding-left:0px;padding-right:0px;text-align:center}
+.menu_link a{color:white;text-decoration:none;}
+.navbar-fixed-top, .navbar-fixed-bottom{left:15px;}
 
 /*CSS scott style pagination*/
 

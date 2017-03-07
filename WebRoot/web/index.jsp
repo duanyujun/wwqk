@@ -17,38 +17,112 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/dropload/dropload.css" rel="stylesheet" type="text/css" />
+    
     <title>趣点足球网 - 一个有意思的足球网站|足球说说|足球趣闻|足球数据|球星生活|免费直播</title>
 </head>
 
 <body>
-	<div class="row menu_bg clear_row_margin" >
-		<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">	
-			<div>
-				<div class="logo_div">
-					<a href="">趣点足球网</a>
-				</div>
-				<ul style="float:left;" class="hidden-sm hidden-xs">
-					<li class="menu_sel menu_width"><a href="">首页</a></li>
-					<li class="menu_width"><a href="fun.html">趣点</a></li>
-					<li class="menu_width"><a href="say.html">说说</a></li>
-					<li class="menu_width"><a href="match.html">比赛</a></li>
-					<li class="menu_width"><a href="data.html">数据</a></li>
-				</ul>
-				<div class="visible-sm visible-xs small-menu">
-					<select id="menuSelect" class="form-control small-select">
-						<option value="">首页</option>
-						<option value="fun.html">趣点</option>
-						<option value="say.html">说说</option>
-						<option value="match.html">比赛</option>
-						<option value="data.html">数据</option>
-					</select>	
+	<div class="container">
+		<div class="row menu_bg clear_row_margin hidden-sm hidden-xs" >
+			<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">	
+				<div>
+					<div class="logo_div">
+						<a href="">趣点足球网</a>
+					</div>
+					<ul style="float:left;">
+						<li class="menu_sel menu_width"><a href="">首页</a></li>
+						<li class="menu_width"><a href="fun.html">趣点</a></li>
+						<li class="menu_width"><a href="say.html">说说</a></li>
+						<li class="menu_width"><a href="match.html">比赛</a></li>
+						<li class="menu_width"><a href="data.html">数据</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
 		
+		<div class="row menu_link navbar-fixed-top visible-sm visible-xs" style="background:#00A50D;min-height:35px;color:white;">
+	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
+	       		<a href="/" target="_self"><span class="wwqk_menu dline">首页</span></a>
+	       	</div>
+	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
+	       		<a href="/fun.html" target="_self"><span class="wwqk_menu">趣点</span></a>
+	       	</div>
+	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
+	       		<a href="/say.html" target="_self"><span class="wwqk_menu">说说</span></a>
+	       	</div>
+	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
+	       		<a href="/match.html" target="_self"><span class="wwqk_menu">比赛</span></a>
+	       	</div>
+	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
+	       		<a href="/data.html" target="_self"><span class="wwqk_menu">数据</span></a>
+	       	</div>
+	    </div>
+	    
+	    <!-- 移动端内容开始 -->
+	    <div id="list_content" class="row visible-sm visible-xs" style="margin-top:45px;">
+	    	<c:forEach items="${funPage.list}" var="fun" varStatus="status">
+					<c:if test="${status.index!=0}">
+						<div class="col-sm-12 col-xs-12" style="margin-top:19px;height:1px;"></div>
+					</c:if>
+			    	<div class="col-sm-12 col-xs-12">
+		   					<div class="mob-author">
+		                               <div class="author-face">
+				                        <c:if test="${fun.type==1}">
+											<img src="assets/image/page/logo-small.png">
+										</c:if>
+										<c:if test="${fun.type==2}">
+											<a href="player-${fun.player_name_en}-${fun.player_id}.html" target="_self"><img src="${fun.player_image}"></a>
+										</c:if>
+		                            </div>
+		                            
+		                            <c:if test="${fun.type==1}">
+										<a href="fun.html" target="_blank" class="mob-author-a">
+			                                <span class="author-name">趣点足球网</span>
+			                            </a>
+									</c:if>
+									<c:if test="${fun.type==2}">
+										<a href="player-${fun.player_name_en}-${fun.player_id}.html" target="_self" class="mob-author-a">
+			                                <span class="author-name">${fun.player_name}</span>
+			                            </a>
+									</c:if>
+		                            
+		                            <span class="author-name">
+										&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd HH:mm"/>
+									</span>
+		                    </div>
+			    	</div>
+			    	<!-- 内容 -->
+			    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:10px;padding-left:45px;">
+						<c:if test="${fun.type==1}">
+							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_self" ><span class="summary">${fun.summary}</span></a>
+						</c:if>
+						<c:if test="${fun.type==2}">
+							<span class="summary">${fun.summary}</span>
+						</c:if>
+					</div>
+			    	<!-- 图片 -->
+			    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:8px;padding-left:45px;">
+						<c:if test="${fun.type==1}">
+							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_self" ><img src="${fun.image_small}" class="img-responsive" alt="${fun.title}" title="${fun.title}"/></a>
+						</c:if>
+						<c:if test="${fun.type==2}">
+							<c:if test="${!empty fun.image_big}">
+								<img src="${fun.image_big}"  height="140px"  alt="${fun.summary}" title="${fun.summary}"/>
+							</c:if>
+						</c:if>
+					</div>
+					<div class="col-sm-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
+						<div class="index-line"></div>
+					</div>
+			    	
+			  </c:forEach>
+	    </div>
+	    <!-- 移动端内容结束 -->
 	</div>
 	
-	<div class="row clear_row_margin" style="margin-top:80px;">
+	<!-- PC内容开始 -->
+    <div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:80px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-9 col-md-9" style="padding-left:0px;">
 				<c:forEach items="${funPage.list}" var="fun" varStatus="status">
@@ -56,7 +130,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="col-lg-12 col-md-12" style="margin-top:19px;height:1px;"></div>
 					</c:if>
 				
-					<div class="col-lg-4 col-md-4 hidden-sm hidden-xs content-title" style="padding-left:0px;">
+					<div class="col-lg-4 col-md-4 content-title" style="padding-left:0px;">
 						<c:if test="${fun.type==1}">
 							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.title}" title="${fun.title}"/></a>
 						</c:if>
@@ -68,11 +142,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="col-lg-12 col-md-12">
 							<span class="msg-title">
 								<c:if test="${fun.type==1}">
-									<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank" class="hidden-sm hidden-xs" title="${fun.title}">${fun.title}</a><a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank" class="visible-sm visible-xs"><div class="text_cut" style="width:280px;line-height:32px;font-size:15px;" title="${fun.title}">${fun.title}</div></a>
+									<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank" title="${fun.title}">${fun.title}</a>
 								</c:if>
 								<c:if test="${fun.type==2}">
-									<a href="sdetail-${fun.player_name_en}-${fun.source_id}.html" target="_blank" class="hidden-sm hidden-xs"><div class="text_cut" style="width:420px;line-height:32px;" title="${fun.summary}">${fun.summary}</div></a>
-									<a href="sdetail-${fun.player_name_en}-${fun.source_id}.html" target="_blank" class="visible-sm visible-xs"><div class="text_cut" style="width:280px;line-height:32px;font-size:15px;" title="${fun.summary}">${fun.summary}</div></a>
+									<a href="sdetail-${fun.player_name_en}-${fun.source_id}.html" target="_blank"><div class="text_cut" style="width:420px;line-height:32px;" title="${fun.summary}">${fun.summary}</div></a>
 								</c:if>
 							</span>
 						</div>
@@ -103,14 +176,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									</span>
 		                    </div>
 						</div>
-						<div class="col-lg-12 col-md-12 visible-sm visible-xs" style="margin-top:10px;">
-							<c:if test="${fun.type==1}">
-								<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank"><img src="${fun.image_small}" class="img-responsive" /></a>
-							</c:if>
-							<c:if test="${fun.type==2}">
-								<a href="sdetail-${fun.player_name_en}-${fun.source_id}.html" target="_blank"><img src="${fun.image_small}" class="img-responsive" /></a>
-							</c:if>
-						</div>
+						
 						<div class="col-lg-12 col-md-12" style="margin-top:20px;padding-right:0;">
 							<span class="summary">${fun.summary}</span>
 						</div>
@@ -166,8 +232,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			</div>
 		</div>
 	</div>
+    <!-- PC内容结束 -->
+	
+	
 	
 	<%@ include file="/common/footer.jsp"%>		
+	
+	<script src="assets/global/plugins/dropload/dropload.min.js" type="text/javascript"></script>
 	
 	<script>
 	(function(){
@@ -182,6 +253,157 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    var s = document.getElementsByTagName("script")[0];
 	    s.parentNode.insertBefore(bp, s);
 	})();
+	
+	
+	$(function(){
+		
+	    var noDataStr = '<div class="dropload-noData">暂无数据</div>';
+	    if(parseInt('${initCount}')<5){
+	    	if(parseInt('${initCount}')!=0){
+		    	noDataStr = '<div class="dropload-noData">&nbsp;</div>';
+	    	}
+	    }
+	    var pageNo = 1;
+	    // dropload
+	    $('body').dropload({
+	        scrollArea : window,
+	        domUp : {
+	            domClass   : 'dropload-up',
+	            domRefresh : '<div class="dropload-refresh">↓下拉刷新</div>',
+	            domUpdate  : '<div class="dropload-update">↑释放更新</div>',
+	            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
+	        },
+	        domDown : {
+	            domClass   : 'dropload-down',
+	            domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+	            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+	            domNoData  : noDataStr
+	        },
+	        loadUpFn : function(me){
+	            $.ajax({
+	                type: 'GET',
+	                data: {pageNo:1},
+	                url: 'listMore',
+	                dataType: 'json',
+	                success: function(data){
+	                    var strhtml = '';
+	                    for(var i = 0; i < data.length; i++){
+	                    	if(i!=0){
+	                    		strhtml += "<div class=\"col-sm-12 col-xs-12\" style=\"margin-top:19px;height:1px;\"></div>";
+	                    	}
+	                    	strhtml += addRecode(data[i]);
+	                    }
+	                    $('#list_content').html(strhtml);
+	                    // 每次数据加载完，必须重置
+	                    me.resetload();
+	                    // 重置页数，重新获取loadDownFn的数据
+	                    pageNo = 1;
+	                    // 解锁loadDownFn里锁定的情况
+	                    me.unlock();
+	                    me.noData(false);
+	                },
+	                error: function(xhr, type){
+	                    // 即使加载出错，也得重置
+	                    me.resetload();
+	                }
+	            });
+	        },
+	        loadDownFn : function(me){
+	        	pageNo++;
+	            // 拼接HTML
+	            var strhtml = '';
+	            $.ajax({
+	            	type: 'GET',
+	                data: {pageNo:pageNo},
+	                url: 'listMore',
+	                dataType: 'json',
+	                success: function(data){
+	                    var arrLen = data.length;
+	                    if(arrLen > 0){
+	                        for(var i=0; i<arrLen; i++){
+	                        	if(i!=0){
+		                    		strhtml += "<div class=\"col-sm-12 col-xs-12\" style=\"margin-top:19px;height:1px;\"></div>";
+		                    	}
+	                        	strhtml += addRecode(data[i]);
+	                        }
+	                    // 如果没有数据
+	                    }else{
+	                        // 锁定
+	                        me.lock();
+	                        // 无数据
+	                        me.noData();
+	                    }
+	                 	// 插入数据到页面，放到最后面
+	                    $('#list_content').append(strhtml);
+	                    // 每次数据插入，必须重置
+	                    me.resetload();
+	                },
+	                error: function(xhr, type){
+	                    // 即使加载出错，也得重置
+	                    me.resetload();
+	                }
+	            });
+	        },
+	        threshold : 50
+	    });
+	});
+
+
+	function addRecode(fun){
+		var create_time = '';
+		var date_str = '';
+		if(fun.create_time){
+			create_time = fun.create_time.substring(0,16);
+			date_str = create_time.substring(0,10);
+		}
+		var strhtml = "<div class=\"col-sm-12 col-xs-12\">";
+		strhtml+="		   					<div class=\"mob-author\">";
+		strhtml+="		                               <div class=\"author-face\">";
+		if(fun.type==1){
+			strhtml+="											<img src=\"assets/image/page/logo-small.png\">";
+		}else{
+			strhtml+="											<a href=\"player-"+fun.player_name_en+"-"+fun.player_id+".html\" target=\"_self\"><img src=\""+fun.player_image+"\"></a>";
+		}
+		strhtml+="		                            </div>";
+		if(fun.type==1){
+			strhtml+="										<a href=\"fun.html\" target=\"_blank\" class=\"mob-author-a\">";
+			strhtml+="			                                <span class=\"author-name\">趣点足球网</span>";
+			strhtml+="			                            </a>";
+		}else{
+			strhtml+="										<a href=\"player-"+fun.player_name_en+"-"+fun.player_id+".html\" target=\"_self\" class=\"mob-author-a\">";
+			strhtml+="			                                <span class=\"author-name\">"+fun.player_name+"</span>";
+			strhtml+="			                            </a>";
+		}
+		strhtml+="		                            <span class=\"author-name\">";
+		strhtml+="										&nbsp;"+create_time;
+		strhtml+="									</span>";
+		strhtml+="		                    </div>";
+		strhtml+="			    	</div>";
+		strhtml+="			    	<div class=\"col-sm-12 col-xs-12 content-title\" style=\"margin-top:10px;padding-left:45px;\">";
+		if(fun.type==1){
+			strhtml+="							<a href=\"fdetail-"+date_str+"-"+fun.id+".html\" target=\"_self\" ><span class=\"summary\">"+fun.summary+"</span></a>";
+		}else{
+			strhtml+="							<span class=\"summary\">"+fun.summary+"</span>";
+		}
+		strhtml+="					</div>";
+		strhtml+="			    	<div class=\"col-sm-12 col-xs-12 content-title\" style=\"margin-top:8px;padding-left:45px;\">";
+		if(fun.type==1){
+			strhtml+="							<a href=\"fdetail-"+date_str+"-"+fun.id+".html\" target=\"_self\" ><img src=\""+fun.image_small+"\" class=\"img-responsive\" alt=\""+fun.title+"\" /></a>";
+		}else{
+			if(fun.image_big && fun.image_big!=''){
+				strhtml+="							<img src=\""+fun.image_big+"\"  height=\"140px\"  alt=\""+fun.summary+"\" />";
+			}
+		}
+		strhtml+="					</div>";
+		strhtml+="					<div class=\"col-sm-12 col-xs-12\" style=\"padding-left:0px;padding-right:0px;\">";
+		strhtml+="						<div class=\"index-line\"></div>";
+		strhtml+="					</div>";
+			
+		return strhtml;
+	}
+	
+	
+	
 	</script>
 		
 	

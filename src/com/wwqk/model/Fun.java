@@ -22,6 +22,5 @@ public class Fun extends Model<Fun> {
 			//TODO 记得加类型条件
 			return paginate(pageNumber, pageSize, "select *", "from fun where type = ? order by create_time desc", type);
 		}
-		
 	}
 }
