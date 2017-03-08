@@ -9,7 +9,7 @@
 					<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261131271'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1261131271%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
 				</div>
 				<div class="col-lg-12 col-md-12" style="margin-top:15px;">
-					Copyright © 趣点足球网   粤ICP备16048166号-4 &nbsp;&nbsp;&nbsp;友情链接：<a href="http://www.rich888.cn/app.htm" style="color:white;text-decoration: none;" target="_blank">飞达网</a>
+					Copyright © 趣点足球网   粤ICP备16048166号-4
 				</div>
 				<div class="col-lg-12 col-md-12 hidden-sm hidden-xs" style="margin-top:15px;color:#222;">
 					免责声明：本网站内容来源于互联网，如有侵权，请联系QQ：920841228
@@ -26,10 +26,45 @@
 	</div>
 </div>
 
+<div class="scroll-to-top">
+    <i class="icon-arrow-up"></i>
+</div>
+<link href="${ctx}/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
 <script src="${ctx}/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript">
+//Handles the go to top button at the footer
+var handleGoTop = function() {
+    var offset = 300;
+    var duration = 500;
+    if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) { // ios supported
+        $(window).bind("touchend touchcancel touchleave", function(e) {
+            if ($(this).scrollTop() > offset) {
+                $('.scroll-to-top').fadeIn(duration);
+            } else {
+                $('.scroll-to-top').fadeOut(duration);
+            }
+        });
+    } else { // general 
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > offset) {
+                $('.scroll-to-top').fadeIn(duration);
+            } else {
+                $('.scroll-to-top').fadeOut(duration);
+            }
+        });
+    }
+
+    $('.scroll-to-top').click(function(e) {
+        e.preventDefault();
+        $('html, body').animate({
+            scrollTop: 0
+        }, duration);
+        return false;
+    });
+};
 
 $(function(){
+	  handleGoTop();	
 	  if($(window).height()==$(document).height()){
         $(".footer").addClass("navbar-fixed-bottom");
       }
@@ -42,5 +77,7 @@ $(function(){
 			window.location.href = link;
 	  }) 
 });
+
+
 
 </script>

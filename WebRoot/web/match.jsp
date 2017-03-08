@@ -59,39 +59,36 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	       	</div>
 	    </div>
 	    <!-- 移动端内容开始 -->
-	    <div class="row visible-sm visible-xs" style="margin-top:25px;">
+	    <div class="row visible-sm visible-xs" style="margin-top:30px;">
 	    	<c:forEach items="${lstGroup}" var="group">
-		    	<div class="table-responsive" style="margin-top:10px;border:none;">
-						<table class="table table-condensed table-hover" >
-						  <caption style="text-align:left;"><img title="${group[0].league_name}" src="assets/image/page/league-logo${group[0].league_id}.jpg" style="width:80px;height:80px;"/></caption>
-						  <thead>
-						    <tr>
-						      <th>比赛时间（${group[0].league_name}）</th>
-						      <th></th>
-						    </tr>
-						  </thead>
+	    		<div class="col-xs-12 col-sm-12"><img title="${group[0].league_name}" src="assets/image/page/league-logo${group[0].league_id}.jpg" style="width:80px;height:80px;"/></div>
+	    		<div class="col-xs-12 col-sm-12"><b>比赛时间（${group[0].league_name}）</b></div>
+						<table class="table small-table">
 						  <tbody>
 						  	<c:forEach items="${group}" var="match">
-						    <tr>
-						      <td class="team-title" style="font-size:13px;">
-						      	<span style="display:block;min-width:106px;float:left;"><a href="team-${match.home_team_en_name}-${match.home_team_id}.html" target="_self"><img src="assets/image/soccer/teams/150x150/${match.home_team_id}.png" style="width:25px;height:25px;"/>&nbsp;${match.home_team_name}</a></span>
-						      	<span style="display:block;min-width:40px;float:left;font-size:12px;">
-						      	<fmt:formatDate value="${match.match_date}" pattern="yy/MM/dd"/><br>&nbsp;
-						      	<c:if test="${fn:contains(match.result, '-')}">
-						      		<b>${match.result}</b>
-						      	</c:if>
-						      	<c:if test="${!fn:contains(match.result, '-')}">
-						      		${match.result}
-						      	</c:if>
-						      	</span>
-						        <a href="team-${match.away_team_en_name}-${match.away_team_id}.html" style="margin-left:20px;" target="_self"><img src="assets/image/soccer/teams/150x150/${match.away_team_id}.png" style="width:25px;height:25px;"/>&nbsp;${match.away_team_name}</a>
+						    <tr style="font-size:12px;">
+						      <td class="team-title">
+						      		<span style="display:block;min-width:106px;float:left;"><a href="team-${match.home_team_en_name}-${match.home_team_id}.html" target="_self"><img src="assets/image/soccer/teams/150x150/${match.home_team_id}.png" style="width:25px;height:25px;"/>&nbsp;${match.home_team_name}</a></span>
 						      </td>
+						      <td class="team-title">
+							      	<fmt:formatDate value="${match.match_date}" pattern="yy/MM/dd"/><br>&nbsp;
+							      	<c:if test="${fn:contains(match.result, '-')}">
+							      		<b>${match.result}</b>
+							      	</c:if>
+							      	<c:if test="${!fn:contains(match.result, '-')}">
+							      		<b>${match.result}</b>
+							      	</c:if>
+						      </td>
+						      <td class="team-title">
+						      		<a href="team-${match.away_team_en_name}-${match.away_team_id}.html" style="margin-left:20px;" target="_self"><img src="assets/image/soccer/teams/150x150/${match.away_team_id}.png" style="width:25px;height:25px;"/>&nbsp;${match.away_team_name}</a>
+						      </td>
+						      
 						      <td>
 						      		<c:if test="${match.status=='完场'}">
-							      		<span class="grey-title" style="font-size:13px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_<fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/>-${match.home_team_id}vs${match.away_team_id}.html" target="_self">集锦</a></span>
+							      		<span class="grey-title" style="font-size:12px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_<fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/>-${match.home_team_id}vs${match.away_team_id}.html" target="_self">集锦</a></span>
 							      	</c:if>
 							      	<c:if test="${match.status!='完场'}">
-							      		<b class="a-title" style="font-size:13px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_<fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/>-${match.home_team_id}vs${match.away_team_id}.html" target="_self">直播</a></b>
+							      		<b class="a-title" style="font-size:12px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_<fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/>-${match.home_team_id}vs${match.away_team_id}.html" target="_self">直播</a></b>
 							      	</c:if>
 						      </td>
 						    </tr>
@@ -99,7 +96,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						    
 						  </tbody>
 						</table>
-					</div>
 	    		</c:forEach>
 	    </div>
 	    <!-- 移动端内容结束 -->
