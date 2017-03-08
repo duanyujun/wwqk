@@ -58,7 +58,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    
 	    <!-- 移动端内容开始 -->
     	
-		<div class="row" style="margin-top:45px;">
+		<div class="row visible-sm visible-xs" style="margin-top:45px;">
 			<div class="col-sm-2 col-xs-2  team-title" style="font-size:14px;">
 				<a href="data-premier-league-1.html" target="_self"><div class="${leagueId==1?'select-league':'common-league'}">英超</div></a>
 			</div>
@@ -76,7 +76,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			</div>
 		</div>
 	    
-    	<div class="row" style="margin-top:10px;">
+    	<div class="row visible-sm visible-xs" style="margin-top:10px;">
 			<div class="col-sm-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
 				<table class="table small-table" style="border:1px solid #dddddd;">
 				  <caption ><img src="assets/image/page/cup-${leagueId}.jpg" style="height:40px;"/>&nbsp;<span style="font-size:15px;">${leagueName}联赛积分榜</span></caption>
@@ -149,7 +149,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			</div>
 		</div>
 			
-		<div class="row" style="margin-top:20px;">
+		<div class="row visible-sm visible-xs" style="margin-top:20px;">
 			<div class="col-sm-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
 				<table class="table table-striped small-table " style="border:1px solid #dddddd;">
 				  <caption><span style="font-size:16px;">射手榜</span></caption>

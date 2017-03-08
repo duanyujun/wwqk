@@ -256,7 +256,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	
 	$(function(){
-		
+		if (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+			return;
+		}
 	    var noDataStr = '<div class="dropload-noData">暂无数据</div>';
 	    if(parseInt('${initCount}')<5){
 	    	if(parseInt('${initCount}')!=0){
