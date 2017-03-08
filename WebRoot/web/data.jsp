@@ -77,18 +77,18 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 	    
     	<div class="row" style="margin-top:10px;">
-			<div class="col-sm-12 col-xs-12">
+			<div class="col-sm-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
 				<table class="table small-table" style="border:1px solid #dddddd;">
 				  <caption ><img src="assets/image/page/cup-${leagueId}.jpg" style="height:40px;"/>&nbsp;<span style="font-size:15px;">${leagueName}联赛积分榜</span></caption>
 				  <thead>
 				    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
-				      <th style="max-width:20px;">排<br/>名</th>
-				      <th style="min-width:106px;" >球队</th>
-				      <th style="width:35px;">场次</th>
-				      <th style="width:35px;">胜</th>
-				      <th style="width:35px;">平</th>
-				      <th style="width:35px;">负</th>
-				      <th style="width:35px;">净胜球</th>
+				      <th >排名</th>
+				      <th >球队</th>
+				      <th >场次</th>
+				      <th >胜</th>
+				      <th >平</th>
+				      <th >负</th>
+				      <th >净胜球</th>
 				      <th >积分</th>
 				    </tr>
 				  </thead>
@@ -133,7 +133,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  </c:otherwise> 
 						</c:choose> 
 				  	</c:if>
-					  <td>${status.count}</td>
+					  <td style="text-align:center;">${status.count}</td>
 				      <td class="team-title" style=""><a href="team-${team.team_name_en}-${team.team_id}.html" target="_self"><img src="assets/image/soccer/teams/25x25/${team.team_id}.png" style="width:25px;height:25px;" title="${team.team_name}" alt="${team.team_name}"/>&nbsp;${team.team_name}</a></td>
 				      <td>${team.round_count}</td>
 				      <td>${team.win_count}</td>
@@ -150,14 +150,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 			
 		<div class="row" style="margin-top:20px;">
-			<div class="col-sm-12 col-xs-12">
+			<div class="col-sm-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
 				<table class="table table-striped small-table " style="border:1px solid #dddddd;">
 				  <caption><span style="font-size:16px;">射手榜</span></caption>
 				  <thead>
 				    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
 				      <th>排名</th>
 				      <th>球员</th>
-				      <th style="min-width:110px;">球队</th>
+				      <th>球队</th>
 				      <th><center>进球数</center></th>
 				      <th><center>点球数</center></th>
 				    </tr>
@@ -165,7 +165,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				  <tbody>
 				  	<c:forEach items="${shooterList}"  var="shooter" varStatus="status">
 					    <tr>
-					      <td>${status.count}</td>
+					      <td><center>${status.count}</center></td>
 					      <td class="team-title" ><a href="player-${shooter.player_name_en}-${shooter.player_id}.html" target="_self"><img src="${shooter.player_img}" style="width:25px;height:25px;" alt="${shooter.player_name}" title="${shooter.player_name}"/>&nbsp;${shooter.player_name}</a></td>
 					      <td class="team-title" ><a href="team-${shooter.team_name_en}-${shooter.team_id}.html" target="_self"><img src="assets/image/soccer/teams/25x25/${shooter.team_id}.png" style="width:25px;height:25px;" alt="${shooter.team_name}" title="${shooter.team_name}"/>&nbsp;${shooter.team_name}</a></td>
 					      <td ><center>${shooter.goal_count}</center></td>
@@ -176,7 +176,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</table>
 			</div>
 			
-			<div class="col-sm-12 col-xs-12" >
+			<div class="col-sm-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
 				<table class="table table-striped small-table " style="border:1px solid #dddddd;">
 				  <caption><span style="font-size:16px;">助攻榜</span></caption>
 				  <thead>
@@ -190,7 +190,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				  <tbody>
 				  	<c:forEach items="${assistsList}"  var="assists" varStatus="status">
 					    <tr>
-					      <td>${status.count}</td>
+					      <td><center>${status.count}</center></td>
 					      <td class="team-title" ><a href="player-${assists.player_name_en}-${assists.player_id}.html" target="_self"><nobr><img src="${assists.player_img}" style="width:25px;height:25px;" alt="${assists.player_name}" title="${assists.player_name}" />&nbsp;${assists.player_name}</nobr></a></td>
 					      <td class="team-title" ><a href="team-${assists.team_name_en}-${assists.team_id}.html" target="_self"><nobr><img src="assets/image/soccer/teams/25x25/${assists.team_id}.png" style="width:25px;height:25px;" alt="${assists.team_name}" title="${assists.team_name}"/>&nbsp;${assists.team_name}</nobr></a></td>
 					      <td ><center>${assists.assists_count}</center></td>

@@ -47,8 +47,17 @@ public class SayController extends Controller {
 		setAttr("leagueName", EnumUtils.getValue(LeagueEnum.values(), player.getStr("league_id")));
 		setAttr("sayPage", sayPage);
 		setAttr("pageUI", PageUtils.calcStartEnd(sayPage));
+		setAttr("initCount", sayPage.getList().size());
 		
 		render("sayList.jsp");
+	}
+	
+	public void listPlayerMore(){
+		String playerId = getPara("id");
+		playerId = CommonUtils.getRewriteId(playerId);
+		//球员的说说
+		Page<Say> sayPage = Say.dao.paginate(getParaToInt("pageNo", 1), 10, "and player_id = '"+playerId+"'");
+		renderJson(sayPage.getList());
 	}
 	
 	public void detail(){

@@ -17,6 +17,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/dropload/dropload.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - ${player.name}的说说|${player.name}的动态|${player.name}的资讯|${player.name}的生活</title>
 </head>
 
@@ -60,41 +61,30 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    <div class="row visible-sm visible-xs" style="margin-top:40px;">
 			<div id="main_content" style="min-height:10px;" class="col-sm-12 col-xs-12">		
 				<div class="bread">
-					当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/say.html" target="_blank">说说</a>&nbsp;&gt;&nbsp;${player.name}
+					<a href="/" target="_self">首页</a>&nbsp;&gt;&nbsp;<a href="/say.html" target="_self">说说</a>&nbsp;&gt;&nbsp;${player.name}
 				</div>
 			</div>
 		</div>
 		
 		<!-- 移动端内容开始 -->
-		<div class="row visible-sm visible-xs">
-			<div class="col-sm-6 col-xs-6">
+		<div class="row visible-sm visible-xs" style="font-size:12px;color:grey;">
+			<div class="col-sm-5 col-xs-5">
 				<img src="${player.img_big_local}" class="img-responsive" alt="${player.name}" title="${player.name}" />
 			</div>
-			<div class="col-sm-6 col-xs-6" style="margin-top:10px;">名字：${player.first_name}</div>
-			<div class="col-sm-6 col-xs-6" style="margin-top:10px;">姓氏：${player.last_name}</div>
-			<div class="col-sm-6 col-xs-6" style="margin-top:10px;">生日：${player.birthday}</div>
-			<div class="col-sm-6 col-xs-6" style="margin-top:10px;">国籍：${player.nationality}</div>
-			<div class="col-sm-12 col-xs-12" style="margin-top:10px;">身高：${player.height} 体重：${player.weight} 惯用脚：${player.foot}</div>
-			<div class="col-sm-12 col-xs-12 team-title" style="margin-top:10px;font-size:14px;">效力球队：<a href="team-${player.team_name_en}-${player.team_id}.html" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;" alt="${player.team_name}" title="${player.team_name}"/>&nbsp;${player.team_name}</a>
-				位置：${player.position}
-			</div>
-			<div class="col-sm-12 col-xs-12 team-title" style="margin-top:10px;font-size:14px;">
+		
+			<div class="col-sm-7 col-xs-7" style="margin-top:10px;">${player.nationality} ${player.birthday}（${player.age}岁）</div>
+			<div class="col-sm-7 col-xs-7" style="margin-top:10px;">${player.height}&nbsp;·&nbsp;${player.weight}&nbsp;<c:if test="${!empty player.foot}">·&nbsp;惯用${player.foot}脚</c:if></div>
+			<div class="col-sm-7 col-xs-7" style="margin-top:10px;">${player.team_name}&nbsp;·&nbsp;${player.position}&nbsp;·&nbsp;${player.number}号</div>
+			<div class="col-sm-7 col-xs-7" style="margin-top:10px;">赛季数据：
 				<c:if test="${player.goal_count!=0}">
 	      			<span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span>
-	      		</c:if>
-	      		<c:if test="${player.goal_count!=0 && player.assists_count!=0}">
-	      		&nbsp;
+	      			&nbsp;
 	      		</c:if>
 	      		<c:if test="${player.assists_count!=0}">
 	      			<span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span>
 	      		</c:if>
-	      		<c:if test="${player.goal_count!=0 || player.assists_count!=0}">
-	      		&nbsp;
-	      		</c:if>
-	      		<c:if test="${!empty player.number}">
-		      		<span title="球衣：${player.number}号"><img src="assets/pages/img/cloth.png" style="margin-top:-3px;" /> ${player.number}号</span>
-	      		</c:if>
 			</div>
+			
 			<c:if test="${!empty NO_SAY}">
 				<div class="col-sm-12 col-xs-12" style="margin-top:15px;">
 					<div class="row visible-sm visible-xs">
@@ -104,41 +94,43 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 				</div>
 			</c:if>
-			<div id="list_content" class="row visible-sm visible-xs" >
-				<div class="col-sm-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
-					<div class="index-line"></div>
-				</div>
-			    <c:forEach items="${sayPage.list}" var="say" varStatus="status">
-				    	<div class="col-sm-12 col-xs-12" style="margin-top:10px;">
-			   					<div class="mob-author">
-			                            <div class="author-face">
-					                        <a href="player-${say.player_name_en}-${say.player_id}.html" target="_self"><img src="${say.player_img_local}"></a>
-			                            </div>
-			                            
-			                            <a href="player-${say.player_name_en}-${say.player_id}.html" target="_self" class="mob-author-a">
-			                                <span class="author-name">${say.player_name}</span>
-			                            </a>
-			                            
-			                            <span class="author-name say-info">
-											&nbsp;<fmt:formatDate value="${say.create_time}" pattern="yyyy-MM-dd HH:mm"/>
-										</span>
-			                    </div>
-				    	</div>
-				    	<!-- 内容 -->
-				    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:10px;padding-left:45px;">
-							<span class="summary">${say.content}</span>
-						</div>
-				    	<!-- 图片 -->
-				    	<c:if test="${!empty say.image_big}">
-					    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:8px;padding-left:45px;">
-								<img src="${say.image_big}" class="img-responsive" style="height:220px;" alt="${say.content}" title="${say.content}"/>
+			<div class="col-sm-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
+				<div class="index-line"></div>
+			</div>
+			<div class="col-sm-12 col-xs-12">
+				<div id="list_content" class="row">
+				    <c:forEach items="${sayPage.list}" var="say" varStatus="status">
+					    	<div class="col-sm-12 col-xs-12" style="margin-top:10px;">
+				   					<div class="mob-author">
+				                            <div class="author-face">
+						                        <a href="player-${say.player_name_en}-${say.player_id}.html" target="_self"><img src="${say.player_img_local}"></a>
+				                            </div>
+				                            
+				                            <a href="player-${say.player_name_en}-${say.player_id}.html" target="_self" class="mob-author-a">
+				                                <span class="author-name">${say.player_name}</span>
+				                            </a>
+				                            
+				                            <span class="author-name say-info">
+												&nbsp;<fmt:formatDate value="${say.create_time}" pattern="yyyy-MM-dd HH:mm"/>
+											</span>
+				                    </div>
+					    	</div>
+					    	<!-- 内容 -->
+					    	<div class="col-sm-12 col-xs-12 content-title" style="padding-left:45px;">
+								<span class="summary" style="color:#292f33;">${say.content}</span>
 							</div>
-						</c:if>
-						<div class="col-sm-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
-							<div class="index-line"></div>
-						</div>
-			    </c:forEach>
+					    	<!-- 图片 -->
+					    	<c:if test="${!empty say.image_big}">
+						    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:8px;padding-left:45px;">
+									<img src="${say.image_big}" class="img-responsive" style="height:220px;" alt="${say.content}" title="${say.content}"/>
+								</div>
+							</c:if>
+							<div class="col-sm-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
+								<div class="index-line"></div>
+							</div>
+				    </c:forEach>
 			    </div>
+		    </div>
 			
 		</div>
 		<!-- 移动端内容结束 -->
@@ -166,12 +158,18 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">国籍：${player.nationality}</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">身高：${player.height}</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">体重：${player.weight}</div>
-						<div class="col-lg-6 col-md-6" style="margin-top:10px;">位置：${player.position}</div>
+						<div class="col-lg-6 col-md-6" style="margin-top:10px;">位置：${player.position}
+							<c:if test="${!empty player.number}">
+					      		&nbsp;<span title="球衣：${player.number}号"><img src="${player.cloth}" style="margin-top:-3px;" /> ${player.number}号</span>
+				      		</c:if>
+						</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">用脚：${player.foot}</div>
 						<div class="col-lg-6 col-md-6 team-title" style="margin-top:10px;font-size:14px;">效力球队：
 							<a href="team-${player.team_name_en}-${player.team_id}.html" target="_blank" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a>
+							
 						</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">
+							赛季数据：
 							<c:if test="${player.goal_count!=0}">
 				      			<span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span>
 				      		</c:if>
@@ -181,12 +179,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				      		<c:if test="${player.assists_count!=0}">
 				      			<span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span>
 				      		</c:if>
-				      		<c:if test="${player.goal_count!=0 || player.assists_count!=0}">
-				      		&nbsp;
-				      		</c:if>
-				      		<c:if test="${!empty player.number}">
-					      		<span title="球衣：${player.number}号"><img src="${player.cloth}" style="margin-top:-3px;" /> ${player.number}号</span>
-				      		</c:if>
+				      		
 						</div>
 					</div>
 				</div>
@@ -196,9 +189,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			
 			<c:if test="${!empty NO_SAY}">
 			<div class="row">
-				<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="margin-top:15px;">
-					<div class="row hidden-sm hidden-xs">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="font-size:16px;">
+				<div class="col-lg-9 col-md-9" style="margin-top:15px;">
+					<div class="row">
+						<div class="col-lg-12 col-md-12" style="font-size:16px;">
 						<nobr><span style="font-weight:bold;">${player.name}</span>目前还没发表说说，去瞅瞅<b>${leagueName}</b>其他人的吧 <img src="assets/image/page/smile.png"  style="width:32px;height:32px;"/></nobr>
 						</div>
 					</div>
@@ -216,7 +209,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										<a href="player-${say.player_name_en}-${say.player_id}.html" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:48px;height:48px;" alt="${say.player_name}" title="${say.player_name}"/></a>
 									</div>
 									<div class="col-lg-11 col-md-11 col-sm-12 col-xs-12" >
-										<div class="row hidden-sm hidden-xs">
+										<div class="row">
 											<div class="col-lg-12 col-md-12 say-info">
 												<span style="display:block;font-weight:bold;color:#292f33;float:left;"><a href="player-${say.player_name_en}-${say.player_id}.html" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
 												<span style="display:block;color:#8899a6;font-size:13px;float:left;"> - <fmt:formatDate value="${say.create_time}" pattern="MM月dd日"/> </span>
@@ -224,23 +217,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 											</div>
 										</div>
 										
-										<div class="row visible-sm visible-xs">
-											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 say-info" style="line-height:30px;height:30px;">
-												<span style="display:block;float:left;"><a class="visible-sm visible-xs" href="player-${say.player_name_en}-${say.player_id}.html" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:30px;height:30px;" /></a></span>
-												<span style="display:block;font-weight:bold;color:#292f33;float:left;"><a href="player-${say.player_name_en}-${say.player_id}.html" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
-												<span style="display:block;color:#8899a6;font-size:13px;float:left;"> - <fmt:formatDate value="${say.create_time}" pattern="MM月dd日"/> </span>
-												&nbsp;<a href="player-${say.player_name_en}-${say.player_id}.html" target="_blank" title="${say.player_name}的更多说说">查看更多</a>
-											</div>
-										</div>
-										
-										<div class="row hidden-sm hidden-xs">
+										<div class="row">
 											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-												<span style="color:#292f33;font-size:14px;">${say.content}</span>
-											</div>
-										</div>
-										
-										<div class="row visible-sm visible-xs">
-											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 " style="margin-top:8px;">
 												<span style="color:#292f33;font-size:14px;">${say.content}</span>
 											</div>
 										</div>
@@ -315,8 +293,143 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	</div>
 	
 	<%@ include file="/common/footer.jsp"%>		
+	<script src="assets/global/plugins/dropload/dropload.min.js" type="text/javascript"></script>
 	
 	<script>
+	
+	$(function(){
+		if (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+			return;
+		}
+		
+	    var noDataStr = '<div class="dropload-noData">暂无数据</div>';
+	    if(parseInt('${initCount}')<5){
+	    	if(parseInt('${initCount}')!=0){
+		    	noDataStr = '<div class="dropload-noData">&nbsp;</div>';
+	    	}
+	    }
+	    var pageNo = 1;
+	    // dropload
+	    $('.container').dropload({
+	        scrollArea : window,
+	        domUp : {
+	            domClass   : 'dropload-up',
+	            domRefresh : '<div class="dropload-refresh">↓下拉刷新</div>',
+	            domUpdate  : '<div class="dropload-update">↑释放更新</div>',
+	            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
+	        },
+	        domDown : {
+	            domClass   : 'dropload-down',
+	            domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+	            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+	            domNoData  : noDataStr
+	        },
+	        loadUpFn : function(me){
+	            $.ajax({
+	                type: 'GET',
+	                data: {pageNo:1,id:'${player.id}'},
+	                url: 'say/listPlayerMore',
+	                dataType: 'json',
+	                success: function(data){
+	                    var strhtml = '<div class=\"col-sm-12 col-xs-12\" style=\"margin-top:10px;height:1px;\"></div>';
+	                    for(var i = 0; i < data.length; i++){
+	                    	if(i!=0){
+	                    		strhtml += "<div class=\"col-sm-12 col-xs-12\" style=\"margin-top:10px;height:1px;\"></div>";
+	                    	}
+	                    	strhtml += addRecode(data[i]);
+	                    }
+	                    $('#list_content').html(strhtml);
+	                    // 每次数据加载完，必须重置
+	                    me.resetload();
+	                    // 重置页数，重新获取loadDownFn的数据
+	                    pageNo = 1;
+	                    // 解锁loadDownFn里锁定的情况
+	                    me.unlock();
+	                    me.noData(false);
+	                },
+	                error: function(xhr, type){
+	                    // 即使加载出错，也得重置
+	                    me.resetload();
+	                }
+	            });
+	        },
+	        loadDownFn : function(me){
+	        	pageNo++;
+	            // 拼接HTML
+	            var strhtml = '';
+	            $.ajax({
+	            	type: 'GET',
+	            	data: {pageNo:pageNo,id:'${player.id}'},
+	                url: 'say/listPlayerMore',
+	                dataType: 'json',
+	                success: function(data){
+	                    var arrLen = data.length;
+	                    if(arrLen > 0){
+	                    	var strhtml = '<div class=\"col-sm-12 col-xs-12\" style=\"margin-top:10px;height:1px;\"></div>';
+	                        for(var i=0; i<arrLen; i++){
+	                        	if(i!=0){
+		                    		strhtml += "<div class=\"col-sm-12 col-xs-12\" style=\"margin-top:10px;height:1px;\"></div>";
+		                    	}
+	                        	strhtml += addRecode(data[i]);
+	                        }
+	                    // 如果没有数据
+	                    }else{
+	                        // 锁定
+	                        me.lock();
+	                        // 无数据
+	                        me.noData();
+	                    }
+	                 	// 插入数据到页面，放到最后面
+	                    $('#list_content').append(strhtml);
+	                    // 每次数据插入，必须重置
+	                    me.resetload();
+	                },
+	                error: function(xhr, type){
+	                    // 即使加载出错，也得重置
+	                    me.resetload();
+	                }
+	            });
+	        },
+	        threshold : 50
+	    });
+	});
+
+
+	function addRecode(say){
+		var create_time = '';
+		var date_str = '';
+		if(say.create_time){
+			create_time = say.create_time.substring(0,16);
+			date_str = say.create_time.substring(0,10);
+		}
+		var strhtml = "<div class=\"col-sm-12 col-xs-12\">";
+		strhtml+="	   					<div class=\"mob-author\">";
+		strhtml+="	                            <div class=\"author-face\">";
+		strhtml+="			                        <a href=\"player-"+say.player_name_en+"-"+say.player_id+".html\" target=\"_self\"><img src=\""+say.player_img_local+"\"></a>";
+		strhtml+="	                            </div>";
+		strhtml+="	                            <a href=\"player-"+say.player_name_en+"-"+say.player_id+".html\" target=\"_self\" class=\"mob-author-a\">";
+		strhtml+="	                                <span class=\"author-name\">"+say.player_name+"</span>";
+		strhtml+="	                            </a>";
+		strhtml+="	                            <span class=\"author-name say-info\">";
+		strhtml+="									&nbsp;"+create_time;
+		strhtml+="								</span>";
+		strhtml+="	                    </div>";
+		strhtml+="		    	</div>";
+		strhtml+="		    	<div class=\"col-sm-12 col-xs-12 content-title\" style=\"padding-left:45px;\">";
+		strhtml+="					<span class=\"summary\" style=\"color:#292f33;\">"+say.content+"</span>";
+		strhtml+="				</div>";
+		if(say.image_big && say.image_big!=''){
+			strhtml+="			    	<div class=\"col-sm-12 col-xs-12 content-title\" style=\"margin-top:8px;padding-left:45px;padding-right:20px;\">";
+			strhtml+="						<img src=\""+say.image_big+"\" class=\"img-responsive\" style=\"height:220px;\" alt=\""+say.content+"\" title=\""+say.content+"\"/>";
+			strhtml+="					</div>";
+		}
+		strhtml+="				<div class=\"col-sm-12 col-xs-12\" style=\"padding-left:0px;padding-right:0px;\">";
+		strhtml+="					<div class=\"index-line\"></div>";
+		strhtml+="				</div>";
+			
+		return strhtml;
+	}
+	
 	(function(){
 	    var bp = document.createElement('script');
 	    var curProtocol = window.location.protocol.split(':')[0];

@@ -63,7 +63,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    <div id="list_content" class="row visible-sm visible-xs" style="margin-top:45px;">
 	    	<c:forEach items="${funPage.list}" var="fun" varStatus="status">
 					<c:if test="${status.index!=0}">
-						<div class="col-sm-12 col-xs-12" style="margin-top:19px;height:1px;"></div>
+						<div class="col-sm-12 col-xs-12" style="margin-top:10px;height:1px;"></div>
 					</c:if>
 			    	<div class="col-sm-12 col-xs-12">
 		   					<div class="mob-author">
@@ -239,7 +239,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	                    var strhtml = '';
 	                    for(var i = 0; i < data.length; i++){
 	                    	if(i!=0){
-	                    		strhtml += "<div class=\"col-sm-12 col-xs-12\" style=\"margin-top:19px;height:1px;\"></div>";
+	                    		strhtml += "<div class=\"col-sm-12 col-xs-12\" style=\"margin-top:10px;height:1px;\"></div>";
 	                    	}
 	                    	strhtml += addRecode(data[i]);
 	                    }
@@ -270,9 +270,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	                success: function(data){
 	                    var arrLen = data.length;
 	                    if(arrLen > 0){
+	                    	strhtml += "<div class=\"col-sm-12 col-xs-12\" style=\"margin-top:10px;height:1px;\"></div>";
 	                        for(var i=0; i<arrLen; i++){
 	                        	if(i!=0){
-		                    		strhtml += "<div class=\"col-sm-12 col-xs-12\" style=\"margin-top:19px;height:1px;\"></div>";
+		                    		strhtml += "<div class=\"col-sm-12 col-xs-12\" style=\"margin-top:10px;height:1px;\"></div>";
 		                    	}
 	                        	strhtml += addRecode(data[i]);
 	                        }
