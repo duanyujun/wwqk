@@ -21,7 +21,6 @@ import com.wwqk.model.Fun;
 import com.wwqk.model.League;
 import com.wwqk.model.LeagueAssists;
 import com.wwqk.model.LeagueAssists163;
-import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.LeagueShooter;
 import com.wwqk.model.LeagueShooter163;

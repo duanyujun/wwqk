@@ -112,8 +112,8 @@ public class FunService {
 		}
 		
 		fun.set("title", controller.getPara("title"));
-		fun.set("summary", controller.getPara("summary"));
-		fun.set("content", controller.getPara("content"));
+		fun.set("summary", controller.getPara("summary")); 
+		fun.set("content", addClass4Img(controller.getPara("content")));
 		fun.set("source_name", controller.getPara("source_name"));
 		fun.set("source_url", controller.getPara("source_url"));
 	
@@ -134,6 +134,14 @@ public class FunService {
 		}else{
 			fun.update();
 		}
+	}
+	
+	private static String addClass4Img(String content){
+		if(StringUtils.isBlank(content)){
+			return content;
+		}
+		content = content.replaceAll("<img", "<img class='img-responsive' ");
+		return content;
 	}
 	
 }
