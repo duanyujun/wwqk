@@ -18,6 +18,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/dropload/dropload.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
     
     <title>趣点足球网 - 一个有意思的足球网站|足球说说|足球趣闻|足球数据|球星生活|免费直播</title>
 </head>
@@ -108,7 +109,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						</c:if>
 						<c:if test="${fun.type==2}">
 							<c:if test="${!empty fun.image_big}">
-								<img src="${fun.image_big}"  height="140px"  alt="${fun.summary}" title="${fun.summary}"/>
+								<img src="${fun.image_big}" class="image" height="140px"  alt="${fun.summary}" title="${fun.summary}"/>
 							</c:if>
 						</c:if>
 					</div>
@@ -239,6 +240,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<%@ include file="/common/footer.jsp"%>		
 	
 	<script src="assets/global/plugins/dropload/dropload.min.js" type="text/javascript"></script>
+	<script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
 	
 	<script>
 	(function(){
@@ -256,6 +258,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	
 	$(function(){
+		$('.image').viewer({toolbar:false});
+		
 		if (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
 			return;
 		}
@@ -303,6 +307,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	                    // 解锁loadDownFn里锁定的情况
 	                    me.unlock();
 	                    me.noData(false);
+	                    $('.image').viewer({toolbar:false});
 	                },
 	                error: function(xhr, type){
 	                    // 即使加载出错，也得重置
@@ -340,6 +345,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	                    $('#list_content').append(strhtml);
 	                    // 每次数据插入，必须重置
 	                    me.resetload();
+	                    $('.image').viewer({toolbar:false});
 	                },
 	                error: function(xhr, type){
 	                    // 即使加载出错，也得重置
@@ -394,7 +400,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			strhtml+="							<a href=\"fdetail-"+date_str+"-"+fun.id+".html\" target=\"_self\" ><img src=\""+fun.image_small+"\" class=\"img-responsive\" alt=\""+fun.title+"\" /></a>";
 		}else{
 			if(fun.image_big && fun.image_big!=''){
-				strhtml+="							<img src=\""+fun.image_big+"\"  height=\"140px\"  alt=\""+fun.summary+"\" />";
+				strhtml+="							<img src=\""+fun.image_big+"\" class=\"image\"  height=\"140px\"  alt=\""+fun.summary+"\" />";
 			}
 		}
 		strhtml+="					</div>";

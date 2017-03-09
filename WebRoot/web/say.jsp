@@ -18,6 +18,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/dropload/dropload.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - 足球说说|球员说说|球员动态|球员资讯|球星生活</title>
 </head>
 
@@ -87,7 +88,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		    	<!-- 图片 -->
 		    	<c:if test="${!empty say.image_big}">
 			    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:8px;padding-left:45px;">
-						<img src="${say.image_big}" class="img-responsive" style="height:220px;" alt="${say.content}" title="${say.content}"/>
+						<img src="${say.image_big}" class="img-responsive image" style="height:220px;" alt="${say.content}" title="${say.content}"/>
 					</div>
 				</c:if>
 				<div class="col-sm-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
@@ -185,10 +186,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<%@ include file="/common/footer.jsp"%>	
 	
 	<script src="assets/global/plugins/dropload/dropload.min.js" type="text/javascript"></script>
+	<script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
 	
 	<script>
 	
 	$(function(){
+		$('.image').viewer({toolbar:false});
+		
 		if (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
 			return;
 		}
@@ -237,6 +241,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	                    // 解锁loadDownFn里锁定的情况
 	                    me.unlock();
 	                    me.noData(false);
+	                    $('.image').viewer({toolbar:false});
 	                },
 	                error: function(xhr, type){
 	                    // 即使加载出错，也得重置
@@ -274,6 +279,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	                    $('#list_content').append(strhtml);
 	                    // 每次数据插入，必须重置
 	                    me.resetload();
+	                    $('.image').viewer({toolbar:false});
 	                },
 	                error: function(xhr, type){
 	                    // 即使加载出错，也得重置
@@ -312,7 +318,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		strhtml+="				</div>";
 		if(say.image_big && say.image_big!=''){
 			strhtml+="			    	<div class=\"col-sm-12 col-xs-12 content-title\" style=\"margin-top:8px;padding-left:45px;\">";
-			strhtml+="						<img src=\""+say.image_big+"\" class=\"img-responsive\" style=\"height:220px;\" alt=\""+say.content+"\" title=\""+say.content+"\"/>";
+			strhtml+="						<img src=\""+say.image_big+"\" class=\"img-responsive image\" style=\"height:220px;\" alt=\""+say.content+"\" title=\""+say.content+"\"/>";
 			strhtml+="					</div>";
 		}
 		strhtml+="				<div class=\"col-sm-12 col-xs-12\" style=\"padding-left:0px;padding-right:0px;\">";

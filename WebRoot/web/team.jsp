@@ -61,30 +61,28 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						当前位置：<a href="/" target="_self">首页</a>&nbsp;&gt;&nbsp;<a href="/data-${leagueENName}-${team.league_id}.html" title="${leagueName}" target="_self">数据</a>&nbsp;&gt;&nbsp;${team.name}
 					</div>
 				</div>
-			</div>
-			<!-- 移动端内容开始 -->
-			<div class="row visible-sm visible-xs" style="margin-top:10px;color:grey;">
-				<div class="col-sm-5 col-xs-5">						
-					<a href="${team.offical_site}" target="_blank" title="查看${team.name}官网"><img src="assets/image/soccer/teams/150x150/${team.id}.png"  class="img-responsive" alt="${team.name}" /></a>
+				<div class="col-sm-5 col-xs-5" style="margin-top:10px;">						
+					<img src="assets/image/soccer/teams/150x150/${team.id}.png"  class="img-responsive" alt="${team.name}" title="${team.name}"/>
 				</div>
-				<div class="col-sm-7 col-xs-7" >	
-					${team.country}&nbsp;·&nbsp;${team.setup_time}年&nbsp;·&nbsp;<span class="a-title"><a href="${team.offical_site}" target="_blank" title="查看${team.name}官网" style="color:grey;">官网</a></span>
+				<div class="col-sm-7 col-xs-7" style="color:grey;margin-top:10px;">	
+					${team.country}&nbsp;·&nbsp;${team.setup_time}年&nbsp;·&nbsp;<a href="${team.offical_site}" target="_blank"  title="查看${team.name}官网" style="color:grey;">官网</a>
 				</div>
-				<div class="col-sm-7 col-xs-7" style="margin-top:10px;">	
+				<div class="col-sm-7 col-xs-7" style="margin-top:10px;color:grey;">	
 					地址：${team.address}
 				</div>
-				<div class="col-sm-7 col-xs-7" style="margin-top:10px;">	
+				<div class="col-sm-7 col-xs-7" style="margin-top:10px;color:grey;">	
 					${team.telphone}
 				</div>
-				<div class="col-sm-7 col-xs-7" style="margin-top:10px;">	
+				<div class="col-sm-7 col-xs-7" style="margin-top:10px;color:grey;">	
 					联赛排名：第<span style="color:black;"> ${postion} </span>名
 				</div>
-				<div class="col-sm-12 col-xs-12" style="margin-top:10px;">
+				<div class="col-sm-12 col-xs-12" style="margin-top:10px;color:grey;">
 					${team.venue_address}&nbsp;·&nbsp;${team.venue_name}&nbsp;·&nbsp;容量：${team.venue_capacity}人
 				</div>
 				<div class="col-sm-12 col-xs-12">
 					<img src="${team.venue_small_img_local}" class="img-responsive img-rounded" alt="${team.name}球场名称：${team.venue_name}" title="${team.name}球场名称：${team.venue_name}"/>
 				</div>
+				
 				<div class="col-sm-12 col-xs-12" style="margin-top:10px;"></div>
 				<c:forEach items="${lstGroup}" var="group">
 					<div class="col-sm-12 col-xs-12">
@@ -94,10 +92,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  	<c:set var="i" value="1"/>
 						  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
 							<c:forEach items="${group}" var="player">
-								<td style="width:50px;border:none;"><img src="${player.img_small_local}" alt="${player.name}" title="${player.name}"/></td>
+								<td style="width:50px;border:none;"><a href="player-${player.en_url}-${player.id}.html" target="_self"><img src="${player.img_small_local}" alt="${player.name}" title="${player.name}"/></a></td>
 						      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:12px;">
 						      		<p style="margin-top:2px;">
-						      		<a href="say/list?id=${player.id}" target="_blank">${player.name}</a>
+						      		<a href="player-${player.en_url}-${player.id}.html" target="_self">${player.name}</a>
 						      		<c:if test="${!empty player.number}">
 							      		<nobr><span title="球衣：${player.number}号" style="color:grey;"><img src="assets/pages/img/cloth.png" style="margin-top:-3px;" /> ${player.number}号</span></nobr>
 						      		</c:if>
@@ -124,7 +122,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						</table>
 					</div>
 				</c:forEach>
-				
+			</div>
+			<!-- 移动端内容开始 -->
+			<div class="row visible-sm visible-xs" style="margin-top:10px;color:grey;">
 				<div class="col-lg-12 col-md-12">
 					<table class="table small-table" >
 						  <caption style="min-height:30px;text-align:left;"><b style="margin-left:15px;">最近五场比赛</b></caption>
@@ -143,10 +143,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  				<td class="a-title" style="font-size:13px;"><a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_self"><img src="assets/image/soccer/teams/25x25/${history.away_team_id}.png" style="width:25px;height:25px;" alt="${history.away_team_name}" title="${history.away_team_name}"/>&nbsp;${history.away_team_name}</a></td>
 						  				<td class="a-title" style="text-align:center;font-size:13px;">
 						  					<c:if test="${fn:contains(history.result, '-')}">
-									      		<b><a title="观看集锦" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/>-${history.home_team_id}vs${history.away_team_id}.html" target="_blank">集锦</a></b>
+									      		<a title="观看集锦" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/>-${history.home_team_id}vs${history.away_team_id}.html" target="_self" style="color:grey;">集锦</a>
 									      	</c:if>
 									      	<c:if test="${!fn:contains(history.result, '-')}">
-									      		<a title="直播地址" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/>-${history.home_team_id}vs${history.away_team_id}.html" target="_self">直播</a>
+									      		<b><a title="直播地址" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/>-${history.home_team_id}vs${history.away_team_id}.html" target="_self">直播</a></b>
 									      	</c:if>
 						  				</td>
 						  			</tr>
@@ -425,6 +425,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    var s = document.getElementsByTagName("script")[0];
 	    s.parentNode.insertBefore(bp, s);
 	})();
+	
 	</script>
 		
 </body>	
