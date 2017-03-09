@@ -20,9 +20,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="assets/global/plugins/dropload/dropload.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - ${player.name}的说说|${player.name}的动态|${player.name}的资讯|${player.name}的生活</title>
+   
 </head>
 
 <body>
+<div id="all_content">
 	<div class="container">
 		<div class="row menu_bg clear_row_margin hidden-sm hidden-xs" >
 			<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">	
@@ -68,7 +70,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 		
 		<!-- 移动端内容开始 -->
-		<div class="row visible-sm visible-xs" style="font-size:12px;color:grey;">
+		<div class="row visible-sm visible-xs" style="font-size:12px;color:grey;padding-bottom: 130px;">
 			<div class="col-sm-5 col-xs-5">
 				<img src="${player.img_big_local}" class="img-responsive" alt="${player.name}" title="${player.name}" />
 			</div>
@@ -145,7 +147,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 	</div>
 	
-	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:20px;">
+	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:20px;padding-bottom: 130px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">		
 			<div class="col-lg-9 col-md-9">
 				<div class="col-lg-12 col-md-12" >
@@ -294,6 +296,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	</div>
 	
 	<%@ include file="/common/footer.jsp"%>		
+	</div>
+	
 	<script src="assets/global/plugins/dropload/dropload.min.js" type="text/javascript"></script>
 	<script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
 	

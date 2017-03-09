@@ -65,17 +65,6 @@ var handleGoTop = function() {
 
 $(function(){
 	  handleGoTop();	
-	  if($(window).height()==$(document).height()){
-        $(".footer").addClass("navbar-fixed-bottom");
-      }
-      else{
-        $(".footer").removeClass("navbar-fixed-bottom");
-      }
-	  
-	  $('#menuSelect').change(function(){ 
-			var link = $(this).children('option:selected').val();
-			window.location.href = link;
-	  }) 
 });
 
 

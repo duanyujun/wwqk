@@ -26,7 +26,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 </head>
 
 <body>
-	
+<div id="all_content">	
 	<div class="container">
 		<div class="row menu_bg clear_row_margin hidden-sm hidden-xs" >
 			<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">	
@@ -128,7 +128,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 	    
 	    <!-- odds start -->
-		<div class="row visible-sm visible-xs" style="margin-top:10px;">
+		<div class="row visible-sm visible-xs" style="margin-top:10px;padding-bottom: 130px;">
 			<div class="col-sm-12 col-xs-12" style="margin-top:10px;">
 				<ul id="myTab" class="nav nav-tabs bread" >
 					<li class="active"><a href="#odds_wh_mobile" data-toggle="tab">威廉希尔</a></li>
@@ -387,7 +387,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 	</div>
 	
-	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:5px;">
+	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:5px;padding-bottom: 130px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-12 col-md-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="row">
@@ -705,7 +705,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	</div>
 	
 	<%@ include file="/common/footer.jsp"%>		
-	
+</div>
 	<script>
 	(function(){
 	    var bp = document.createElement('script');

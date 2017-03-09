@@ -21,6 +21,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 </head>
 
 <body>
+<div id="all_content">
 	 <div class="container">
 		<div class="row menu_bg clear_row_margin hidden-sm hidden-xs" >
 			<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">	
@@ -149,7 +150,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			</div>
 		</div>
 			
-		<div class="row visible-sm visible-xs" style="margin-top:20px;">
+		<div class="row visible-sm visible-xs" style="margin-top:20px;padding-bottom: 130px;">
 			<div class="col-sm-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
 				<table class="table table-striped small-table " style="border:1px solid #dddddd;">
 				  <caption><span style="font-size:16px;">射手榜</span></caption>
@@ -213,7 +214,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			</div>
 		</div>
 		
-		<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:20px;">
+		<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:20px;padding-bottom: 130px;">
 			<div id="main_content" class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2">		
 				<div class="row">
 					<div class="col-lg-2 col-md-2">
@@ -383,7 +384,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 		
 		<%@ include file="/common/footer.jsp"%>	
-		
+		</div>
 		<script>
 		(function(){
 		    var bp = document.createElement('script');

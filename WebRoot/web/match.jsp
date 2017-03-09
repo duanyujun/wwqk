@@ -22,7 +22,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 </head>
 
 <body>
-	
+<div id="all_content">	
 	<div class="container">
 		<div class="row menu_bg clear_row_margin hidden-sm hidden-xs" >
 			<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">	
@@ -59,7 +59,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	       	</div>
 	    </div>
 	    <!-- 移动端内容开始 -->
-	    <div class="row visible-sm visible-xs" style="margin-top:30px;">
+	    <div class="row visible-sm visible-xs" style="margin-top:30px;padding-bottom: 130px;">
 	    	<c:forEach items="${lstGroup}" var="group">
 	    		<div class="col-xs-12 col-sm-12"><img title="${group[0].league_name}" src="assets/image/page/league-logo${group[0].league_id}.jpg" style="width:80px;height:80px;"/></div>
 	    		<div class="col-xs-12 col-sm-12"><b>比赛时间（${group[0].league_name}）</b></div>
@@ -109,7 +109,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 	</div>
 	
-	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:1px;">
+	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:1px;padding-bottom: 130px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2">		
 			<div class="col-lg-9 col-md-9" style="padding-left:0px;padding-right:0px;">
 				<c:forEach items="${lstGroup}" var="group">
@@ -166,7 +166,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	</div>
 	
 	<%@ include file="/common/footer.jsp"%>		
-	
+	</div>
 	<script>
 	(function(){
 	    var bp = document.createElement('script');

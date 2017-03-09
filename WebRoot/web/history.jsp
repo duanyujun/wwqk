@@ -21,7 +21,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 </head>
 
 <body>
-	
+<div id="all_content">
 	<div class="row menu_bg clear_row_margin" >
 		<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">	
 			<div>
@@ -57,7 +57,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 	</div>
 	
-	<div class="row clear_row_margin" style="margin-top:1px;">
+	<div class="row clear_row_margin" style="margin-top:1px;padding-bottom: 130px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-9 col-md-9" style="padding-left:0px;padding-right:0px;">
 				<div class="table-responsive hidden-sm hidden-xs" style="margin-top:10px;">
@@ -183,7 +183,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	</div>
 	
 	<%@ include file="/common/footer.jsp"%>		
-	
+	</div>
 	<script>
 	(function(){
 	    var bp = document.createElement('script');
