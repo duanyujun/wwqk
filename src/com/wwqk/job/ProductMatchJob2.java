@@ -35,6 +35,7 @@ import com.wwqk.model.Team;
 import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.EnumUtils;
 import com.wwqk.utils.FetchHtmlUtils;
+import com.wwqk.utils.StringUtils;
 
 /**
  * 
@@ -169,7 +170,7 @@ public class ProductMatchJob2 implements Job {
 									if(liveLink.attr("href").startsWith("http")){
 										matchLive.set("live_url", liveLink.attr("href"));
 									}else{
-										matchLive.set("live_url", LIVE_SITE_PROFIX+liveLink.attr("href"));
+										matchLive.set("live_url", getRealLink(LIVE_SITE_PROFIX+liveLink.attr("href")));
 									}
 									matchLive.set("league_id", leagueMap.get(match.child(1).text()));
 									matchLive.set("home_team_id", nameIdMap.get(homeTeamName));
@@ -192,6 +193,25 @@ public class ProductMatchJob2 implements Job {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private String getRealLink(String link){
+		if(StringUtils.isBlank(link)){
+			return link;
+		}
+		try {
+			Document document = Jsoup.connect(link).get();
+			List<Element> lstLinks = document.select(".col-change");
+			if(lstLinks.size()>0){
+				List<Element> aLink = lstLinks.get(0).select("a");
+				if(aLink.size()>0){
+					return aLink.get(0).attr("href");
+				}
+			}
+		} catch (IOException e) {
+			
+		}
+		return link;
 	}
 	
 	public static final String bytesToHexString(byte[] bArray) {   

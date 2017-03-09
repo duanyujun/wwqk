@@ -227,7 +227,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										<c:if test="${!empty say.image_big}">
 											<div class="row">
 												<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-													<img src="${say.image_big}" class="img-responsive img-rounded" alt="${say.content}" title="${say.player_name} - ${say.content}" />
+													<img src="${say.image_big}" class="img-responsive img-rounded image" style="height:300px;cursor:pointer;" alt="${say.content}" title="${say.player_name} - ${say.content}" />
 												</div>
 											</div>
 										</c:if>
@@ -300,7 +300,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<script>
 	
 	$(function(){
-		$('.image').viewer({toolbar:false});
+		$('.image').viewer({toolbar:false,zIndex:20000});
 		
 		if (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
 			return;
