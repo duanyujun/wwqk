@@ -67,10 +67,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						&nbsp;&gt;&nbsp;详情
 				</div>
 			</div>
-		</div>
-		
-		<div class="row clear_row_margin visible-sm visible-xs" style="margin-top:25px;padding-bottom: 130px;">
-			<div class="col-sm-12 col-xs-12">
+			<div class="col-sm-12 col-xs-12" style="margin-top:25px;">
    					<div class="mob-author">
                             <div class="author-face">
 		                        <a href="player-${say.player_name_en}-${say.player_id}.html" target="_self"><img src="${say.player_img_local}"></a>
@@ -86,6 +83,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							</span>
                     </div>
 	    	</div>
+		</div>
+		
+		<div class="row clear_row_margin visible-sm visible-xs" style="margin-top:5px;padding-bottom: 130px;">
+			
 			<div class="col-lg-12 col-md-12">
 				<span style="color:#292f33;font-size:14px;">${say.content}</span>
 			</div>
