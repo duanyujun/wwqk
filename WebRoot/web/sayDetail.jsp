@@ -17,40 +17,87 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - ${say.player_name}的近况|${say.content}</title>
 </head>
 
 <body>
 
 <div id="all_content">
-	<div class="row menu_bg clear_row_margin" >
-		<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">	
-			<div>
-				<div class="logo_div">
-					<a href="" title="首页">趣点足球网</a>
+	<div class="container">
+		<div class="row menu_bg clear_row_margin hidden-sm hidden-xs" >
+			<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">	
+				<div>
+					<div class="logo_div">
+						<a href="" title="首页">趣点足球网</a>
+					</div>
+					<ul style="float:left;" >
+						<li class="menu_width"><a href="">首页</a></li>
+						<li class="menu_width"><a href="fun.html">趣点</a></li>
+						<li class="menu_width menu_sel"><a href="say.html">说说</a></li>
+						<li class="menu_width"><a href="match.html">比赛</a></li>
+						<li class="menu_width"><a href="data.html">数据</a></li>
+					</ul>
 				</div>
-				<ul style="float:left;" class="hidden-sm hidden-xs">
-					<li class="menu_width"><a href="">首页</a></li>
-					<li class="menu_width"><a href="fun.html">趣点</a></li>
-					<li class="menu_width menu_sel"><a href="say.html">说说</a></li>
-					<li class="menu_width"><a href="match.html">比赛</a></li>
-					<li class="menu_width"><a href="data.html">数据</a></li>
-				</ul>
-				<div class="visible-sm visible-xs small-menu">
-					<select id="menuSelect" class="form-control small-select">
-						<option value="">首页</option>
-						<option value="fun.html">趣点</option>
-						<option selected value="say.html">说说</option>
-						<option value="match.html">比赛</option>
-						<option value="data.html">数据</option>
-					</select>	
+			</div>
+		</div>
+		<div class="row menu_link navbar-fixed-top visible-sm visible-xs" style="background:#00A50D;min-height:35px;color:white;">
+	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
+	       		<a href="/" target="_self"><span class="wwqk_menu">首页</span></a>
+	       	</div>
+	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
+	       		<a href="/fun.html" target="_self"><span class="wwqk_menu">趣点</span></a>
+	       	</div>
+	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
+	       		<a href="/say.html" target="_self"><span class="wwqk_menu dline">说说</span></a>
+	       	</div>
+	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
+	       		<a href="/match.html" target="_self"><span class="wwqk_menu">比赛</span></a>
+	       	</div>
+	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
+	       		<a href="/data.html" target="_self"><span class="wwqk_menu">数据</span></a>
+	       	</div>
+	    </div>
+	    
+	    <div class="row clear_row_margin visible-sm visible-xs" >
+			<div id="main_content" style="min-height:10px;" class="col-sm-12 col-xs-12">		
+				<div class="bread">
+					当前位置：<a href="/" target="_self">首页</a>
+						&nbsp;&gt;&nbsp;<a href="/say.html" target="_self">说说</a>
+						&nbsp;&gt;&nbsp;详情
 				</div>
 			</div>
 		</div>
 		
+		<div class="row clear_row_margin visible-sm visible-xs" style="margin-top:25px;padding-bottom: 130px;">
+			<div class="col-sm-12 col-xs-12">
+   					<div class="mob-author">
+                            <div class="author-face">
+		                        <a href="player-${say.player_name_en}-${say.player_id}.html" target="_self"><img src="${say.player_img_local}"></a>
+                            </div>
+                            
+                            <a href="player-${say.player_name_en}-${say.player_id}.html" target="_self" class="mob-author-a">
+                                <span class="author-name">${say.player_name}</span>
+                            </a>
+                            
+                            <span class="author-name say-info">
+								&nbsp;<fmt:formatDate value="${say.create_time}" pattern="yyyy-MM-dd HH:mm"/>
+								&nbsp;<a href="player-${say.player_name_en}-${say.player_id}.html" target="_self" title="${say.player_name}的更多说说" style="color:#bbb;">查看更多</a>
+							</span>
+                    </div>
+	    	</div>
+			<div class="col-lg-12 col-md-12">
+				<span style="color:#292f33;font-size:14px;">${say.content}</span>
+			</div>
+			<c:if test="${!empty say.image_big}">
+				<div class="col-lg-12 col-md-12" style="margin-top:10px;">
+					<img src="${say.image_big}" class="img-responsive img-rounded image" alt="${say.content}" title="${say.player_name} - ${say.content}"/>
+				</div>
+			</c:if>
+		</div>
 	</div>
 	
-	<div class="row clear_row_margin" style="margin-top:70px;">
+	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:70px;">
 		<div id="main_content" style="min-height:10px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="bread">
 				当前位置：<a href="/" target="_blank">首页</a>
@@ -60,7 +107,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 	</div>
 	
-	<div class="row clear_row_margin" style="margin-top:5px;padding-bottom: 130px;">
+	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:5px;padding-bottom: 130px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 				<div class="col-lg-9 col-md-9" style="border:1px solid #E3E7EA;padding:20px;padding-left:0;padding-bottom:10px;">
 						<div class="col-lg-1 col-md-1">
@@ -88,6 +135,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<%@ include file="/common/footer.jsp"%>		
 	</div>
 	
+	<script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
+	
 	<script>
 	(function(){
 	    var bp = document.createElement('script');
@@ -101,6 +150,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    var s = document.getElementsByTagName("script")[0];
 	    s.parentNode.insertBefore(bp, s);
 	})();
+	
+	$(function(){
+		$('.image').viewer({toolbar:false});
+	});
 	</script>
 		
 </body>	
