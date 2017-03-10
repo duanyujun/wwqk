@@ -195,7 +195,7 @@ public class MatchController extends Controller {
 	}
 	
 	private void calcHDA(List<? extends Model<?>> lstResult, String oddsProviderId){
-		if(lstResult.size()==0){
+		if(lstResult==null || lstResult.size()==0){
 			return;
 		}
 		Map<String, Integer> map = new HashMap<String, Integer>();
