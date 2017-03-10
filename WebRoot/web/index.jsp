@@ -90,7 +90,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									</c:if>
 		                            
 		                            <span class="author-name">
-										&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd HH:mm"/>
+										&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>
 									</span>
 		                    </div>
 			    	</div>
@@ -174,7 +174,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									</c:if>
 		                            
 		                            <span class="author-name">
-										&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd HH:mm"/>
+										&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>
 									</span>
 		                    </div>
 						</div>
@@ -395,7 +395,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		var create_time = '';
 		var date_str = '';
 		if(fun.create_time){
-			create_time = fun.create_time.substring(0,16);
+			create_time = fun.create_time.substring(0,10);
 			date_str = create_time.substring(0,10);
 		}
 		var strhtml = "<div class=\"col-sm-12 col-xs-12\">";
