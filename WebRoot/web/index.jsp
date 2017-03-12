@@ -126,7 +126,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<!-- PC内容开始 -->
     <div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:80px;padding-bottom: 130px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-6 col-lg-offset-2 col-md-6 col-md-offset-2">		
-			<div class="col-lg-9 col-md-9" style="padding-left:0px;">
+			<div class="col-lg-11 col-md-11" style="padding-left:0px;">
 				<c:forEach items="${funPage.list}" var="fun" varStatus="status">
 					<c:if test="${status.index!=0}">
 						<div class="col-lg-12 col-md-12" style="margin-top:19px;height:1px;"></div>
@@ -233,7 +233,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				
 			</div>
 		</div>
-		<div style="min-height:20px;" class="col-lg-3 col-md-3">	
+		<div style="min-height:20px;padding-right:0px;" class="col-lg-3 col-md-3">	
 			<div class="row">
 				<div class="col-lg-12 col-md-12">
 					<table class="table">
