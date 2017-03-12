@@ -64,29 +64,24 @@ public class IndexController extends Controller {
 		}
 		//西甲
 		String[] pdArray = {"2017","2016","2020"};
-		for(LeagueMatch chooseMatch:getMostAttentionMatch(pdArray,leagueMatchMap.get(LeagueEnum.XJ.getKey()),LeagueEnum.YC.getKey())){
+		for(LeagueMatch chooseMatch:getMostAttentionMatch(pdArray,leagueMatchMap.get(LeagueEnum.XJ.getKey()),LeagueEnum.XJ.getKey())){
 			lstResult.add(chooseMatch);
 		}
 		//德甲
 		String[] blArray = {"961","964","13410"};
-		for(LeagueMatch chooseMatch:getMostAttentionMatch(blArray,leagueMatchMap.get(LeagueEnum.DJ.getKey()),LeagueEnum.YC.getKey())){
+		for(LeagueMatch chooseMatch:getMostAttentionMatch(blArray,leagueMatchMap.get(LeagueEnum.DJ.getKey()),LeagueEnum.DJ.getKey())){
 			lstResult.add(chooseMatch);
 		}
 		//意甲
 		String[] saArray = {"1242","1270","1241","1244","1240"};
-		for(LeagueMatch chooseMatch:getMostAttentionMatch(saArray,leagueMatchMap.get(LeagueEnum.YJ.getKey()),LeagueEnum.YC.getKey())){
-			lstResult.add(chooseMatch);
-		}
-		//法甲
-		String[] loArray = {"885","886","894"};
-		for(LeagueMatch chooseMatch:getMostAttentionMatch(loArray,leagueMatchMap.get(LeagueEnum.FJ.getKey()),LeagueEnum.YC.getKey())){
+		for(LeagueMatch chooseMatch:getMostAttentionMatch(saArray,leagueMatchMap.get(LeagueEnum.YJ.getKey()),LeagueEnum.YJ.getKey())){
 			lstResult.add(chooseMatch);
 		}
 		
 		setAttr("lstRecomMatches", lstResult);
 	}
 	
-	private List<LeagueMatch> getMostAttentionMatch(String[] teamIdArray, List<LeagueMatch> lstLeagueMatch, String LeagueId){
+	private List<LeagueMatch> getMostAttentionMatch(String[] teamIdArray, List<LeagueMatch> lstLeagueMatch, String leagueId){
 		List<LeagueMatch> lstResult = new ArrayList<LeagueMatch>();
 		//排序
 		Collections.sort(lstLeagueMatch, new Comparator<LeagueMatch>(){  
@@ -113,10 +108,15 @@ public class IndexController extends Controller {
 		}
 		if(lstChooseMatch.size()>1){
 			for(LeagueMatch match : lstChooseMatch){
-				//两场就够了
-				if(lstResult.size()==2){
+				int maxCount = 1;
+				if(LeagueEnum.YC.getKey().equals(leagueId)){
+					maxCount = 2;
+				}
+				
+				if(lstResult.size()==maxCount){
 					break;
 				}
+				
 				if(!"完场".equals(match.getStr("status"))){
 					lstResult.add(match);
 				}
