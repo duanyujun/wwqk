@@ -147,7 +147,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank" title="${fun.title}">${fun.title}</a>
 								</c:if>
 								<c:if test="${fun.type==2}">
-									<a href="sdetail-${fun.player_name_en}-${fun.source_id}.html" target="_blank"><div class="text_cut" style="width:420px;line-height:32px;" title="${fun.summary}">${fun.summary}</div></a>
+									<a href="sdetail-${fun.player_name_en}-${fun.source_id}.html" target="_blank"><div class="text_cut" style="width:400px;line-height:32px;" title="${fun.summary}">${fun.summary}</div></a>
 								</c:if>
 							</span>
 						</div>
@@ -241,7 +241,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					  	<c:forEach items="${lstRecomMatches}" var="match">
 						    <tr style="font-size:12px;">
 						      <td class="team-title">
-						      		<span style="display:block;min-width:106px;float:left;"><a href="team-${match.home_team_en_name}-${match.home_team_id}.html" target="_blank"><img src="assets/image/soccer/teams/150x150/${match.home_team_id}.png" style="width:40px;height:40px;"/>&nbsp;${match.home_team_name}</a></span>
+						      		<div class="row">
+						      			<div class="col-lg-12 col-md-12"><center><a href="team-${match.home_team_en_name}-${match.home_team_id}.html" target="_blank"><img src="assets/image/soccer/teams/150x150/${match.home_team_id}.png" style="width:40px;height:40px;"/></a></center></div>
+						      			<div class="col-lg-12 col-md-12"><center><a href="team-${match.home_team_en_name}-${match.home_team_id}.html" target="_blank">${match.home_team_name}</a></center></div>
+						      		</div>
 						      </td>
 						      <td class="team-title">
 							      	<fmt:formatDate value="${match.match_date}" pattern="yy/MM/dd"/><br>&nbsp;
@@ -254,7 +257,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								      	</c:if>
 						      </td>
 						      <td class="team-title">
-						      		<a href="team-${match.away_team_en_name}-${match.away_team_id}.html" style="margin-left:20px;" target="_blank"><img src="assets/image/soccer/teams/150x150/${match.away_team_id}.png" style="width:40px;height:40px;"/>&nbsp;${match.away_team_name}</a>
+						      		<div class="col-lg-12 col-md-12"><center><a href="team-${match.away_team_en_name}-${match.away_team_id}.html" target="_blank"><img src="assets/image/soccer/teams/150x150/${match.away_team_id}.png" style="width:40px;height:40px;"/></a></center></div>
+						      		<div class="col-lg-12 col-md-12"><center><a href="team-${match.away_team_en_name}-${match.away_team_id}.html" target="_blank">${match.away_team_name}</a></center></div>
 						      </td>
 						    </tr>
 					    </c:forEach>
