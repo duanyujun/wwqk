@@ -61,6 +61,8 @@ html,body {margin: 0;padding:0;height: 100%;}
 	-o-transition:all .5s ease-in-out;
 	transition:all .5s ease-in-out;
 }
+@media screen and (max-width:1300px){.content_pleft{padding-left:30px;}}
+@media screen and (min-width:1300px){.content_pleft{padding-left:10px;}}
 
 .red_result{color:red;}
 .green_result{color:green;}
