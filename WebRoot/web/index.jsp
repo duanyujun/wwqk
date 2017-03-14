@@ -82,16 +82,18 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										<a href="fun.html" target="_blank" class="mob-author-a">
 			                                <span class="author-name">趣点足球网</span>
 			                            </a>
+			                            <span class="author-name">
+											&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>
+										</span>
 									</c:if>
 									<c:if test="${fun.type==2}">
 										<a href="player-${fun.player_name_en}-${fun.player_id}.html" target="_self" class="mob-author-a">
 			                                <span class="author-name">${fun.player_name}</span>
 			                            </a>
+			                            <span class="author-name">
+											&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>&nbsp;来源：twitter
+										</span>
 									</c:if>
-		                            
-		                            <span class="author-name">
-										&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>
-									</span>
 		                    </div>
 			    	</div>
 			    	<!-- 内容 -->
@@ -166,16 +168,18 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										<a href="fun.html" target="_blank" class="mob-author-a">
 			                                <span class="author-name">趣点足球网</span>
 			                            </a>
+			                            <span class="author-name">
+											&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>
+										</span>
 									</c:if>
 									<c:if test="${fun.type==2}">
 										<a href="player-${fun.player_name_en}-${fun.player_id}.html" target="_blank" class="mob-author-a">
 			                                <span class="author-name">${fun.player_name}</span>
 			                            </a>
+			                            <span class="author-name">
+											&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>&nbsp;来源：twitter
+										</span>
 									</c:if>
-		                            
-		                            <span class="author-name">
-										&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>
-									</span>
 		                    </div>
 						</div>
 						
