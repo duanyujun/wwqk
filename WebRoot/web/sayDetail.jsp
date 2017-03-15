@@ -153,7 +153,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	})();
 	
 	$(function(){
-		$('.image').viewer({toolbar:false});
+		$('.image').viewer({toolbar:false, zIndex:20000});
 	});
 	</script>
 		
