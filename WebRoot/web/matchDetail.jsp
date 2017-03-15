@@ -22,6 +22,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     	.nav>li>a{padding:5px; 10px;}
     </style>
     <link href="common/main.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
     <title>${leagueName}${homeTeam.name}vs${history.away_team_name}直播|${homeTeam.name}vs${history.away_team_name}免费直播|${homeTeam.name}vs${history.away_team_name}直播信号|趣点足球网直播</title>
 </head>
 
@@ -123,7 +124,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				【主队球场】：${homeTeam.venue_name} &nbsp;&nbsp;<span style="color:#888;">容量：${homeTeam.venue_capacity}人</span>
 			</div>
 			<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:15px;">
-				<img src="${homeTeam.venue_small_img_local}" class="img-responsive img-rounded"  alt="${homeTeam.name}球场名称：${homeTeam.venue_name}" title="${homeTeam.name}球场名称：${homeTeam.venue_name}"/>
+				<img src="${homeTeam.venue_small_img_local}" class="img-responsive img-rounded image"  alt="${homeTeam.name}球场名称：${homeTeam.venue_name}" title="${homeTeam.name}球场名称：${homeTeam.venue_name}"/>
 			</div>
 		</div>
 	    
@@ -446,7 +447,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									【主队球场】：${homeTeam.venue_name} &nbsp;&nbsp;<span style="color:#888;">容量：${homeTeam.venue_capacity}人</span>
-									<img src="${homeTeam.venue_small_img_local}" style="margin-left:20px;" class="img-responsive img-rounded"  alt="${homeTeam.name}球场名称：${homeTeam.venue_name}" title="${homeTeam.name}球场名称：${homeTeam.venue_name}"/>
+									<img src="${homeTeam.venue_small_img_local}" style="margin-left:20px;cursor:pointer;" class="img-responsive img-rounded image"  alt="${homeTeam.name}球场名称：${homeTeam.venue_name}" title="${homeTeam.name}球场名称：${homeTeam.venue_name}"/>
 								</div>
 							</div>
 							
@@ -706,6 +707,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	<%@ include file="/common/footer.jsp"%>		
 </div>
+	<script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
+
 	<script>
 	(function(){
 	    var bp = document.createElement('script');
@@ -719,6 +722,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    var s = document.getElementsByTagName("script")[0];
 	    s.parentNode.insertBefore(bp, s);
 	})();
+	
+	$(function(){
+		$('.image').viewer({toolbar:false, zIndex:20000});
+	});
 	</script>
 		
 </body>	
