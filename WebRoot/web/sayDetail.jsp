@@ -125,7 +125,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							</div>
 							<c:if test="${!empty say.image_big}">
 								<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-									<img src="${say.image_big}" class="img-responsive img-rounded image" alt="${say.content}" title="${say.player_name} - ${say.content}"/>
+									<img src="${say.image_big}" class="img-responsive img-rounded image" style="cursor:pointer;" alt="${say.content}" title="${say.player_name} - ${say.content}"/>
 								</div>
 							</c:if>
 						</div>
