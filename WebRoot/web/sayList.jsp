@@ -166,7 +166,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					      		&nbsp;<span title="球衣：${player.number}号"><img src="${player.cloth}" style="margin-top:-3px;" /> ${player.number}号</span>
 				      		</c:if>
 						</div>
-						<div class="col-lg-6 col-md-6" style="margin-top:10px;">用脚：${player.foot}</div>
+						<div class="col-lg-6 col-md-6" style="margin-top:10px;">惯用脚：<c:if test="${!(player.foot=='0' && empty player.foot)}">${player.foot}</c:if></div>
 						<div class="col-lg-6 col-md-6 team-title" style="margin-top:10px;font-size:14px;">效力球队：
 							<a href="team-${player.team_name_en}-${player.team_id}.html" target="_blank" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a>
 							
