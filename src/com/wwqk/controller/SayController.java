@@ -27,6 +27,10 @@ public class SayController extends Controller {
 	
 	public void list(){
 		String playerId = getPara("id");
+		int pageNumber = 1;
+		if(playerId.contains("_")){
+			pageNumber = Integer.valueOf(CommonUtils.getRewriteMatchKey(playerId));
+		}
 		playerId = CommonUtils.getRewriteId(playerId);
 		if(StringUtils.isBlank(playerId)){
 			redirect("/say");
@@ -39,10 +43,10 @@ public class SayController extends Controller {
 		setAttr("player", player);
 		
 		//说说
-		Page<Say> sayPage = Say.dao.paginate(getParaToInt("pageNumber", 1), 10, "and player_id = '"+playerId+"'");
+		Page<Say> sayPage = Say.dao.paginate(pageNumber, 10, "and player_id = '"+playerId+"'");
 		if(sayPage.getTotalRow()==0){
 			setAttr("NO_SAY", "1");
-			sayPage = Say.dao.paginate(getParaToInt("pageNumber", 1), 5, "AND EXISTS (SELECT * FROM team t, player p WHERE t.`id` = p.`team_id` AND p.id = say.player_id AND t.`league_id` = '"+player.getStr("league_id")+"')");
+			sayPage = Say.dao.paginate(pageNumber, 5, "AND EXISTS (SELECT * FROM team t, player p WHERE t.`id` = p.`team_id` AND p.id = say.player_id AND t.`league_id` = '"+player.getStr("league_id")+"')");
 		}
 		setAttr("leagueName", EnumUtils.getValue(LeagueEnum.values(), player.getStr("league_id")));
 		setAttr("sayPage", sayPage);

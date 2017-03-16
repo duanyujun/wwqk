@@ -284,6 +284,9 @@ public class CommonUtils {
 		}
 		if(rewriteId.contains("-")){
 			rewriteId = rewriteId.substring(rewriteId.lastIndexOf("-")+1);
+			if(rewriteId.contains("_")){
+				rewriteId = rewriteId.substring(0, rewriteId.indexOf("_"));
+			}
 		}
 		
 		if(!ValidateUtils.validateId(rewriteId)){

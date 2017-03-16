@@ -242,17 +242,17 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<c:if test="${sayPage.totalPage>1}">
 								<div class="col-lg-12 col-md-12 " style="margin-top:20px;">
 									<div class="scott pull-right">
-										<a href="/say?pageNumber=1" title="首页"> &lt;&lt; </a>
+										<a href="player-${player.en_url}-${player.id}_1.html" title="首页"> &lt;&lt; </a>
 										
 										<c:if test="${sayPage.pageNumber == 1}">
 											<span class="disabled"> &lt; </span>
 										</c:if>
 										<c:if test="${sayPage.pageNumber != 1}">
-											<a href="/say?pageNumber=${sayPage.pageNumber - 1}" > &lt; </a>
+											<a href="player-${player.en_url}-${player.id}_${sayPage.pageNumber - 1}.html" > &lt; </a>
 										</c:if>
 										<c:if test="${sayPage.pageNumber > 8}">
-											<a href="/say?pageNumber=1">1</a>
-											<a href="/say?pageNumber=2">2</a>
+											<a href="player-${player.en_url}-${player.id}_1.html">1</a>
+											<a href="player-${player.en_url}-${player.id}_2.html">2</a>
 											...
 										</c:if>
 										<c:if test="${!empty pageUI.list}">
@@ -261,24 +261,24 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 													<span class="current">${pageNo}</span>
 												</c:if>
 												<c:if test="${sayPage.pageNumber != pageNo }">
-													<a href="/say?pageNumber=${pageNo}">${pageNo}</a>
+													<a href="player-${player.en_url}-${player.id}_${pageNo}.html">${pageNo}</a>
 												</c:if>
 											</c:forEach>
 										</c:if>
 										<c:if test="${(sayPage.totalPage - sayPage.pageNumber) >= 8 }">
 											...
-											<a href="/say?pageNumber=${sayPage.totalPage - 1}">${sayPage.totalPage - 1}</a>
-											<a href="/say?pageNumber=${sayPage.totalPage}">${sayPage.totalPage}</a>
+											<a href="player-${player.en_url}-${player.id}_${sayPage.totalPage - 1}.html">${sayPage.totalPage - 1}</a>
+											<a href="player-${player.en_url}-${player.id}_${sayPage.totalPage}.html">${sayPage.totalPage}</a>
 										</c:if>
 										
 										<c:if test="${sayPage.pageNumber == sayPage.totalPage}">
 											<span class="disabled"> &gt; </span>
 										</c:if>
 										<c:if test="${sayPage.pageNumber != sayPage.totalPage}">
-											<a href="/say?pageNumber=${sayPage.pageNumber + 1}"> &gt; </a>
+											<a href="player-${player.en_url}-${player.id}_${sayPage.pageNumber + 1}.html"> &gt; </a>
 										</c:if>
 										
-										<a href="/say?pageNumber=${sayPage.totalPage}" title="尾页"> &gt;&gt; </a>
+										<a href="player-${player.en_url}-${player.id}_${sayPage.totalPage}.html" title="尾页"> &gt;&gt; </a>
 									</div>
 								</div>
 						</c:if>
