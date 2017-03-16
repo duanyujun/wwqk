@@ -206,8 +206,12 @@ public class ProductJob implements Job {
 	}
 
 	private void translateShooter(){
+		List<LeagueShooter163> lstUpdateShooter163 = new ArrayList<LeagueShooter163>();
 		List<LeagueShooter163> lstShooter = LeagueShooter163.dao.find("select * from league_shooter_163");
 		for(LeagueShooter163 shooter163:lstShooter){
+			if(StringUtils.isNotBlank(shooter163.getStr("player_id"))){
+				continue;
+			}
 			Player player = getSpecialNamePlayer(shooter163.getStr("player_url_163"));
 			if(player==null){
 				player = Player.dao.findFirst("select p.*, t.name team_name from player p, team t where p.team_id = t.id and p.name = ? and t.name = ?",
@@ -228,13 +232,20 @@ public class ProductJob implements Job {
 					shooter163.set("team_name", assists163.get("team_name"));
 				}
 			}
+			lstUpdateShooter163.add(shooter163);
 		}
-		Db.batchUpdate(lstShooter, lstShooter.size());
+		if(lstUpdateShooter163.size()>0){
+			Db.batchUpdate(lstUpdateShooter163, lstUpdateShooter163.size());
+		}
 	}
 	
 	private void translateAssists(){
+		List<LeagueAssists163> lstAssists163Update = new ArrayList<LeagueAssists163>();
 		List<LeagueAssists163> lstAssists = LeagueAssists163.dao.find("select * from league_assists_163");
 		for(LeagueAssists163 assists163:lstAssists){
+			if(StringUtils.isNotBlank(assists163.getStr("player_id"))){
+				continue;
+			}
 			Player player = getSpecialNamePlayer(assists163.getStr("player_url_163"));
 			if(player==null){
 				player = Player.dao.findFirst("select p.*, t.name team_name from player p, team t where p.team_id = t.id and p.name = ? and t.name = ?",
@@ -255,8 +266,11 @@ public class ProductJob implements Job {
 					assists163.set("team_name", shooter163.get("team_name"));
 				}
 			}
+			lstAssists163Update.add(assists163);
 		}
-		Db.batchUpdate(lstAssists, lstAssists.size());
+		if(lstAssists163Update.size()>0){
+			Db.batchUpdate(lstAssists163Update, lstAssists163Update.size());
+		}
 	}
 	
 	/**
