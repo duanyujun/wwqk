@@ -16,6 +16,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="description" content="趣点足球网为球迷们提供${team.name}球队相关的趣闻、${team.name}阵容数据、${team.name}比赛，${team.name}排名以及免费的足球直播。了解${team.name}，上趣点足球网。" />
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - ${team.name}|${leagueName}${team.name}球员|${team.name}直播|${team.name}数据|${team.name}比赛|${team.name}排名</title>
 </head>
 
@@ -63,7 +64,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 				</div>
 				<div class="col-sm-5 col-xs-5" style="margin-top:10px;">						
-					<img src="assets/image/soccer/teams/150x150/${team.id}.png"  class="img-responsive" alt="${team.name}" title="${team.name}"/>
+					<img src="assets/image/soccer/teams/150x150/${team.id}.png"  class="img-responsive image" alt="${team.name}" title="${team.name}"/>
 				</div>
 				<div class="col-sm-7 col-xs-7" style="color:grey;margin-top:10px;">	
 					${team.country}&nbsp;·&nbsp;${team.setup_time}年&nbsp;·&nbsp;<a href="${team.offical_site}" target="_blank"  title="查看${team.name}官网" style="color:grey;">官网</a>
@@ -198,7 +199,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 						<div class="row" style="margin-top:10px;">
 							<div class="col-lg-12 col-md-12">
-								<img src="${team.venue_small_img_local}" class="img-responsive img-rounded" style="width:300px;height:225px;" alt="${team.name}球场名称：${team.venue_name}" title="${team.name}球场名称：${team.venue_name}"/>
+								<img src="${team.venue_small_img_local}" class="img-responsive img-rounded image" style="width:300px;height:225px;cursor:pointer;" alt="${team.name}球场名称：${team.venue_name}" title="${team.name}球场名称：${team.venue_name}"/>
 							</div>
 							<div class="col-lg-12 col-md-12" style="margin-top:10px;">
 								球场名称：${team.venue_name}
@@ -414,6 +415,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<%@ include file="/common/footer.jsp"%>		
 	</div>
 	
+	<script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
+	
 	<script>
 	(function(){
 	    var bp = document.createElement('script');
@@ -428,7 +431,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    s.parentNode.insertBefore(bp, s);
 	})();
 	
+	$(function(){
+		$('.image').viewer({toolbar:false, zIndex:20000});
+	});
 	</script>
+	
+	
 		
 </body>	
 
