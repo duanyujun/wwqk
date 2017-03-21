@@ -66,6 +66,7 @@ html,body {margin: 0;padding:0;height: 100%;}
 
 .red_result{color:red;}
 .green_result{color:green;}
+.lose_result{color:#36F;}
 .dline{ padding-bottom:3px; border-bottom:2px solid #FFFFFF;color:#FFFFFF;} 
 .wwqk_menu{font-size:13px;font-weight:bold;}
 .wwqk_menu_wh{min-height:35px;line-height:35px;padding-left:0px;padding-right:0px;text-align:center}

@@ -47,10 +47,32 @@ public class MatchHistoryController extends Controller {
 		}
 		
 		Page<LeagueMatchHistory> matchPage = LeagueMatchHistory.dao.paginate(pageNumber, 50, whereSql);
+		setWinLoseColor(area, matchPage);
 		setAttr("matchPage", matchPage);
 		setAttr("pageUI", PageUtils.calcStartEnd(matchPage));
 		setAttr("area", area);
 		render("history.jsp");
+	}
+	
+	private void setWinLoseColor(String area, Page<LeagueMatchHistory> matchPage){
+		for(LeagueMatchHistory match : matchPage.getList()){
+			if(match.getStr("result").contains("-")){
+				String[] pointsArray = match.getStr("result").split("-");
+				if(match.getStr("home_team_name").equals(area)){
+					if(Integer.valueOf(pointsArray[0].trim())>Integer.valueOf(pointsArray[1].trim())){
+						match.set("home_team_name", "<span class='red_result'><b>"+match.getStr("home_team_name")+"</b></span>");
+					}else if(Integer.valueOf(pointsArray[0].trim())<Integer.valueOf(pointsArray[1].trim())){
+						match.set("home_team_name", "<span class='lose_result'><b>"+match.getStr("home_team_name")+"</b></span>");
+					}
+				}else if(match.getStr("away_team_name").equals(area)){
+					if(Integer.valueOf(pointsArray[0].trim())<Integer.valueOf(pointsArray[1].trim())){
+						match.set("away_team_name", "<span class='red_result'><b>"+match.getStr("away_team_name")+"</b></span>");
+					}else if(Integer.valueOf(pointsArray[0].trim())>Integer.valueOf(pointsArray[1].trim())){
+						match.set("away_team_name", "<span class='lose_result'><b>"+match.getStr("away_team_name")+"</b></span>");
+					}
+				}
+			}
+		}
 	}
 	
 }
