@@ -1,5 +1,8 @@
 package com.wwqk.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -13,21 +16,20 @@ public class LoginController extends Controller {
 	}
 
 	public void enter() {
-		String username = getPara("username");
-		String password = getPara("password1");
-		Subject currentUser = SecurityUtils.getSubject();
-		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-		try {
-			currentUser.login(token);
-			getSession().setAttribute("username", username);
-			if(getSession().getAttribute("loginError")!=null){
-				getSession().removeAttribute("loginError");
-			}
-		} catch (Exception e) {
-			// 登录失败
-			getSession().setAttribute("loginError", "loginError");
+		if(!login(getPara("username"), getPara("password1"))){
+			redirect("/login");
 		}
 		redirect("/home");
+	}
+	
+	public void iosLogin(){
+		Map<String, String> result = new HashMap<String, String>();
+		if(!login(getPara("username"), getPara("password"))){
+			result.put("success", "0");
+		}else{
+			result.put("success", "1");
+		}
+		renderJson(result);
 	}
 	
 	public void logout() {
@@ -38,4 +40,22 @@ public class LoginController extends Controller {
 		redirect("/home");
 	}
 	
+	private boolean login(String username, String password){
+		boolean isLogin = true;
+		Subject currentUser = SecurityUtils.getSubject();
+		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+		try {
+			currentUser.login(token);
+			getSession().setAttribute("username", username);
+			if(getSession().getAttribute("loginError")!=null){
+				getSession().removeAttribute("loginError");
+			}
+		} catch (Exception e) {
+			// 登录失败
+			isLogin = false;
+			getSession().setAttribute("loginError", "loginError");
+		}
+		
+		return isLogin;
+	}
 }
