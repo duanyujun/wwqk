@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -620,7 +621,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 	 * @return
 	 */
 	public static List<File> listDirs(String filePath) {
-		List<File> files = Lists.newArrayList();
+		List<File> files = new ArrayList<File>();
 		files.addAll(FileUtils.listFilesAndDirs(new File(filePath), FileFilterUtils.falseFileFilter(), FileFilterUtils.directoryFileFilter()));
 		return files;
 	}
@@ -631,7 +632,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 	 * @return
 	 */
 	public static List<File> listParents(File file, File toParent) {
-		List<File> files = Lists.newArrayList();
+		List<File> files = new ArrayList<File>();
 		_listParents(file.getParentFile(), toParent, files);
 		return files;
 	}

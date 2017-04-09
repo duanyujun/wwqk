@@ -202,7 +202,9 @@ public class AdminController extends Controller {
 	
 	public void saveSay(){
 		SayService.saveSay(this);
-		renderJson(1);
+		Map<String, String> result = new HashMap<String, String>();
+		result.put("success", "1");
+		renderJson(result);
 	}
 	
 	public void deleteSay(){
@@ -356,7 +358,7 @@ public class AdminController extends Controller {
 					
 					lstShooter.add(shooter);
 				}
-				updateShooter(league.get("id"), lstShooter);
+				updateShooter(league.getStr("id"), lstShooter);
 			}
 		}
 		
@@ -390,7 +392,7 @@ public class AdminController extends Controller {
 					assists.set("update_time", new Date());
 					lstAssists.add(assists);
 				}
-				updateAssists(league.get("id"), lstAssists);
+				updateAssists(league.getStr("id"), lstAssists);
 			}
 		}
 		
@@ -468,6 +470,11 @@ public class AdminController extends Controller {
 			MatchLive.dao.deleteById(id);
 		}
 		renderJson(1);
+	}
+	
+	public void allPlayerData(){
+		Map<Object, Object> map = PlayerService.allPlayerData();
+		renderJson(map);
 	}
 	
 }

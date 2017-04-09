@@ -31,7 +31,7 @@ public class PageUtils {
 		}
 		
 		if(startPage != endPage){
-			List<String> list = new ArrayList<>();
+			List<String> list = new ArrayList<String>();
 			for(int i=startPage; i<endPage+1; i++){
 				list.add(String.valueOf(i));
 			}

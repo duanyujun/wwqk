@@ -187,7 +187,7 @@ public class SyncShooterAssistsJob implements Job {
 				shooter163.set("team_name", player.get("team_name"));
 			}else{
 				LeagueAssists163 assists163 = LeagueAssists163.dao.findFirst("select * from league_assists_163 where player_name_163 = ? and team_name_163 = ? ", shooter163.get("player_name_163"), shooter163.get("team_name_163"));
-				if(assists163!=null && StringUtils.isNotBlank(assists163.get("player_id"))){
+				if(assists163!=null && StringUtils.isNotBlank(assists163.getStr("player_id"))){
 					shooter163.set("player_id", assists163.get("player_id"));
 					shooter163.set("player_name", assists163.get("player_name"));
 					shooter163.set("team_id", assists163.get("team_id"));
@@ -219,7 +219,7 @@ public class SyncShooterAssistsJob implements Job {
 				assists163.set("team_name", player.get("team_name"));
 			}else{
 				LeagueShooter163 shooter163 = LeagueShooter163.dao.findFirst("select * from league_shooter_163 where player_name_163 = ? and team_name_163 = ? ", assists163.get("player_name_163"), assists163.get("team_name_163"));
-				if(shooter163!=null && StringUtils.isNotBlank(shooter163.get("player_id"))){
+				if(shooter163!=null && StringUtils.isNotBlank(shooter163.getStr("player_id"))){
 					assists163.set("player_id", shooter163.get("player_id"));
 					assists163.set("player_name", shooter163.get("player_name"));
 					assists163.set("team_id", shooter163.get("team_id"));

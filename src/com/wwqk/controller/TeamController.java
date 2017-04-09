@@ -31,7 +31,7 @@ public class TeamController extends Controller {
 			for(Player player : lstPlayer){
 				if(groupMap.get(player.get("position"))==null){
 					List<Player> oneGroupList = new ArrayList<Player>();
-					groupMap.put(player.get("position"), oneGroupList);
+					groupMap.put(player.getStr("position"), oneGroupList);
 				}
 				groupMap.get(player.get("position")).add(player);
 			}

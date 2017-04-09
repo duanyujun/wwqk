@@ -45,11 +45,11 @@ public class ProductPlayerImageJob implements Job {
 					if(StringUtils.isNotBlank(img_small_local) && img_small_local.contains(CommonConstants.UPLOAD_FILE_FLAG)){
 						continue;
 					}
-					if(FlagMask.isEditable(player.get("edit_flag"), FlagMask.PLAYER_BIG_IMG_MASK)){
+					if(FlagMask.isEditable(player.getInt("edit_flag"), FlagMask.PLAYER_BIG_IMG_MASK)){
 						player.set("img_big_local", ImageUtils.getInstance().getImgName(imgStr));
 					}
 					String imgSmallStr = imgStr.replace("150x150", "50x50");
-					if(FlagMask.isEditable(player.get("edit_flag"), FlagMask.PLAYER_SMALL_IMG_MASK)){
+					if(FlagMask.isEditable(player.getInt("edit_flag"), FlagMask.PLAYER_SMALL_IMG_MASK)){
 						player.set("img_small_local", ImageUtils.getInstance().getImgName(imgSmallStr));
 					}
 					player.update();

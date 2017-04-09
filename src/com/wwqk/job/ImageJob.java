@@ -40,7 +40,7 @@ public class ImageJob implements Job {
 				team.set("team_img_local", ImageUtils.getInstance().getImgName(team.getStr("team_img")));
 			}
 			if(StringUtils.isNotBlank(team.getStr("venue_small_img"))){
-				if(FlagMask.isEditable(team.get("edit_flag"), FlagMask.TEAM_VENUE_IMG_MASK)){
+				if(FlagMask.isEditable(team.getInt("edit_flag"), FlagMask.TEAM_VENUE_IMG_MASK)){
 					team.set("venue_small_img_local", ImageUtils.getInstance().getImgName(team.getStr("venue_small_img")));
 				}
 			}
@@ -68,11 +68,11 @@ public class ImageJob implements Job {
 					if(StringUtils.isNotBlank(img_small_local) && img_small_local.contains(CommonConstants.UPLOAD_FILE_FLAG)){
 						continue;
 					}
-					if(FlagMask.isEditable(player.get("edit_flag"), FlagMask.PLAYER_BIG_IMG_MASK)){
+					if(FlagMask.isEditable(player.getInt("edit_flag"), FlagMask.PLAYER_BIG_IMG_MASK)){
 						player.set("img_big_local", ImageUtils.getInstance().getImgName(imgStr));
 					}
 					String imgSmallStr = imgStr.replace("150x150", "50x50");
-					if(FlagMask.isEditable(player.get("edit_flag"), FlagMask.PLAYER_SMALL_IMG_MASK)){
+					if(FlagMask.isEditable(player.getInt("edit_flag"), FlagMask.PLAYER_SMALL_IMG_MASK)){
 						player.set("img_small_local", ImageUtils.getInstance().getImgName(imgSmallStr));
 					}
 					player.update();

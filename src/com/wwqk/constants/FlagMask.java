@@ -69,8 +69,8 @@ public class FlagMask {
 	}
 	
 	public static void setModelFlag(Model<?> model, String param, String newValue, int mask){
-		if(StringUtils.isNotBlank(model.get(param)) && !model.get(param).equals(newValue)){
-			model.set("edit_flag", FlagMask.setEditFlag(model.get("edit_flag"), mask));
+		if(StringUtils.isNotBlank((String)model.get(param)) && !model.get(param).equals(newValue)){
+			model.set("edit_flag", FlagMask.setEditFlag(model.getInt("edit_flag"), mask));
 		}
 	}
 }

@@ -319,11 +319,11 @@ public class TeamJob implements Job {
 		Elements venueElements = document.select(".block_venue_info-wrapper");
 		if(venueElements.size()>0){
 			String venueName = venueElements.get(0).child(0).html();
-			if(FlagMask.isEditable(team.get("edit_flag"), FlagMask.TEAM_VENUE_NAME_MASK)){
+			if(FlagMask.isEditable(team.getInt("edit_flag"), FlagMask.TEAM_VENUE_NAME_MASK)){
 				team.set("venue_name", venueName);
 			}
 			team.set("venue_name_en", venueName);
-			if(FlagMask.isEditable(team.get("edit_flag"), FlagMask.TEAM_VENUE_CITY_MASK)){
+			if(FlagMask.isEditable(team.getInt("edit_flag"), FlagMask.TEAM_VENUE_CITY_MASK)){
 				team.set("venue_address", CommonUtils.matcherString(CommonUtils.getPatternByName("城市:"), venueContent));
 			}
 			

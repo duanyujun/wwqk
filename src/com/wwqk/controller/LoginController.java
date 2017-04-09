@@ -8,6 +8,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 
 import com.jfinal.core.Controller;
+import com.wwqk.utils.StringUtils;
 
 public class LoginController extends Controller {
 	
@@ -41,9 +42,12 @@ public class LoginController extends Controller {
 	}
 	
 	private boolean login(String username, String password){
+		if(StringUtils.isBlank(username) || StringUtils.isBlank(password)){
+			return false;
+		}
 		boolean isLogin = true;
 		Subject currentUser = SecurityUtils.getSubject();
-		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+		UsernamePasswordToken token = new UsernamePasswordToken(username, password.toLowerCase());
 		try {
 			currentUser.login(token);
 			getSession().setAttribute("username", username);

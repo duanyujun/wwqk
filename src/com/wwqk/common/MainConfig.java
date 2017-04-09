@@ -167,7 +167,7 @@ public class MainConfig extends JFinalConfig {
 	}
 	
 	public static void main(String[] args) {
-		JFinal.start("WebRoot", 99, "/", 5);
+		JFinal.start("WebRoot", 9999, "/", 5);
 	}
 
 }

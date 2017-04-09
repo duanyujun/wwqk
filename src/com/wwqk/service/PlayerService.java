@@ -190,4 +190,35 @@ public class PlayerService {
 		}
 	}
 	
+	public static Map<Object, Object>  allPlayerData(){
+		String sumSql = "select count(*) from player p, team t where p.team_id = t.id ";
+		String sql = "select p.id, p.name, t.name team_name from player p, team t where p.team_id = t.id ";
+		String orderSql = "";
+		String whereSql = "";
+		String limitSql = "";
+	
+		Long recordsTotal = Db.queryLong(sumSql+whereSql);
+		List<Player> lstPalyer = new ArrayList<Player>();
+		Object[] data = null;
+		if(recordsTotal!=0){
+			lstPalyer = Player.dao.find(sql+whereSql+orderSql+limitSql);
+			data = new Object[lstPalyer.size()];
+			for(int i=0; i<lstPalyer.size(); i++){
+				Object[] obj = new Object[3];
+				Player player = lstPalyer.get(i);
+				obj[0] = player.get("id");
+				obj[1] = player.get("name");
+				obj[2] = player.get("team_name");
+				data[i] = obj;
+			}
+		}
+		if(data==null){
+			data = new Object[0];
+		}
+		
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("data", data);
+		
+		return map;
+	}
 }
