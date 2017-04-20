@@ -18,7 +18,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
-    <title>趣点足球网 - ${say.player_name}的近况|${say.content}</title>
+    <title>趣点足球网 - ${say.player_name}的近况|${say.player_name}：${say.content}</title>
 </head>
 
 <body>
