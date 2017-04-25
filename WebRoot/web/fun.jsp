@@ -123,7 +123,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<div class="col-lg-4 col-md-4 content-title" style="padding-left:0px;">
 							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.title}" title="${fun.title}"/></a>
 					</div>
-					<div class="col-lg-8 col-md-8" style="padding-left:0px;">
+					<div class="col-lg-8 col-md-8" style="padding-left:8px;">
 						<div class="col-lg-12 col-md-12">
 							<span class="msg-title">
 								<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank" title="${fun.title}">${fun.title}</a>
@@ -198,6 +198,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				
 			</div>
 		</div>
+		
 	</div>
 	
 	<%@ include file="/common/footer.jsp"%>		
