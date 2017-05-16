@@ -172,7 +172,7 @@ function goDelete(){
                	if(o==true){
                		ids = ids.substring(0, ids.length-1);
            			$.post( "/admin/deleteShooter163",
-           					{ids, ids},
+           					{ids:ids},
            					function(result){
            						$('#main-content').load($('#urlHidden').val());
            						showToast(1, "删除成功！", "温馨提示");
