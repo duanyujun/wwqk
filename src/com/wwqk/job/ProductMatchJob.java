@@ -290,7 +290,6 @@ public class ProductMatchJob implements Job {
 						LeagueMatchHistory history = new LeagueMatchHistory();
 						history.set("round", tdElements.get(0).text());
 						history.set("match_date", DateTimeUtils.parseDate(tdElements.get(1).text(), DateTimeUtils.ISO_DATETIME_NOSEC_FORMAT_ARRAY));
-						history.set("status", tdElements.get(2).text());
 						history.set("home_team_id", nameIdMap.get(tdElements.get(3).text()));
 						history.set("home_team_name", tdElements.get(3).text());
 						history.set("away_team_id", nameIdMap.get(tdElements.get(5).text()));
@@ -298,10 +297,15 @@ public class ProductMatchJob implements Job {
 						history.set("home_team_en_name", nameENNameMap.get(tdElements.get(3).text()));
 						history.set("away_team_en_name", nameENNameMap.get(tdElements.get(5).text()));
 						
-						if(!tdElements.get(4).text().contains("-")){
-							history.set("result", tdElements.get(1).text().substring(tdElements.get(1).text().indexOf(" ")+1));
-						}else{
-							history.set("result", tdElements.get(4).text().replace("-", " - "));
+						LeagueMatchHistory historyDb = LeagueMatchHistory.dao.findFirst("select * from league_match_history where home_team_id=? and away_team_id=? and round=? and year=?",
+								nameIdMap.get(tdElements.get(3).text()), nameIdMap.get(tdElements.get(5).text()), tdElements.get(0).text(), source.getInt("year"));
+						if(historyDb==null || historyDb!=null && !"完场".equals(historyDb.get("status"))){
+							history.set("status", tdElements.get(2).text());
+							if(!tdElements.get(4).text().contains("-")){
+								history.set("result", tdElements.get(1).text().substring(tdElements.get(1).text().indexOf(" ")+1));
+							}else{
+								history.set("result", tdElements.get(4).text().replace("-", " - "));
+							}
 						}
 						history.set("league_id", source.getStr("league_id"));
 						history.set("league_name", EnumUtils.getValue(LeagueEnum.values(), source.getStr("league_id")));
