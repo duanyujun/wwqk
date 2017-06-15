@@ -27,14 +27,14 @@ public class ImageJob implements Job {
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		System.err.println("handle image start!!!");
 		handleTeamImage();
-		//handlePlayerImage();
+		handlePlayerImage();
 		//handleCoachImage();
-		//replaceEmptyImage();
+		replaceEmptyImage();
 		System.err.println("handle image end!!!");
 	}
 	
 	private void handleTeamImage(){
-		List<Team> lstTeam = Team.dao.find("select * from team where name='拉齐奥' or name='汉堡' or name='乌迪内斯' or name='沙尔克04' order by id+0 asc ");
+		List<Team> lstTeam = Team.dao.find("select * from team where league_id!='' order by id+0 asc ");
 		for(Team team : lstTeam){
 			if(StringUtils.isNotBlank(team.getStr("team_img"))){
 				team.set("team_img_local", ImageUtils.getInstance().getImgName(team.getStr("team_img")));
@@ -57,7 +57,7 @@ public class ImageJob implements Job {
 	}
 	
 	private void handlePlayerImage(){
-		List<Team> lstTeam = Team.dao.find("select * from team where NAME ='拉齐奥' OR NAME = '汉堡' OR NAME ='乌迪内斯' OR NAME = '沙尔克04' order by id+0 asc ");
+		List<Team> lstTeam = Team.dao.find("select * from team where league_id!='' order by id+0 asc ");
 		for(Team team : lstTeam){
 			List<Player> lstPlayers = Player.dao.find("select * from player where team_id = ? ", team.getStr("id"));
 			for(Player player : lstPlayers){

@@ -118,13 +118,13 @@ public class TeamJob implements Job {
 		updateTeamLeagueInfo(lstNeedInsert, lstNeedUpdate, leagueId);
 		
 		//最佳射手
-		handleBestShooter(document, leagueId, roundId);
+		//handleBestShooter(document, leagueId, roundId);
 		//助攻榜
 		//TODO
 		//排名
-		handleLeaguePosition(document, leagueId, roundId);
+		//handleLeaguePosition(document, leagueId, roundId);
 		//比赛
-		handleMatch(document, leagueId, roundId);
+		//handleMatch(document, leagueId, roundId);
 		
 		for(Entry<String, String> entry : map.entrySet()){
 			//获取球队信息

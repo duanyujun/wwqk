@@ -46,7 +46,7 @@ public class ProductTeamPlayerJob implements Job {
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		client = new DefaultHttpClient();  
-		List<Team> lstTeam = Team.dao.find("select * from team where league_id = 1 or league_id = 3 order by id+0 asc ");
+		List<Team> lstTeam = Team.dao.find("select * from team where league_id in (1,2,3,4,5) order by id+0 desc");
 		String htmlTeam = null;
 		System.err.println("handle player start!!!");
 		try {
