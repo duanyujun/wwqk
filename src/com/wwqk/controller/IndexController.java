@@ -53,6 +53,9 @@ public class IndexController extends Controller {
 				List<LeagueMatch> lstLeagueMatch = new ArrayList<LeagueMatch>();
 				leagueMatchMap.put(match.getStr("league_id"), lstLeagueMatch);
 			}
+			if(teamRankMap.get(match.getStr("home_team_id"))==null || teamRankMap.get(match.getStr("away_team_id"))==null){
+				continue;
+			}
 			int rankTotal = teamRankMap.get(match.getStr("home_team_id"))+teamRankMap.get(match.getStr("away_team_id"));
 			match.getAttrs().put("rankTotal", rankTotal);
 			leagueMatchMap.get(match.getStr("league_id")).add(match);
