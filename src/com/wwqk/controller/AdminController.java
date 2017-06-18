@@ -32,6 +32,7 @@ import com.wwqk.service.Assists163Service;
 import com.wwqk.service.FunService;
 import com.wwqk.service.LeagueService;
 import com.wwqk.service.MatchHistoryService;
+import com.wwqk.service.MatchService;
 import com.wwqk.service.PlayerService;
 import com.wwqk.service.SayService;
 import com.wwqk.service.Shooter163Service;
@@ -475,6 +476,35 @@ public class AdminController extends Controller {
 	public void allPlayerData(){
 		Map<Object, Object> map = PlayerService.allPlayerData();
 		renderJson(map);
+	}
+	
+	// 比赛列表
+	public void listMatch(){
+		render("admin/matchList.jsp");
+	}
+	
+	public void matchData(){
+		Map<Object, Object> map = MatchService.matchData(this);
+		renderJson(map);
+	}
+	
+	public void editMatch(){
+		String id = getPara("id");
+		if(id!=null){
+			LeagueMatchHistory matchHistory = LeagueMatchHistory.dao.findById(id);
+			setAttr("match", matchHistory);
+		}
+		
+		render("admin/matchForm.jsp");
+	}
+	
+	public void deleteMatch(){
+		renderJson(1);
+	}
+	
+	public void saveMatch(){
+		PlayerService.updatePlayer(this);
+		render("admin/matchList.jsp");
 	}
 	
 }
