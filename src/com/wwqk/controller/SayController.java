@@ -38,17 +38,26 @@ public class SayController extends Controller {
 		
 		Player player = Player.dao.findByIdWithTeamName(playerId);
 		if(player==null){
-			redirect("/say");
+			player = Player.dao.findById(playerId);
+			if(player==null){
+				redirect("/say");
+				return;
+			}
 		}
 		setAttr("player", player);
+		
 		
 		//说说
 		Page<Say> sayPage = Say.dao.paginate(pageNumber, 10, "and player_id = '"+playerId+"'");
 		if(sayPage.getTotalRow()==0){
-			setAttr("NO_SAY", "1");
-			sayPage = Say.dao.paginate(pageNumber, 5, "AND EXISTS (SELECT * FROM team t, player p WHERE t.`id` = p.`team_id` AND p.id = say.player_id AND t.`league_id` = '"+player.getStr("league_id")+"')");
+			if(StringUtils.isNotBlank(player.getStr("league_id"))){
+				setAttr("NO_SAY", "1");
+				sayPage = Say.dao.paginate(pageNumber, 5, "AND EXISTS (SELECT * FROM team t, player p WHERE t.`id` = p.`team_id` AND p.id = say.player_id AND t.`league_id` = '"+player.getStr("league_id")+"')");
+			}
 		}
-		setAttr("leagueName", EnumUtils.getValue(LeagueEnum.values(), player.getStr("league_id")));
+		if(StringUtils.isNotBlank(player.getStr("league_id"))){
+			setAttr("leagueName", EnumUtils.getValue(LeagueEnum.values(), player.getStr("league_id")));
+		}
 		setAttr("sayPage", sayPage);
 		setAttr("pageUI", PageUtils.calcStartEnd(sayPage));
 		setAttr("initCount", sayPage.getList().size());
