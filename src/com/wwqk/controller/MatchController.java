@@ -80,7 +80,7 @@ public class MatchController extends Controller {
 					homeAwayId.split("vs")[0], homeAwayId.split("vs")[1], matchDateStr);
 			if(leagueMatch!=null){
 				history = LeagueMatchHistory.dao.findFirst("select * from league_match_history where home_team_id = ? and away_team_id = ? and round = ? ", 
-						leagueMatch.getStr("home_team_id"), leagueMatch.getStr("away_team_id"), leagueMatch.getStr("round"));
+						leagueMatch.getStr("home_team_id"), leagueMatch.getStr("away_team_id"), leagueMatch.getInt("round"));
 				if(history!=null){
 					history.set("match_date", leagueMatch.getDate("match_date"));
 					history.set("match_weekday", leagueMatch.getStr("match_weekday"));
