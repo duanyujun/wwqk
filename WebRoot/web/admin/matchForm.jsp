@@ -23,6 +23,8 @@
     </div>
     <div class="portlet-body">
         <form class="form-horizontal" id="form" action="/admin/saveMatch" method="post">
+        	  <input type="hidden" id="info" name="info" value="" />
+        
 		      <div class="form-body">
 		      	  <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>比赛id：</label>
@@ -73,6 +75,15 @@
 		              <div class="col-md-3"><label for="name"></label></div>
 		          </div>
 		          
+		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>情报：</label>
+		              <div class="col-md-6">
+			              	<div id="div_content" style="height:400px;max-height:900px;">
+							    ${match.info}
+							</div>
+		              </div>
+		              <div class="col-md-3"><label for="info"></label></div>
+		          </div>
 		          
 		          <div class="form-group">
 			          <div class="col-md-offset-3 col-md-9">
@@ -99,6 +110,8 @@ $(document).ready(function() {
 	});
 });
 
+var editor = new wangEditor('div_content');
+editor.create();
 
 function cancel(){
 	$('#main-content').load($('#urlHidden').val());
@@ -117,6 +130,7 @@ $(function(){
    		success:showSuccess
     };
     $('#form').submit(function(){
+    	$("#info").val(editor.$txt.html());
         $(this).ajaxSubmit(options);
         return false;
     });

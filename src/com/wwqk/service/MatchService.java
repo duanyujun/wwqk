@@ -112,6 +112,7 @@ public class MatchService {
 		} catch (ParseException e) {
 			
 		}
+		match.set("info", controller.getPara("info"));
 		match.set("home_team_name", controller.getPara("home_team_name"));
 		match.set("away_team_name", controller.getPara("away_team_name"));
 		match.set("result", controller.getPara("result"));
