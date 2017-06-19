@@ -34,7 +34,7 @@
 		          <div class="form-group">
 		              <label class="col-md-3 control-label">比赛时间：</label>
 		              <div class="col-md-9" >
-				           <input type="text" id="match_date" class="form-control" name="match_date" onFocus="WdatePicker({el:'match_date',dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="${match.match_date}" placeholder="请输入比赛时间" style="width:180px;display:inline-block;"><img onclick="WdatePicker({el:'match_date',dateFmt:'yyyy-MM-dd HH:mm:ss'})" src="assets/image/page/cal_pick.png"  style="cursor:pointer; ">
+				           <input type="text" id="match_date" class="form-control" name="match_date" maxlength="19" onFocus="WdatePicker({el:'match_date',dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="${match.match_date}" placeholder="请输入比赛时间" style="width:180px;display:inline-block;"><img onclick="WdatePicker({el:'match_date',dateFmt:'yyyy-MM-dd HH:mm:ss'})" src="assets/image/page/cal_pick.png"  style="cursor:pointer; ">
 		              </div>
 		          </div>
 		          <div class="form-group">
@@ -59,7 +59,7 @@
 		              <div class="col-md-3"><label for="name"></label></div>
 		          </div>
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>状态：</label>
+		              <label class="col-md-3 control-label"><font color="red">*</font>状态：（<span onclick="setMatchEnd();" style="cursor:pointer;color:green;font-weight:bold;">设置结束</span>）</label>
 		              <div class="col-md-6">
 		                  <input type="text" class="form-control" id="status" name="status" required value="${match.status}" placeholder="请输入状态">
 		              </div>
@@ -127,6 +127,8 @@ function showSuccess(data){
 	showToast(1, "保存成功！", "温馨提示");
 }
 
-
+function setMatchEnd(){
+	$("#status").val("完场");
+}
 </script>
 

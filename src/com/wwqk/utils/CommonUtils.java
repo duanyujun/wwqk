@@ -352,4 +352,11 @@ public class CommonUtils {
 		return 1;
 	}
 	
+	public static final String formatDateStr(String dateStr){
+		if(StringUtils.isNotBlank(dateStr) && dateStr.length()>19){
+			dateStr = dateStr.substring(0,19);
+		}
+		return dateStr;
+	}
+	
 }

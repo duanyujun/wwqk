@@ -503,7 +503,7 @@ public class AdminController extends Controller {
 	}
 	
 	public void saveMatch(){
-		PlayerService.updatePlayer(this);
+		MatchService.updateMatch(this);
 		render("admin/matchList.jsp");
 	}
 	

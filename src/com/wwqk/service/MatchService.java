@@ -11,6 +11,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wwqk.model.LeagueMatchHistory;
+import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.StringUtils;
 
@@ -96,7 +97,7 @@ public class MatchService {
 	}
 	
 	@Before(Tx.class)
-	public static void updateMatch(Controller controller) throws ParseException{
+	public static void updateMatch(Controller controller){
 		
 		String id = controller.getPara("id");
 		if(StringUtils.isBlank(id)){
@@ -105,7 +106,12 @@ public class MatchService {
 		
 		LeagueMatchHistory match = LeagueMatchHistory.dao.findById(id);
 		
-		match.set("match_date", DateTimeUtils.parseDate(controller.getPara("match_date"), DateTimeUtils.ISO_DATETIME_FORMAT_ARRAY));
+		try {
+			match.set("match_date", DateTimeUtils.parseDate(CommonUtils.formatDateStr(controller.getPara("match_date")), 
+					DateTimeUtils.ISO_DATETIME_FORMAT_ARRAY));
+		} catch (ParseException e) {
+			
+		}
 		match.set("home_team_name", controller.getPara("home_team_name"));
 		match.set("away_team_name", controller.getPara("away_team_name"));
 		match.set("result", controller.getPara("result"));

@@ -106,7 +106,7 @@ public class MainConfig extends JFinalConfig {
 		// TODO Auto-generated method stub
 		C3p0Plugin c3p0Plugin = new C3p0Plugin(PropKit.get("jdbcUrl"), PropKit.get("user"), PropKit.get("password"));
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(c3p0Plugin);
-		arp.setShowSql(true);
+		arp.setShowSql(false);
 		arp.addMapping("league", League.class);
 		arp.addMapping("team", Team.class);
 		arp.addMapping("player", Player.class);
@@ -143,7 +143,7 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("odds_ml", OddsML.class);
 		arp.addMapping("odds_bwin", OddsBwin.class);
 		
-		arp.addMapping("article", Article.class);
+		//arp.addMapping("article", Article.class);
 		
 		me.add(c3p0Plugin);
 		me.add(arp);
