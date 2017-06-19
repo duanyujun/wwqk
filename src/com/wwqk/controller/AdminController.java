@@ -37,6 +37,7 @@ import com.wwqk.service.PlayerService;
 import com.wwqk.service.SayService;
 import com.wwqk.service.Shooter163Service;
 import com.wwqk.service.TeamService;
+import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.StringUtils;
 
@@ -492,6 +493,7 @@ public class AdminController extends Controller {
 		String id = getPara("id");
 		if(id!=null){
 			LeagueMatchHistory matchHistory = LeagueMatchHistory.dao.findById(id);
+			matchHistory.set("match_date", DateTimeUtils.formatDateTime(matchHistory.getTimestamp("match_date")));
 			setAttr("match", matchHistory);
 		}
 		
@@ -499,7 +501,14 @@ public class AdminController extends Controller {
 	}
 	
 	public void deleteMatch(){
-		renderJson(1);
+		String ids = getPara("ids");
+		if(StringUtils.isNotBlank(ids)){
+			String whereSql = " where id in (" + ids +")";
+			Db.update("delete from league_match_history "+whereSql);
+			renderJson(1);
+		}else{
+			renderJson(0);
+		}
 	}
 	
 	public void saveMatch(){

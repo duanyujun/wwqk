@@ -21,7 +21,7 @@
                         <button id="sample_editable_1_new" onclick="goInsert();" class="btn sbold green"> 添加比赛
                             <i class="fa fa-plus"></i>
                         </button>
-                        <button id="deleteBtn" onclick="goDelete();" class="btn sbold red" style="margin-left:10px;display:none;"> 删除比赛
+                        <button id="deleteBtn" onclick="goDelete();" class="btn sbold red" style="margin-left:10px;"> 删除比赛
                             <i class="fa fa-trash"></i>
                         </button>
                     </div>
@@ -147,7 +147,7 @@ function goDelete(){
 	}else{
 		var ids = '';
 		$("input[class='checkboxes']:checked").each(function(){
-			ids += $(this).attr("data-id")+",";
+			ids += "'"+$(this).attr("data-id")+"',";
 		});
 		if(ids!=''){
 			 bootbox.setLocale("zh_CN");
