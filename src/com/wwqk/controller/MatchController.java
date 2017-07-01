@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jetty.util.StringUtil;
+
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Model;
 import com.wwqk.constants.LeagueENEnum;
@@ -101,6 +103,14 @@ public class MatchController extends Controller {
 		setAttr("lstOddsML", findOdds(history, OddsProviderEnum.ML.getKey()));
 		setAttr("lstOddsBwin", findOdds(history, OddsProviderEnum.BWIN.getKey()));
 		setStartEndOdds(history);
+		
+		
+		if(StringUtils.isNotBlank(history.getStr("team")) && "<p><br></p>".equals(history.getStr("team").trim())){
+			history.set("team", null);
+		}
+		if(StringUtils.isNotBlank(history.getStr("info")) && "<p><br></p>".equals(history.getStr("info").trim())){
+			history.set("info", null);
+		}
 		
 		Team homeTeam = Team.dao.findById(history.getStr("home_team_id"));
 		//Team awayTeam = Team.dao.findById(history.getStr("away_team_id"));

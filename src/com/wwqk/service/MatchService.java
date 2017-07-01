@@ -23,7 +23,7 @@ import com.wwqk.utils.StringUtils;
 public class MatchService {
 
 	public static Map<Object, Object> matchData(Controller controller){
-		String sumSql = "select count(*) from league_match_history ";
+		String sumSql = "select count(*) from league_match_history where 1 = 1 ";
 		String sql = "select * from league_match_history where 1 = 1 ";
 		String orderSql = "";
 		String whereSql = "";
@@ -113,6 +113,7 @@ public class MatchService {
 			
 		}
 		match.set("info", controller.getPara("info"));
+		match.set("team", controller.getPara("team"));
 		match.set("home_team_name", controller.getPara("home_team_name"));
 		match.set("away_team_name", controller.getPara("away_team_name"));
 		match.set("result", controller.getPara("result"));

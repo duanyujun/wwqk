@@ -24,6 +24,7 @@
     <div class="portlet-body">
         <form class="form-horizontal" id="form" action="/admin/saveMatch" method="post">
         	  <input type="hidden" id="info" name="info" value="" />
+        	  <input type="hidden" id="team" name="team" value="" />
         
 		      <div class="form-body">
 		      	  <div class="form-group">
@@ -78,8 +79,18 @@
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>情报：</label>
 		              <div class="col-md-6">
-			              	<div id="div_content" style="height:400px;max-height:900px;">
+			              	<div id="div_content" style="height:260px;max-height:900px;">
 							    ${match.info}
+							</div>
+		              </div>
+		              <div class="col-md-3"><label for="info"></label></div>
+		          </div>
+		          
+		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>阵容：</label>
+		              <div class="col-md-6">
+			              	<div id="div_team" style="height:260px;max-height:500px;">
+							    ${match.team}
 							</div>
 		              </div>
 		              <div class="col-md-3"><label for="info"></label></div>
@@ -113,6 +124,9 @@ $(document).ready(function() {
 var editor = new wangEditor('div_content');
 editor.create();
 
+var editor2 = new wangEditor('div_team');
+editor2.create();
+
 function cancel(){
 	$('#main-content').load($('#urlHidden').val());
 }
@@ -131,6 +145,7 @@ $(function(){
     };
     $('#form').submit(function(){
     	$("#info").val(editor.$txt.html());
+    	$("#team").val(editor2.$txt.html());
         $(this).ajaxSubmit(options);
         return false;
     });

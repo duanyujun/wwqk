@@ -126,6 +126,17 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:15px;">
 				<img src="${homeTeam.venue_small_img_local}" class="img-responsive img-rounded image"  alt="${homeTeam.name}球场名称：${homeTeam.venue_name}" title="${homeTeam.name}球场名称：${homeTeam.venue_name}"/>
 			</div>
+			<c:if test="${!empty history.team and history.team!=''}">
+				<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;">
+					【阵容】：${history.team}
+				</div>
+			</c:if>
+			<c:if test="${!empty history.info and history.info!=''}">
+				   <div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;">
+						【情报】：${history.info}
+					</div>
+			</c:if>
+			
 		</div>
 	    
 	    <!-- odds start -->
@@ -449,6 +460,17 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									【主队球场】：${homeTeam.venue_name} &nbsp;&nbsp;<span style="color:#888;">容量：${homeTeam.venue_capacity}人</span>
 									<img src="${homeTeam.venue_small_img_local}" style="margin-left:20px;cursor:pointer;" class="img-responsive img-rounded image"  alt="${homeTeam.name}球场名称：${homeTeam.venue_name}" title="${homeTeam.name}球场名称：${homeTeam.venue_name}"/>
 								</div>
+								<c:if test="${!empty history.team and history.team!=''}">
+									<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:30px;">
+										【阵容】：${history.team}
+									</div>
+								</c:if>
+								<c:if test="${!empty history.info and history.info!=''}">
+									   <div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:30px;">
+											【情报】：${history.info}
+										</div>
+								</c:if>
+								
 							</div>
 							
 						</div>
