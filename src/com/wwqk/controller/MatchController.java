@@ -105,19 +105,6 @@ public class MatchController extends Controller {
 		setStartEndOdds(history);
 		
 		
-		if(StringUtils.isNotBlank(history.getStr("team")) ){
-			String teamStr = history.getStr("team").replaceAll("\\s+", "");
-			if("<p><br></p>".equals(teamStr)){
-				history.set("team", null);
-			}
-		}
-		if(StringUtils.isNotBlank(history.getStr("info"))){
-			String teamStr = history.getStr("info").replaceAll("\\s+", "");
-			if("<p><br></p>".equals(teamStr)){
-				history.set("info", null);
-			}
-		}
-		
 		Team homeTeam = Team.dao.findById(history.getStr("home_team_id"));
 		//Team awayTeam = Team.dao.findById(history.getStr("away_team_id"));
 		setAttr("homeTeam", homeTeam);

@@ -12,8 +12,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta content="telephone=no" name="format-detection">
-	<meta name="keywords" content="${homeTeam.name}vs${history.away_team_name}直播,${history.away_team_name}vs${homeTeam.name}免费直播,${history.away_team_name}vs${homeTeam.name}在线直播,${history.away_team_name}vs${homeTeam.name}视频直播,${homeTeam.name}直播,${history.away_team_name}直播" />
-	<meta name="description" content='<fmt:formatDate value="${history.match_date}" pattern="yyyy年MM月dd日"/>${homeTeam.name}vs${history.away_team_name}直播,${homeTeam.name}vs${history.away_team_name}免费直播,${history.away_team_name}vs${homeTeam.name}直播,${homeTeam.name}直播,${history.away_team_name}直播,更多${leagueName}视频直播尽在趣点足球网' />
+	<meta name="keywords" content="${homeTeam.name}vs${history.away_team_name}直播,${history.away_team_name}vs${homeTeam.name}免费直播,${history.away_team_name}vs${homeTeam.name}在线直播,${history.away_team_name}vs${homeTeam.name}视频直播,${homeTeam.name}直播,${history.away_team_name}直播,<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 阵容 " />
+	<meta name="description" content='<fmt:formatDate value="${history.match_date}" pattern="yyyy年MM月dd日"/>${homeTeam.name}vs${history.away_team_name}直播,${homeTeam.name}vs${history.away_team_name}免费直播,${history.away_team_name}vs${homeTeam.name}直播,${homeTeam.name}直播,${history.away_team_name}直播,更多${leagueName}视频直播尽在趣点足球网,<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 阵容' />
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
@@ -23,7 +23,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     </style>
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
-    <title>${leagueName}${homeTeam.name}vs${history.away_team_name}直播|${homeTeam.name}vs${history.away_team_name}免费直播|${homeTeam.name}vs${history.away_team_name}直播信号|趣点足球网直播</title>
+    <title>${leagueName}${homeTeam.name}vs${history.away_team_name}直播|${homeTeam.name}vs${history.away_team_name}免费直播|${homeTeam.name}vs${history.away_team_name}直播信号|趣点足球网直播|<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 阵容|<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 情报</title>
 </head>
 
 <body>
@@ -127,13 +127,18 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<img src="${homeTeam.venue_small_img_local}" class="img-responsive img-rounded image"  alt="${homeTeam.name}球场名称：${homeTeam.venue_name}" title="${homeTeam.name}球场名称：${homeTeam.venue_name}"/>
 			</div>
 			<c:if test="${!empty history.team and history.team!=''}">
-				<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;">
+				<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 阵容">
 					【阵容】：${history.team}
 				</div>
 			</c:if>
 			<c:if test="${!empty history.info and history.info!=''}">
-				   <div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;">
+				   <div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 情报">
 						【情报】：${history.info}
+					</div>
+			</c:if>
+			<c:if test="${!empty history.analysis and history.analysis!=''}">
+				   <div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 统计">
+						【统计】：${history.analysis}
 					</div>
 			</c:if>
 			
@@ -177,7 +182,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									</thead>
 									<tbody>
 										<c:forEach items="${lstOddsWH}" var="odds">
-											<tr>
+											<tr title="${odds.league_name} <fmt:formatDate value="${odds.match_date_time}" pattern="yyyy-MM-dd HH:mm:ss"/> ${odds.home_team_name} vs ${odds.away_team_name} ${odds.result}">
 												<td><center>${odds.league_name}</center></td>
 												<td><center><fmt:formatDate value="${odds.match_date_time}" pattern="yyyy-MM-dd HH:mm:ss"/></center></td>
 												<td><center>${odds.odds_home_start}&nbsp;&nbsp;${odds.odds_draw_start}&nbsp;&nbsp;${odds.odds_away_start}</center></td>
@@ -461,13 +466,18 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									<img src="${homeTeam.venue_small_img_local}" style="margin-left:20px;cursor:pointer;" class="img-responsive img-rounded image"  alt="${homeTeam.name}球场名称：${homeTeam.venue_name}" title="${homeTeam.name}球场名称：${homeTeam.venue_name}"/>
 								</div>
 								<c:if test="${!empty history.team and history.team!=''}">
-									<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:30px;">
+									<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:20px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 阵容">
 										【阵容】：${history.team}
 									</div>
 								</c:if>
 								<c:if test="${!empty history.info and history.info!=''}">
-									   <div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:30px;">
+									   <div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:20px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 情报">
 											【情报】：${history.info}
+										</div>
+								</c:if>
+								<c:if test="${!empty history.analysis and history.analysis!=''}">
+									   <div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:20px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 统计">
+											【统计】：${history.analysis}
 										</div>
 								</c:if>
 								

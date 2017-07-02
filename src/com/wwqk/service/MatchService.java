@@ -112,8 +112,36 @@ public class MatchService {
 		} catch (ParseException e) {
 			
 		}
-		match.set("info", controller.getPara("info"));
-		match.set("team", controller.getPara("team"));
+		
+		if(StringUtils.isNotBlank(controller.getPara("analysis"))){
+			String analysisStr = controller.getPara("analysis").replaceAll("\\s+", "");
+			if("<p><br></p>".equals(analysisStr)){
+				match.set("analysis", null);
+			}else{
+				match.set("analysis", controller.getPara("analysis"));
+			}
+		}
+		
+		
+		if(StringUtils.isNotBlank(controller.getPara("info"))){
+			String infoStr = controller.getPara("info").replaceAll("\\s+", "");
+			if("<p><br></p>".equals(infoStr)){
+				match.set("info", null);
+			}else{
+				match.set("info", controller.getPara("info"));
+			}
+		}
+		
+		if(StringUtils.isNotBlank(controller.getPara("team"))){
+			String teamStr = controller.getPara("team").replaceAll("\\s+", "");
+			if("<p><br></p>".equals(teamStr)){
+				match.set("team", null);
+			}else{
+				match.set("team", controller.getPara("team"));
+			}
+		}
+		
+		
 		match.set("home_team_name", controller.getPara("home_team_name"));
 		match.set("away_team_name", controller.getPara("away_team_name"));
 		match.set("result", controller.getPara("result"));
