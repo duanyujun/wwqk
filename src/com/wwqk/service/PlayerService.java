@@ -135,6 +135,7 @@ public class PlayerService {
 		}
 		FlagMask.setModelFlag(player, "number", controller.getPara("number"), FlagMask.PLAYER_NUMBER_MASK);
 		
+		player.set("team_id", controller.getPara("team_id"));
 		
 		if(StringUtils.isNotBlank(controller.getPara("first_name"))){
 			player.set("first_name", controller.getPara("first_name"));

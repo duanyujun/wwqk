@@ -103,6 +103,13 @@
 		              <div class="col-md-3"><label for="number"></label></div>
 		          </div>
 		          <div class="form-group">
+		              <label class="col-md-3 control-label">球队ID：</label>
+		              <div class="col-md-6">
+		                  <input type="text" class="form-control" id="team_id" name="team_id" value="${player.team_id}" placeholder="请输入球队ID">
+		              </div>
+		              <div class="col-md-3"><label for="number"></label></div>
+		          </div>
+		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>球员小图片（50x50）：</label>
 		              <div class="col-md-6">
 		                  <input type="file" class="form-control" id="file_small" name="file_small" >
