@@ -54,7 +54,7 @@ public class TeamJob implements Job {
 //	    client = new DefaultHttpClient(new ThreadSafeClientConnManager(params, mgr.getSchemeRegistry()), params);  
 	    
 		System.err.println("handle team start!!!");
-		List<League> leagues = League.dao.find("select * from league");
+		List<League> leagues = League.dao.find("select * from league where id in (3,5)");
 		try {
 			for(League league : leagues){
 				handleTeamsUrl(league.getStr("league_url"), league.getStr("id"));

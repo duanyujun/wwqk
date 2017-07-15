@@ -29,7 +29,7 @@ public class ProductPlayerImageJob implements Job {
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		client = new DefaultHttpClient();  
 		handlePlayerImage();
-		handleCoachImage();
+		//handleCoachImage();
 		client.getConnectionManager().shutdown();
 	}
 	
