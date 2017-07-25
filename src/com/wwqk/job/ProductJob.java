@@ -67,7 +67,7 @@ public class ProductJob implements Job {
 		copyAssists();
 		
 		//替换默认图片
-		replaceEmptyImage();
+		//replaceEmptyImage();
 		
 		//生成网站地图
 		GeneratorUtils.generateSitemap();
@@ -294,7 +294,7 @@ public class ProductJob implements Job {
 	private void calcAge(){
 		String calcAge = "";
 		List<Player> lstNeedUpdate = new ArrayList<Player>();
-		List<Player> lstPlayer = Player.dao.find("select * from player");
+		List<Player> lstPlayer = Player.dao.find("SELECT * FROM player WHERE  DATE_FORMAT(birthday, '%m-%d') = DATE_FORMAT(NOW(), '%m-%d')");
 		for(Player player : lstPlayer){
 			if(player.getDate("birthday")==null){
 				continue;
