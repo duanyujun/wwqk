@@ -109,22 +109,6 @@
 		              </div>
 		              <div class="col-md-3"><label for="number"></label></div>
 		          </div>
-		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>球员小图片（50x50）：</label>
-		              <div class="col-md-6">
-		                  <input type="file" class="form-control" id="file_small" name="file_small" >
-		              </div>
-		              <div class="col-md-3"><label for="file_small"></label></div>
-		          </div>
-		          <c:if test="${!empty player.img_small_local}">
-		          	<div class="form-group">
-			              <label class="col-md-3 control-label"></label>
-			              <div class="col-md-6">
-			                  <img src="${player.img_small_local}" />
-			              </div>
-			              <div class="col-md-3"><label for="img_small_local"></label></div>
-			          </div>
-		          </c:if>
 		          
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>球员大图片（150x150）：</label>
@@ -140,6 +124,23 @@
 			                  <img src="${player.img_big_local}" />
 			              </div>
 			              <div class="col-md-3"><label for="img_big_local"></label></div>
+			          </div>
+		          </c:if>
+		          
+		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>球员小图片（50x50）：</label>
+		              <div class="col-md-6">
+		                  <input type="file" class="form-control" id="file_small" name="file_small" >
+		              </div>
+		              <div class="col-md-3"><label for="file_small"></label></div>
+		          </div>
+		          <c:if test="${!empty player.img_small_local}">
+		          	<div class="form-group">
+			              <label class="col-md-3 control-label"></label>
+			              <div class="col-md-6">
+			                  <img src="${player.img_small_local}" />
+			              </div>
+			              <div class="col-md-3"><label for="img_small_local"></label></div>
 			          </div>
 		          </c:if>
 		          

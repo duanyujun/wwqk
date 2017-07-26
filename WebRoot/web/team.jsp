@@ -94,7 +94,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  	<c:set var="i" value="1"/>
 						  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
 							<c:forEach items="${group}" var="player">
-								<td style="width:50px;border:none;"><a href="player-${player.en_url}-${player.id}.html" target="_self"><img src="${player.img_small_local}" alt="${player.name}" title="${player.name}"/></a></td>
+								<td style="width:50px;border:none;"><a href="player-${player.en_url}-${player.id}.html" target="_self"><img src="${player.img_small_local}" alt="${player.name}" title="${player.name}" style="width:50px;"/></a></td>
 						      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:12px;">
 						      		<p style="margin-top:2px;">
 						      		<a href="player-${player.en_url}-${player.id}.html" target="_self">${player.name}</a>
@@ -254,7 +254,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										  	<c:set var="i" value="1"/>
 										  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
 											<c:forEach items="${group}" var="player">
-												<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}"/></td>
+												<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}" style="width:50px;"/></td>
 										      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:13px;color:grey;">
 										      		<p>
 										      		<a href="player-${player.en_url}-${player.id}.html" target="_blank">${player.name}</a>&nbsp;&nbsp;
@@ -303,7 +303,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										  	<c:set var="i" value="1"/>
 										  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
 											<c:forEach items="${group}" var="player">
-												<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}" title="${player.name}"/></td>
+												<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}" title="${player.name}" style="width:50px;"/></td>
 										      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:13px;">
 										      		<p>
 										      		<a href="say/list?id=${player.id}" target="_blank">${player.name}</a>
