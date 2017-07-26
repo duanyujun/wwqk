@@ -45,6 +45,9 @@ public class TeamController extends Controller {
 		}
 		
 		Team team = Team.dao.findById(teamId);
+		if(StringUtils.isBlank(team.getStr("venue_img_local"))){
+			team.set("venue_img_local", team.getStr("venue_small_img_local"));
+		}
 		setAttr("team", team);
 		
 		//最近五场比赛

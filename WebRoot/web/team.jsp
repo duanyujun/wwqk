@@ -199,7 +199,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 						<div class="row" style="margin-top:10px;">
 							<div class="col-lg-12 col-md-12">
-								<img src="${team.venue_small_img_local}" class="img-responsive img-rounded image" style="width:300px;height:225px;cursor:pointer;" alt="${team.name}球场名称：${team.venue_name}" title="${team.name}球场名称：${team.venue_name}"/>
+								<img src="${team.venue_small_img_local}" big="${team.venue_img_local}" class="img-responsive img-rounded venue" style="width:300px;height:225px;cursor:pointer;" alt="${team.name}球场名称：${team.venue_name}" title="${team.name}球场名称：${team.venue_name}"/>
 							</div>
 							<div class="col-lg-12 col-md-12" style="margin-top:10px;">
 								球场名称：${team.venue_name}
@@ -433,6 +433,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	$(function(){
 		$('.image').viewer({toolbar:false, zIndex:20000});
+		$('.venue').viewer({toolbar:false, zIndex:20000, url:"big"});
 	});
 	</script>
 	
