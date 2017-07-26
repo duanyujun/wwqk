@@ -25,6 +25,7 @@ public class SayService {
 		
 		String search = controller.getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
+			search = search.trim();
 			whereSql = " where (player_id like '%"+search+"%'"+" OR player_name like '%"+search+"%'"+" OR content like '%"+search+"%' )";
 		}
 		

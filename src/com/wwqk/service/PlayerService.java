@@ -31,6 +31,7 @@ public class PlayerService {
 		
 		String search = controller.getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
+			search = search.trim();
 			whereSql = " and (p.name like '%"+search+"%'"+" OR t.name like '%"+search+"%'"+" OR p.first_name like '%"+search+"%'"+" OR p.last_name like '%"+search+"%'"+" OR p.nationality like '%"+search+"%' )";
 		}
 		

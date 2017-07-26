@@ -20,6 +20,7 @@ public class TeamService {
 		
 		String search = controller.getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
+			search = search.trim();
 			whereSql = " and (t.name like '%"+search+"%'"+" OR t.name_en like '%"+search+"%'"+" OR l.name like '%"+search+"%' )";
 		}
 		

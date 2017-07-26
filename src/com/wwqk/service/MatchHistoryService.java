@@ -21,6 +21,7 @@ public class MatchHistoryService {
 		
 		String search = controller.getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
+			search = search.trim();
 			whereSql = " and ( home_team_name like '%"+search+"%'"+" OR away_team_name like '%"+search+"%') ";
 		}
 		

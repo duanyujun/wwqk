@@ -22,6 +22,7 @@ public class Shooter163Service {
 		
 		String search = controller.getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
+			search = search.trim();
 			whereSql = " where (player_name_163 like '%"+search+"%'"+" OR team_name_163 like '%"+search+"%'"+" )";
 		}
 		
