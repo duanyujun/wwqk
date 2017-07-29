@@ -58,7 +58,7 @@ public class NewSeasonPlayerJob implements Job {
 	
 	private void updatePlayers(){
 		client = new DefaultHttpClient();  
-		List<Team> lstTeam = Team.dao.find("select * from team where league_id in (2) order by id+0 desc");
+		List<Team> lstTeam = Team.dao.find("select * from team where league_id in (4) order by id+0 desc");
 		String htmlTeam = null;
 		
 		try {

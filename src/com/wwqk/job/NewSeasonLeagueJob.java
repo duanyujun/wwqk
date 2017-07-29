@@ -1,9 +1,5 @@
 package com.wwqk.job;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,8 +7,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -58,7 +54,7 @@ public class NewSeasonLeagueJob implements Job {
 
 	private void updateTeamsInLeague(){
 		client = new DefaultHttpClient(); 
-		List<League> leagues = League.dao.find("select * from league where id in (2)");
+		List<League> leagues = League.dao.find("select * from league where id in (4)");
 		try {
 			for(League league : leagues){
 				updateAllTeams(league.getStr("league_url"), league.getStr("id"));
