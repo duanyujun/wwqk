@@ -173,6 +173,9 @@ $(function(){
 	};
 	
 	$('#login-form').submit(function(){
+		if($("#password").val()=='' || $("#username").val()==''){
+			return false;
+		}
 		if($("#password").val()!=''){
 			var password = md5($("#password").val());
 			$("#password1").val(password);
