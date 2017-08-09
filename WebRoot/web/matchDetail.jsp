@@ -408,7 +408,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-12 col-md-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;font-size:16px;">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;font-size:14px;">
 						<div class="well well-lg" style="line-height:2;text-indent:20px;">
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -463,7 +463,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									【主队球场】：${homeTeam.venue_name} &nbsp;&nbsp;<span style="color:#888;">容量：${homeTeam.venue_capacity}人</span>
-									<img src="${homeTeam.venue_small_img_local}" style="margin-left:20px;cursor:pointer;" class="img-responsive img-rounded image"  alt="${homeTeam.name}球场名称：${homeTeam.venue_name}" title="${homeTeam.name}球场名称：${homeTeam.venue_name}"/>
+									<img src="${homeTeam.venue_small_img_local}" big="${homeTeam.venue_img_local}" style="margin-left:20px;cursor:pointer;" class="img-responsive img-rounded venue"  alt="${homeTeam.name}球场名称：${homeTeam.venue_name}" title="${homeTeam.name}球场名称：${homeTeam.venue_name}"/>
 								</div>
 								<c:if test="${!empty history.team and history.team!=''}">
 									<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:20px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 阵容">
@@ -757,6 +757,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	$(function(){
 		$('.image').viewer({toolbar:false, zIndex:20000});
+		$('.venue').viewer({toolbar:false, zIndex:20000, url:"big"});
 	});
 	</script>
 		
