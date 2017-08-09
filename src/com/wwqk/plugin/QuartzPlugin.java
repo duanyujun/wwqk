@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 import com.jfinal.plugin.IPlugin;
 
 /**
- * QuartzPluginÊµÏÖ×÷Òµµ÷¶È
+ * QuartzPluginÊµï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½
  *
  */
 public class QuartzPlugin implements IPlugin {
@@ -65,9 +65,9 @@ public class QuartzPlugin implements IPlugin {
 				throw new RuntimeException(e);
 			}
 			JobDetail job = newJob(clazz).withIdentity(jobClassName,
-					jobClassName).build();
+					key).build();
 			CronTrigger trigger = newTrigger()
-					.withIdentity(jobClassName, jobClassName)
+					.withIdentity(jobClassName, key)
 					.withSchedule(cronSchedule(jobCronExp)).build();
 			Date ft = null;
 			try {
@@ -111,7 +111,7 @@ public class QuartzPlugin implements IPlugin {
 	public static void main(String[] args) {
 		QuartzPlugin plugin = new QuartzPlugin();
 		plugin.start();
-		System.out.println("Ö´ÐÐ³É¹¦£¡£¡£¡");
+		System.out.println("Ö´ï¿½Ð³É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 
 	}
 
