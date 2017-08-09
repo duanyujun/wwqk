@@ -97,18 +97,17 @@ public class MatchController extends Controller {
 			}
 		}
 		
-		setAttr("lstOddsWH", findOdds(history, OddsProviderEnum.WH.getKey()));
-		setAttr("lstOddsBet365", findOdds(history, OddsProviderEnum.BET365.getKey()));
-		setAttr("lstOddsLB", findOdds(history, OddsProviderEnum.LB.getKey()));
-		setAttr("lstOddsML", findOdds(history, OddsProviderEnum.ML.getKey()));
-		setAttr("lstOddsBwin", findOdds(history, OddsProviderEnum.BWIN.getKey()));
-		setStartEndOdds(history);
-		
+		if(history!=null){
+			setAttr("lstOddsWH", findOdds(history, OddsProviderEnum.WH.getKey()));
+			setAttr("lstOddsBet365", findOdds(history, OddsProviderEnum.BET365.getKey()));
+			setAttr("lstOddsLB", findOdds(history, OddsProviderEnum.LB.getKey()));
+			setAttr("lstOddsML", findOdds(history, OddsProviderEnum.ML.getKey()));
+			setAttr("lstOddsBwin", findOdds(history, OddsProviderEnum.BWIN.getKey()));
+			setStartEndOdds(history);
+		}
 		
 		Team homeTeam = Team.dao.findById(history.getStr("home_team_id"));
-		//Team awayTeam = Team.dao.findById(history.getStr("away_team_id"));
 		setAttr("homeTeam", homeTeam);
-		//setAttr("awayTeam", awayTeam);
 		setAttr("history", history);
 		setAttr("leagueName", EnumUtils.getValue(LeagueEnum.values(), homeTeam.getStr("league_id")));
 		setAttr("leagueENName", EnumUtils.getValue(LeagueENEnum.values(), homeTeam.getStr("league_id")));
