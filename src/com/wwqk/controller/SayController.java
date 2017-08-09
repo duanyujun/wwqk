@@ -44,8 +44,8 @@ public class SayController extends Controller {
 				return;
 			}
 		}
+		setAttr("enname", player.getStr("en_url").replaceAll("-", " "));
 		setAttr("player", player);
-		
 		
 		//说说
 		Page<Say> sayPage = Say.dao.paginate(pageNumber, 10, "and player_id = '"+playerId+"'");
