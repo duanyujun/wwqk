@@ -54,6 +54,7 @@ public class ProductMatchJob implements Job {
 			nameENNameMap.put(team.getStr("name"), team.getStr("name_en"));
 		}
 		nameIdMap.put("西布朗", "678");
+		nameIdMap.put("不莱梅", "960");
 	}
 	
 	@Override
