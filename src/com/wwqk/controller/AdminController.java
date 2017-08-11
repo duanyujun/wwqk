@@ -137,11 +137,13 @@ public class AdminController extends Controller {
 		String venue_address = getPara("venue_address");
 		FlagMask.setModelFlag(team, "venue_address", venue_address, FlagMask.TEAM_VENUE_CITY_MASK);
 		
+		
 		team.set("name", name);
 		team.set("setup_time", setup_time);
 		team.set("venue_name", venue_name);
 		team.set("venue_address", venue_address);
 		team.set("team_url", team_url);
+		team.set("offical_site", getPara("offical_site"));
 		
 		team.update();
 		

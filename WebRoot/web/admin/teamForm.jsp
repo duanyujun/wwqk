@@ -97,6 +97,14 @@
 		          </div>
 		          
 		          <div class="form-group">
+		              <label class="col-md-3 control-label">官网链接：</label>
+		              <div class="col-md-6">
+		                  <input type="text" class="form-control" name="offical_site" value="${team.offical_site}"  placeholder="请输入官网链接">
+		              </div>
+		              <div class="col-md-3"><label for="team_url"></label></div>
+		          </div>
+		          
+		          <div class="form-group">
 			          <div class="col-md-offset-3 col-md-9">
 	                      <button type="button" class="btn green" onclick="save();">保 存</button>
 	                      <button type="button" class="btn default" onclick="cancel();" style="margin-left:10px;">取 消</button>
