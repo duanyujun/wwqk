@@ -62,23 +62,34 @@ public class IndexController extends Controller {
 		}
 		//英超
 		String[] plArray = {"661","675","676","663","660","662"};
-		for(LeagueMatch chooseMatch:getMostAttentionMatch(plArray,leagueMatchMap.get(LeagueEnum.YC.getKey()),LeagueEnum.YC.getKey())){
-			lstResult.add(chooseMatch);
+		if(leagueMatchMap.get(LeagueEnum.YC.getKey())!=null){
+			for(LeagueMatch chooseMatch:getMostAttentionMatch(plArray,leagueMatchMap.get(LeagueEnum.YC.getKey()),LeagueEnum.YC.getKey())){
+				lstResult.add(chooseMatch);
+			}
 		}
+		
 		//西甲
 		String[] pdArray = {"2017","2016","2020"};
-		for(LeagueMatch chooseMatch:getMostAttentionMatch(pdArray,leagueMatchMap.get(LeagueEnum.XJ.getKey()),LeagueEnum.XJ.getKey())){
-			lstResult.add(chooseMatch);
+		if(leagueMatchMap.get(LeagueEnum.XJ.getKey())!=null){
+			for(LeagueMatch chooseMatch:getMostAttentionMatch(pdArray,leagueMatchMap.get(LeagueEnum.XJ.getKey()),LeagueEnum.XJ.getKey())){
+				lstResult.add(chooseMatch);
+			}
 		}
+		
 		//德甲
 		String[] blArray = {"961","964","13410"};
-		for(LeagueMatch chooseMatch:getMostAttentionMatch(blArray,leagueMatchMap.get(LeagueEnum.DJ.getKey()),LeagueEnum.DJ.getKey())){
-			lstResult.add(chooseMatch);
+		if(leagueMatchMap.get(LeagueEnum.DJ.getKey())!=null){
+			for(LeagueMatch chooseMatch:getMostAttentionMatch(blArray,leagueMatchMap.get(LeagueEnum.DJ.getKey()),LeagueEnum.DJ.getKey())){
+				lstResult.add(chooseMatch);
+			}
 		}
+		
 		//意甲
 		String[] saArray = {"1242","1270","1241","1244","1240"};
-		for(LeagueMatch chooseMatch:getMostAttentionMatch(saArray,leagueMatchMap.get(LeagueEnum.YJ.getKey()),LeagueEnum.YJ.getKey())){
-			lstResult.add(chooseMatch);
+		if(leagueMatchMap.get(LeagueEnum.YJ.getKey())!=null){
+			for(LeagueMatch chooseMatch:getMostAttentionMatch(saArray,leagueMatchMap.get(LeagueEnum.YJ.getKey()),LeagueEnum.YJ.getKey())){
+				lstResult.add(chooseMatch);
+			}
 		}
 		
 		setAttr("lstRecomMatches", lstResult);

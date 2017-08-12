@@ -5,9 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.eclipse.jetty.util.StringUtil;
-
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Model;
 import com.wwqk.constants.LeagueENEnum;
