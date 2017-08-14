@@ -1,6 +1,5 @@
 package com.wwqk.utils;
 
-import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,6 +7,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class AnalyzeUtils {
@@ -42,6 +42,28 @@ public class AnalyzeUtils {
 			String oddsHtml = MatchUtils.getHtmlContent(httpClient, MAIN_SITE+oddsLink, 
 					"http://www.okooo.com/soccer/match/"+matchId+"/odds/ajax/?page=0&trnum=0&companytype=BaijiaBooks&type=1");
 			System.err.println(oddsHtml);
+			
+			Document oddsDoc = Jsoup.parse("<html><head></head><body><table><tbody>"+oddsHtml+"</tbody></table></body></html>");
+			Elements trs = oddsDoc.select("tr");
+			for(Element tr:trs){
+				Elements cks = tr.select("input");
+				if(cks.size()>0){
+					String pid = cks.get(0).val();
+					Elements oddsTds = trs.select("td");
+					String startHomeOdds = oddsTds.get(2).text();
+					String startDrawOdds = oddsTds.get(3).text();
+					String startAwayOdds = oddsTds.get(4).text();
+					
+					String endHomeOdds = oddsTds.get(5).text();
+					String endDrawOdds = oddsTds.get(6).text();
+					String endAwayOdds = oddsTds.get(7).text();
+					
+					
+					
+				}
+			}
+			
+			
 		}
 	}
 	
