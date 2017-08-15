@@ -21,6 +21,9 @@
                         <button id="deleteBtn" onclick="updateMatches();" class="btn sbold green" style="margin-left:10px;"> 更新比赛
                             <i class="fa fa-cog"></i>
                         </button>
+                        <button id="syncShooterAssistsBtn" onclick="syncShooterAssister();" class="btn sbold green" style="margin-left:10px;"> 同步射手助攻
+                            <i class="fa fa-cog"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -34,22 +37,20 @@
 
 <script type="text/javascript">
 
-
-function goInsert(id){
-	var url = "/admin/editSay";
-	if(id){
-		var timestamp=new Date().getTime();
-		url = url + "?id="+id+"&t="+timestamp;
-	}
-	$('#main-content').load(url);
-}
-
 function updateMatches(){
 	showToast(1, "更新中...", "温馨提示");
-	
 	$.post("/admin/handUpdateMatches",
 				function(result){
 					showToast(1, "更新成功！", "温馨提示");
+				}
+	);
+}
+
+function syncShooterAssister(){
+	showToast(1, "同步中...", "温馨提示");
+	$.post("/admin/syncShooterAssister",
+				function(result){
+					showToast(1, "同步成功！", "温馨提示");
 				}
 	);
 }

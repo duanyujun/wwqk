@@ -29,6 +29,7 @@ import com.wwqk.model.Player;
 import com.wwqk.model.Say;
 import com.wwqk.model.Team;
 import com.wwqk.plugin.MatchSina;
+import com.wwqk.plugin.ShooterAssister163;
 import com.wwqk.service.Assists163Service;
 import com.wwqk.service.FunService;
 import com.wwqk.service.LeagueService;
@@ -528,6 +529,11 @@ public class AdminController extends Controller {
 	public void handUpdateMatches(){
 		CommonUtils.initNameIdMap();
 		MatchSina.archiveMatch(CommonUtils.nameIdMap, CommonUtils.nameENNameMap);
+		renderJson(1);
+	}
+	
+	public void syncShooterAssister(){
+		ShooterAssister163.syncAll();
 		renderJson(1);
 	}
 }
