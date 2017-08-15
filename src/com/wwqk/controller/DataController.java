@@ -26,10 +26,10 @@ public class DataController extends Controller {
 		List<LeaguePosition> positionList = LeaguePosition.dao.find("select * from league_position where league_id = ? ORDER BY rank ASC ", leagueId);
 		setAttr("positionList", positionList);
 		
-		List<LeagueShooter> shooterList = LeagueShooter.dao.find("select * from league_shooter where league_id = ? ORDER BY goal_count desc, penalty_count asc ", leagueId);
+		List<LeagueShooter> shooterList = LeagueShooter.dao.find("select * from league_shooter where league_id = ? and goal_count!=0 ORDER BY goal_count desc, penalty_count asc ", leagueId);
 		setAttr("shooterList", shooterList);
 		
-		List<LeagueAssists> assistsList = LeagueAssists.dao.find("select * from league_assists where league_id = ? ORDER BY rank ASC ", leagueId);
+		List<LeagueAssists> assistsList = LeagueAssists.dao.find("select * from league_assists where league_id = ? and assists_count!=0 ORDER BY rank ASC ", leagueId);
 		setAttr("assistsList", assistsList);
 		
 		render("data.jsp");
