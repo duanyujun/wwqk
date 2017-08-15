@@ -51,7 +51,7 @@ public class TeamController extends Controller {
 		setAttr("team", team);
 		
 		//最近五场比赛
-		List<LeagueMatchHistory> lstMatchHistory = LeagueMatchHistory.dao.find("select * from league_match_history where home_team_id = ? or away_team_id = ? order by round desc limit 0,5 ", teamId, teamId);
+		List<LeagueMatchHistory> lstMatchHistory = LeagueMatchHistory.dao.find("select * from league_match_history where home_team_id = ? or away_team_id = ? order by year desc,round desc,match_date desc limit 0,5 ", teamId, teamId);
 		setAttr("lstMatchHistory", lstMatchHistory);
 		
 		//衣服是否需要背景色
