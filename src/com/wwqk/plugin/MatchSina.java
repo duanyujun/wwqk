@@ -116,14 +116,14 @@ public class MatchSina {
 					if(historyDb==null){
 						history.set("status", EnumUtils.getValue(SinaMatchStatusEnum.values(), object.getString("match_status")));
 						if(SinaMatchStatusEnum.UNSTART.getKey().equals(object.getString("match_status"))){
-							history.set("result", object.getString("date")+" "+object.getString("time"));
+							history.set("result", object.getString("time"));
 						}else{
 							history.set("result", object.getString("Score1")+" - "+object.getString("Score2"));
 						}
 					}else if(historyDb!=null){
 						if(!SinaMatchStatusEnum.END.getKey().equals(historyDb.get("status"))){
 							if(SinaMatchStatusEnum.UNSTART.getKey().equals(object.getString("match_status"))){
-								history.set("result", object.getString("date")+" "+object.getString("time"));
+								history.set("result", object.getString("time"));
 							}else{
 								history.set("result", object.getString("Score1")+" - "+object.getString("Score2"));
 							}
