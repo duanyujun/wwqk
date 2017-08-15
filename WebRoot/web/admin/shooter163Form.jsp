@@ -27,7 +27,7 @@
         	  <input type="hidden" name="id" value="${shooter163.id}" />
 		      <div class="form-body">
 		          <div class="form-group">
-		              <label class="col-md-3 control-label"><font color="red">*</font>球员名称（163）：</label>
+		              <label class="col-md-3 control-label"><font color="red">*</font><a href="http://goal.sports.163.com${shooter163.player_url_163}" target="_blank">球员名称（163）</a>：</label>
 		              <div class="col-md-6">
 		                  <input type="text" class="form-control" id="player_name_163" name="player_name_163" required value="${shooter163.player_name_163}" >
 		              </div>
