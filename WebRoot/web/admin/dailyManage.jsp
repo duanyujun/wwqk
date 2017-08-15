@@ -22,7 +22,7 @@
                             <i class="fa fa-cog"></i>
                         </button>
                         <button id="syncShooterAssistsBtn" onclick="syncShooterAssister();" class="btn sbold green" style="margin-left:10px;"> 同步射手助攻
-                            <i class="fa fa-cog"></i>
+                            <i class="fa fa-refresh"></i>
                         </button>
                     </div>
                 </div>
