@@ -2,6 +2,8 @@ package com.wwqk.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -11,6 +13,9 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import com.wwqk.constants.LeagueEnum;
 
@@ -152,6 +157,26 @@ public class MatchUtils {
 		}
 		
 		return result.toString();
+	}
+	
+	public static String getContentWithJsoupHeader(String refererUrl, String url){
+	   Connection connect = Jsoup.connect(url).ignoreContentType(true);  
+       Map<String, String> header = new HashMap<String, String>();  
+       header.put("Accept", "*/*");
+       header.put("Accept-Encoding", "gzip, deflate");  
+       header.put("Accept-Language", "zh-CN,zh;q=0.8");
+       header.put("Host", "platform.sina.com.cn");
+       header.put("Referer", refererUrl);  
+       header.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36");
+       header.put("Connection", "keep-alive");  
+       Connection data = connect.data(header);  
+       Document document = null;
+	   try {
+			document = data.get();
+	   } catch (IOException e) {
+			e.printStackTrace();
+	   }  
+       return document.text();
 	}
 	
 }

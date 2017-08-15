@@ -28,6 +28,8 @@ import com.wwqk.model.LeaguePosition;
 import com.wwqk.model.MatchLive;
 import com.wwqk.model.Team;
 import com.wwqk.plugin.Match163;
+import com.wwqk.plugin.MatchSina;
+import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.FetchHtmlUtils;
 import com.wwqk.utils.StringUtils;
@@ -44,29 +46,17 @@ public class ProductMatchJob implements Job {
 	private static final String SITE_PROFIX = "http://cn.soccerway.com";
 	private static final String LIVE_SITE_PROFIX = "http://www.zhibo7.com";
 	private HttpClient client;
-	private static Map<String, String> nameIdMap = new HashMap<String, String>();
-	private static Map<String, String> nameENNameMap = new HashMap<String, String>();
-	
-	private static void initNameIdMap(){
-		List<Team> lstTeams = Team.dao.find("select id,name,name_en from team");
-		for(Team team : lstTeams){
-			nameIdMap.put(team.getStr("name"), team.getStr("id"));
-			nameENNameMap.put(team.getStr("name"), team.getStr("name_en"));
-		}
-		nameIdMap.put("西布朗", "678");
-		nameIdMap.put("不莱梅", "960");
-	}
 	
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		client = new DefaultHttpClient();  
 		System.err.println("ProductMatchJob start");
-		//初始化源球队名对应系统的id
-		initNameIdMap();
 		//球队排名任务
 		teamPositionTask();
+		//初始化球队名称ID源
+		CommonUtils.initNameIdMap();
 		//使用163的比赛源
-		Match163.archiveMatch(nameIdMap, nameENNameMap);
+		MatchSina.archiveMatch(CommonUtils.nameIdMap, CommonUtils.nameENNameMap);
 		getLiveWebsite();
 		System.err.println("ProductMatchJob end");
 	}
@@ -99,14 +89,14 @@ public class ProductMatchJob implements Job {
 							String matchStr = match.child(2).text(); //水晶宫vs切尔西
 							String homeTeamName = matchStr.split("vs")[0];
 							String awayTeamName = matchStr.split("vs")[1];
-							if(nameIdMap.get(homeTeamName)!=null && nameIdMap.get(awayTeamName)!=null){
+							if(CommonUtils.nameIdMap.get(homeTeamName)!=null && CommonUtils.nameIdMap.get(awayTeamName)!=null){
 								Elements liveLinks = match.child(3).select("a");
 								for(Element liveLink : liveLinks){
 									if("其它直播".equals(liveLink.text())){
 										continue;
 									}
 									MatchLive matchLive = new MatchLive();
-									matchLive.set("match_key", dateStr+"-"+nameIdMap.get(homeTeamName)+"vs"+nameIdMap.get(awayTeamName));
+									matchLive.set("match_key", dateStr+"-"+CommonUtils.nameIdMap.get(homeTeamName)+"vs"+CommonUtils.nameIdMap.get(awayTeamName));
 									matchLive.set("live_name", liveLink.text());
 									if(liveLink.attr("href").startsWith("http")){
 										matchLive.set("live_url", liveLink.attr("href"));
@@ -114,9 +104,9 @@ public class ProductMatchJob implements Job {
 										matchLive.set("live_url", getRealLink(LIVE_SITE_PROFIX+liveLink.attr("href")));
 									}
 									matchLive.set("league_id", leagueMap.get(match.child(1).text()));
-									matchLive.set("home_team_id", nameIdMap.get(homeTeamName));
+									matchLive.set("home_team_id", CommonUtils.nameIdMap.get(homeTeamName));
 									matchLive.set("home_team_name", homeTeamName);
-									matchLive.set("away_team_id", nameIdMap.get(awayTeamName));
+									matchLive.set("away_team_id", CommonUtils.nameIdMap.get(awayTeamName));
 									matchLive.set("away_team_name", awayTeamName);
 									matchLive.set("match_date", DateTimeUtils.parseDate(dateStr+" "+match.child(0).text(), DateTimeUtils.ISO_DATETIME_NOSEC_FORMAT_ARRAY));
 									lstMatchLive.add(matchLive);

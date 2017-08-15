@@ -97,7 +97,6 @@ public class MainConfig extends JFinalConfig {
 		me.add("/admin",AdminController.class, "web");
 		me.add("/history",MatchHistoryController.class, "web");
 		me.add("/manage",ManageController.class, "web");
-		
 	}
 
 	@Override

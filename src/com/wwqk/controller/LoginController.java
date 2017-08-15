@@ -16,10 +16,11 @@ public class LoginController extends Controller {
 		render("login.jsp");
 	}
 
-	public void enter() {
+	public void enter() throws InterruptedException {
 		if(!login(getPara("username"), getPara("password1"))){
 			redirect("/login");
 		}
+		Thread.sleep(1000);
 		redirect("/home");
 	}
 	

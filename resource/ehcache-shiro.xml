@@ -19,8 +19,8 @@
            maxElementsInMemory="1000" 
            overflowToDisk="true" 
            eternal="true"
-           timeToLiveSeconds="10800" 
-           timeToIdleSeconds="10800" 
+           timeToLiveSeconds="0" 
+           timeToIdleSeconds="0" 
            diskPersistent="true" 
            diskExpiryThreadIntervalSeconds="600"> 
     </cache>    

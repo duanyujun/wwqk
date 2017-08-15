@@ -28,6 +28,7 @@ import com.wwqk.model.MatchLive;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
 import com.wwqk.model.Team;
+import com.wwqk.plugin.MatchSina;
 import com.wwqk.service.Assists163Service;
 import com.wwqk.service.FunService;
 import com.wwqk.service.LeagueService;
@@ -37,6 +38,7 @@ import com.wwqk.service.PlayerService;
 import com.wwqk.service.SayService;
 import com.wwqk.service.Shooter163Service;
 import com.wwqk.service.TeamService;
+import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.StringUtils;
@@ -518,4 +520,14 @@ public class AdminController extends Controller {
 		render("admin/matchList.jsp");
 	}
 	
+	//日常管理：手动更新比赛信息； 手动更新一只球队球员情况
+	public void dailyManage(){
+		render("admin/dailyManage.jsp");
+	}
+	
+	public void handUpdateMatches(){
+		CommonUtils.initNameIdMap();
+		MatchSina.archiveMatch(CommonUtils.nameIdMap, CommonUtils.nameENNameMap);
+		renderJson(1);
+	}
 }

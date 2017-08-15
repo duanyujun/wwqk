@@ -8,13 +8,14 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.wwqk.constants.InjuryTypeEnum;
 import com.wwqk.constants.LeagueENEnum;
+import com.wwqk.model.Team;
 
 /**
  * 常用Id
@@ -357,6 +358,27 @@ public class CommonUtils {
 			dateStr = dateStr.substring(0,19);
 		}
 		return dateStr;
+	}
+	
+	//球队名称ID常量
+	public static Map<String, String> nameIdMap = new HashMap<String, String>();
+	public static Map<String, String> nameENNameMap = new HashMap<String, String>();
+	public static void initNameIdMap(){
+		Map<String, String> idENNameMap = new HashMap<String, String>();
+		List<Team> lstTeams = Team.dao.find("select id,name,name_en from team");
+		for(Team team : lstTeams){
+			nameIdMap.put(team.getStr("name"), team.getStr("id"));
+			nameENNameMap.put(team.getStr("name"), team.getStr("name_en"));
+			idENNameMap.put(team.getStr("id"), team.getStr("name_en"));
+		}
+		String[] specialNameArray = {"西布罗姆维奇", "西布朗", "不莱梅", "云达不莱梅", "纽卡斯尔联", "纽卡斯尔", "托特纳姆热刺", "热刺",
+				"塞尔塔","维戈塞尔塔","莱比锡RB","莱比锡","门兴格拉德巴赫","门兴","斯帕尔","斯帕"};
+		String[] specialIdArray =  {"678","678",         "960","960",       "664","664",         "675","675",
+				"2033","2033",  "13410","13410", "971","971",      "1287","1287"};
+		for(int i=0; i<specialNameArray.length; i++){
+			nameIdMap.put(specialNameArray[i], specialIdArray[i]);
+			nameENNameMap.put(specialNameArray[i], idENNameMap.get(specialIdArray[i]));
+		}
 	}
 	
 }
