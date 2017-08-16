@@ -27,6 +27,7 @@ import com.wwqk.controller.PermissionController;
 import com.wwqk.controller.RoleController;
 import com.wwqk.controller.SayController;
 import com.wwqk.controller.TeamController;
+import com.wwqk.controller.UploadController;
 import com.wwqk.controller.UserController;
 import com.wwqk.model.Career;
 import com.wwqk.model.Coach;
@@ -97,6 +98,7 @@ public class MainConfig extends JFinalConfig {
 		me.add("/admin",AdminController.class, "web");
 		me.add("/history",MatchHistoryController.class, "web");
 		me.add("/manage",ManageController.class, "web");
+		me.add("/upload", UploadController.class, "web");
 	}
 
 	@Override

@@ -116,6 +116,7 @@ $(document).ready(function() {
 });
 
 var editor = new wangEditor('div_content');
+editor.config.uploadImgUrl = '/upload';
 editor.create();
 
 function cancel(){
