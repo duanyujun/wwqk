@@ -1,7 +1,5 @@
 <%@ include file="/common/include.jsp"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<script src="${ctx}/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
-<script src="${ctx}/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
 <script src="${ctx}/assets/global/plugins/bootstrap-toastr/toastr.js" type="text/javascript"></script>
 <script src="${ctx}/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 <link href="${ctx}/assets/global/plugins/loading/css/showLoading.css" rel="stylesheet" type="text/css" />

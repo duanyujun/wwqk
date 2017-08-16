@@ -1,7 +1,7 @@
 <%@ include file="/common/include.jsp"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<script src="${ctx}/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
-<script src="${ctx}/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+<script src="${ctx}/assets/global/plugins/datatables-1.10.15/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="${ctx}/assets/global/plugins/datatables-1.10.15/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
 <script src="${ctx}/assets/global/plugins/bootstrap-toastr/toastr.js" type="text/javascript"></script>
 <script src="${ctx}/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 
@@ -68,7 +68,7 @@ $(document).ready(function() {
     $('#sample_1').dataTable( {
         "processing": true,
         "serverSide": true,
-        "pagingType": "bootstrap_full_number",
+        "pagingType": "full_numbers",
         "columnDefs": [{
             "targets": 0,
             "orderable": false,

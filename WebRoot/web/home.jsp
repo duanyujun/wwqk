@@ -23,8 +23,8 @@
         <link href="${ctx}/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="${ctx}/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
         <link href="${ctx}/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
-        <link href="${ctx}/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
-        <link href="${ctx}/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="${ctx}/assets/global/plugins/datatables-1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+        <link href="${ctx}/assets/global/plugins/datatables-1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="${ctx}/assets/global/css/components-md.min.css" rel="stylesheet" id="style_components" type="text/css" />
         <link href="${ctx}/assets/global/css/plugins-md.min.css" rel="stylesheet" type="text/css" />
         <link href="${ctx}/assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css" />
