@@ -71,28 +71,6 @@ public class MatchController extends Controller {
 		}
 		//主队球场
 		LeagueMatchHistory history = LeagueMatchHistory.dao.findById(matchKey);
-		//处理改时间的问题
-		if(history==null){
-			String matchDateStr = matchKey.substring(0, matchKey.lastIndexOf("-"));
-			String homeAwayId = matchKey.substring(matchKey.lastIndexOf("-")+1);
-			LeagueMatch leagueMatch = LeagueMatch.dao.findFirst("select * from league_match where home_team_id = ? and away_team_id = ? and date_format(match_date,'%Y-%m-%d') = ? ", 
-					homeAwayId.split("vs")[0], homeAwayId.split("vs")[1], matchDateStr);
-			if(leagueMatch!=null){
-				history = LeagueMatchHistory.dao.findFirst("select * from league_match_history where home_team_id = ? and away_team_id = ? and round = ? ", 
-						leagueMatch.getStr("home_team_id"), leagueMatch.getStr("away_team_id"), leagueMatch.getInt("round"));
-				if(history!=null){
-					history.set("match_date", leagueMatch.getDate("match_date"));
-					history.set("match_weekday", leagueMatch.getStr("match_weekday"));
-					history.set("status", leagueMatch.getStr("status"));
-					LeagueMatchHistory newHistory = new LeagueMatchHistory();
-					newHistory._setAttrs(history.getAttrs());
-					newHistory.set("id", matchKey);
-					newHistory.save();
-					history.delete();
-					history = newHistory;
-				}
-			}
-		}
 		
 		if(history!=null){
 			setAttr("lstOddsWH", findOdds(history, OddsProviderEnum.WH.getKey()));

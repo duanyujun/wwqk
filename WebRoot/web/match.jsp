@@ -85,10 +85,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						      
 						      <td>
 						      		<c:if test="${match.status=='完场'}">
-							      		<span class="grey-title" style="font-size:12px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_<fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/>-${match.home_team_id}vs${match.away_team_id}.html" target="_self">集锦</a></span>
+							      		<span class="grey-title" style="font-size:12px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year}-${match.home_team_id}vs${match.away_team_id}.html" target="_self">集锦</a></span>
 							      	</c:if>
 							      	<c:if test="${match.status!='完场'}">
-							      		<b class="a-title" style="font-size:12px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_<fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/>-${match.home_team_id}vs${match.away_team_id}.html" target="_self">直播</a></b>
+							      		<b class="a-title" style="font-size:12px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year}-${match.home_team_id}vs${match.away_team_id}.html" target="_self">直播</a></b>
 							      	</c:if>
 						      </td>
 						    </tr>
@@ -141,10 +141,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						      <td class="a-title"><a href="team-${match.away_team_en_name}-${match.away_team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.away_team_id}.png" style="width:25px;height:25px;" alt="${match.away_team_name}" title="${match.away_team_name}"/>&nbsp;${match.away_team_name}</a></td>
 						      <td>
 						      		<c:if test="${match.status=='完场'}">
-							      		<span class="grey-title"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_<fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/>-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">集锦</a></span>
+							      		<span class="grey-title"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">集锦</a></span>
 							      	</c:if>
 							      	<c:if test="${match.status!='完场'}">
-							      		<b class="a-title"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_<fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/>-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">直播</a></b>
+							      		<b class="a-title"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">直播</a></b>
 							      	</c:if>
 						      </td>
 						    </tr>

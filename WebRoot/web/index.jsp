@@ -254,10 +254,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							      	<fmt:formatDate value="${match.match_date}" pattern="yy/MM/dd"/><br>&nbsp;
 							      		<b>${match.result}</b><br>&nbsp;
 							      		<c:if test="${match.status=='完场'}">
-								      		<span class="grey-title" style="font-size:12px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_<fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/>-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">集锦</a></span>
+								      		<span class="grey-title" style="font-size:12px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">集锦</a></span>
 								      	</c:if>
 								      	<c:if test="${match.status!='完场'}">
-								      		<b class="a-title" style="font-size:12px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_<fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/>-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">直播</a></b>
+								      		<b class="a-title" style="font-size:12px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">直播</a></b>
 								      	</c:if>
 						      </td>
 						      <td class="team-title">
