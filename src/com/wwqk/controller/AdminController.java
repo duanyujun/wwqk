@@ -544,4 +544,14 @@ public class AdminController extends Controller {
 		TeamPlayers.syncTeamPlayers(teamId);
 		renderJson(1);
 	}
+	
+	//更新联赛球员
+	public void updateLeaguePlayer(){
+		String leagueId = getPara("leagueId");
+		List<Team> lstTeam = Team.dao.find("select id from team where league_id = ?", leagueId);
+		for(Team team : lstTeam){
+			TeamPlayers.syncTeamPlayers(team.getStr("id"));
+		}
+		renderJson(1);
+	}
 }
