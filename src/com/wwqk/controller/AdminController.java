@@ -346,8 +346,8 @@ public class AdminController extends Controller {
 		List<League> lstLeagues = League.dao.find("select * from league ");
 		for(League league:lstLeagues){
 			List<LeagueShooter163> lstShooter163 = LeagueShooter163.dao.find("select * from league_shooter_163 where league_id = ? and player_id is not null order by goal_count desc, penalty_count asc limit 0, ? ", league.get("id"), CommonConstants.DEFAULT_RANK_SIZE);
-			List<LeagueShooter> lstShooter = new ArrayList<LeagueShooter>(CommonConstants.DEFAULT_RANK_SIZE);
-			if(lstShooter163.size()==CommonConstants.DEFAULT_RANK_SIZE){
+			List<LeagueShooter> lstShooter = new ArrayList<LeagueShooter>();
+			if(lstShooter163.size()>0){
 				for(LeagueShooter163 shooter163:lstShooter163){
 					LeagueShooter shooter = new LeagueShooter();
 					shooter.set("player_id", shooter163.get("player_id"));
@@ -382,8 +382,8 @@ public class AdminController extends Controller {
 		List<League> lstLeagues = League.dao.find("select * from league ");
 		for(League league:lstLeagues){
 			List<LeagueAssists163> lstAssists163 = LeagueAssists163.dao.find("select * from league_assists_163 where league_id = ? and player_id is not null order by rank asc limit 0, ? ", league.get("id"), CommonConstants.DEFAULT_RANK_SIZE);
-			List<LeagueAssists> lstAssists = new ArrayList<LeagueAssists>(CommonConstants.DEFAULT_RANK_SIZE);
-			if(lstAssists163.size()==CommonConstants.DEFAULT_RANK_SIZE){
+			List<LeagueAssists> lstAssists = new ArrayList<LeagueAssists>();
+			if(lstAssists163.size()>0){
 				for(LeagueAssists163 assists163:lstAssists163){
 					LeagueAssists assists = new LeagueAssists();
 					assists.set("player_id", assists163.get("player_id"));

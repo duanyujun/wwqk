@@ -13,7 +13,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wwqk.constants.CommonConstants;
 import com.wwqk.model.League;
 import com.wwqk.model.LeagueAssists;
@@ -276,8 +278,8 @@ public class ShooterAssister163 {
 		List<League> lstLeagues = League.dao.find("select * from league ");
 		for(League league:lstLeagues){
 			List<LeagueShooter163> lstShooter163 = LeagueShooter163.dao.find("select * from league_shooter_163 where league_id = ? and player_id is not null order by goal_count desc, penalty_count asc limit 0, ? ", league.get("id"), CommonConstants.DEFAULT_RANK_SIZE);
-			List<LeagueShooter> lstShooter = new ArrayList<LeagueShooter>(CommonConstants.DEFAULT_RANK_SIZE);
-			if(lstShooter163.size()==CommonConstants.DEFAULT_RANK_SIZE){
+			List<LeagueShooter> lstShooter = new ArrayList<LeagueShooter>();
+			if(lstShooter163.size()>0){
 				for(LeagueShooter163 shooter163:lstShooter163){
 					LeagueShooter shooter = new LeagueShooter();
 					shooter.set("player_id", shooter163.get("player_id"));
@@ -295,8 +297,7 @@ public class ShooterAssister163 {
 					shooter.set("update_time", new Date());
 					lstShooter.add(shooter);
 				}
-				Db.update("delete from league_shooter where league_id = ? ", league.getStr("id"));
-				Db.batchSave(lstShooter, lstShooter.size());
+				updateShooter(league.getStr("id"), lstShooter);
 			}
 		}
 		
@@ -311,8 +312,8 @@ public class ShooterAssister163 {
 		List<League> lstLeagues = League.dao.find("select * from league ");
 		for(League league:lstLeagues){
 			List<LeagueAssists163> lstAssists163 = LeagueAssists163.dao.find("select * from league_assists_163 where league_id = ? and player_id is not null order by rank asc limit 0, ? ", league.get("id"), CommonConstants.DEFAULT_RANK_SIZE);
-			List<LeagueAssists> lstAssists = new ArrayList<LeagueAssists>(CommonConstants.DEFAULT_RANK_SIZE);
-			if(lstAssists163.size()==CommonConstants.DEFAULT_RANK_SIZE){
+			List<LeagueAssists> lstAssists = new ArrayList<LeagueAssists>();
+			if(lstAssists163.size()>0){
 				for(LeagueAssists163 assists163:lstAssists163){
 					LeagueAssists assists = new LeagueAssists();
 					assists.set("player_id", assists163.get("player_id"));
@@ -329,11 +330,21 @@ public class ShooterAssister163 {
 					assists.set("update_time", new Date());
 					lstAssists.add(assists);
 				}
-				Db.update("delete from league_assists where league_id = ? ", league.getStr("id"));
-				Db.batchSave(lstAssists, lstAssists.size());
+				updateAssists(league.getStr("id"), lstAssists);
 			}
 		}
-		
+	}
+	
+	@Before(Tx.class)
+	private static void updateShooter(String leagueId, List<LeagueShooter> lstShooter){
+		Db.update("delete from league_shooter where league_id = ? ", leagueId);
+		Db.batchSave(lstShooter, lstShooter.size());
+	}
+	
+	@Before(Tx.class)
+	private static void updateAssists(String leagueId, List<LeagueAssists> lstAssists){
+		Db.update("delete from league_assists where league_id = ? ", leagueId);
+		Db.batchSave(lstAssists, lstAssists.size());
 	}
 	
 	private static Map<String, String> specialNameMap = new HashMap<String, String>();
