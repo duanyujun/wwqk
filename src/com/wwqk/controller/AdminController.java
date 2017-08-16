@@ -30,6 +30,7 @@ import com.wwqk.model.Say;
 import com.wwqk.model.Team;
 import com.wwqk.plugin.MatchSina;
 import com.wwqk.plugin.ShooterAssister163;
+import com.wwqk.plugin.TeamPlayers;
 import com.wwqk.service.Assists163Service;
 import com.wwqk.service.FunService;
 import com.wwqk.service.LeagueService;
@@ -534,6 +535,13 @@ public class AdminController extends Controller {
 	
 	public void syncShooterAssister(){
 		ShooterAssister163.syncAll();
+		renderJson(1);
+	}
+	
+	//更新球队成员
+	public void updateTeamPlayer(){
+		String teamId = getPara("teamId");
+		TeamPlayers.syncTeamPlayers(teamId);
 		renderJson(1);
 	}
 }
