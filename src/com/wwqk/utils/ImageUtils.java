@@ -22,6 +22,7 @@ import com.wwqk.constants.CommonConstants;
 public class ImageUtils {
 	
 	private static final String IMG_PATH = "assets/image";
+	private static final String ARTICLE_IMAGE = "article-image";
 	private static final String WEB_PROFIX = "http://cache.images.core.optasports.com/";
 	private static ImageUtils instance = null;
 	
@@ -146,6 +147,28 @@ public class ImageUtils {
 		return fileName;
 	}
 	
+	public String saveFile(UploadFile file, String newFileName, boolean needDateStr){
+		String fileName = "";
+		if(file!=null){
+			String lastPrefix = file.getOriginalFileName().substring(file.getOriginalFileName().lastIndexOf("."));
+			String picFilePath = getPicPath(needDateStr);
+			fileName = picFilePath.substring(picFilePath.indexOf(ARTICLE_IMAGE))+File.separator+newFileName+lastPrefix;
+			File localFile = new File(picFilePath+File.separator+newFileName+lastPrefix);
+			try {
+				if(localFile.exists()){
+					localFile.delete();
+				}
+				localFile.createNewFile();
+				FileService fileService = new FileService();
+				fileService.fileChannelCopy(file.getFile(), localFile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		fileName = fileName.replaceAll("\\\\", "/");
+		return fileName;
+	}
+	
 	/** 
 	 * 改变图片的大小到宽为size，然后高随着宽等比例变化 
 	 * @param is 上传的图片的输入流 
@@ -173,6 +196,26 @@ public class ImageUtils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}  
+	}
+	
+	public String getPicPath(boolean needDateStr) {
+		String pathStr = getClass().getClassLoader().getResource("").getPath();
+
+		String dateStr = "";
+		if(needDateStr){
+			dateStr = DateTimeUtils.formatDate(new Date());
+		}
+		
+		if ("\\".equals(File.separator)) {
+			pathStr = pathStr.substring(1).replaceAll("/", "\\\\");
+		}
+		pathStr = pathStr.substring(0, pathStr.indexOf("WEB-INF"));
+		pathStr = pathStr + ARTICLE_IMAGE + File.separator + dateStr;
+		File path = new File(pathStr);
+		if(!path.exists()){
+			path.mkdirs();
+		}
+		return pathStr;
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
