@@ -103,6 +103,13 @@
 		              </div>
 		              <div class="col-md-3"><label for="team_url"></label></div>
 		          </div>
+		          <div class="form-group">
+		              <label class="col-md-3 control-label">球衣：</label>
+		              <div class="col-md-6">
+		                  <input type="text" class="form-control" name="cloth" value="${team.cloth}"  placeholder="请输入球衣">
+		              </div>
+		              <div class="col-md-3"><label for="cloth"></label></div>
+		          </div>
 		          
 		          <div class="form-group">
 			          <div class="col-md-offset-3 col-md-9">

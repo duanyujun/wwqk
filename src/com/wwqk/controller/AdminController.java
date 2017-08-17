@@ -148,6 +148,11 @@ public class AdminController extends Controller {
 		team.set("venue_address", venue_address);
 		team.set("team_url", team_url);
 		team.set("offical_site", getPara("offical_site"));
+		String cloth = getPara("cloth");
+		if(StringUtils.isNotBlank(cloth) && !cloth.contains("assets")){
+			cloth = "assets/image/soccer/teams/cloth/"+cloth;
+		}
+		team.set("cloth", cloth);
 		
 		team.update();
 		
