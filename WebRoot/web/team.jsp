@@ -145,10 +145,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  				<td class="a-title" style="font-size:13px;"><a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_self"><img src="assets/image/soccer/teams/25x25/${history.away_team_id}.png" style="width:25px;height:25px;" alt="${history.away_team_name}" title="${history.away_team_name}"/>&nbsp;${history.away_team_name}</a></td>
 						  				<td class="a-title" style="text-align:center;font-size:13px;">
 						  					<c:if test="${fn:contains(history.result, '-')}">
-									      		<a title="观看集锦" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_${history.year}-${history.home_team_id}vs${history.away_team_id}.html" target="_self" style="color:grey;">集锦</a>
+									      		<a title="观看集锦" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_${history.year_show}-${history.home_team_id}vs${history.away_team_id}.html" target="_self" style="color:grey;">集锦</a>
 									      	</c:if>
 									      	<c:if test="${!fn:contains(history.result, '-')}">
-									      		<b><a title="直播地址" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_${history.year}-${history.home_team_id}vs${history.away_team_id}.html" target="_self">直播</a></b>
+									      		<b><a title="直播地址" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_${history.year_show}-${history.home_team_id}vs${history.away_team_id}.html" target="_self">直播</a></b>
 									      	</c:if>
 						  				</td>
 						  			</tr>
@@ -224,10 +224,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									  				<td class="a-title"><a href="team-${history.home_team_en_name}-${history.home_team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${history.home_team_id}.png" style="width:25px;height:25px;" alt="${history.home_team_name}" title="${history.home_team_name}"/>&nbsp;<span style="font-size:12px;">${history.home_team_name}</span></nobr></a></td>
 									  				<td class="a-title" style="text-align:center;min-width:100px;">
 									  					<c:if test="${fn:contains(history.result, '-')}">
-												      		<b><a title="观看集锦" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_${history.year}-${history.home_team_id}vs${history.away_team_id}.html" target="_blank">${history.result}</a></b>
+												      		<b><a title="观看集锦" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_${history.year_show}-${history.home_team_id}vs${history.away_team_id}.html" target="_blank">${history.result}</a></b>
 												      	</c:if>
 												      	<c:if test="${!fn:contains(history.result, '-')}">
-												      		<a title="直播地址" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_${history.year}-${history.home_team_id}vs${history.away_team_id}.html" target="_blank"><fmt:formatDate value="${history.match_date}" pattern="yy/MM/dd HH:mm"/></a>
+												      		<a title="直播地址" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_${history.year_show}-${history.home_team_id}vs${history.away_team_id}.html" target="_blank"><fmt:formatDate value="${history.match_date}" pattern="yy/MM/dd HH:mm"/></a>
 												      	</c:if>
 									  				</td>
 									  				<td class="a-title"><a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${history.away_team_id}.png" style="width:25px;height:25px;" alt="${history.away_team_name}" title="${history.away_team_name}"/>&nbsp;<span style="font-size:12px;">${history.away_team_name}</span></nobr></a></td>
