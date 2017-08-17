@@ -60,6 +60,7 @@ public class MatchSina {
 					match.set("result", history.getStr("result"));
 					match.set("league_id", history.getStr("league_id"));
 					match.set("year", history.getInt("year"));
+					match.set("year_show", source.getStr("year_show"));
 					match.set("round", history.getInt("round"));
 					match.set("status", history.getStr("status"));
 					match.set("livecast_id", history.getStr("livecast_id"));
@@ -137,7 +138,8 @@ public class MatchSina {
 					history.set("league_name", EnumUtils.getValue(LeagueEnum.values(), source.getStr("league_id")));
 					history.set("year", source.getInt("year"));
 					history.set("livecast_id", object.getString("livecast_id"));
-					history.set("id", source.getInt("year")+"-"+history.getStr("home_team_id")+"vs"+history.getStr("away_team_id"));
+					history.set("year_show", source.getStr("year_show"));
+					history.set("id", source.getStr("year_show")+"-"+history.getStr("home_team_id")+"vs"+history.getStr("away_team_id"));
 					history.set("match_weekday", DateTimeUtils.formatDate2WeekDay(history.getDate("match_date")));
 					
 					lstHistory.add(history);
