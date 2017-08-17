@@ -134,9 +134,10 @@ public class TeamPlayers {
 		if(StringUtils.isBlank(player.getStr("birth_place"))){
 			player.set("birth_place", CommonUtils.matcherString(CommonUtils.getPatternByName("出生地"), playerContent));
 		}
-		if(StringUtils.isBlank(player.getStr("position"))){
-			player.set("position", CommonUtils.matcherString(CommonUtils.getPatternByName("位置"), playerContent));
-		}
+		
+		player.set("position", CommonUtils.matcherString(CommonUtils.getPatternByName("位置"), playerContent));
+		player.set("foot", CommonUtils.matcherString(CommonUtils.getPatternByName("脚"), playerContent));
+		
 		if(StringUtils.isBlank(player.getStr("height"))){
 			player.set("height", CommonUtils.matcherString(CommonUtils.getPatternByName("高度"), playerContent));
 		}
