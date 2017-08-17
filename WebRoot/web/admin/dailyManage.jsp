@@ -46,6 +46,16 @@
                         <i class="fa fa-refresh"></i>
                     </button>
                 </div>
+                
+            </div>
+            <div class="row" style="margin-top:20px;">
+             	<div class="col-md-4">
+                    <div class="btn-group">
+                        <button onclick="updateSiteMap();" class="btn sbold green" style="margin-left:10px;"> 更新网站地图
+                            <i class="fa fa-cog"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -54,10 +64,24 @@
 
 <script type="text/javascript">
 
+function updateSiteMap(){
+	showToast(1, "更新中...", "温馨提示");
+	$("body").showLoading();
+	$.post("/admin/updateSiteMap",
+				function(result){
+					$("body").hideLoading();
+					showToast(1, "更新成功！", "温馨提示");
+				}
+	);
+}
+
+
 function updateMatches(){
 	showToast(1, "更新中...", "温馨提示");
+	$("body").showLoading();
 	$.post("/admin/handUpdateMatches",
 				function(result){
+					$("body").hideLoading();
 					showToast(1, "更新成功！", "温馨提示");
 				}
 	);
@@ -65,8 +89,10 @@ function updateMatches(){
 
 function syncShooterAssister(){
 	showToast(1, "同步中...", "温馨提示");
+	$("body").showLoading();
 	$.post("/admin/syncShooterAssister",
 				function(result){
+					$("body").hideLoading();
 					showToast(1, "同步成功！", "温馨提示");
 				}
 	);

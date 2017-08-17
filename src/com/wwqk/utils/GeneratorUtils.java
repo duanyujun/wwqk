@@ -13,7 +13,6 @@ import org.jsoup.select.Elements;
 
 import com.wwqk.model.Fun;
 import com.wwqk.model.LeagueMatchHistory;
-import com.wwqk.model.Player;
 import com.wwqk.model.Say;
 import com.wwqk.model.Team;
 
@@ -23,17 +22,17 @@ public class GeneratorUtils{
 		try {
 			FileInputStream fis = new FileInputStream(FileUtils.getWebDiskPath()+File.separator+"common"+File.separator+"sitemap.html");
 			Document document = Jsoup.parse(fis, "UTF-8", "");
-			//球员
-			Elements playerTds = document.select("#players_td");
-			if(playerTds.size()>0){
-				List<Player> lstPlayer = Player.dao.find("select id, name, en_url from player");
-				StringBuilder sb = new StringBuilder();
-				for(Player player:lstPlayer){
-					sb.append("<a href=\"http://www.yutet.com/player-"+player.getStr("en_url")+"-"+player.getStr("id")+".html\" target=\"_blank\">"+player.getStr("name")+"</a>&nbsp;");
-				}
-				playerTds.get(0).html(sb.toString());
-				lstPlayer = null;
-			}
+//			//球员
+//			Elements playerTds = document.select("#players_td");
+//			if(playerTds.size()>0){
+//				List<Player> lstPlayer = Player.dao.find("select id, name, en_url from player");
+//				StringBuilder sb = new StringBuilder();
+//				for(Player player:lstPlayer){
+//					sb.append("<a href=\"http://www.yutet.com/player-"+player.getStr("en_url")+"-"+player.getStr("id")+".html\" target=\"_blank\">"+player.getStr("name")+"</a>&nbsp;");
+//				}
+//				playerTds.get(0).html(sb.toString());
+//				lstPlayer = null;
+//			}
 			
 			//球队
 			Elements teamTds = document.select("#teams_td");
@@ -72,10 +71,10 @@ public class GeneratorUtils{
 			//比赛
 			Elements matchTds = document.select("#matches_td");
 			if(matchTds.size()>0){
-				List<LeagueMatchHistory> lstMatch = LeagueMatchHistory.dao.find("select home_team_id,home_team_name, away_team_id,away_team_name, match_date, home_team_en_name, away_team_en_name from league_match_history");
+				List<LeagueMatchHistory> lstMatch = LeagueMatchHistory.dao.find("select year_show,home_team_id,home_team_name, away_team_id,away_team_name, match_date, home_team_en_name, away_team_en_name from league_match_history");
 				StringBuilder sb = new StringBuilder();
 				for(LeagueMatchHistory match : lstMatch){
-					sb.append("<a href=\"http://www.yutet.com/match-"+match.getStr("home_team_en_name")+"-vs-"+match.getStr("away_team_en_name")+"_"+DateTimeUtils.formatDate(match.getDate("match_date"))+"-"+match.getStr("home_team_id")+"vs"+match.getStr("away_team_id")+".html\" target=\"_blank\">"+match.getStr("home_team_name")+"vs"+match.getStr("away_team_name")+"</a>&nbsp;");
+					sb.append("<a href=\"http://www.yutet.com/match-"+match.getStr("home_team_en_name")+"-vs-"+match.getStr("away_team_en_name")+"_"+match.getStr("year_show")+"-"+match.getStr("home_team_id")+"vs"+match.getStr("away_team_id")+".html\" target=\"_blank\">"+match.getStr("home_team_name")+"vs"+match.getStr("away_team_name")+"</a>&nbsp;");
 				}
 				matchTds.get(0).html(sb.toString());
 				lstMatch = null;

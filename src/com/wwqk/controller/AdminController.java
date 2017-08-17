@@ -42,6 +42,7 @@ import com.wwqk.service.Shooter163Service;
 import com.wwqk.service.TeamService;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.DateTimeUtils;
+import com.wwqk.utils.GeneratorUtils;
 import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.StringUtils;
 
@@ -557,6 +558,12 @@ public class AdminController extends Controller {
 		for(Team team : lstTeam){
 			TeamPlayers.syncTeamPlayers(team.getStr("id"));
 		}
+		renderJson(1);
+	}
+	
+	//更新网站地图
+	public void updateSiteMap(){
+		GeneratorUtils.generateSitemap();
 		renderJson(1);
 	}
 }
