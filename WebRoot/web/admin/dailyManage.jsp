@@ -126,7 +126,7 @@ function updateLeaugePlayer(){
 	$("body").showLoading();
 	showToast(1, "更新中...", "温馨提示");
 	$.post("/admin/updateLeaguePlayer",
-				{teamId: $("#leagueId").val()},
+				{leagueId: $("#leagueId").val()},
 				function(result){
 					$("body").hideLoading();
 					showToast(1, "更新成功！", "温馨提示");
