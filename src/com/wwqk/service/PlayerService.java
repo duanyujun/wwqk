@@ -43,6 +43,12 @@ public class PlayerService {
 			break;
 		case 2:
 			orderSql = " order by t.name "+sortType;
+		case 6:
+			orderSql = " order by p.age "+sortType;
+		case 10:
+			orderSql = " order by p.number "+sortType;
+		case 11:
+			orderSql = " order by p.position "+sortType;
 			break;
 		default:
 			break;
