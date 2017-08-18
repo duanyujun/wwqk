@@ -18,7 +18,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - 足球比赛|比赛时间|比赛结果|巴萨|皇马|曼联|阿森纳|曼城|利物浦|切尔西|拜仁|尤文图斯|巴黎圣日耳曼</title>
+ 	<style type="text/css">
+ 		.table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th{color:#000;}
+ 		.tdsp{color:white;}
+ 	</style>
 </head>
+
 
 <body>
 <div id="all_content">
@@ -64,7 +69,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<table class="table table-condensed table-hover" style="border-bottom:1px solid #dddddd;">
 						  <thead>
 						    <tr>
-						      <th style="width:160px;">比赛时间</th>
+						      <th style="width:160px;" colspan="3">比赛时间</th>
 						      <th style="width:50px;"></th>
 						      <th style="width:150px;"></th>
 						      <th style="width:150px;"></th>
@@ -75,7 +80,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  <tbody>
 						  	<c:forEach items="${matchPage.list}" var="match">
 						    <tr>
-						      <td><fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/> &nbsp;&nbsp;<b>${match.match_weekday}</b>&nbsp;&nbsp;&nbsp;<span style="color:#888;">第${match.round}轮</span></td>
+						      <td style="width:70px;"><fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/></td>
+						      <td style="width:30px;"><b>${match.match_weekday}</b></td>
+						      <td class="round_${match.round} tdsp" align="center" style="width:50px;"> <span><b>第${match.round}轮</b></span></td>
 						      <td>${match.league_name}</td>
 						      <td class="a-title"><a href="team-${match.home_team_en_name}-${match.home_team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.home_team_id}.png" style="width:25px;height:25px;" alt="${match.home_team_name}" title="${match.home_team_name}"/>&nbsp;${match.home_team_name}</a></td>
 						      <td>
