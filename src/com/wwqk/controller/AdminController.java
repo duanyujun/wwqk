@@ -224,8 +224,8 @@ public class AdminController extends Controller {
 	public void deleteSay(){
 		String ids = getPara("ids");
 		if(StringUtils.isNotBlank(ids)){
-			String whereSql = " where id in (" + ids +")";
-			Db.update("delete from say "+whereSql);
+			Db.update("delete from say where id in (" + ids +")");
+			Db.update("delete from fun where source_id in (" + ids +")");
 			renderJson(1);
 		}else{
 			renderJson(0);
@@ -247,7 +247,9 @@ public class AdminController extends Controller {
 			Fun fun = Fun.dao.findById(id);
 			setAttr("fun", fun);
 		}
-		
+		//全部player
+		List<Player> lstPlayer = Player.dao.find("select p.*, t.name team_name from player p, team t where p.team_id = t.id ");
+		setAttr("lstPlayer", lstPlayer);
 		render("admin/funForm.jsp");
 	}
 	

@@ -9,6 +9,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.upload.UploadFile;
 import com.wwqk.model.Fun;
+import com.wwqk.model.Player;
 import com.wwqk.model.Say;
 import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.StringUtils;
@@ -116,7 +117,14 @@ public class FunService {
 		fun.set("content", addClass4Img(controller.getPara("content")));
 		fun.set("source_name", controller.getPara("source_name"));
 		fun.set("source_url", controller.getPara("source_url"));
-	
+		String player_id = controller.getPara("player_id");
+		if(StringUtils.isNotBlank(player_id)){
+			Player player = Player.dao.findById(player_id);
+			fun.set("player_id", player.get("player_id"));
+			fun.set("player_name", player.get("name"));
+			fun.set("player_name_en", player.get("en_url"));
+			fun.set("player_img_local", player.get("img_small_local"));
+		}
 		
 		if(StringUtils.isNotBlank(image_small)){
 			fun.set("image_small", image_small);

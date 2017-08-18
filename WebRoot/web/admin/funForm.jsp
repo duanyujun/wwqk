@@ -1,6 +1,8 @@
 <%@ include file="/common/include.jsp"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <script src="${ctx}/assets/global/plugins/jquery.form.min.js" type="text/javascript"></script>
+<link href="${ctx}/assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+<script src="${ctx}/assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
 <script src="${ctx}/assets/global/plugins/bootstrap-toastr/toastr.js" type="text/javascript"></script>
 
 
@@ -25,6 +27,16 @@
         	  <input type="hidden" name="id" value="${fun.id}" />
         	  <input type="hidden" id="content" name="content" value="" />
 		      <div class="form-body">
+		      	  <div class="form-group">
+                      <label class="control-label col-md-3">球员：</label>
+                      <div class="col-md-4">
+                          <select class="bs-select form-control" data-live-search="true" name="player_id">
+                          	  <c:forEach items="${lstPlayer}" var="player">
+                          	  		<option value="${player.id}">${player.name}:${player.id} / ${player.team_name}</option>
+                          	  </c:forEach>
+                          </select>
+                      </div>
+                  </div>
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>标题：</label>
 		              <div class="col-md-6">
@@ -104,6 +116,15 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	$(".bs-select").selectpicker({
+        noneSelectedText:'请选择',
+        noneResultsText:"查询不到 {0}"
+    });
+	
+	if('${fun.player_id}'!=''){
+		$('.bs-select').selectpicker('val', '${fun.player_id}');
+	}
+	
 	var validator = $("#form").validate({
 		errorPlacement: function(error, element) {
 			$( element )
