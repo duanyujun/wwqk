@@ -1,5 +1,6 @@
 package com.wwqk.plugin;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,7 +32,7 @@ public class MatchSina {
 		for(MatchSourceSina source:lstMatchSources){
 			List<LeagueMatchHistory> lstNeedInsert = new ArrayList<LeagueMatchHistory>();
 			List<LeagueMatchHistory> lstNeedUpdate = new ArrayList<LeagueMatchHistory>();
-			LeagueMatchHistory historyExist = LeagueMatchHistory.dao.findFirst("select * from league_match_history where league_id =? and year=? and round=?", source.getStr("league_id"), source.getInt("year"), source.get("current_round"));
+			LeagueMatchHistory historyExist = LeagueMatchHistory.dao.findFirst("select * from league_match_history where league_id =? and year=? and round=? order by match_date desc", source.getStr("league_id"), source.getInt("year"), source.get("current_round"));
 			long startMills = System.currentTimeMillis();
 			long endMills = startMills + getRandNum(1, 4);
 			String oneRoundUrl = "http://platform.sina.com.cn/sports_all/client_api?_sport_t_=livecast&_sport_a_=matchesByType&callback=jQuery1910"+get17Length()
@@ -46,8 +47,12 @@ public class MatchSina {
 			saveOneRound(lstNeedInsert, lstNeedUpdate);
 			//处理当前轮次：1、更新联赛当前赛事；2、是否需要将当前轮次+1；
 			if(currentRoundMatches.size()>0){
+				Date lastDateInOneRound = null;
 				List<LeagueMatch> lstMatch = new ArrayList<LeagueMatch>();
 				for(LeagueMatchHistory history : currentRoundMatches){
+					if(lastDateInOneRound==null || lastDateInOneRound.before(history.getDate("match_date"))){
+						lastDateInOneRound = history.getDate("match_date");
+					}
 					LeagueMatch match = new LeagueMatch();
 					match.set("match_date", history.getDate("match_date"));
 					match.set("home_team_id", history.getStr("home_team_id"));
@@ -74,14 +79,19 @@ public class MatchSina {
 				//是否需要将当前轮次+1；
 				boolean updateCurrentRound = true;
 				for(LeagueMatch match : lstMatch){
-					if(!SinaMatchStatusEnum.END.getKey().equals(match.getStr("status")) && match.getDate("match_date").after(new Date())){
+					if(!SinaMatchStatusEnum.END.getKey().equals(match.getStr("status")) || match.getDate("match_date").after(new Date())){
 						updateCurrentRound = false;
+						break;
 					}
 				}
 				if(updateCurrentRound){
-					int currentRound = source.getInt("current_round");
-					source.set("current_round", currentRound+1>source.getInt("round_max")?source.getInt("round_max"):currentRound+1);
-					source.update();
+					//该轮比赛已经全部打完了，在网站上保留一天
+					Timestamp ts = DateTimeUtils.addDays(lastDateInOneRound, 1);
+					if(ts.before(new Date())){
+						int currentRound = source.getInt("current_round");
+						source.set("current_round", currentRound+1>source.getInt("round_max")?source.getInt("round_max"):currentRound+1);
+						source.update();
+					}
 				}
 			}
 		}
