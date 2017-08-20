@@ -239,7 +239,7 @@ public class ShooterAssister163 {
 		}
 	}
 	
-	private static void calcGoalAssistsNumber(){
+	public static void calcGoalAssistsNumber(){
 		List<Player> lstNeedUpdate = new ArrayList<Player>();
 		List<LeagueShooter163> lstShooter163 = LeagueShooter163.dao.find("SELECT * FROM league_shooter_163 WHERE player_id IS NOT NULL AND player_id!=''");
 		for(LeagueShooter163 shooter163 : lstShooter163){

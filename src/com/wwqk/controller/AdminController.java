@@ -378,6 +378,8 @@ public class AdminController extends Controller {
 			}
 		}
 		
+		ShooterAssister163.calcGoalAssistsNumber();
+		
 		renderJson(1);
 	}
 	
@@ -411,6 +413,7 @@ public class AdminController extends Controller {
 				updateAssists(league.getStr("id"), lstAssists);
 			}
 		}
+		ShooterAssister163.calcGoalAssistsNumber();
 		
 		renderJson(1);
 	}
