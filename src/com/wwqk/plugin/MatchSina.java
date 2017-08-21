@@ -148,6 +148,9 @@ public class MatchSina {
 					history.set("league_name", EnumUtils.getValue(LeagueEnum.values(), source.getStr("league_id")));
 					history.set("year", source.getInt("year"));
 					history.set("livecast_id", object.getString("livecast_id"));
+					if(StringUtils.isNotBlank(object.getString("OptaId")) && object.getString("OptaId").startsWith("f")){
+						history.set("opta_id", object.getString("OptaId").substring(1));
+					}
 					history.set("year_show", source.getStr("year_show"));
 					history.set("id", source.getStr("year_show")+"-"+history.getStr("home_team_id")+"vs"+history.getStr("away_team_id"));
 					history.set("match_weekday", DateTimeUtils.formatDate2WeekDay(history.getDate("match_date")));

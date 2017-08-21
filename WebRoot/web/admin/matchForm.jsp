@@ -76,8 +76,13 @@
 		              </div>
 		              <div class="col-md-3"><label for="name"></label></div>
 		          </div>
-		          
-		          
+		          <div class="form-group">
+		              <label class="col-md-3 control-label">统计ID：</label>
+		              <div class="col-md-6">
+		                  <input type="text" class="form-control" id="opta_id" name="opta_id" value="${match.opta_id}" placeholder="请输入统计id">
+		              </div>
+		              <div class="col-md-3"><label for="opta_id"></label></div>
+		          </div>
 		          
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>阵容：</label>

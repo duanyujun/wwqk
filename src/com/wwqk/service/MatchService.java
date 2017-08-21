@@ -148,6 +148,7 @@ public class MatchService {
 		match.set("result", controller.getPara("result"));
 		match.set("status", controller.getPara("status"));
 		match.set("round", controller.getPara("round"));
+		match.set("opta_id", controller.getPara("opta_id"));
 		
 		match.update();
 	}
