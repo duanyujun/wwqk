@@ -115,10 +115,10 @@ public class MatchSina {
 					LeagueMatchHistory history = new LeagueMatchHistory();
 					history.set("round", object.getIntValue("Round"));
 					history.set("match_date", DateTimeUtils.parseDate(object.getString("date")+" "+object.getString("time"), DateTimeUtils.ISO_DATETIME_NOSEC_FORMAT_ARRAY));
-					history.set("home_team_id", nameIdMap.get(object.getString("Team1")));
-					history.set("home_team_name", object.getString("Team1"));
-					history.set("away_team_id", nameIdMap.get(object.getString("Team2")));
-					history.set("away_team_name", object.getString("Team2"));
+					history.set("home_team_id", nameIdMap.get(StringUtils.trim(object.getString("Team1"))));
+					history.set("home_team_name", StringUtils.trim(object.getString("Team1")));
+					history.set("away_team_id", nameIdMap.get(StringUtils.trim(object.getString("Team2"))));
+					history.set("away_team_name", StringUtils.trim(object.getString("Team2")));
 					history.set("home_team_en_name", nameENNameMap.get(object.getString("Team1")));
 					history.set("away_team_en_name", nameENNameMap.get(object.getString("Team2")));
 					
