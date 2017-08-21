@@ -22,9 +22,7 @@
                         <button onclick="updateMatches();" class="btn sbold green" style="margin-left:10px;"> 更新比赛
                             <i class="fa fa-cog"></i>
                         </button>
-                        <button onclick="updateLives();" class="btn sbold green" style="margin-left:10px;"> 更新直播源
-                            <i class="fa fa-cog"></i>
-                        </button>
+                        
                         <button onclick="syncShooterAssister();" class="btn sbold green" style="margin-left:10px;"> 同步射手助攻
                             <i class="fa fa-refresh"></i>
                         </button>
@@ -55,6 +53,9 @@
              	<div class="col-md-4">
                     <div class="btn-group">
                         <button onclick="updateSiteMap();" class="btn sbold green" style="margin-left:10px;"> 更新网站地图
+                            <i class="fa fa-cog"></i>
+                        </button>
+                        <button onclick="updateLives();" class="btn sbold green" style="margin-left:10px;"> 更新直播源
                             <i class="fa fa-cog"></i>
                         </button>
                     </div>
