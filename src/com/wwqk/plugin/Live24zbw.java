@@ -44,6 +44,9 @@ public class Live24zbw {
 				//获取赛季
 				MatchSourceSina matchSourceSina = MatchSourceSina.dao.findFirst("select * from match_source_sina");
 				for(Element element : matchItems){
+					if(element.select(".match-competition").size()==0){
+						continue;
+					}
 					String leagueName = element.select(".match-competition").get(0).text();
 					if(leagueMap.get(leagueName)==null || element.text().contains("已结束")){
 						continue;
