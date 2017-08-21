@@ -50,7 +50,7 @@ public class ProductMatchJob implements Job {
 		//使用163的比赛源
 		MatchSina.archiveMatch(CommonUtils.nameIdMap, CommonUtils.nameENNameMap);
 		//zhibo7直播源
-		LiveZhibo7.getLiveSource();
+		//LiveZhibo7.getLiveSource();
 		//24zbw直播源
 		Live24zbw.getLiveSource();
 		System.err.println("ProductMatchJob end");

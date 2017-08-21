@@ -576,7 +576,7 @@ public class AdminController extends Controller {
 	
 	//更新直播源
 	public void updateLives(){
-		LiveZhibo7.getLiveSource();
+		//LiveZhibo7.getLiveSource();
 		Live24zbw.getLiveSource();
 		renderJson(1);
 	}
