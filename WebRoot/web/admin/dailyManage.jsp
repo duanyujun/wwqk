@@ -22,6 +22,9 @@
                         <button onclick="updateMatches();" class="btn sbold green" style="margin-left:10px;"> 更新比赛
                             <i class="fa fa-cog"></i>
                         </button>
+                        <button onclick="updateLives();" class="btn sbold green" style="margin-left:10px;"> 更新直播源
+                            <i class="fa fa-cog"></i>
+                        </button>
                         <button onclick="syncShooterAssister();" class="btn sbold green" style="margin-left:10px;"> 同步射手助攻
                             <i class="fa fa-refresh"></i>
                         </button>
@@ -80,6 +83,17 @@ function updateMatches(){
 	showToast(1, "更新中...", "温馨提示");
 	$("body").showLoading();
 	$.post("/admin/handUpdateMatches",
+				function(result){
+					$("body").hideLoading();
+					showToast(1, "更新成功！", "温馨提示");
+				}
+	);
+}
+
+function updateLives(){
+	showToast(1, "更新中...", "温馨提示");
+	$("body").showLoading();
+	$.post("/admin/updateLives",
 				function(result){
 					$("body").hideLoading();
 					showToast(1, "更新成功！", "温馨提示");

@@ -28,6 +28,8 @@ import com.wwqk.model.MatchLive;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
 import com.wwqk.model.Team;
+import com.wwqk.plugin.Live24zbw;
+import com.wwqk.plugin.LiveZhibo7;
 import com.wwqk.plugin.MatchSina;
 import com.wwqk.plugin.ShooterAssister163;
 import com.wwqk.plugin.TeamPlayers;
@@ -569,6 +571,13 @@ public class AdminController extends Controller {
 	//更新网站地图
 	public void updateSiteMap(){
 		GeneratorUtils.generateSitemap();
+		renderJson(1);
+	}
+	
+	//更新直播源
+	public void updateLives(){
+		LiveZhibo7.getLiveSource();
+		Live24zbw.getLiveSource();
 		renderJson(1);
 	}
 }

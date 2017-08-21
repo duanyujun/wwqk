@@ -179,4 +179,19 @@ public class MatchUtils {
        return document.text();
 	}
 	
+	public static Map<String, String> get24zbwHeader(){
+	   Map<String, String> header = new HashMap<String, String>();  
+       header.put("Accept", "*/*");
+       header.put("Accept-Encoding", "gzip, deflate");  
+       header.put("Accept-Language", "zh-CN,zh;q=0.8");
+       header.put("Host", "www.24zbw.com");
+       header.put("Cache-Control", "no-cache");  
+       header.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36");
+       header.put("Referer", "http://www.24zbw.com/match/hot/");  
+       header.put("Connection", "keep-alive");  
+       header.put("Pragma", "no-cache");  
+       
+       return header;
+	}
+	
 }
