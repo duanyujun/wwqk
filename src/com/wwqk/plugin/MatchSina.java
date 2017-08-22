@@ -79,7 +79,7 @@ public class MatchSina {
 				//是否需要将当前轮次+1；
 				boolean updateCurrentRound = true;
 				for(LeagueMatch match : lstMatch){
-					if(!SinaMatchStatusEnum.END.getKey().equals(match.getStr("status")) || match.getDate("match_date").after(new Date())){
+					if(!SinaMatchStatusEnum.END.getValue().equals(match.getStr("status")) || match.getDate("match_date").after(new Date())){
 						updateCurrentRound = false;
 						break;
 					}
