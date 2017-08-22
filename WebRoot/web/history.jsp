@@ -69,8 +69,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<table class="table table-condensed table-hover" style="border-bottom:1px solid #dddddd;">
 						  <thead>
 						    <tr>
-						      <th style="width:160px;" colspan="3">比赛时间</th>
-						      <th style="width:50px;"></th>
+						      <th style="width:170px;" colspan="3">比赛时间</th>
+						      <th style="width:55px;"></th>
 						      <th style="width:150px;"></th>
 						      <th style="width:150px;"></th>
 						      <th style="width:150px;"></th>
@@ -80,8 +80,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  <tbody>
 						  	<c:forEach items="${matchPage.list}" var="match">
 						    <tr>
-						      <td style="width:70px;"><fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/></td>
-						      <td style="width:30px;"><b>${match.match_weekday}</b></td>
+						      <td style="width:80px;"><fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/></td>
+						      <td style="width:35px;"><b>${match.match_weekday}</b></td>
 						      <td class="round_${match.round} tdsp" align="center" style="width:50px;"> <span><b>第${match.round}轮</b></span></td>
 						      <td>${match.league_name}</td>
 						      <td class="a-title"><a href="team-${match.home_team_en_name}-${match.home_team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.home_team_id}.png" style="width:25px;height:25px;" alt="${match.home_team_name}" title="${match.home_team_name}"/>&nbsp;${match.home_team_name}</a></td>

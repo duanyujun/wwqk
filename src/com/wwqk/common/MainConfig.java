@@ -46,10 +46,14 @@ import com.wwqk.model.LeagueShooter163;
 import com.wwqk.model.MatchLive;
 import com.wwqk.model.MatchSource;
 import com.wwqk.model.MatchSourceSina;
+import com.wwqk.model.OddsAH;
 import com.wwqk.model.OddsBet365;
 import com.wwqk.model.OddsBwin;
+import com.wwqk.model.OddsEuro;
 import com.wwqk.model.OddsLB;
 import com.wwqk.model.OddsML;
+import com.wwqk.model.OddsMatches;
+import com.wwqk.model.OddsSource;
 import com.wwqk.model.OddsWH;
 import com.wwqk.model.Permissions;
 import com.wwqk.model.Player;
@@ -142,6 +146,11 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("odds_lb", OddsLB.class);
 		arp.addMapping("odds_ml", OddsML.class);
 		arp.addMapping("odds_bwin", OddsBwin.class);
+		
+		arp.addMapping("odds_source", OddsSource.class);
+		arp.addMapping("odds_matches", OddsMatches.class);
+		arp.addMapping("odds_euro", OddsEuro.class);
+		arp.addMapping("odds_ah", OddsAH.class);
 		
 		//arp.addMapping("article", Article.class);
 		
