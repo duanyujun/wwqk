@@ -62,6 +62,14 @@
 		          </div>
 		          
 		          <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>关键字：</label>
+		              <div class="col-md-6">
+		                  <input type="text" class="form-control" id="keyword" name="keyword"  value="${fun.keyword}"  placeholder="请输入关键字（英文逗号分隔）">
+		              </div>
+		              <div class="col-md-3"><label for="keyword"></label></div>
+		          </div>
+		          
+		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>来源名称：</label>
 		              <div class="col-md-6">
 		                  <input type="text" class="form-control" id="source_name" name="source_name"  value="${fun.source_name}"  placeholder="请输入来源名称">
@@ -76,7 +84,7 @@
 		              </div>
 		              <div class="col-md-3"><label for="source_url"></label></div>
 		          </div>
-		         
+		          
 		          <div class="form-group" style="display:none;">
 		              <label class="col-md-3 control-label"><font color="red">*</font>大图片：</label>
 		              <div class="col-md-6">

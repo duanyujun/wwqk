@@ -115,6 +115,7 @@ public class FunService {
 		fun.set("title", controller.getPara("title"));
 		fun.set("summary", controller.getPara("summary")); 
 		fun.set("content", addClass4Img(controller.getPara("content")));
+		fun.set("keyword", controller.getPara("keyword"));
 		fun.set("source_name", controller.getPara("source_name"));
 		fun.set("source_url", controller.getPara("source_url"));
 		String player_id = controller.getPara("player_id");
