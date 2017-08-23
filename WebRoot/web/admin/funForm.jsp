@@ -31,6 +31,7 @@
                       <label class="control-label col-md-3">球员：</label>
                       <div class="col-md-4">
                           <select class="bs-select form-control" data-live-search="true" name="player_id">
+                          	  <option value="">-请选择球员-</option>
                           	  <c:forEach items="${lstPlayer}" var="player">
                           	  		<option value="${player.id}">${player.name}:${player.id} / ${player.team_name}</option>
                           	  </c:forEach>

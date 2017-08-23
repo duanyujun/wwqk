@@ -37,7 +37,7 @@ public class FunService {
 		case 2:
 			orderSql = " order by player_name "+sortType;
 			break;
-		case 4:
+		case 3:
 			orderSql = " order by create_time "+sortType;
 			break;
 		default:
