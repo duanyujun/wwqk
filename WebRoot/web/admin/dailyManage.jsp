@@ -53,10 +53,17 @@
              	<div class="col-md-4">
                     <div class="btn-group">
                         <button onclick="updateSiteMap();" class="btn sbold green" style="margin-left:10px;"> 更新网站地图
-                            <i class="fa fa-cog"></i>
+                            <i class="fa fa-refresh"></i>
                         </button>
                         <button onclick="updateLives();" class="btn sbold green" style="margin-left:10px;"> 更新直播源
-                            <i class="fa fa-cog"></i>
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="btn-group">
+                        <button onclick="analyzeAll();" class="btn sbold green" style="margin-left:10px;"> 更新统计
+                            <i class="fa fa-refresh"></i>
                         </button>
                     </div>
                 </div>
@@ -150,6 +157,19 @@ function updateLeaugePlayer(){
 	
 }
 
+
+function analyzeAll(){
+
+	$("body").showLoading();
+	showToast(1, "更新中...", "温馨提示");
+	$.post("/admin/analyzeAll",
+			function(result){
+				$("body").hideLoading();
+				showToast(1, "更新成功！", "温馨提示");
+			}
+	);
+	
+}
 
 </script>
 

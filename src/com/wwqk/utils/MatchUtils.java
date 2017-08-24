@@ -29,11 +29,6 @@ public class MatchUtils {
 	public static String ODDS_REFER_DETAIL_URL = "http://www.okooo.com/soccer/match/#okMatchId/odds/stat/#providerId/?type=start&range=all";
 	public static String ODDS_TARGET_URL =       "http://www.okooo.com/soccer/match/#okMatchId/odds/stat/#providerId?type=start&range=top5&value=all";
 	
-	public static void main(String[] args) {
-		String content = getHtmlContent(httpclient, MATCH_REFER_URL, "http://www.okooo.com/livecenter/football/?date=2017-02-24");
-		//FileUtils.appendFile(content);
-	}
-	
 	public static String getHtmlContent(HttpClient httpclient, String refererUrl, String url){
 		HttpGet httpget = new HttpGet(url);
 		httpget.setHeader("Accept", "text/html, */*");
@@ -192,6 +187,60 @@ public class MatchUtils {
        header.put("Pragma", "no-cache");  
        
        return header;
+	}
+	
+	public static Map<String, String> getZgzcwHeader(String refererURL){
+		   Map<String, String> header = new HashMap<String, String>();  
+		   header.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+	       header.put("Accept-Encoding", "gzip, deflate");  
+	       header.put("Accept-Language", "zh-CN,zh;q=0.8");
+	       header.put("Cache-Control", "no-cache");
+	       header.put("Host", "fenxi.zgzcw.com");
+	       header.put("Pragma", "no-cache");  
+	       header.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36");
+	       header.put("Referer", refererURL);  
+	       return header;
+	}
+	
+	public static Map<String, String> postZgzcwHeader(String refererURL){
+		   Map<String, String> header = new HashMap<String, String>();  
+		   header.put("Accept", "text/html, */*; q=0.01");
+	       header.put("Accept-Encoding", "gzip, deflate");  
+	       header.put("Accept-Language", "zh-CN,zh;q=0.8");
+	       header.put("Content-Type", "application/x-www-form-urlencoded");
+	       header.put("Host", "saishi.zgzcw.com");
+	       header.put("Origin", "http://saishi.zgzcw.com");
+	       header.put("X-Requested-With", "XMLHttpRequest");
+	       header.put("Pragma", "no-cache");  
+	       header.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36");
+	       header.put("Referer", refererURL);  
+	       return header;
+	}
+	
+	
+	
+	public static void main(String[] args) throws IOException {
+		String SIET_URL = "http://fenxi.zgzcw.com/2247970/bjop";
+		String refererUrl = "http://saishi.zgzcw.com/soccer/league/36/2017-2018/";
+		Connection connect = Jsoup.connect(SIET_URL).ignoreContentType(true);
+		Connection data = connect.data(MatchUtils.getZgzcwHeader(refererUrl));
+		Document document = data.get();
+		System.err.println(document.html());
+		
+		//赛事
+//		String refererURL = "http://saishi.zgzcw.com/soccer/league/11/2017-2018/";
+//		String matchURL = "http://saishi.zgzcw.com/summary/liansaiAjax.action";
+//		Connection con = Jsoup.connect(matchURL);
+//		con.data("source_league_id", "11");
+//		con.data("currentRound", "1");
+//		con.data("season", "2017-2018");
+//		con.data("seasonType", "");
+//		//con.data(postZgzcwHeader(refererURL));
+//		for(Map.Entry<String, String> entry:postZgzcwHeader(refererURL).entrySet()){
+//			con.header(entry.getKey(), entry.getValue());
+//		}
+//		Document document = con.post();
+//		System.err.println(document.html());
 	}
 	
 }

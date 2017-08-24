@@ -28,8 +28,8 @@ import com.wwqk.model.MatchLive;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
 import com.wwqk.model.Team;
+import com.wwqk.plugin.AnalyzeOkooo;
 import com.wwqk.plugin.Live24zbw;
-import com.wwqk.plugin.LiveZhibo7;
 import com.wwqk.plugin.MatchSina;
 import com.wwqk.plugin.ShooterAssister163;
 import com.wwqk.plugin.TeamPlayers;
@@ -578,6 +578,12 @@ public class AdminController extends Controller {
 	public void updateLives(){
 		//LiveZhibo7.getLiveSource();
 		Live24zbw.getLiveSource();
+		renderJson(1);
+	}
+	
+	//分析进几年来联赛情况
+	public void analyzeAll(){
+		AnalyzeOkooo.getInstance().getLeagueOdds();
 		renderJson(1);
 	}
 }
