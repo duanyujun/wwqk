@@ -31,6 +31,7 @@ import com.wwqk.model.Team;
 import com.wwqk.plugin.AnalyzeOkooo;
 import com.wwqk.plugin.Live24zbw;
 import com.wwqk.plugin.MatchSina;
+import com.wwqk.plugin.OddsUtils;
 import com.wwqk.plugin.ShooterAssister163;
 import com.wwqk.plugin.TeamPlayers;
 import com.wwqk.service.Assists163Service;
@@ -584,6 +585,11 @@ public class AdminController extends Controller {
 	//分析进几年来联赛情况
 	public void analyzeAll(){
 		AnalyzeOkooo.getInstance().getLeagueOdds();
+		renderJson(1);
+	}
+	
+	public void updateSameOdds(){
+		OddsUtils.initHistoryOdds();
 		renderJson(1);
 	}
 }
