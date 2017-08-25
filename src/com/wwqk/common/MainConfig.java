@@ -19,6 +19,7 @@ import com.wwqk.controller.DataController;
 import com.wwqk.controller.FunController;
 import com.wwqk.controller.HomeController;
 import com.wwqk.controller.IndexController;
+import com.wwqk.controller.LiveController;
 import com.wwqk.controller.LoginController;
 import com.wwqk.controller.ManageController;
 import com.wwqk.controller.MatchController;
@@ -104,6 +105,8 @@ public class MainConfig extends JFinalConfig {
 		me.add("/history",MatchHistoryController.class, "web");
 		me.add("/manage",ManageController.class, "web");
 		me.add("/upload", UploadController.class, "web");
+		me.add("/live", LiveController.class, "web");
+		
 	}
 
 	@Override
