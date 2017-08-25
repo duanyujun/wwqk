@@ -112,19 +112,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:1px;padding-bottom: 130px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2">		
 			<div class="col-lg-9 col-md-9" style="padding-left:0px;padding-right:0px;">
-				<div class="table-responsive" style="margin-top:10px;">
-						<table class="table table-condensed table-hover" style="border-bottom:1px solid #dddddd;">
-						  <caption style="text-align:center;"><img title="${group[0].league_name}" src="assets/image/page/league-logo${group[0].league_id}.jpg" style="width:80px;height:80px;"/></caption>
-						  <thead>
-						    <tr>
-						      <th style="width:230px;">比赛时间（${group[0].league_name}）</th>
-						      <th style="width:160px;"></th>
-						      <th style="width:160px;"></th>
-						      <th style="width:160px;"></th>
-						      <th style="width:160px;"></th>
-						      <th style="width:60px;" class="say-info"><a href="/history-${group[0].league_name_en}-${group[0].league_id}.html" target="_blank" title="更多${group[0].league_name}比赛">更多&gt;&gt;</a></th>	
-						    </tr>
-						  </thead>
+					<table class="table table-condensed table-hover" >
 						  <tbody>
 							<c:forEach items="${lstMatch}" var="match">
 								<c:if test="${empty match.home_team_name}">
@@ -146,7 +134,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						    </c:forEach>
 						   </tbody>
 						</table>
-					</div>
 			</div>
 			<div class="col-lg-3 col-md-3">
 				
