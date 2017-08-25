@@ -29,6 +29,7 @@ import com.wwqk.controller.SayController;
 import com.wwqk.controller.TeamController;
 import com.wwqk.controller.UploadController;
 import com.wwqk.controller.UserController;
+import com.wwqk.model.AllLiveMatch;
 import com.wwqk.model.Career;
 import com.wwqk.model.Coach;
 import com.wwqk.model.CoachCareer;
@@ -151,6 +152,8 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("odds_matches", OddsMatches.class);
 		arp.addMapping("odds_euro", OddsEuro.class);
 		arp.addMapping("odds_ah", OddsAH.class);
+		
+		arp.addMapping("all_live_match", AllLiveMatch.class);
 		
 		//arp.addMapping("article", Article.class);
 		

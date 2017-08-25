@@ -2,6 +2,7 @@ package com.wwqk.plugin;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -17,14 +18,19 @@ import org.jsoup.select.Elements;
 import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
+import com.wwqk.model.AllLiveMatch;
+import com.wwqk.model.League;
 import com.wwqk.model.MatchLive;
 import com.wwqk.model.MatchSourceSina;
+import com.wwqk.model.Team;
 import com.wwqk.utils.CommonUtils;
+import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.MatchUtils;
+import com.wwqk.utils.StringUtils;
 
 public class Live24zbw {
 	
-	private static final String SITE_URL = "http://www.24zbw.com/match/all/";
+	private static final String SITE_URL = "http://www.24zbw.com/";
 	
 
 	public static void getLiveSource() {
@@ -34,46 +40,122 @@ public class Live24zbw {
 		leagueMap.put("德甲", "3");
 		leagueMap.put("意甲", "4");
 		leagueMap.put("法甲", "5");
-
+		CommonUtils.initNameIdMap();
 		Connection connect = Jsoup.connect(SITE_URL).ignoreContentType(true);
 		Connection data = connect.data(MatchUtils.get24zbwHeader());
 		try {
 			Document document = data.get();
-			Elements matchItems = document.select(".match-item");
-			if(matchItems.size()>0){
-				//获取赛季
-				MatchSourceSina matchSourceSina = MatchSourceSina.dao.findFirst("select * from match_source_sina");
-				for(Element element : matchItems){
-					if(element.select(".match-competition").size()==0){
+			Elements matchBody = document.select(".match-body");
+			if(matchBody.size()>0){
+				Element body = matchBody.get(0);
+				String[] groupMatches = body.html().split("match-turns\">");
+				for(String group:groupMatches){
+					if(!group.contains("match-item")){
 						continue;
 					}
-					String leagueName = element.select(".match-competition").get(0).text();
-					if(leagueMap.get(leagueName)==null || element.text().contains("已结束")){
-						continue;
-					}
-					List<MatchLive> lstMatchLives = new ArrayList<MatchLive>();
-					Elements homeAwayNames = element.select(".match-title");
-					String homeTeamName = homeAwayNames.get(0).text();
-					String awayTeamName = homeAwayNames.get(1).text();
-					if(CommonUtils.nameIdMap.get(homeTeamName)!=null && CommonUtils.nameIdMap.get(awayTeamName)!=null){
-						Elements lives = element.select(".live-item-source");
-						if(lives.size()>0){
-							for(Element elementLive:lives){
-								MatchLive matchLive = new MatchLive();
-								matchLive.set("match_key", matchSourceSina.getStr("year_show")+"-"+CommonUtils.nameIdMap.get(homeTeamName)+"vs"+CommonUtils.nameIdMap.get(awayTeamName));
-								matchLive.set("home_team_id", CommonUtils.nameIdMap.get(homeTeamName));
-								matchLive.set("home_team_name", homeTeamName);
-								matchLive.set("away_team_id", CommonUtils.nameIdMap.get(awayTeamName));
-								matchLive.set("away_team_name", awayTeamName);
-								matchLive.set("league_id", leagueMap.get(leagueName));
-								String liveName = elementLive.text().replace("(推荐)", "");
-								matchLive.set("live_name", liveName);
-								matchLive.set("live_url", elementLive.attr("href"));
-								lstMatchLives.add(matchLive);
+					//08月25日 星期五
+					String dateAllStr = group.substring(2,group.indexOf("</div>"));
+					String dateStr = dateAllStr.split(" ")[0];
+					String weekStr = dateAllStr.split(" ")[1];
+					group = "<div>"+group;
+					Document matchDoc = Jsoup.parse(group);
+					Elements matchItems = matchDoc.select(".match-item");
+					if(matchItems.size()>0){
+						//获取赛季
+						MatchSourceSina matchSourceSina = MatchSourceSina.dao.findFirst("select * from match_source_sina");
+						String yearShow = matchSourceSina.getStr("year_show");
+						for(Element element : matchItems){
+							if(element.select(".match-competition").size()==0){
+								continue;
 							}
+							if(element.text().contains("已结束")){
+								continue;
+							}
+							
+							String leagueName = element.select(".match-competition").get(0).text();
+							if(leagueName.contains("抽签")){
+								continue;
+							}
+							
+							String timeStr = StringUtils.trim(element.child(0).text());
+							Date matchDateTime = DateTimeUtils.getMatchDate(dateStr+" "+timeStr);
+							if(matchDateTime.before(new Date())){
+								continue;
+							}
+							List<MatchLive> lstMatchLives = new ArrayList<MatchLive>();
+							Elements homeAwayNames = element.select(".match-title");
+							String homeTeamName = StringUtils.trim(homeAwayNames.get(0).text());
+							String awayTeamName = StringUtils.trim(homeAwayNames.get(1).text());
+							AllLiveMatch allLiveMatch = AllLiveMatch.dao.findFirst(
+									"select * from all_live_match where home_team_name = ? and away_team_name = ? and year_show = ?",
+									homeTeamName, awayTeamName, yearShow);
+							boolean isNeedInsert = false;
+							if(allLiveMatch==null){
+								isNeedInsert = true;
+								allLiveMatch = new AllLiveMatch();
+							}
+							allLiveMatch.set("match_date_week", dateAllStr);
+							allLiveMatch.set("weekday", weekStr);
+							allLiveMatch.set("match_datetime", matchDateTime);
+							allLiveMatch.set("league_name", leagueName);
+							allLiveMatch.set("home_team_name", homeTeamName);
+							allLiveMatch.set("away_team_name", awayTeamName);
+							allLiveMatch.set("year_show", yearShow);
+							String leagueId = leagueMap.get(leagueName);
+							if(StringUtils.isNotBlank(leagueId)){
+								String homeTeamId = CommonUtils.nameIdMap.get(homeTeamName);
+								String awayTeamId = CommonUtils.nameIdMap.get(awayTeamName);
+								if(StringUtils.isNotBlank(homeTeamId) && StringUtils.isNotBlank(awayTeamId)){
+									Team home = Team.dao.findById(homeTeamId);
+									Team away = Team.dao.findById(awayTeamId);
+									allLiveMatch.set("home_team_id", homeTeamId);
+									allLiveMatch.set("away_team_id", awayTeamId);
+									allLiveMatch.set("league_id", leagueId);
+									League league = League.dao.findById(leagueId);
+									allLiveMatch.set("league_enname", league.getStr("name_en"));
+									//使用本系统球队名称
+									allLiveMatch.set("home_team_name", home.getStr("name"));
+									allLiveMatch.set("away_team_name", away.getStr("name"));
+									allLiveMatch.set("home_team_enname", home.getStr("name_en"));
+									allLiveMatch.set("away_team_enname", away.getStr("name_en"));
+									allLiveMatch.set("match_key", yearShow+"-"+homeTeamId+"vs"+awayTeamId);
+								}
+							}
+							allLiveMatch.set("update_time", new Date());
+							if(isNeedInsert){
+								allLiveMatch.save();
+								if(StringUtils.isBlank(allLiveMatch.getStr("match_key"))){
+									allLiveMatch.set("match_key", allLiveMatch.get("id"));
+								}
+							}
+							allLiveMatch.update();
+							
+							Elements lives = element.select(".live-item-source");
+							if(lives.size()>0){
+								for(Element elementLive:lives){
+									MatchLive matchLive = new MatchLive();
+									if(CommonUtils.nameIdMap.get(homeTeamName)!=null && CommonUtils.nameIdMap.get(awayTeamName)!=null){
+										matchLive.set("match_key", yearShow+"-"+CommonUtils.nameIdMap.get(homeTeamName)+"vs"+CommonUtils.nameIdMap.get(awayTeamName));
+										matchLive.set("home_team_id", CommonUtils.nameIdMap.get(homeTeamName));
+										matchLive.set("away_team_id", CommonUtils.nameIdMap.get(awayTeamName));
+										matchLive.set("league_id", leagueMap.get(leagueName));
+									}else{
+										matchLive.set("match_key", String.valueOf(allLiveMatch.get("match_key")));
+									}
+									matchLive.set("home_team_name", homeTeamName);
+									matchLive.set("away_team_name", awayTeamName);
+									String liveName = elementLive.text().replace("(推荐)", "");
+									matchLive.set("live_name", liveName);
+									matchLive.set("live_url", elementLive.attr("href"));
+									matchLive.set("match_date", matchDateTime);
+									lstMatchLives.add(matchLive);
+								}
+							}
+							
+							saveOneMatchLive(lstMatchLives);
 						}
 					}
-					saveOneMatchLive(lstMatchLives);
+					
 				}
 			}
 			
@@ -108,4 +190,5 @@ public class Live24zbw {
 			}
 		}
 	}
+	
 }

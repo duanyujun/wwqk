@@ -1167,5 +1167,22 @@ public final class DateTimeUtils {
 		
 		return DAY_NAMES[dayOfWeek];
 	}
-
+	
+	/**
+	 * 08月25日 00:00转成日期
+	 * @return
+	 */
+	public static Date getMatchDate(String dateString){
+		Date result = null;
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		String fullDateString = year + "年"+dateString;
+		String[] patterns = {"yyyy年MM月dd日 HH:mm"};
+		try {
+			result = parseDate(fullDateString, patterns);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }
