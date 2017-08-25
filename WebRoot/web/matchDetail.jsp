@@ -399,7 +399,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:70px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-9 col-md-9 col-sm-11 col-xs-11 bread">
-				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/match" target="_blank">比赛</a>&nbsp;&gt;&nbsp;${homeTeam.name}vs${history.away_team_name}
+				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/match" target="_blank">比赛</a>&nbsp;&gt;&nbsp;<span style="font-size:18px;color:#000;">${leagueName} ${history.year_show}赛季 第${history.round}轮 ${homeTeam.name} VS ${history.away_team_name}</span>
 			</div>
 		</div>
 	</div>
@@ -412,16 +412,16 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="well well-lg" style="line-height:2;text-indent:20px;">
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									【所属联赛】：<span class="a-title" style="font-size:16px;"><a href="data-${leagueENName}-${history.league_id}.html" target="_blank">${leagueName}</a> （第${history.round}轮）</span>
+									【所属联赛】：<span class="a-title" ><a href="data-${leagueENName}-${history.league_id}.html" target="_blank">${leagueName}</a> （第${history.round}轮）</span>
 								</div>
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									【对阵球队】：<span class="a-title" style="font-size:16px;"><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank">${homeTeam.name}</a> vs <a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank">${history.away_team_name}</a></span>
+									【对阵球队】：<span class="a-title" ><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank">${homeTeam.name}</a> vs <a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank">${history.away_team_name}</a></span>
 									<c:if test="${history.status=='完场'}">
 									（完场：<span style="color:red;">${history.result}</span>）
 									</c:if>
 								</div>
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									【赛事时间】：<fmt:formatDate value="${history.match_date}" pattern="yyyy年MM月dd日  HH:mm"/>
+									【赛事时间】：<fmt:formatDate value="${history.match_date}" pattern="yyyy年MM月dd日  HH:mm"/> ${history.match_weekday}
 								</div>
 								<c:if test="${history.status=='完场'}">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -452,9 +452,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 											暂无
 										</c:if>
 										<c:if test="${!empty lstMatchLive}">
-											<span class="a-title" style="font-size:16px;">
+											<span class="a-title" >
 											<c:forEach items="${lstMatchLive}" var="live">
-												<a href="${live.live_url}" target="_blank">${live.live_name}</a>&nbsp;&nbsp;	
+												<a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;	
 											</c:forEach>
 											</span>
 										</c:if>

@@ -83,6 +83,8 @@ public class MatchController extends Controller {
 		
 		Team homeTeam = Team.dao.findById(history.getStr("home_team_id"));
 		setAttr("homeTeam", homeTeam);
+		String yearShow = history.getStr("year_show").substring(0,2)+"/"+history.getStr("year_show").substring(2);
+		history.set("year_show", yearShow);
 		setAttr("history", history);
 		setAttr("leagueName", EnumUtils.getValue(LeagueEnum.values(), homeTeam.getStr("league_id")));
 		setAttr("leagueENName", EnumUtils.getValue(LeagueENEnum.values(), homeTeam.getStr("league_id")));
