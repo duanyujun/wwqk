@@ -66,7 +66,8 @@ public class Live24zbw {
 								matchLive.set("away_team_id", CommonUtils.nameIdMap.get(awayTeamName));
 								matchLive.set("away_team_name", awayTeamName);
 								matchLive.set("league_id", leagueMap.get(leagueName));
-								matchLive.set("live_name", elementLive.text());
+								String liveName = elementLive.text().replace("(推荐)", "");
+								matchLive.set("live_name", liveName);
 								matchLive.set("live_url", elementLive.attr("href"));
 								lstMatchLives.add(matchLive);
 							}

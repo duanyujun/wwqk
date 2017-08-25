@@ -23,7 +23,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     </style>
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
-    <title>${leagueName}${homeTeam.name}vs${history.away_team_name}直播|${homeTeam.name}vs${history.away_team_name}免费直播|${homeTeam.name}vs${history.away_team_name}直播信号|趣点足球网直播|<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 阵容|<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 情报</title>
+    <title>${leagueName}${homeTeam.name}vs${history.away_team_name}直播|${homeTeam.name}vs${history.away_team_name}免费直播|${homeTeam.name} ${history.away_team_name} 直播|趣点足球网直播|<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 阵容|<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 情报</title>
 </head>
 
 <body>
