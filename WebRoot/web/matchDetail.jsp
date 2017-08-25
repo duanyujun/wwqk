@@ -113,7 +113,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<c:if test="${!empty lstMatchLive}">
 						<span class="a-title" style="font-size:16px;">
 						<c:forEach items="${lstMatchLive}" var="live">
-							<a href="${live.live_url}" target="_blank">${live.live_name}</a>&nbsp;&nbsp;	
+							<a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;	
 						</c:forEach>
 						</span>
 					</c:if>
