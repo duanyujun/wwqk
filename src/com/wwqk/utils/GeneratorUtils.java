@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import org.jsoup.Jsoup;
@@ -34,10 +35,12 @@ public class GeneratorUtils{
 //				lstPlayer = null;
 //			}
 			
+			Date nowDate = DateTimeUtils.addDays(new Date(), -10);
+			
 			//球队
 			Elements teamTds = document.select("#teams_td");
 			if(teamTds.size()>0){
-				List<Team> lstTeam = Team.dao.find("select * from team");
+				List<Team> lstTeam = Team.dao.find("select * from team ");
 				StringBuilder sb = new StringBuilder();
 				for(Team team : lstTeam){
 					sb.append("<a href=\"http://www.yutet.com/team-"+team.getStr("name_en")+"-"+team.getStr("id")+".html\" target=\"_blank\">"+team.getStr("name")+"</a>&nbsp;");
@@ -48,7 +51,7 @@ public class GeneratorUtils{
 			//说说
 			Elements sayTds = document.select("#says_td");
 			if(sayTds.size()>0){
-				List<Say> lstSay = Say.dao.find("select s.id, p.en_url from say s, player p where s.player_id = p.id ");
+				List<Say> lstSay = Say.dao.find("select s.id, p.en_url from say s, player p where s.player_id = p.id and s.create_time > ?", nowDate);
 				StringBuilder sb = new StringBuilder();
 				for(Say say : lstSay){
 					sb.append("<a href=\"http://www.yutet.com/sdetail-"+say.getStr("en_url")+"-"+say.get("id")+".html\" target=\"_blank\">s"+say.get("id")+"</a>&nbsp;");
@@ -60,7 +63,7 @@ public class GeneratorUtils{
 			//趣点
 			Elements funTds = document.select("#funs_td");
 			if(funTds.size()>0){
-				List<Fun> lstFun = Fun.dao.find("select id, title, create_time from fun where type = 1");
+				List<Fun> lstFun = Fun.dao.find("select id, title, create_time from fun where type = 1 ");
 				StringBuilder sb = new StringBuilder();
 				for(Fun fun : lstFun){
 					sb.append("<a href=\"http://www.yutet.com/fdetail-"+DateTimeUtils.formatDate(fun.getDate("create_time"))+"-"+fun.get("id")+".html\" target=\"_blank\">"+fun.get("title")+"</a>&nbsp;");
@@ -71,7 +74,7 @@ public class GeneratorUtils{
 			//比赛
 			Elements matchTds = document.select("#matches_td");
 			if(matchTds.size()>0){
-				List<LeagueMatchHistory> lstMatch = LeagueMatchHistory.dao.find("select year_show,home_team_id,home_team_name, away_team_id,away_team_name, match_date, home_team_en_name, away_team_en_name from league_match_history");
+				List<LeagueMatchHistory> lstMatch = LeagueMatchHistory.dao.find("select year_show,home_team_id,home_team_name, away_team_id,away_team_name, match_date, home_team_en_name, away_team_en_name from league_match_history and match_date > ?", nowDate);
 				StringBuilder sb = new StringBuilder();
 				for(LeagueMatchHistory match : lstMatch){
 					sb.append("<a href=\"http://www.yutet.com/match-"+match.getStr("home_team_en_name")+"-vs-"+match.getStr("away_team_en_name")+"_"+match.getStr("year_show")+"-"+match.getStr("home_team_id")+"vs"+match.getStr("away_team_id")+".html\" target=\"_blank\">"+match.getStr("home_team_name")+"vs"+match.getStr("away_team_name")+"</a>&nbsp;");
@@ -80,7 +83,7 @@ public class GeneratorUtils{
 				lstMatch = null;
 			}
 			
-			//球队比赛列表
+			//球队列表
 			Elements teamMatchTds = document.select("#team_match_td");
 			if(teamMatchTds.size()>0){
 				List<Team> lstTeam = Team.dao.find("select id, name, name_en from team");

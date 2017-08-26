@@ -49,8 +49,9 @@ public class OddsUtils {
 		leagueSet.add("意甲");
 		leagueSet.add("法甲");
 		CommonUtils.initNameIdMap();
+		Date yesterday = DateTimeUtils.addDays(new Date(), -1);
 		//得到所有的比赛日期
-		List<Record> lstDateStr = Db.find("SELECT DATE_FORMAT(match_date, '%Y-%m-%d') date_str FROM league_match_history WHERE odds_wh_end IS NULL and match_date > ?  GROUP BY DATE_FORMAT(match_date, '%Y-%m-%d') ORDER BY date_str ASC", new Date());
+		List<Record> lstDateStr = Db.find("SELECT DATE_FORMAT(match_date, '%Y-%m-%d') date_str FROM league_match_history WHERE odds_wh_end IS NULL and match_date > ?  GROUP BY DATE_FORMAT(match_date, '%Y-%m-%d') ORDER BY date_str ASC", yesterday);
 		for(Record record : lstDateStr){
 			String dateStr = record.getStr("date_str");
 			String content = MatchUtils.getHtmlContent(httpClient, MatchUtils.MATCH_REFER_URL, MatchUtils.MATCH_REFER_URL+"?date="+dateStr);

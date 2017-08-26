@@ -18,13 +18,15 @@ import com.wwqk.model.MatchLive;
 import com.wwqk.model.Team;
 import com.wwqk.plugin.OddsUtils;
 import com.wwqk.utils.CommonUtils;
+import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.EnumUtils;
 import com.wwqk.utils.StringUtils;
 
 public class LiveController extends Controller {
 
 	public void index(){
-		Date nowDate = new Date();
+		
+		Date nowDate = DateTimeUtils.addHours(new Date(), -1);
 		StringBuilder sb = new StringBuilder("(");
 		List<AllLiveMatch> lstResult = new ArrayList<AllLiveMatch>();
 		List<AllLiveMatch> lstAllLiveMatch = AllLiveMatch.dao.find("select * from all_live_match where match_datetime > ? order by match_datetime asc", nowDate);
