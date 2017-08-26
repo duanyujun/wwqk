@@ -5,20 +5,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.jfinal.core.Controller;
-import com.jfinal.plugin.activerecord.Model;
 import com.wwqk.constants.LeagueENEnum;
 import com.wwqk.constants.LeagueEnum;
 import com.wwqk.constants.OddsProviderEnum;
 import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.MatchLive;
-import com.wwqk.model.OddsBet365;
-import com.wwqk.model.OddsBwin;
-import com.wwqk.model.OddsLB;
-import com.wwqk.model.OddsML;
-import com.wwqk.model.OddsWH;
 import com.wwqk.model.Team;
+import com.wwqk.plugin.OddsUtils;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.EnumUtils;
 import com.wwqk.utils.StringUtils;
@@ -73,12 +69,12 @@ public class MatchController extends Controller {
 		LeagueMatchHistory history = LeagueMatchHistory.dao.findById(matchKey);
 		
 		if(history!=null){
-			setAttr("lstOddsWH", findOdds(history, OddsProviderEnum.WH.getKey()));
-			setAttr("lstOddsBet365", findOdds(history, OddsProviderEnum.BET365.getKey()));
-			setAttr("lstOddsLB", findOdds(history, OddsProviderEnum.LB.getKey()));
-			setAttr("lstOddsML", findOdds(history, OddsProviderEnum.ML.getKey()));
-			setAttr("lstOddsBwin", findOdds(history, OddsProviderEnum.BWIN.getKey()));
-			setStartEndOdds(history);
+			setAttr("lstOddsWH", OddsUtils.findOdds(history, OddsProviderEnum.WH.getKey(),this));
+			setAttr("lstOddsBet365", OddsUtils.findOdds(history, OddsProviderEnum.BET365.getKey(),this));
+			setAttr("lstOddsLB", OddsUtils.findOdds(history, OddsProviderEnum.LB.getKey(),this));
+			setAttr("lstOddsML", OddsUtils.findOdds(history, OddsProviderEnum.ML.getKey(),this));
+			setAttr("lstOddsBwin", OddsUtils.findOdds(history, OddsProviderEnum.BWIN.getKey(),this));
+			OddsUtils.setStartEndOdds(history,this);
 		}
 		
 		Team homeTeam = Team.dao.findById(history.getStr("home_team_id"));
@@ -91,107 +87,6 @@ public class MatchController extends Controller {
 		render("matchDetail.jsp");
 	}
 	
-	private void setStartEndOdds(LeagueMatchHistory history){
-		if(StringUtils.isNotBlank(history.getStr("odds_wh_start"))){
-			setAttr("odds_wh_start", history.getStr("odds_wh_start").replaceAll(",", "&nbsp;&nbsp;"));
-		}
-		if(StringUtils.isNotBlank(history.getStr("odds_wh_end"))){
-			setAttr("odds_wh_end", history.getStr("odds_wh_end").replaceAll(",", "&nbsp;&nbsp;"));
-		}
-		
-		if(StringUtils.isNotBlank(history.getStr("odds_lb_start"))){
-			setAttr("odds_lb_start", history.getStr("odds_lb_start").replaceAll(",", "&nbsp;&nbsp;"));
-		}
-		if(StringUtils.isNotBlank(history.getStr("odds_lb_end"))){
-			setAttr("odds_lb_end", history.getStr("odds_lb_end").replaceAll(",", "&nbsp;&nbsp;"));
-		}
-		
-		if(StringUtils.isNotBlank(history.getStr("odds_bet365_start"))){
-			setAttr("odds_bet365_start", history.getStr("odds_bet365_start").replaceAll(",", "&nbsp;&nbsp;"));
-		}
-		if(StringUtils.isNotBlank(history.getStr("odds_bet365_end"))){
-			setAttr("odds_bet365_end", history.getStr("odds_bet365_end").replaceAll(",", "&nbsp;&nbsp;"));
-		}
-		
-		if(StringUtils.isNotBlank(history.getStr("odds_ml_start"))){
-			setAttr("odds_ml_start", history.getStr("odds_ml_start").replaceAll(",", "&nbsp;&nbsp;"));
-		}
-		if(StringUtils.isNotBlank(history.getStr("odds_ml_end"))){
-			setAttr("odds_ml_end", history.getStr("odds_ml_end").replaceAll(",", "&nbsp;&nbsp;"));
-		}
-		
-		if(StringUtils.isNotBlank(history.getStr("odds_bwin_start"))){
-			setAttr("odds_bwin_start", history.getStr("odds_bwin_start").replaceAll(",", "&nbsp;&nbsp;"));
-		}
-		if(StringUtils.isNotBlank(history.getStr("odds_bwin_end"))){
-			setAttr("odds_bwin_end", history.getStr("odds_bwin_end").replaceAll(",", "&nbsp;&nbsp;"));
-		}
-	}
 	
-	/**
-	 * 获取赔率
-	 * @param history
-	 * @param oddsProviderId
-	 * @return
-	 */
-	private List<? extends Model<?>> findOdds(LeagueMatchHistory history, String oddsProviderId){
-		List<? extends Model<?>> lstResult = null;
-		if(OddsProviderEnum.WH.getKey().equals(oddsProviderId)){
-			if(StringUtils.isNotBlank(history.getStr("odds_wh_start"))){
-				String[] odds = history.getStr("odds_wh_start").split(",");
-				lstResult = OddsWH.dao.find("select * from odds_wh where odds_home_start = ? and odds_draw_start = ? and odds_away_start = ? order by match_date_time desc ", 
-						odds[0], odds[1], odds[2] );
-			} 
-		}else if(OddsProviderEnum.BET365.getKey().equals(oddsProviderId)){
-			if(StringUtils.isNotBlank(history.getStr("odds_bet365_start"))){
-				String[] odds = history.getStr("odds_bet365_start").split(",");
-				lstResult = OddsBet365.dao.find("select * from odds_bet365 where odds_home_start = ? and odds_draw_start = ? and odds_away_start = ? order by match_date_time desc ", 
-						odds[0], odds[1], odds[2] );
-			} 
-		}else if(OddsProviderEnum.LB.getKey().equals(oddsProviderId)){
-			if(StringUtils.isNotBlank(history.getStr("odds_lb_start"))){
-				String[] odds = history.getStr("odds_lb_start").split(",");
-				lstResult = OddsLB.dao.find("select * from odds_lb where odds_home_start = ? and odds_draw_start = ? and odds_away_start = ? order by match_date_time desc ", 
-						odds[0], odds[1], odds[2] );
-			} 
-		}else if(OddsProviderEnum.ML.getKey().equals(oddsProviderId)){
-			if(StringUtils.isNotBlank(history.getStr("odds_ml_start"))){
-				String[] odds = history.getStr("odds_ml_start").split(",");
-				lstResult = OddsML.dao.find("select * from odds_ml where odds_home_start = ? and odds_draw_start = ? and odds_away_start = ? order by match_date_time desc ", 
-						odds[0], odds[1], odds[2] );
-			} 
-		}else if(OddsProviderEnum.BWIN.getKey().equals(oddsProviderId)){
-			if(StringUtils.isNotBlank(history.getStr("odds_bwin_start"))){
-				String[] odds = history.getStr("odds_bwin_start").split(",");
-				lstResult = OddsBwin.dao.find("select * from odds_bwin where odds_home_start = ? and odds_draw_start = ? and odds_away_start = ? order by match_date_time desc ", 
-						odds[0], odds[1], odds[2] );
-			} 
-		}
-		
-		calcHDA(lstResult, oddsProviderId);
-		
-		return lstResult;
-	}
-	
-	private void calcHDA(List<? extends Model<?>> lstResult, String oddsProviderId){
-		if(lstResult==null || lstResult.size()==0){
-			return;
-		}
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("胜", 0);
-		map.put("平", 0);
-		map.put("负", 0);
-		for(Model<?> model : lstResult){
-			if(model.getStr("common_result").contains("胜")){
-				map.put("胜", map.get("胜")+1);
-			}else if(model.getStr("common_result").contains("负")){
-				map.put("负", map.get("负")+1);
-			}else{
-				map.put("平", map.get("平")+1);
-			}
-		}
-		setAttr("calcStr_"+oddsProviderId, "共"+lstResult.size()+"场相同初始赔率比赛：<span class='red_result'>"
-				+map.get("胜")+"胜</span>&nbsp;"+map.get("平")+"平&nbsp;<span class='green_result'>"+map.get("负")+"负</span>");
-	}
 	
 }

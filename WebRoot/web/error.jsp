@@ -31,8 +31,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 					<ul style="float:left;">
 						<li class="menu_width"><a href="">首页</a></li>
-						<li class="menu_width"><a href="fun.html">趣点</a></li>
 						<li class="menu_width"><a href="say.html">说说</a></li>
+						<li class="menu_width"><a href="live.html">直播</a></li>
 						<li class="menu_width"><a href="match.html">比赛</a></li>
 						<li class="menu_width"><a href="data.html">数据</a></li>
 					</ul>
@@ -44,11 +44,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
 	       		<a href="/" target="_self"><span class="wwqk_menu">首页</span></a>
 	       	</div>
-	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
-	       		<a href="/fun.html" target="_self"><span class="wwqk_menu">趣点</span></a>
-	       	</div>
 	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
 	       		<a href="/say.html" target="_self"><span class="wwqk_menu">说说</span></a>
+	       	</div>
+	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
+	       		<a href="/live.html" target="_self"><span class="wwqk_menu">直播</span></a>
 	       	</div>
 	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
 	       		<a href="/match.html" target="_self"><span class="wwqk_menu">比赛</span></a>

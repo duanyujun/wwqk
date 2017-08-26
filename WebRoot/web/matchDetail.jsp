@@ -23,6 +23,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     </style>
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <title>${leagueName}${homeTeam.name}vs${history.away_team_name}直播|${homeTeam.name}vs${history.away_team_name}免费直播|${homeTeam.name} ${history.away_team_name} 直播|趣点足球网直播|<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 阵容|<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 情报</title>
 </head>
 
@@ -113,7 +114,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<c:if test="${!empty lstMatchLive}">
 						<span class="a-title" style="font-size:16px;">
 						<c:forEach items="${lstMatchLive}" var="live">
-							<a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;	
+							<i class="fa fa-tv"></i><a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;	
 						</c:forEach>
 						</span>
 					</c:if>
@@ -454,7 +455,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										<c:if test="${!empty lstMatchLive}">
 											<span class="a-title" >
 											<c:forEach items="${lstMatchLive}" var="live">
-												<a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;	
+												<i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;	
 											</c:forEach>
 											</span>
 										</c:if>
