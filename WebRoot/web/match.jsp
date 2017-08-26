@@ -88,7 +88,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							      		<span class="grey-title" style="font-size:12px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_self">集锦</a></span>
 							      	</c:if>
 							      	<c:if test="${match.status!='完场'}">
-							      		<b class="a-title" style="font-size:12px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_self">直播</a></b>
+							      		<c:if test="${match.status=='进行中'}">
+							      			<b class="a-title" style="font-size:12px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_self">进行中</a></b>
+							      	    </c:if>
+							      		<c:if test="${match.status!='进行中'}">
+							      			<b class="a-title" style="font-size:12px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_self">直播</a></b>
+							      	   </c:if>
 							      	</c:if>
 						      </td>
 						    </tr>
@@ -144,7 +149,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							      		<span class="grey-title"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">集锦</a></span>
 							      	</c:if>
 							      	<c:if test="${match.status!='完场'}">
-							      		<b class="a-title"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">直播</a></b>
+							      		<c:if test="${match.status=='进行中'}">
+								      		<b class="a-title"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">进行中</a></b>
+								      	</c:if>
+								      	<c:if test="${match.status!='进行中'}">
+								      		<b class="a-title"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">直播</a></b>
+								      	</c:if>
 							      	</c:if>
 						      </td>
 						    </tr>
