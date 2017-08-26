@@ -17,6 +17,7 @@ import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.MatchLive;
 import com.wwqk.model.Team;
 import com.wwqk.plugin.OddsUtils;
+import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.EnumUtils;
 import com.wwqk.utils.StringUtils;
 
@@ -64,6 +65,10 @@ public class LiveController extends Controller {
 	
 	public void detail(){
 		String id = getPara("id");
+		id = CommonUtils.getRewriteId(id);
+		if(StringUtils.isBlank(id)){
+			redirect("/live");
+		}
 		AllLiveMatch match = AllLiveMatch.dao.findById(id);
 		if(match==null){
 			redirect("/live");

@@ -38,8 +38,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 					<ul style="float:left;" class="hidden-sm hidden-xs">
 						<li class="menu_width"><a href="">首页</a></li>
-						<li class="menu_width"><a href="fun.html">趣点</a></li>
 						<li class="menu_width"><a href="say.html">说说</a></li>
+						<li class="menu_width"><a href="live.html">直播</a></li>
 						<li class="menu_width menu_sel"><a href="match.html">比赛</a></li>
 						<li class="menu_width"><a href="data.html">数据</a></li>
 					</ul>
@@ -51,11 +51,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
 	       		<a href="/" target="_self"><span class="wwqk_menu">首页</span></a>
 	       	</div>
-	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
-	       		<a href="/fun.html" target="_self"><span class="wwqk_menu">趣点</span></a>
-	       	</div>
 	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
 	       		<a href="/say.html" target="_self"><span class="wwqk_menu">说说</span></a>
+	       	</div>
+	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
+	       		<a href="/live.html" target="_self"><span class="wwqk_menu">直播</span></a>
 	       	</div>
 	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
 	       		<a href="/match.html" target="_self"><span class="wwqk_menu dline">比赛</span></a>
@@ -114,7 +114,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<c:if test="${!empty lstMatchLive}">
 						<span class="a-title" style="font-size:16px;">
 						<c:forEach items="${lstMatchLive}" var="live">
-							<i class="fa fa-tv"></i><a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;	
+							<i class="fa fa-tv"></i><a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>
 						</c:forEach>
 						</span>
 					</c:if>
@@ -455,7 +455,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										<c:if test="${!empty lstMatchLive}">
 											<span class="a-title" >
 											<c:forEach items="${lstMatchLive}" var="live">
-												<i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;	
+												<i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>
 											</c:forEach>
 											</span>
 										</c:if>

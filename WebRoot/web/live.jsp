@@ -76,7 +76,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								      <td style="width:110px;height:35px;line-height:35px;"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/>&nbsp;&nbsp;<span class="league_${match.league_id}">${match.league_name}</span></td>
 								      <td style="width:200px;height:35px;line-height:35px;" class="a-title">
 								      	<c:if test="${empty match.league_id}">
-								      		<a href="/live/detail?id=${match.id}" target="_self">${match.home_team_name} VS ${match.away_team_name}</a>
+								      		<a href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.id}.html" target="_self">${match.home_team_name} VS ${match.away_team_name}</a>
 								      	</c:if>
 								      	<c:if test="${!empty match.league_id}">
 								      		<b class="a-title" ><a href="match-${match.home_team_enname}-vs-${match.away_team_enname}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_self">${match.home_team_name} VS ${match.away_team_name}</a></b>
@@ -124,7 +124,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								      <td style="width:110px;height:35px;line-height:35px;"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/>&nbsp;&nbsp;<span class="league_${match.league_id}">${match.league_name}</span></td>
 								      <td style="width:200px;height:35px;line-height:35px;" class="a-title">
 								      	<c:if test="${empty match.league_id}">
-								      		<a href="/live/detail?id=${match.id}" target="_blank">${match.home_team_name} VS ${match.away_team_name}</a>
+								      		<a href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.id}.html" target="_blank">${match.home_team_name} VS ${match.away_team_name}</a>
 								      	</c:if>
 								      	<c:if test="${!empty match.league_id}">
 								      		<b class="a-title" ><a href="match-${match.home_team_enname}-vs-${match.away_team_enname}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_self">${match.home_team_name} VS ${match.away_team_name}</a></b>
