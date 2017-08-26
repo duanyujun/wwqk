@@ -1,6 +1,7 @@
 package com.wwqk.plugin;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,7 +50,7 @@ public class OddsUtils {
 		leagueSet.add("法甲");
 		CommonUtils.initNameIdMap();
 		//得到所有的比赛日期
-		List<Record> lstDateStr = Db.find("SELECT DATE_FORMAT(match_date, '%Y-%m-%d') date_str FROM league_match_history WHERE odds_wh_end IS NULL  GROUP BY DATE_FORMAT(match_date, '%Y-%m-%d') ORDER BY date_str ASC");
+		List<Record> lstDateStr = Db.find("SELECT DATE_FORMAT(match_date, '%Y-%m-%d') date_str FROM league_match_history WHERE odds_wh_end IS NULL and match_date > ?  GROUP BY DATE_FORMAT(match_date, '%Y-%m-%d') ORDER BY date_str ASC", new Date());
 		for(Record record : lstDateStr){
 			String dateStr = record.getStr("date_str");
 			String content = MatchUtils.getHtmlContent(httpClient, MatchUtils.MATCH_REFER_URL, MatchUtils.MATCH_REFER_URL+"?date="+dateStr);
