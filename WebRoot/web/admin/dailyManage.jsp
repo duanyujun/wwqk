@@ -70,6 +70,13 @@
                         </button>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="btn-group">
+                        <button onclick="updateTeamPosition();" class="btn sbold green" style="margin-left:10px;"> 更新球队排名
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -176,6 +183,17 @@ function updateSameOdds(){
 	$("body").showLoading();
 	showToast(1, "更新中...", "温馨提示");
 	$.post("/admin/updateSameOdds",
+			function(result){
+				$("body").hideLoading();
+				showToast(1, "更新成功！", "温馨提示");
+			}
+	);
+}
+
+function updateTeamPosition(){
+	$("body").showLoading();
+	showToast(1, "更新中...", "温馨提示");
+	$.post("/admin/updateTeamPosition",
 			function(result){
 				$("body").hideLoading();
 				showToast(1, "更新成功！", "温馨提示");

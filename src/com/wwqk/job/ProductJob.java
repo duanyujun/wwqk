@@ -18,6 +18,7 @@ import com.jfinal.plugin.activerecord.Db;
 import com.wwqk.constants.CommonConstants;
 import com.wwqk.model.Player;
 import com.wwqk.plugin.ShooterAssister163;
+import com.wwqk.plugin.TeamPosition;
 import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.GeneratorUtils;
 import com.wwqk.utils.ImageUtils;
@@ -41,8 +42,8 @@ public class ProductJob implements Job {
 		//计算年龄
 		calcAge();
 		
-		//替换默认图片
-		//replaceEmptyImage();
+		//更新球队排名
+		TeamPosition.getPosition();
 		
 		//生成网站地图
 		GeneratorUtils.generateSitemap();

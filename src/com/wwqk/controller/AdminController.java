@@ -34,6 +34,7 @@ import com.wwqk.plugin.MatchSina;
 import com.wwqk.plugin.OddsUtils;
 import com.wwqk.plugin.ShooterAssister163;
 import com.wwqk.plugin.TeamPlayers;
+import com.wwqk.plugin.TeamPosition;
 import com.wwqk.service.Assists163Service;
 import com.wwqk.service.FunService;
 import com.wwqk.service.LeagueService;
@@ -588,8 +589,15 @@ public class AdminController extends Controller {
 		renderJson(1);
 	}
 	
+	//更新相同赔率
 	public void updateSameOdds(){
 		OddsUtils.initHistoryOdds();
+		renderJson(1);
+	}
+	
+	//更新球队排名
+	public void updateTeamPosition(){
+		TeamPosition.getPosition();
 		renderJson(1);
 	}
 }
