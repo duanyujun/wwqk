@@ -86,13 +86,27 @@ public class Live24zbw {
 							Elements homeAwayNames = element.select(".match-title");
 							String homeTeamName = StringUtils.trim(homeAwayNames.get(0).text());
 							String awayTeamName = StringUtils.trim(homeAwayNames.get(1).text());
+							String homeTeamId = CommonUtils.nameIdMap.get(homeTeamName);
+							String awayTeamId = CommonUtils.nameIdMap.get(awayTeamName);
+							Date dateVilidate = DateTimeUtils.addDays(new Date(), -2);
 							AllLiveMatch allLiveMatch = AllLiveMatch.dao.findFirst(
-									"select * from all_live_match where home_team_name = ? and away_team_name = ? and year_show = ?",
-									homeTeamName, awayTeamName, yearShow);
+									"select * from all_live_match where home_team_name = ? and away_team_name = ? and year_show = ? and match_datetime > ? ",
+									homeTeamName, awayTeamName, yearShow, dateVilidate);
 							boolean isNeedInsert = false;
 							if(allLiveMatch==null){
-								isNeedInsert = true;
-								allLiveMatch = new AllLiveMatch();
+								if(StringUtils.isNotBlank(homeTeamId) && StringUtils.isNotBlank(awayTeamId)){
+									//因为本系统已经替换了主客队名称，需再次查询一下主客队id
+									allLiveMatch = AllLiveMatch.dao.findFirst(
+											"select * from all_live_match where home_team_id = ? and away_team_id = ? and year_show = ? and match_datetime > ? ",
+											homeTeamId, awayTeamId, yearShow, dateVilidate);
+									if(allLiveMatch==null){
+										isNeedInsert = true;
+										allLiveMatch = new AllLiveMatch();
+									}
+								}else{
+									isNeedInsert = true;
+									allLiveMatch = new AllLiveMatch();
+								}
 							}
 							allLiveMatch.set("match_date_week", dateAllStr);
 							allLiveMatch.set("weekday", weekStr);
@@ -103,8 +117,6 @@ public class Live24zbw {
 							allLiveMatch.set("year_show", yearShow);
 							String leagueId = leagueMap.get(leagueName);
 							if(StringUtils.isNotBlank(leagueId)){
-								String homeTeamId = CommonUtils.nameIdMap.get(homeTeamName);
-								String awayTeamId = CommonUtils.nameIdMap.get(awayTeamName);
 								if(StringUtils.isNotBlank(homeTeamId) && StringUtils.isNotBlank(awayTeamId)){
 									Team home = Team.dao.findById(homeTeamId);
 									Team away = Team.dao.findById(awayTeamId);
