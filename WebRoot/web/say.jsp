@@ -78,7 +78,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	                            
 	                            <span class="author-name say-info">
 									&nbsp;<fmt:formatDate value="${say.create_time}" pattern="yyyy-MM-dd HH:mm"/>
-									&nbsp;来源：twitter
 									&nbsp;<a href="player-${say.player_name_en}-${say.player_id}.html" target="_self" title="${say.player_name}的更多说说" style="color:#bbb;">更多</a>
 								</span>
 	                    </div>
@@ -121,7 +120,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="col-lg-11 col-md-11" >
 							<div class="col-lg-12 col-md-12 say-info">
 								<span style="display:block;font-weight:bold;color:#292f33;float:left;"><a href="player-${say.player_name_en}-${say.player_id}.html" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
-								<span style="display:block;color:#8899a6;font-size:13px;float:left;cursor:pointer;" title="<fmt:formatDate value="${say.create_time}" pattern="yyyy-MM-dd HH:mm"/>"> - <fmt:formatDate value="${say.create_time}" pattern="MM月dd日"/>&nbsp;来源：twitter</span>
+								<span style="display:block;color:#8899a6;font-size:13px;float:left;cursor:pointer;" title="<fmt:formatDate value="${say.create_time}" pattern="yyyy-MM-dd HH:mm"/>"> - <fmt:formatDate value="${say.create_time}" pattern="MM月dd日"/>&nbsp;</span>
 								&nbsp;<a href="player-${say.player_name_en}-${say.player_id}.html" target="_blank" title="${say.player_name}的更多说说">查看更多</a>
 							</div>
 						

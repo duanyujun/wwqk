@@ -88,16 +88,16 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					【观看集锦】：
 						<span class="a-title">
 							<c:if test="${history.league_id==1}">
-								<a href="http://www.52waha.com/mixtape/soccer/yingchao" target="_blank" style="color:grey;">集锦</a>
+								<a href="http://www.zuqiu.la/video/?type=2" target="_blank" style="color:grey;">集锦</a>
 							</c:if>
 							<c:if test="${history.league_id==2}">
-								<a href="http://www.52waha.com/mixtape/soccer/xijia" target="_blank" style="color:grey;">集锦</a>
+								<a href="http://www.zuqiu.la/video/?type=3" target="_blank" style="color:grey;">集锦</a>
 							</c:if>
 							<c:if test="${history.league_id==3}">
-								<a href="http://www.52waha.com/mixtape/soccer/dejia" target="_blank" style="color:grey;">集锦</a>
+								<a href="http://www.zuqiu.la/video/?type=5" target="_blank" style="color:grey;">集锦</a>
 							</c:if>
 							<c:if test="${history.league_id==4}">
-								<a href="http://www.52waha.com/mixtape/soccer/yijia" target="_blank" style="color:grey;">集锦</a>
+								<a href="http://www.zuqiu.la/video/?type=4" target="_blank" style="color:grey;">集锦</a>
 							</c:if>
 							<c:if test="${history.league_id==5}">
 								<a href="http://www.52waha.com/mixtape/soccer/fajia" target="_blank" style="color:grey;">集锦</a>
@@ -137,10 +137,18 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						【情报】：${history.info}
 					</div>
 			</c:if>
-			<c:if test="${!empty history.analysis and history.analysis!=''}">
-				   <div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 统计">
-						【统计】：${history.analysis}
+			
+			<c:if test="${!empty history.opta_id}">
+				 <div class="col-sm-12 col-xs-12 a-title" style="margin-top:10px;padding-left:20px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 统计">
+				【统计】：<a href="http://match.sports.sina.com.cn/football/result.php?id=${history.opta_id}" target="_blank">新浪统计</a>
+				</div>
+			</c:if>
+			<c:if test="${empty history.opta_id}">
+				<c:if test="${!empty history.analysis}">
+					<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:20px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 统计">
+					【统计】：${history.analysis}
 					</div>
+				</c:if>
 			</c:if>
 			
 		</div>
@@ -407,38 +415,38 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:5px;padding-bottom: 130px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
-			<div class="col-lg-12 col-md-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="col-lg-12 col-md-12 ">
 				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;font-size:14px;">
+					<div class="col-lg-12 col-md-12 " style="margin-top:10px;font-size:14px;">
 						<div class="well well-lg" style="line-height:2;text-indent:20px;">
 							<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="col-lg-12 col-md-12 ">
 									【所属联赛】：<span class="a-title" ><a href="data-${leagueENName}-${history.league_id}.html" target="_blank">${leagueName}</a> （第${history.round}轮）</span>
 								</div>
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="col-lg-12 col-md-12 ">
 									【对阵球队】：<span class="a-title" ><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank">${homeTeam.name}</a> vs <a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank">${history.away_team_name}</a></span>
 									<c:if test="${history.status=='完场'}">
 									（完场：<span style="color:red;">${history.result}</span>）
 									</c:if>
 								</div>
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="col-lg-12 col-md-12 ">
 									【赛事时间】：<fmt:formatDate value="${history.match_date}" pattern="yyyy年MM月dd日  HH:mm"/> ${history.match_weekday}
 								</div>
 								<c:if test="${history.status=='完场'}">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<div class="col-lg-12 col-md-12 ">
 										【观看集锦】：
-											<span class="a-title" style="font-size:16px;">
+											<span class="a-title" >
 												<c:if test="${history.league_id==1}">
-													<a href="http://www.52waha.com/mixtape/soccer/yingchao" target="_blank">集锦</a>
+													<a href="http://www.zuqiu.la/video/?type=2" target="_blank">集锦</a>
 												</c:if>
 												<c:if test="${history.league_id==2}">
-													<a href="http://www.52waha.com/mixtape/soccer/xijia" target="_blank">集锦</a>
+													<a href="http://www.zuqiu.la/video/?type=3" target="_blank">集锦</a>
 												</c:if>
 												<c:if test="${history.league_id==3}">
-													<a href="http://www.52waha.com/mixtape/soccer/dejia" target="_blank">集锦</a>
+													<a href="http://www.zuqiu.la/video/?type=5" target="_blank">集锦</a>
 												</c:if>
 												<c:if test="${history.league_id==4}">
-													<a href="http://www.52waha.com/mixtape/soccer/yijia" target="_blank">集锦</a>
+													<a href="http://www.zuqiu.la/video/?type=4" target="_blank">集锦</a>
 												</c:if>
 												<c:if test="${history.league_id==5}">
 													<a href="http://www.52waha.com/mixtape/soccer/fajia" target="_blank">集锦</a>
@@ -447,7 +455,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									</div>
 								</c:if>
 								<c:if test="${history.status!='完场'}">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<div class="col-lg-12 col-md-12 ">
 										【直播地址】：
 										<c:if test="${empty lstMatchLive}">
 											暂无
@@ -461,26 +469,35 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										</c:if>
 									</div>
 								</c:if>
-								
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="col-lg-12 col-md-12 ">
 									【主队球场】：${homeTeam.venue_name} &nbsp;&nbsp;<span style="color:#888;">容量：${homeTeam.venue_capacity}人</span>
 									<img src="${homeTeam.venue_small_img_local}" big="${homeTeam.venue_img_local}" style="margin-left:20px;cursor:pointer;" class="img-responsive img-rounded venue"  alt="${homeTeam.name}球场名称：${homeTeam.venue_name}" title="${homeTeam.name}球场名称：${homeTeam.venue_name}"/>
 								</div>
+								
 								<c:if test="${!empty history.team and history.team!=''}">
-									<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:20px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 阵容">
+									<div class="col-lg-12 col-md-12 " style="margin-top:10px;padding-left:20px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 阵容">
 										【阵容】：${history.team}
 									</div>
 								</c:if>
 								<c:if test="${!empty history.info and history.info!=''}">
-									   <div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:20px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 情报">
+									   <div class="col-lg-12 col-md-12" style="margin-top:10px;padding-left:20px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 情报">
 											【情报】：${history.info}
 										</div>
 								</c:if>
-								<c:if test="${!empty history.analysis and history.analysis!=''}">
-									   <div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:20px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 统计">
-											【统计】：${history.analysis}
-										</div>
+								
+								<c:if test="${!empty history.opta_id}">
+									 <div class="col-lg-12 col-md-12  a-title" style="margin-top:10px;padding-left:20px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 统计">
+									【统计】：<a href="http://match.sports.sina.com.cn/football/result.php?id=${history.opta_id}" target="_blank">新浪统计</a>
+									</div>
 								</c:if>
+								<c:if test="${empty history.opta_id}">
+									<c:if test="${!empty history.analysis}">
+										<div class="col-lg-12 col-md-12 " style="margin-top:10px;padding-left:20px;" title="<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 统计">
+										【统计】：${history.analysis}
+										</div>
+									</c:if>
+								</c:if>
+								
 								
 							</div>
 							

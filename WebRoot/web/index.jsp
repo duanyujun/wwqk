@@ -91,7 +91,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			                                <span class="author-name">${fun.player_name}</span>
 			                            </a>
 			                            <span class="author-name">
-											&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>&nbsp;来源：twitter
+											&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>&nbsp;
 										</span>
 									</c:if>
 		                    </div>
@@ -177,7 +177,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			                                <span class="author-name">${fun.player_name}</span>
 			                            </a>
 			                            <span class="author-name">
-											&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>&nbsp;来源：twitter
+											&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>&nbsp;
 										</span>
 									</c:if>
 		                    </div>
