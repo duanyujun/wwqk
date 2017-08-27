@@ -12,6 +12,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.wwqk.model.AllLiveMatch;
 import com.wwqk.model.Fun;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.Say;
@@ -74,12 +75,29 @@ public class GeneratorUtils{
 			//比赛
 			Elements matchTds = document.select("#matches_td");
 			if(matchTds.size()>0){
-				List<LeagueMatchHistory> lstMatch = LeagueMatchHistory.dao.find("select year_show,home_team_id,home_team_name, away_team_id,away_team_name, match_date, home_team_en_name, away_team_en_name from league_match_history and match_date > ?", nowDate);
+				List<LeagueMatchHistory> lstMatch = LeagueMatchHistory.dao.find("select year_show,home_team_id,home_team_name, away_team_id,away_team_name, match_date, home_team_en_name, away_team_en_name from league_match_history where match_date > ?", nowDate);
 				StringBuilder sb = new StringBuilder();
 				for(LeagueMatchHistory match : lstMatch){
 					sb.append("<a href=\"http://www.yutet.com/match-"+match.getStr("home_team_en_name")+"-vs-"+match.getStr("away_team_en_name")+"_"+match.getStr("year_show")+"-"+match.getStr("home_team_id")+"vs"+match.getStr("away_team_id")+".html\" target=\"_blank\">"+match.getStr("home_team_name")+"vs"+match.getStr("away_team_name")+"</a>&nbsp;");
 				}
 				matchTds.get(0).html(sb.toString());
+				lstMatch = null;
+			}
+			
+			//直播
+			Elements liveTds = document.select("#live_td");
+			if(matchTds.size()>0){
+				List<AllLiveMatch> lstMatch = AllLiveMatch.dao.find("select * from all_live_match where match_datetime > ?", nowDate);
+				StringBuilder sb = new StringBuilder();
+				for(AllLiveMatch match : lstMatch){
+					if(StringUtils.isNotBlank(match.getStr("league_id"))){
+						sb.append("<a href=\"http://www.yutet.com/match-"+match.getStr("home_team_enname")+"-vs-"+match.getStr("away_team_enname")+"_"+match.getStr("year_show")+"-"+match.getStr("home_team_id")+"vs"+match.getStr("away_team_id")+".html\" target=\"_blank\">"+match.getStr("home_team_name")+"vs"+match.getStr("away_team_name")+"</a>&nbsp;");
+					}else{
+						sb.append("<a href=\"http://www.yutet.com/live-"+DateTimeUtils.formatDate(match.getDate("match_datetime"))+"-"+match.get("id")+".html\" target=\"_blank\">"+match.getStr("home_team_name")+"vs"+match.getStr("away_team_name")+"</a>&nbsp;");
+						
+					}
+				}
+				liveTds.get(0).html(sb.toString());
 				lstMatch = null;
 			}
 			

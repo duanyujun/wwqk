@@ -196,6 +196,7 @@ public class ShooterAssister163 {
 					shooter163.set("player_name", assists163.get("player_name"));
 					shooter163.set("team_id", assists163.get("team_id"));
 					shooter163.set("team_name", assists163.get("team_name"));
+					shooter163.set("player_img", assists163.get("player_img"));
 				}
 			}
 			lstUpdateShooter163.add(shooter163);
@@ -230,6 +231,7 @@ public class ShooterAssister163 {
 					assists163.set("player_name", shooter163.get("player_name"));
 					assists163.set("team_id", shooter163.get("team_id"));
 					assists163.set("team_name", shooter163.get("team_name"));
+					assists163.set("player_img", shooter163.get("player_img"));
 				}
 			}
 			lstAssists163Update.add(assists163);
