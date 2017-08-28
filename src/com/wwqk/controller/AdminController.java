@@ -30,6 +30,7 @@ import com.wwqk.model.Say;
 import com.wwqk.model.Team;
 import com.wwqk.plugin.AnalyzeOkooo;
 import com.wwqk.plugin.Live24zbw;
+import com.wwqk.plugin.LiveZuqiula;
 import com.wwqk.plugin.MatchSina;
 import com.wwqk.plugin.OddsUtils;
 import com.wwqk.plugin.ShooterAssister163;
@@ -578,8 +579,8 @@ public class AdminController extends Controller {
 	
 	//更新直播源
 	public void updateLives(){
-		//LiveZhibo7.getLiveSource();
 		Live24zbw.getLiveSource();
+		LiveZuqiula.getLiveSource();
 		renderJson(1);
 	}
 	
