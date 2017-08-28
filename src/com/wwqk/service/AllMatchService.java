@@ -1,7 +1,9 @@
 package com.wwqk.service;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,11 +23,12 @@ import com.wwqk.utils.StringUtils;
  * @date 
  */
 
-public class MatchService {
+public class AllMatchService {
 
 	public static Map<Object, Object> matchData(Controller controller){
-		String sumSql = "select count(*) from league_match_history where 1 = 1 ";
-		String sql = "select * from league_match_history where 1 = 1 ";
+		String nowDateStr = DateTimeUtils.formatDateTime(new Timestamp(new Date().getTime()));
+		String sumSql = "select count(*) from all_live_match where 1 = 1 and match_datetime > '"+nowDateStr+"'";
+		String sql = "select * from all_live_match where 1 = 1 and match_datetime > '"+nowDateStr+"'";
 		String orderSql = "";
 		String whereSql = "";
 		String limitSql = "";
@@ -40,22 +43,13 @@ public class MatchService {
 		String sortType = controller.getPara("order[0][dir]");
 		switch (sortColumn) {
 		case 1:
-			orderSql = " order by match_date "+sortType;
+			orderSql = " order by match_datetime "+sortType;
 			break;
 		case 2:
 			orderSql = " order by home_team_name "+sortType;
 			break;
 		case 3:
 			orderSql = " order by away_team_name "+sortType;
-			break;
-		case 4:
-			orderSql = " order by result "+sortType;
-			break;
-		case 5:
-			orderSql = " order by status "+sortType;
-			break;
-		case 6:
-			orderSql = " order by round "+sortType;
 			break;
 		default:
 			break;
@@ -67,21 +61,27 @@ public class MatchService {
 			limitSql = " limit "+start+","+length;
 		}
 		Long recordsTotal = Db.queryLong(sumSql+whereSql);
-		List<LeagueMatchHistory> lstHistory = new ArrayList<LeagueMatchHistory>();
+		List<AllLiveMatch> lstHistory = new ArrayList<AllLiveMatch>();
 		Object[] data = null;
 		if(recordsTotal!=0){
-			lstHistory = LeagueMatchHistory.dao.find(sql+whereSql+orderSql+limitSql);
+			lstHistory = AllLiveMatch.dao.find(sql+whereSql+orderSql+limitSql);
 			data = new Object[lstHistory.size()];
 			for(int i=0; i<lstHistory.size(); i++){
-				Object[] obj = new Object[7];
-				LeagueMatchHistory history = lstHistory.get(i);
+				Object[] obj = new Object[5];
+				AllLiveMatch history = lstHistory.get(i);
 				obj[0] = history.get("id");
-				obj[1] = history.get("match_date");
+				obj[1] = history.get("match_datetime");
 				obj[2] = history.get("home_team_name");
 				obj[3] = history.get("away_team_name");
-				obj[4] = history.get("result");
-				obj[5] = history.get("status");
-				obj[6] = history.get("round");
+				String info = history.getStr("info");
+				if(StringUtils.isNotBlank(info)){
+					info = info.replaceAll("\\s+", "");
+					info = info.replaceAll("<.*?>", "");
+					if(info.length()>15){
+						info = info.substring(0,15);
+					}
+				}
+				obj[4] = info;
 				data[i] = obj;
 			}
 		}
@@ -106,57 +106,38 @@ public class MatchService {
 			return;
 		}
 		
-		LeagueMatchHistory match = LeagueMatchHistory.dao.findById(id);
+		AllLiveMatch match = AllLiveMatch.dao.findById(id);
 		
 		try {
-			match.set("match_date", DateTimeUtils.parseDate(CommonUtils.formatDateStr(controller.getPara("match_date")), 
+			match.set("match_datetime", DateTimeUtils.parseDate(CommonUtils.formatDateStr(controller.getPara("match_datetime")), 
 					DateTimeUtils.ISO_DATETIME_FORMAT_ARRAY));
 		} catch (ParseException e) {
 			
 		}
 		
-		if(StringUtils.isNotBlank(controller.getPara("analysis"))){
-			String analysisStr = controller.getPara("analysis").replaceAll("\\s+", "");
-			if("<p><br></p>".equals(analysisStr)){
-				match.set("analysis", null);
-			}else{
-				match.set("analysis", controller.getPara("analysis"));
-			}
-		}
-		
-		
 		if(StringUtils.isNotBlank(controller.getPara("info"))){
-			AllLiveMatch liveMatch = AllLiveMatch.dao.findFirst(
-					"select * from all_live_match where home_team_id = ? and away_team_id =? and year_show = ?",
-					match.getStr("home_team_id"), match.getStr("away_team_id"), match.getStr("year_show"));
+			LeagueMatchHistory history = null;
+			// 更新五大联赛情报
+			if(StringUtils.isNotBlank(match.getStr("league_id"))){
+				history = LeagueMatchHistory.dao.findFirst(
+						"select * from league_match_history home_team_id = ? and away_team_id =? and year_show =?",
+						match.getStr("home_team_id"), match.getStr("away_team_id"), match.getStr("year_show"));
+			}
 			String infoStr = controller.getPara("info").replaceAll("\\s+", "");
 			if("<p><br></p>".equals(infoStr)){
 				match.set("info", null);
 			}else{
 				match.set("info", controller.getPara("info"));
 			}
-			if(liveMatch!=null){
-				liveMatch.set("info", match.get("info"));
-				liveMatch.update();
+			if(history!=null){
+				history.set("info", match.get("info"));
+				history.update();
 			}
+			
 		}
-		
-		if(StringUtils.isNotBlank(controller.getPara("team"))){
-			String teamStr = controller.getPara("team").replaceAll("\\s+", "");
-			if("<p><br></p>".equals(teamStr)){
-				match.set("team", null);
-			}else{
-				match.set("team", controller.getPara("team"));
-			}
-		}
-		
 		
 		match.set("home_team_name", controller.getPara("home_team_name"));
 		match.set("away_team_name", controller.getPara("away_team_name"));
-		match.set("result", controller.getPara("result"));
-		match.set("status", controller.getPara("status"));
-		match.set("round", controller.getPara("round"));
-		match.set("opta_id", controller.getPara("opta_id"));
 		
 		match.update();
 	}

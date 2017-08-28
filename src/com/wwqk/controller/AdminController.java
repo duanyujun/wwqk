@@ -17,6 +17,7 @@ import com.jfinal.plugin.activerecord.tx.Tx;
 import com.jfinal.upload.UploadFile;
 import com.wwqk.constants.CommonConstants;
 import com.wwqk.constants.FlagMask;
+import com.wwqk.model.AllLiveMatch;
 import com.wwqk.model.Fun;
 import com.wwqk.model.League;
 import com.wwqk.model.LeagueAssists;
@@ -36,6 +37,7 @@ import com.wwqk.plugin.OddsUtils;
 import com.wwqk.plugin.ShooterAssister163;
 import com.wwqk.plugin.TeamPlayers;
 import com.wwqk.plugin.TeamPosition;
+import com.wwqk.service.AllMatchService;
 import com.wwqk.service.Assists163Service;
 import com.wwqk.service.FunService;
 import com.wwqk.service.LeagueService;
@@ -537,6 +539,45 @@ public class AdminController extends Controller {
 		MatchService.updateMatch(this);
 		render("admin/matchList.jsp");
 	}
+	
+	
+	// 全部直播比赛列表
+	public void listAllMatch(){
+		render("admin/allMatchList.jsp");
+	}
+	
+	public void allMatchData(){
+		Map<Object, Object> map = AllMatchService.matchData(this);
+		renderJson(map);
+	}
+	
+	public void editAllMatch(){
+		String id = getPara("id");
+		if(id!=null){
+			AllLiveMatch match = AllLiveMatch.dao.findById(id);
+			match.set("match_datetime", DateTimeUtils.formatDateTime(match.getTimestamp("match_datetime")));
+			setAttr("match", match);
+		}
+		
+		render("admin/allMatchForm.jsp");
+	}
+	
+	public void deleteAllMatch(){
+		String ids = getPara("ids");
+		if(StringUtils.isNotBlank(ids)){
+			String whereSql = " where id in (" + ids +")";
+			Db.update("delete from all_live_match "+whereSql);
+			renderJson(1);
+		}else{
+			renderJson(0);
+		}
+	}
+	
+	public void saveAllMatch(){
+		AllMatchService.updateMatch(this);
+		render("admin/allMatchList.jsp");
+	}
+	
 	
 	//日常管理：手动更新比赛信息； 手动更新一只球队球员情况
 	public void dailyManage(){
