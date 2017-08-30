@@ -29,7 +29,7 @@ import com.wwqk.model.MatchLive;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
 import com.wwqk.model.Team;
-import com.wwqk.plugin.AnalyzeOkooo;
+import com.wwqk.plugin.AnalyzeZgzcw;
 import com.wwqk.plugin.Live24zbw;
 import com.wwqk.plugin.LiveZuqiula;
 import com.wwqk.plugin.MatchSina;
@@ -627,7 +627,7 @@ public class AdminController extends Controller {
 	
 	//分析进几年来联赛情况
 	public void analyzeAll(){
-		AnalyzeOkooo.getInstance().getLeagueOdds();
+		AnalyzeZgzcw.getInstance().getLeagueOdds();
 		renderJson(1);
 	}
 	

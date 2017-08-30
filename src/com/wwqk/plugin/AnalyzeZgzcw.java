@@ -21,7 +21,6 @@ import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wwqk.constants.AHZgzcwEnum;
-import com.wwqk.constants.OddsProviderEnum;
 import com.wwqk.constants.ZgzcwAHProviderEnum;
 import com.wwqk.constants.ZgzcwProviderEnum;
 import com.wwqk.model.OddsAH;
@@ -73,6 +72,7 @@ public class AnalyzeZgzcw {
 				if(isCurrentRoundMatchesAllEnd(source, i)){
 					continue;
 				}
+				System.err.println("handle year："+source.getStr("year_show")+"handle league id："+ source.get("league_id")+"  round："+i);
 				getOdds(source, i);
 				//取完这一轮比赛后，再判断一次该轮比赛是否结束，如果未全部结束则记录到该轮，跳出当前循环
 				if(!isCurrentRoundMatchesAllEnd(source, i)){
@@ -91,6 +91,16 @@ public class AnalyzeZgzcw {
 		if(lstMatches.size()==0){
 			return false;
 		}
+		if(source.getInt("league_id")==3){
+			if(lstMatches.size()!=9){
+				return false;
+			}
+		}else{
+			if(lstMatches.size()!=10){
+				return false;
+			}
+		}
+		
 		boolean result = true;
 		for(OddsMatches match:lstMatches){
 			if(1!=match.getInt("status")){
@@ -117,6 +127,11 @@ public class AnalyzeZgzcw {
 				Elements trMatches = tbody.get(0).select("tr");
 				for(Element match:trMatches){
 					handleOneMatch(match, source, currentRound);
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		} catch (IOException e) {
@@ -153,13 +168,13 @@ public class AnalyzeZgzcw {
 		
 		if(!result.contains("-:-")){
 			match.set("status", 1);
-			String[] scores = result.split("-");
+			String[] scores = result.split(":");
 			match.set("home_score", Integer.valueOf(StringUtils.trim(scores[0])));
 			match.set("away_score", Integer.valueOf(StringUtils.trim(scores[1])));
 			//half result
 			String halfResult = StringUtils.trim(tds.get(4).text());
 			match.set("half_result", halfResult);
-			String[] halfScores = halfResult.split("-");
+			String[] halfScores = halfResult.split(":");
 			match.set("half_home_score", Integer.valueOf(StringUtils.trim(halfScores[0])));
 			match.set("half_away_score", Integer.valueOf(StringUtils.trim(halfScores[1])));
 		}else{
@@ -169,6 +184,7 @@ public class AnalyzeZgzcw {
 		match.set("year", source.get("year"));
 		match.set("year_show", source.get("year_show"));
 		match.set("update_time", new Date());
+		match.set("match_id", matchId);
 		if(match.get("id")!=null){
 			match.update();
 		}else{
@@ -177,7 +193,7 @@ public class AnalyzeZgzcw {
 		
 		getEUOdds(matchId,source.getStr("odds_url"), match.getStr("odds_link"));
 		getAHOdds(matchId, source.getStr("odds_url"), match.getStr("ah_odds_link"));
-		System.err.println("done!!!");
+		System.err.println(match.getStr("home_name")+" vs "+match.getStr("away_name")+" done!!!");
 	}
 	
 	private void getEUOdds(String matchId, String refelURL, String url){
@@ -186,6 +202,9 @@ public class AnalyzeZgzcw {
 		try {
 			Document document = data.get();
 			Elements table = document.select(".bf-tab-02");
+			if(table==null || table.size()==0){
+				return;
+			}
 			Elements trs = table.get(0).select("tr");
 			List<OddsEuro> lstOdds = new ArrayList<OddsEuro>();
 			for(Element tr:trs){
@@ -207,8 +226,11 @@ public class AnalyzeZgzcw {
 				oddsEuro.set("start_away_odds", startAwayOdds);
 				
 				String endHomeOdds = StringUtils.trim(oddsTds.get(5).text());
+				endHomeOdds = endHomeOdds.replace("↓", "").replace("↑", "");
 				String endDrawOdds = StringUtils.trim(oddsTds.get(6).text());
+				endDrawOdds = endDrawOdds.replace("↓", "").replace("↑", "");
 				String endAwayOdds = StringUtils.trim(oddsTds.get(7).text());
+				endAwayOdds = endAwayOdds.replace("↓", "").replace("↑", "");
 				oddsEuro.set("end_home_odds", endHomeOdds);
 				oddsEuro.set("end_draw_odds", endDrawOdds);
 				oddsEuro.set("end_away_odds", endAwayOdds);
@@ -247,8 +269,7 @@ public class AnalyzeZgzcw {
 	}
 	
 	private void getAHOdds(String matchId, String refelURL, String url){
-		String oddsHtml = MatchUtils.getHtmlContent(httpClient, refelURL, url);
-		System.err.println(oddsHtml);
+		String oddsHtml = MatchUtils.getZgzcwHtmlContent(httpClient, refelURL, url);
 		Document oddsDoc = Jsoup.parse("<html><head></head><body><table><tbody>"+oddsHtml+"</tbody></table></body></html>");
 		Elements trs = oddsDoc.select("tr");
 		List<OddsAH> lstOdds = new ArrayList<OddsAH>();
@@ -257,30 +278,42 @@ public class AnalyzeZgzcw {
 			if(cks.size()>0){
 				OddsAH oddsAH = new OddsAH();
 				oddsAH.set("match_id", matchId);
-				String pid = cks.get(0).val();
+				Elements oddsTds = tr.select("td");
+				if(oddsTds.size()<5){
+					continue;
+				}
+				String pid = oddsTds.get(5).attr("cid");
+				if(StringUtils.isBlank(pid)){
+					continue;
+				}
+				
 				oddsAH.set("pid", pid);
-				oddsAH.set("pname", EnumUtils.getValue(OddsProviderEnum.values(), pid));
-				Elements oddsTds = trs.select("td");
-				String startAHHome = oddsTds.get(2).text();
-				String startAHAmount = oddsTds.get(3).text();
-				String startAHAway = oddsTds.get(4).text();
+				oddsAH.set("pname", EnumUtils.getValue(ZgzcwAHProviderEnum.values(), pid));
+				String startAHHome = oddsTds.get(2).attr("data");
+				String startAHAmount = oddsTds.get(3).attr("data");
+				String startAHAway = oddsTds.get(4).attr("data");
 				oddsAH.set("start_ah_home", startAHHome);
 				oddsAH.set("start_ah_amount", startAHAmount);
 				oddsAH.set("start_ah_amount_enum", ahNameKeyMap.get(startAHAmount));
 				oddsAH.set("start_ah_away", startAHAway);
 				
 				
-				String endAHHome = oddsTds.get(5).text();
-				String endAHAmount = oddsTds.get(6).text();
-				String endAHAway = oddsTds.get(7).text();
+				String endAHHome = oddsTds.get(5).attr("data");
+				String endAHAmount = oddsTds.get(6).attr("data");
+				String endAHAway = oddsTds.get(7).attr("data");
 				oddsAH.set("end_ah_home", endAHHome);
 				oddsAH.set("end_ah_amount", endAHAmount);
 				oddsAH.set("end_ah_amount_enum", ahNameKeyMap.get(endAHAmount));
 				oddsAH.set("end_ah_away", endAHAway);
 				
-				String homeKL = oddsTds.get(10).text();
-				String awayKL = oddsTds.get(11).text();
-				String repay = oddsTds.get(12).text();
+				String homePercent = oddsTds.get(9).attr("data");
+				String awayPercent = oddsTds.get(10).attr("data");
+				oddsAH.set("home_percent", homePercent);
+				oddsAH.set("away_percent", awayPercent);
+				
+				String homeKL = oddsTds.get(11).attr("data");
+				String awayKL = oddsTds.get(12).attr("data");
+				String repay = oddsTds.get(13).attr("data");
 				oddsAH.set("home_kl", homeKL);
 				oddsAH.set("away_kl", awayKL);
 				oddsAH.set("repay", repay);

@@ -14,7 +14,9 @@ public enum ZgzcwAHProviderEnum implements IEnum{
 	HG("24", "沙巴"),
 	BWIN("255", "Bwin"),
 	LJ("31", "利记"),
-	YH("35", "盈禾");
+	YH("35", "盈禾"),
+	LL("41","marathonbet")
+	;
 	
 	/** 键 */
 	private String key;
