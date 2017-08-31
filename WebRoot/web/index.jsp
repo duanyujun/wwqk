@@ -139,7 +139,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.title}" title="${fun.title}"/></a>
 						</c:if>
 						<c:if test="${fun.type==2}">
-							<a href="sdetail-${fun.player_name_en}-${fun.source_id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.summary}" title="${fun.summary}"/></a>
+							<a href="sdetail-${fun.player_name_en}-${fun.source_id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.player_name_en}" title="${fun.player_name_en}"/></a>
 						</c:if>
 					</div>
 					<div class="col-lg-8 col-md-8 content_pleft" >
@@ -183,8 +183,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		                    </div>
 						</div>
 						
-						<div class="col-lg-12 col-md-12" style="margin-top:20px;padding-right:0;">
-							<span class="summary">${fun.summary}</span>
+						<div class="col-lg-12 col-md-12" style="margin-top:20px;padding-right:0;" title="${fun.summary}">
+							<span class="summary line-cut">${fun.summary}</span>
 						</div>
 					</div>
 					<div class="col-lg-12 col-md-12" style="padding-left:0px;">

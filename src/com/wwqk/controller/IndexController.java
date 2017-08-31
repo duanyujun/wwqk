@@ -21,6 +21,10 @@ public class IndexController extends Controller {
 
 	public void index(){
 		Page<Fun> funPage = Fun.dao.paginate(getParaToInt("pageNumber", 1), 10, 0);
+		for(Fun fun:funPage.getList()){
+			String summary = fun.getStr("summary").replaceAll("<.*?>", "");
+			fun.set("summary", summary);
+		}
 		setAttr("funPage", funPage);
 		setAttr("pageUI", PageUtils.calcStartEnd(funPage));
 		setAttr("initCount", funPage.getList().size());
