@@ -363,7 +363,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									  	<c:if test="${position.team_id==team.id}">
 									  		<tr>
 											  <td style="border:1px solid #00A50D;border-right:0;">${status.count}</td>
-										      <td class="team-title" style="border:1px solid #00A50D;border-right:0;border-left:0;"><a href="team?id=${position.team_id}" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${position.team_id}.png" style="width:25px;height:25px;" alt="${position.team_name}" title="${position.team_name}"/>&nbsp;${position.team_name}</nobr></a></td>
+										      <td class="team-title" style="border:1px solid #00A50D;border-right:0;border-left:0;"><a href="team-${position.team_name_en}-${position.team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${position.team_id}.png" style="width:25px;height:25px;" alt="${position.team_name}" title="${position.team_name}"/>&nbsp;${position.team_name}</nobr></a></td>
 										      <td style="border:1px solid #00A50D;border-right:0;border-left:0;">${position.round_count}</td>
 										      <td style="border:1px solid #00A50D;border-right:0;border-left:0;">${position.goal_count}</td>
 										      <td style="border:1px solid #00A50D;border-left:0;">${position.points}</td>
