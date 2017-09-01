@@ -61,6 +61,14 @@ public class MatchController extends Controller {
 		if(StringUtils.isBlank(matchKey)){
 			redirect("/match");
 		}
+		//处理以前的样式2017-08-12-679vs726
+		if(matchKey.indexOf("-") != matchKey.lastIndexOf("-")){
+			String year = matchKey.substring(0,4);
+			year = year.replace("2016", "1617").replace("2017", "1718");
+			String teamIds = matchKey.substring(matchKey.lastIndexOf("-"));
+			matchKey = year + teamIds;
+		}
+		
 		List<MatchLive> lstMatchLive = MatchLive.dao.find("select * from match_live where match_key = ?", matchKey);
 		if(lstMatchLive.size()>0){
 			setAttr("lstMatchLive", lstMatchLive);
@@ -86,7 +94,5 @@ public class MatchController extends Controller {
 		setAttr("leagueENName", EnumUtils.getValue(LeagueENEnum.values(), homeTeam.getStr("league_id")));
 		render("matchDetail.jsp");
 	}
-	
-	
 	
 }
