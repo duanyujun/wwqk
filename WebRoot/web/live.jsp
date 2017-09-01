@@ -73,8 +73,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</c:if>
 								<c:if test="${!empty match.home_team_name}">
 									<tr style="background:#ffe4e4;">
-								      <td style="width:110px;height:35px;line-height:35px;"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/>&nbsp;&nbsp;<span class="league_${match.league_id}">${match.league_name}</span></td>
-								      <td style="width:200px;height:35px;line-height:35px;" class="a-title">
+								      <td style="width:130px;height:35px;line-height:35px;"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/>&nbsp;&nbsp;<span class="league_${match.league_id}">${match.league_name}</span></td>
+								      <td style="width:210px;height:35px;line-height:35px;" class="a-title">
 								      	<c:if test="${empty match.league_id}">
 								      		<a title="${!empty match.info?'有情报':''}" href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.id}.html" target="_self">${match.home_team_name} VS ${match.away_team_name}
 								      		<c:if test="${!empty match.info}">
@@ -131,8 +131,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</c:if>
 								<c:if test="${!empty match.home_team_name}">
 									<tr >
-								      <td style="width:110px;height:35px;line-height:35px;"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/>&nbsp;&nbsp;<span class="league_${match.league_id}">${match.league_name}</span></td>
-								      <td style="width:200px;height:35px;line-height:35px;" class="a-title">
+								      <td style="width:130px;height:35px;line-height:35px;"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/>&nbsp;&nbsp;<span class="league_${match.league_id}">${match.league_name}</span></td>
+								      <td style="width:210px;height:35px;line-height:35px;" class="a-title">
 								      	<c:if test="${empty match.league_id}">
 								      		<a  title="${!empty match.info?'有情报':''}"href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.id}.html" target="_blank">${match.home_team_name} VS ${match.away_team_name}
 								      		<c:if test="${!empty match.info}">
