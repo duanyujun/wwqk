@@ -37,6 +37,7 @@ public class TeamPlayers {
 	private static final String SITE_PROFIX = "http://cn.soccerway.com";
 	
 	public static void syncTeamPlayers(String teamId){
+		System.err.println("syncTeamPlayers start, teamId："+teamId);
 		HttpClient client = new DefaultHttpClient();  
 		Team team = Team.dao.findById(teamId);
 		if(team!=null){
@@ -49,6 +50,7 @@ public class TeamPlayers {
 		   updatePlayersImage(team.getStr("id"));
 		}
 		client.getConnectionManager().shutdown();
+		System.err.println("syncTeamPlayers end");
 	}
 	
 
@@ -61,7 +63,6 @@ public class TeamPlayers {
 		Matcher matcher = PLAYER_URL_PATTERN.matcher(htmlTeam);
 		while(matcher.find()){
 			String url = matcher.group(1);
-			System.err.println("^^^^handle　player："+url);
 			String id = CommonUtils.getId(url);
 			if(idSet.contains(id)){
 				continue;
