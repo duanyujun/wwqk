@@ -360,10 +360,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  <caption><span style="font-size:18px;">助攻榜</span></caption>
 						  <thead>
 						    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
-						      <th>排名</th>
+						      <th><nobr>排名</nobr></th>
 						      <th>球员</th>
 						      <th>球队</th>
-						      <th align="center">助攻数</th>
+						      <th align="center"><nobr>助攻数</nobr></th>
 						    </tr>
 						  </thead>
 						  <tbody>

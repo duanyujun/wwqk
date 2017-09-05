@@ -124,8 +124,11 @@ public class LiveZuqiula {
 					if(liveGroup.size()>0){
 						Elements liveItems = liveGroup.get(0).select("a");
 						for(Element live:liveItems){
-							MatchLive matchLive = new MatchLive();
 							String liveName = StringUtils.trim(live.text());
+							if(liveName.contains("足球比分直播")){
+								continue;
+							}
+							MatchLive matchLive = new MatchLive();
 							matchLive.set("match_key", String.valueOf(allLiveMatch.get("match_key")));
 							matchLive.set("home_team_name", homeTeamName);
 							matchLive.set("away_team_name", awayTeamName);
