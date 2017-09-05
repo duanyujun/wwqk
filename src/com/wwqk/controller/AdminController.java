@@ -642,4 +642,10 @@ public class AdminController extends Controller {
 		TeamPosition.getPosition();
 		renderJson(1);
 	}
+	
+	//更新今年比赛odds_matches主客队id
+	public void updateOddsMatches(){
+		AnalyzeZgzcw.getInstance().setHomeAwayId();
+		renderJson(1);
+	}
 }

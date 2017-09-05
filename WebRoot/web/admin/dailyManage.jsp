@@ -17,7 +17,7 @@
     <div class="portlet-body">
         <div class="table-toolbar">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6 col-sm-6 col-xs-6">
                     <div class="btn-group">
                         <button onclick="updateMatches();" class="btn sbold green" style="margin-left:10px;"> 更新比赛
                             <i class="fa fa-cog"></i>
@@ -28,13 +28,16 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6 col-sm-6 col-xs-6">
                     <input type="text" id="teamId" maxlength="20" placeholder="球队Id" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" />
                     <button onclick="updateTeamPlayer();" class="btn sbold green" style="margin-left:10px;"> 更新球队成员
                         <i class="fa fa-refresh"></i>
                     </button>
                 </div>
-                <div class="col-md-4">
+            </div>
+            
+            <div class="row" style="margin-top:20px;">
+            	<div class="col-md-6 col-sm-6 col-xs-6">
                 	<select id="leagueId">
                 		<option value="">--请选择联赛--</option>
                 		<option value="1">英超</option>
@@ -47,10 +50,7 @@
                         <i class="fa fa-refresh"></i>
                     </button>
                 </div>
-                
-            </div>
-            <div class="row" style="margin-top:20px;">
-             	<div class="col-md-4">
+                <div class="col-md-6 col-sm-6 col-xs-6">
                     <div class="btn-group">
                         <button onclick="updateSiteMap();" class="btn sbold green" style="margin-left:10px;"> 更新网站地图
                             <i class="fa fa-refresh"></i>
@@ -60,7 +60,11 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-md-4">
+            </div>
+            
+            
+            <div class="row" style="margin-top:20px;">
+                <div class="col-md-6 col-sm-6 col-xs-6">
                     <div class="btn-group">
                         <button onclick="analyzeAll();" class="btn sbold green" style="margin-left:10px;"> 更新统计
                             <i class="fa fa-refresh"></i>
@@ -70,9 +74,12 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6 col-sm-6 col-xs-6">
                     <div class="btn-group">
                         <button onclick="updateTeamPosition();" class="btn sbold green" style="margin-left:10px;"> 更新球队排名
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                        <button onclick="updateOddsMatches();" class="btn sbold green" style="margin-left:10px;"> 更新主客队ID
                             <i class="fa fa-refresh"></i>
                         </button>
                     </div>
@@ -194,6 +201,17 @@ function updateTeamPosition(){
 	$("body").showLoading();
 	showToast(1, "更新中...", "温馨提示");
 	$.post("/admin/updateTeamPosition",
+			function(result){
+				$("body").hideLoading();
+				showToast(1, "更新成功！", "温馨提示");
+			}
+	);
+}
+
+function updateOddsMatches(){
+	$("body").showLoading();
+	showToast(1, "更新中...", "温馨提示");
+	$.post("/admin/updateOddsMatches",
 			function(result){
 				$("body").hideLoading();
 				showToast(1, "更新成功！", "温馨提示");

@@ -27,10 +27,27 @@ import com.wwqk.model.OddsAH;
 import com.wwqk.model.OddsEuro;
 import com.wwqk.model.OddsMatches;
 import com.wwqk.model.OddsSource;
+import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.EnumUtils;
 import com.wwqk.utils.MatchUtils;
 import com.wwqk.utils.StringUtils;
 
+/**
+ * 1、主队主场战斗力（近15场比赛）：
+胜平负各多少
+场均进球丢球数量
+
+2、客队客场战斗力（近15场比赛）
+胜平负各多少
+场均进球丢球数量
+
+3、两队对阵情况
+
+4、赔率方面
+1）初始赔率相同，有多少比赛胜负平
+
+ *
+ */
 public class AnalyzeZgzcw {
 	
 	private HttpClient httpClient = new DefaultHttpClient();
@@ -60,6 +77,7 @@ public class AnalyzeZgzcw {
 		 for(ZgzcwAHProviderEnum enumObj:ZgzcwAHProviderEnum.values()){
 			 ahProviderMap.put(enumObj.getKey(), enumObj.getValue()) ;
 		 }
+		 CommonUtils.initNameIdMap();
 	}
 	
 	public void getLeagueOdds(){
@@ -185,6 +203,10 @@ public class AnalyzeZgzcw {
 		match.set("year_show", source.get("year_show"));
 		match.set("update_time", new Date());
 		match.set("match_id", matchId);
+		//设置主客队id
+		match.set("home_id", CommonUtils.nameIdMap.get(match.get("home_name")));
+		match.set("away_id", CommonUtils.nameIdMap.get(match.get("away_name")));
+		
 		if(match.get("id")!=null){
 			match.update();
 		}else{
@@ -336,6 +358,27 @@ public class AnalyzeZgzcw {
 			matchId = matcher.group(1);
 		}
 		return matchId;
+	}
+	
+	private static int MATCH_PAGE_SIZE = 300;
+	public void setHomeAwayId(){
+		CommonUtils.initNameIdMap();
+		long count = Db.queryLong("select count(*) from odds_matches ");
+		int countInt = Long.valueOf(count).intValue();
+		int pageCount = countInt/MATCH_PAGE_SIZE+((int)countInt%MATCH_PAGE_SIZE==0?0:1);
+		for(int i=0; i<pageCount; i++){
+			List<OddsMatches> lstMatches = OddsMatches.dao.find(
+					"select * from odds_matches  limit ?,?",
+					i*MATCH_PAGE_SIZE, (i+1)*MATCH_PAGE_SIZE);
+			if(lstMatches.size()>0){
+				for(OddsMatches match:lstMatches){
+					match.set("home_id", CommonUtils.nameIdMap.get(match.getStr("home_name")));
+					match.set("away_id", CommonUtils.nameIdMap.get(match.getStr("away_name")));
+				}
+				Db.batchUpdate(lstMatches, lstMatches.size());
+			}
+			System.err.println("done page："+i);
+		}
 	}
 	
 	
