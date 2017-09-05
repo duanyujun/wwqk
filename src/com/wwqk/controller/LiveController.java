@@ -49,8 +49,8 @@ public class LiveController extends Controller {
 		
 		Set<String> set = new HashSet<String>();
 		for(AllLiveMatch match : lstAllLiveMatch){
-			String dateWeek = match.getStr("match_date_week");
-			dateWeek = dateWeek.replace("星期", "周");
+			String dateWeek = match.getStr("match_date_week").replaceAll("\\s+", " ");
+			dateWeek = StringUtils.trim(dateWeek.replace("星期", "周"));
 			if(!set.contains(dateWeek)){
 				set.add(dateWeek);
 				AllLiveMatch group = new AllLiveMatch();

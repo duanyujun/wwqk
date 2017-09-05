@@ -131,7 +131,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</c:if>
 								<c:if test="${!empty match.home_team_name}">
 									<tr >
-								      <td style="width:130px;height:35px;line-height:35px;"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/>&nbsp;&nbsp;<span class="league_${match.league_id}">${match.league_name}</span></td>
+								      <td style="width:160px;height:35px;line-height:35px;"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/>&nbsp;&nbsp;<span class="league_${match.league_id}" title="${match.league_name}">${match.league_name}</span></td>
 								      <td style="width:210px;height:35px;line-height:35px;" class="a-title">
 								      	<c:if test="${empty match.league_id}">
 								      		<a  title="${!empty match.info?'有情报':''}"href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.id}.html" target="_blank">${match.home_team_name} VS ${match.away_team_name}
@@ -151,7 +151,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								      </td>
 								      <td class="a-title" style="height:35px;line-height:35px;">
 								      	  <c:forEach items="${match.liveList}" var="live">
-								      	  		 &nbsp;<i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>
+								      	  		 &nbsp;<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a></nobr>
 								      	  </c:forEach>
 								      	  &nbsp;<a href="http://www.shoumi.org/" target="_blank">比分直播</a>
 								      </td>
