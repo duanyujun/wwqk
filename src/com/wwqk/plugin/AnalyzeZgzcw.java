@@ -18,6 +18,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.jfinal.aop.Before;
+import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wwqk.constants.AHZgzcwEnum;
@@ -32,27 +33,7 @@ import com.wwqk.utils.EnumUtils;
 import com.wwqk.utils.MatchUtils;
 import com.wwqk.utils.StringUtils;
 
-/**
 
-1、主队主场战斗力（近15场比赛）：
-胜平负各多少
-场均进球丢球数量
-
-2、客队客场战斗力（近15场比赛）
-胜平负各多少
-场均进球丢球数量
-
-3、两队对阵情况
-
-4、阵容伤停
-
-5、赔率方面
-1）初始赔率相同，有多少比赛胜负平
-
-2）亚盘赢盘情况，升降盘后比赛结果
-
- *
- */
 public class AnalyzeZgzcw {
 	
 	private HttpClient httpClient = new DefaultHttpClient();
@@ -386,6 +367,71 @@ public class AnalyzeZgzcw {
 		}
 	}
 	
+	/**
+	1、主队主场战斗力（近15场比赛）：
+	胜平负各多少
+	场均进球丢球数量
+
+	2、客队客场战斗力（近15场比赛）
+	胜平负各多少
+	场均进球丢球数量
+
+	3、两队对阵情况
+
+	4、阵容伤停
+
+	5、赔率方面
+	1）初始赔率相同，有多少比赛胜负平
+
+	2）亚盘赢盘情况，升降盘后比赛结果
+
+	 *
+	 */
+	public String analyzeWinOrLose(Controller controller){
+		StringBuilder sb = new StringBuilder();
+		String homeId = controller.getPara("home_id");
+		String awayId = controller.getPara("away_id");
+		if(StringUtils.isBlank(homeId) && StringUtils.isBlank(awayId)){
+			return sb.toString();
+		}
+		
+		//1、主队主场战斗力（近15场比赛）：胜平负各多少，半场胜平负，	场均进球丢球数量
+		List<OddsMatches> lstHomeMatches = OddsMatches.dao.find("select * from odds_matches where home_id = ? and result !=? order by match_time desc limit 0,15",
+				homeId, "-:-");
+		int homeWinCount = 0;
+		int homeDrawCount = 0;
+		int homeLoseCount = 0;
+		int halfHomeWinCount = 0;
+		int halfHomeDrawCount = 0;
+		int halfHomeLoseCount = 0;
+		//进球数
+		int goalCount = 0;
+		//输球数
+		int loseGoalCount = 0;
+		for(OddsMatches match:lstHomeMatches){
+			if(match.getInt("home_score")>match.getInt("away_score")){
+				homeWinCount++;
+			}else if(match.getInt("home_score")==match.getInt("away_score")){
+				homeDrawCount++;
+			}else{
+				homeLoseCount++;
+			}
+			
+			if(match.getInt("half_home_score")>match.getInt("half_away_score")){
+				halfHomeWinCount++;
+			}else if(match.getInt("half_home_score")==match.getInt("half_away_score")){
+				halfHomeDrawCount++;
+			}else{
+				halfHomeLoseCount++;
+			}
+			
+			goalCount += match.getInt("home_score");
+			loseGoalCount += match.getInt("away_score");
+		}
+		
+		
+		return sb.toString();
+	}
 	
 	public static void main(String[] args) {
 		
