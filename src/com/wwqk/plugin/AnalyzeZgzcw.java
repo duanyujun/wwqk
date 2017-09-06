@@ -33,7 +33,8 @@ import com.wwqk.utils.MatchUtils;
 import com.wwqk.utils.StringUtils;
 
 /**
- * 1、主队主场战斗力（近15场比赛）：
+
+1、主队主场战斗力（近15场比赛）：
 胜平负各多少
 场均进球丢球数量
 
@@ -43,8 +44,12 @@ import com.wwqk.utils.StringUtils;
 
 3、两队对阵情况
 
-4、赔率方面
+4、阵容伤停
+
+5、赔率方面
 1）初始赔率相同，有多少比赛胜负平
+
+2）亚盘赢盘情况，升降盘后比赛结果
 
  *
  */
