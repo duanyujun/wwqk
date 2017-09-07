@@ -112,7 +112,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						</c:if>
 						<c:if test="${fun.type==2}">
 							<c:if test="${!empty fun.image_big}">
-								<img src="${fun.image_big}" class="image" height="140px"  alt="${fun.summary}" title="${fun.summary}"/>
+								<div class="mobile-div-img" data-bg-sm="${fun.image_big}" width="${fun.image_big_width }" height="${fun.image_big_height}" >
+								
+								</div>
 							</c:if>
 						</c:if>
 					</div>
@@ -297,9 +299,36 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    s.parentNode.insertBefore(bp, s);
 	})();
 	
+	var winWidth = $(window).width();
+
+	function resizeBackground(){
+	  if (winWidth<992) {
+		  $(".mobile-div-img").each(function(){
+			  var width = $(this).attr("width")/2;
+			  var height = $(this).attr("height")/2;
+			  if(width>=(winWidth-30)){
+				  var percent = (parseFloat(winWidth-30)/parseFloat(width)).toFixed(2);
+				  var newHeight = parseInt(height*percent);
+				  width = (winWidth-30);
+				  height = newHeight;
+			  }
+			  $(this).css("width",width+"px").css("height",height+"px");
+			  var imageHtml = "<img class='image' src='"+$(this).attr("data-bg-sm")+"' style='width:"+width+"px;height:"+height+"px;' />";
+			  if($(this).children().length==0){
+				  $(this).append(imageHtml);
+			  }
+			  
+		  });
+		  $('.image').viewer({toolbar:false});
+	  } 
+	}
+	
+	$(window).resize(function() {
+		resizeBackground();
+	});
 	
 	$(function(){
-		$('.image').viewer({toolbar:false});
+		resizeBackground();
 		
 		if (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
 			return;
@@ -310,6 +339,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		    	noDataStr = '<div class="dropload-noData">&nbsp;</div>';
 	    	}
 	    }
+	    
 	    var pageNo = 1;
 	    // dropload
 	    $('.container').dropload({
@@ -397,9 +427,21 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	        threshold : 50
 	    });
 	});
-
-
+	
 	function addRecode(fun){
+		var width;
+		var height;
+		if (winWidth<992) {
+			  var width = fun.image_big_width/2;
+			  var height = fun.image_big_height/2;
+			  if(width>=(winWidth-30)){
+				  var percent = (parseFloat(winWidth-30)/parseFloat(width)).toFixed(2);
+				  var newHeight = parseInt(height*percent);
+				  width = (winWidth-30);
+				  height = newHeight;
+			  }
+		} 
+		
 		var create_time = '';
 		var date_str = '';
 		if(fun.create_time){
@@ -441,7 +483,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			strhtml+="							<a href=\"fdetail-"+date_str+"-"+fun.id+".html\" target=\"_self\" ><img src=\""+fun.image_small+"\" class=\"img-responsive\" alt=\""+fun.title+"\" /></a>";
 		}else{
 			if(fun.image_big && fun.image_big!=''){
-				strhtml+="							<img src=\""+fun.image_big+"\" class=\"image\"  height=\"140px\"  alt=\""+fun.summary+"\" />";
+				strhtml+="<div  style='width:"+width+"px;height:"+height+"px;'><img class='image' src='"+fun.image_big+"' style='width:"+width+"px;height:"+height+"px;' /></div>";
 			}
 		}
 		strhtml+="					</div>";
