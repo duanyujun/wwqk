@@ -30,7 +30,7 @@
     <i class="icon-arrow-up"></i>
 </div>
 <link href="${ctx}/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-<script src="${ctx}/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript">
 //Handles the go to top button at the footer
 var handleGoTop = function() {
