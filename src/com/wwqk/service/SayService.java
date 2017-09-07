@@ -1,9 +1,16 @@
 package com.wwqk.service;
 
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
@@ -139,6 +146,26 @@ public class SayService {
 		}
 		if(StringUtils.isNotBlank(image_big)){
 			say.set("image_big", image_big);
+			String imagePath = ImageUtils.getInstance().getDiskPath() + image_big;
+			InputStream is = null;
+			try {
+				is = new FileInputStream(imagePath);
+				BufferedImage bi = ImageIO.read(is);
+				int width = bi.getWidth();  
+			    int height = bi.getHeight();  
+			    say.set("image_big_width", width);
+			    say.set("image_big_height", height);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally{
+				try {
+					is.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		String oldSayId = null;
@@ -167,6 +194,8 @@ public class SayService {
 		}
 		if(StringUtils.isNotBlank(image_big)){
 			fun.set("image_big", image_big);
+			fun.set("image_big_width", say.get("image_big_width"));
+			fun.set("image_big_height", say.get("image_big_height"));
 		}
 		fun.set("player_id",player_id);
 		fun.set("player_name",player.get("name"));

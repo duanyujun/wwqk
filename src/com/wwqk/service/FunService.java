@@ -1,9 +1,16 @@
 package com.wwqk.service;
 
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
@@ -132,6 +139,26 @@ public class FunService {
 		}
 		if(StringUtils.isNotBlank(image_big)){
 			fun.set("image_big", image_big);
+			String imagePath = ImageUtils.getInstance().getDiskPath() + image_big;
+			InputStream is = null;
+			try {
+				is = new FileInputStream(imagePath);
+				BufferedImage bi = ImageIO.read(is);
+				int width = bi.getWidth();  
+			    int height = bi.getHeight();  
+			    fun.set("image_big_width", width);
+			    fun.set("image_big_height", height);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally{
+				try {
+					is.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		save(fun);
