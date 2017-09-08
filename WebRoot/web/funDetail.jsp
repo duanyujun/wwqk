@@ -35,7 +35,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 					<ul style="float:left;" class="hidden-sm hidden-xs">
 						<li class="menu_width"><a href="">首页</a></li>
-						<li class="menu_width menu_sel"><a href="say.html">说说</a></li>
+						<li class="menu_width menu_sel"><a href="fun.html">趣点</a></li>
 						<li class="menu_width "><a href="live.html">直播</a></li>
 						<li class="menu_width"><a href="match.html">比赛</a></li>
 						<li class="menu_width"><a href="data.html">数据</a></li>
@@ -49,7 +49,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	       		<a href="/" target="_self"><span class="wwqk_menu">首页</span></a>
 	       	</div>
 	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
-	       		<a href="/say.html" target="_self"><span class="wwqk_menu dline">说说</span></a>
+	       		<a href="/fun.html" target="_self"><span class="wwqk_menu dline">趣点</span></a>
 	       	</div>
 	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
 	       		<a href="/live.html" target="_self"><span class="wwqk_menu ">直播</span></a>
@@ -64,7 +64,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    
 	    <div class="row visible-sm visible-xs" style="margin-top:45px;">
 			<div class="col-sm-12 col-xs-12 bread">
-				当前位置：<a href="/" target="_self">首页</a>&nbsp;&gt;&nbsp;<a href="/say.html" target="_self">说说</a>&nbsp;&gt;&nbsp;详情
+				当前位置：<a href="/" target="_self">首页</a>&nbsp;&gt;&nbsp;<a href="/say.html" target="_self">趣点</a>&nbsp;&gt;&nbsp;详情
 			</div>
 		</div>
 		
