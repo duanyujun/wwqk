@@ -67,7 +67,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<c:if test="${status.index!=0}">
 						<div class="col-sm-12 col-xs-12" style="margin-top:10px;height:1px;"></div>
 					</c:if>
-			    	<div class="col-sm-12 col-xs-12">
+			    	<div class="col-sm-12 col-xs-12" style="padding-left:8px;">
 		   					<div class="mob-author">
 		                               <div class="author-face">
 				                        <c:if test="${fun.type==1}">
@@ -97,22 +97,22 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		                    </div>
 			    	</div>
 			    	<!-- 内容 -->
-			    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:10px;padding-left:45px;">
+			    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:10px;padding-left:38px;">
 						<c:if test="${fun.type==1}">
-							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_self" ><span class="summary">${fun.summary}</span></a>
+							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_self" ><span class="summary-mobile">${fun.summary}</span></a>
 						</c:if>
 						<c:if test="${fun.type==2}">
-							<span class="summary">${fun.summary}</span>
+							<span class="summary-mobile">${fun.summary}</span>
 						</c:if>
 					</div>
 			    	<!-- 图片 -->
-			    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:8px;padding-left:45px;">
+			    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:8px;padding-left:38px;">
 						<c:if test="${fun.type==1}">
 							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_self" ><img src="${fun.image_small}" class="img-responsive" alt="${fun.title}" title="${fun.title}"/></a>
 						</c:if>
 						<c:if test="${fun.type==2}">
 							<c:if test="${!empty fun.image_big}">
-								<div class="mobile-div-img" data-bg-sm="${fun.image_big}" width="${fun.image_big_width }" height="${fun.image_big_height}" >
+								<div class="mobile-div-img" data-bg-sm="${fun.image_big}" width="${fun.image_big_width }" height="${fun.image_big_height}" style="min-height:220px;">
 								
 								</div>
 							</c:if>
@@ -299,32 +299,26 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    s.parentNode.insertBefore(bp, s);
 	})();
 	
-	var winWidth = $(window).width();
-
 	function resizeBackground(){
+	  var winWidth = $(window).width();
 	  if (winWidth<992) {
 		  $(".mobile-div-img").each(function(){
-			  var width = $(this).attr("width")/2;
-			  var height = $(this).attr("height")/2;
-			  if(width>=(winWidth-30)){
-				  var percent = (parseFloat(winWidth-30)/parseFloat(width)).toFixed(2);
-				  var newHeight = parseInt(height*percent);
-				  width = (winWidth-30);
-				  height = newHeight;
-			  }
+			  var percent = (parseFloat($(this).attr("height"))/parseFloat($(this).attr("width"))).toFixed(2);
+			  var width = winWidth-70;
+			  var height = width * percent;
 			  $(this).css("width",width+"px").css("height",height+"px");
 			  var imageHtml = "<img class='image' src='"+$(this).attr("data-bg-sm")+"' style='width:"+width+"px;height:"+height+"px;' />";
-			  if($(this).children().length==0){
-				  $(this).append(imageHtml);
-			  }
-			  
+			  $(this).html(imageHtml);
 		  });
 		  $('.image').viewer({toolbar:false});
 	  } 
 	}
 	
-	$(window).resize(function() {
-		resizeBackground();
+	$(document).ready(function(){
+		$(window).resize(function() {
+			resizeBackground();
+		});
+
 	});
 	
 	$(function(){
@@ -429,17 +423,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	});
 	
 	function addRecode(fun){
+		var winWidth = $(window).width();
 		var width;
 		var height;
 		if (winWidth<992) {
-			  var width = fun.image_big_width/2;
-			  var height = fun.image_big_height/2;
-			  if(width>=(winWidth-30)){
-				  var percent = (parseFloat(winWidth-30)/parseFloat(width)).toFixed(2);
-				  var newHeight = parseInt(height*percent);
-				  width = (winWidth-30);
-				  height = newHeight;
-			  }
+			  var percent = (parseFloat($(this).attr("height"))/parseFloat($(this).attr("width"))).toFixed(2);
+			  width = winWidth-70;
+			  height = width * percent;
 		} 
 		
 		var create_time = '';
@@ -473,9 +463,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		strhtml+="			    	</div>";
 		strhtml+="			    	<div class=\"col-sm-12 col-xs-12 content-title\" style=\"margin-top:10px;padding-left:45px;\">";
 		if(fun.type==1){
-			strhtml+="							<a href=\"fdetail-"+date_str+"-"+fun.id+".html\" target=\"_self\" ><span class=\"summary\">"+fun.summary+"</span></a>";
+			strhtml+="							<a href=\"fdetail-"+date_str+"-"+fun.id+".html\" target=\"_self\" ><span class=\"summary-mobile\">"+fun.summary+"</span></a>";
 		}else{
-			strhtml+="							<span class=\"summary\">"+fun.summary+"</span>";
+			strhtml+="							<span class=\"summary-mobile\">"+fun.summary+"</span>";
 		}
 		strhtml+="					</div>";
 		strhtml+="			    	<div class=\"col-sm-12 col-xs-12 content-title\" style=\"margin-top:8px;padding-left:45px;\">";
@@ -483,7 +473,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			strhtml+="							<a href=\"fdetail-"+date_str+"-"+fun.id+".html\" target=\"_self\" ><img src=\""+fun.image_small+"\" class=\"img-responsive\" alt=\""+fun.title+"\" /></a>";
 		}else{
 			if(fun.image_big && fun.image_big!=''){
-				strhtml+="<div  style='width:"+width+"px;height:"+height+"px;'><img class='image' src='"+fun.image_big+"' style='width:"+width+"px;height:"+height+"px;' /></div>";
+				strhtml+="<div class='mobile-div-img' data-bg-sm='"+fun.image_big+"' width='"+fun.image_big_width+"' height='"+fun.image_big_height+"' style='width:"+width+"px;height:"+height+"px;'><img class='image' src='"+fun.image_big+"' style='width:"+width+"px;height:"+height+"px;' /></div>";
 			}
 		}
 		strhtml+="					</div>";
