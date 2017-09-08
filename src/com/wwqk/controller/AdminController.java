@@ -581,6 +581,8 @@ public class AdminController extends Controller {
 	
 	//日常管理：手动更新比赛信息； 手动更新一只球队球员情况
 	public void dailyManage(){
+		//获取比赛联赛信息
+		
 		render("admin/dailyManage.jsp");
 	}
 	

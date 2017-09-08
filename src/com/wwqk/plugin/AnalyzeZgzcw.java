@@ -1,6 +1,7 @@
 package com.wwqk.plugin;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -429,6 +430,54 @@ public class AnalyzeZgzcw {
 			loseGoalCount += match.getInt("away_score");
 		}
 		
+		BigDecimal evenGoalCount = new BigDecimal(goalCount).divide(new BigDecimal(lstHomeMatches.size()), 2 , BigDecimal.ROUND_HALF_UP);
+		BigDecimal evenLoseGoalCount = new BigDecimal(loseGoalCount).divide(new BigDecimal(lstHomeMatches.size()), 2 , BigDecimal.ROUND_HALF_UP);
+		
+		sb.append("主队（主场）：近").append(lstHomeMatches.size()).append("场比赛，<span class='red_result'>").append(homeWinCount).append("</span>赢")
+		  .append(homeDrawCount).append("平<span class='red_result'>").append(homeLoseCount).append("</span>负。场均进")
+		  .append(evenGoalCount).append("球，丢").append(evenLoseGoalCount).append("球<br>");
+		
+		
+		//2、客队客场战斗力（近15场比赛）：胜平负各多少，半场胜平负，	场均进球丢球数量
+		List<OddsMatches> lstAwayMatches = OddsMatches.dao.find("select * from odds_matches where away_id = ? and result !=? order by match_time desc limit 0,15",
+				awayId, "-:-");
+		int awayWinCount = 0;
+		int awayDrawCount = 0;
+		int awayLoseCount = 0;
+		int halfAwayWinCount = 0;
+		int halfAwayDrawCount = 0;
+		int halfAwayLoseCount = 0;
+		//进球数
+		int awayGoalCount = 0;
+		//输球数
+		int awayLoseGoalCount = 0;
+		for(OddsMatches match:lstAwayMatches){
+			if(match.getInt("away_score")>match.getInt("home_score")){
+				awayWinCount++;
+			}else if(match.getInt("away_score")==match.getInt("home_score")){
+				awayDrawCount++;
+			}else{
+				awayLoseCount++;
+			}
+			
+			if(match.getInt("half_away_score")>match.getInt("half_home_score")){
+				halfHomeWinCount++;
+			}else if(match.getInt("half_away_score")==match.getInt("half_home_score")){
+				halfHomeDrawCount++;
+			}else{
+				halfHomeLoseCount++;
+			}
+			
+			awayGoalCount += match.getInt("away_score");
+			awayLoseGoalCount += match.getInt("home_score");
+		}
+		
+		BigDecimal awayEvenGoalCount = new BigDecimal(awayGoalCount).divide(new BigDecimal(lstHomeMatches.size()), 2 , BigDecimal.ROUND_HALF_UP);
+		BigDecimal awayEvenLoseGoalCount = new BigDecimal(awayLoseGoalCount).divide(new BigDecimal(lstHomeMatches.size()), 2 , BigDecimal.ROUND_HALF_UP);
+		
+		sb.append("客队（客场）：近").append(lstAwayMatches.size()).append("场比赛，<span class='red_result'>").append(awayWinCount).append("</span>赢")
+		  .append(awayDrawCount).append("平<span class='red_result'>").append(awayLoseCount).append("</span>负。场均进")
+		  .append(awayEvenGoalCount).append("球，丢").append(awayEvenLoseGoalCount).append("球<br>");
 		
 		return sb.toString();
 	}
