@@ -147,7 +147,8 @@ public class Live24zbw {
 								for(Element elementLive:lives){
 									MatchLive matchLive = new MatchLive();
 									String liveName = StringUtils.trim(elementLive.text().replace("(推荐)", ""));
-									if(liveName.contains(" ") || "http://www.24zbw.com".equals(liveName)){
+									String liveUrl = elementLive.attr("href");
+									if(liveName.contains(" ") || "http://www.24zbw.com".equals(liveUrl)){
 										continue;
 									}
 									if(CommonUtils.nameIdMap.get(homeTeamName)!=null && CommonUtils.nameIdMap.get(awayTeamName)!=null){
@@ -161,7 +162,7 @@ public class Live24zbw {
 									matchLive.set("home_team_name", homeTeamName);
 									matchLive.set("away_team_name", awayTeamName);
 									matchLive.set("live_name", liveName);
-									matchLive.set("live_url", elementLive.attr("href"));
+									matchLive.set("live_url", liveUrl);
 									matchLive.set("match_date", matchDateTime);
 									lstMatchLives.add(matchLive);
 								}
