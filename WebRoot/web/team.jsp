@@ -440,7 +440,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				 }
 			 }
 		);
-		$('.image').viewer(
+		$('.venue').viewer(
 				{toolbar:false, 
 				zIndex:20000,
 				url:"big",
