@@ -184,7 +184,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	})();
 	
 	$(function(){
-		$('.well').viewer({toolbar:false, zIndex:20000});
+		$('.well').viewer(
+				{toolbar:false, 
+				zIndex:20000,
+				shown: function() {
+					$(".viewer-canvas").attr("data-action","mix");
+				 }
+			 }
+		);
 	});
 	</script>
 		

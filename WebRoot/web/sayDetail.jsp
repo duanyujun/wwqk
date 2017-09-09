@@ -165,9 +165,16 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    var s = document.getElementsByTagName("script")[0];
 	    s.parentNode.insertBefore(bp, s);
 	})();
-	
+
 	$(function(){
-		$('.image').viewer({toolbar:false, zIndex:20000});
+		$('.image').viewer(
+				{toolbar:false, 
+				zIndex:20000,
+				shown: function() {
+					$(".viewer-canvas").attr("data-action","mix");
+				 }
+			 }
+		);
 	});
 	</script>
 		

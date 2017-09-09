@@ -432,8 +432,23 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	})();
 	
 	$(function(){
-		$('.image').viewer({toolbar:false, zIndex:20000});
-		$('.venue').viewer({toolbar:false, zIndex:20000, url:"big"});
+		$('.image').viewer(
+				{toolbar:false, 
+				zIndex:20000,
+				shown: function() {
+					$(".viewer-canvas").attr("data-action","mix");
+				 }
+			 }
+		);
+		$('.image').viewer(
+				{toolbar:false, 
+				zIndex:20000,
+				url:"big",
+				shown: function() {
+					$(".viewer-canvas").attr("data-action","mix");
+				 }
+			 }
+		);
 	});
 	</script>
 	

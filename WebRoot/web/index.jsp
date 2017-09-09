@@ -310,7 +310,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			  var imageHtml = "<img class='image' src='"+$(this).attr("data-bg-sm")+"' style='width:"+width+"px;height:"+height+"px;' />";
 			  $(this).html(imageHtml);
 		  });
-		  $('.image').viewer({toolbar:false});
+		  $('.image').viewer(
+					{toolbar:false, 
+					zIndex:20000,
+					shown: function() {
+						$(".viewer-canvas").attr("data-action","mix");
+					 }
+				 }
+			);
 	  } 
 	}
 	
@@ -372,7 +379,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	                    // 解锁loadDownFn里锁定的情况
 	                    me.unlock();
 	                    me.noData(false);
-	                    $('.image').viewer({toolbar:false});
+	                    $('.image').viewer(
+	        					{toolbar:false, 
+	        					zIndex:20000,
+	        					shown: function() {
+	        						$(".viewer-canvas").attr("data-action","mix");
+	        					 }
+	        				 }
+	        			);
 	                },
 	                error: function(xhr, type){
 	                    // 即使加载出错，也得重置
@@ -410,7 +424,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	                    $('#list_content').append(strhtml);
 	                    // 每次数据插入，必须重置
 	                    me.resetload();
-	                    $('.image').viewer({toolbar:false});
+	                    $('.image').viewer(
+	        					{toolbar:false, 
+	        					zIndex:20000,
+	        					shown: function() {
+	        						$(".viewer-canvas").attr("data-action","mix");
+	        					 }
+	        				 }
+	        			);
 	                },
 	                error: function(xhr, type){
 	                    // 即使加载出错，也得重置
