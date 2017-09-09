@@ -102,7 +102,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_self" ><span class="summary-mobile">${fun.summary}</span></a>
 						</c:if>
 						<c:if test="${fun.type==2}">
-							<span class="summary-mobile">${fun.summary}</span>
+							<span class="summary-mobile line-cut">${fun.summary}</span>
 						</c:if>
 					</div>
 			    	<!-- 图片 -->

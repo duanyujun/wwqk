@@ -86,7 +86,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<span class="msg-title">
 							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank" title="${fun.title}" style="font-size:16px;">${fun.title}</a>
 						</span><br>
-						<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_self" ><span class="summary">${fun.summary}</span></a>
+						<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_self" ><span class="summary-mobile line-cut">${fun.summary}</span></a>
 					</div>
 			    	<!-- 图片 -->
 			    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:8px;padding-left:45px;">
@@ -145,7 +145,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						</div>
 						
 						<div class="col-lg-12 col-md-12" style="margin-top:20px;padding-right:0;">
-							<span class="summary">${fun.summary}</span>
+							<span class="summary line-cut" title="${fun.summary}">${fun.summary}</span>
 						</div>
 					</div>
 					<div class="col-lg-12 col-md-12" style="padding-left:0px;">
