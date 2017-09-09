@@ -4,6 +4,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import com.wwqk.plugin.Live24zbw;
+import com.wwqk.plugin.LiveZuqiula;
 import com.wwqk.plugin.MatchSina;
 import com.wwqk.utils.CommonUtils;
 
@@ -20,10 +21,10 @@ public class ProductMatchJob implements Job {
 		CommonUtils.initNameIdMap();
 		//使用sina的比赛源
 		MatchSina.archiveMatch(CommonUtils.nameIdMap, CommonUtils.nameENNameMap);
-		//zhibo7直播源
-		//LiveZhibo7.getLiveSource();
 		//24zbw直播源
 		Live24zbw.getLiveSource();
+		//足球啦直播源
+		LiveZuqiula.getLiveSource();
 		System.err.println("ProductMatchJob end");
 	}
 	
