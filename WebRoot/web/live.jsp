@@ -141,7 +141,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								      		</a>
 								      	</c:if>
 								      	<c:if test="${!empty match.league_id}">
-								      		<b class="a-title" ><a title="${!empty match.info?'有情报':''}" href="match-${match.home_team_enname}-vs-${match.away_team_enname}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_self">${match.home_team_name} VS ${match.away_team_name}
+								      		<b class="a-title" ><a title="${!empty match.info?'有情报':''}" href="match-${match.home_team_enname}-vs-${match.away_team_enname}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">${match.home_team_name} VS ${match.away_team_name}
 								      		<c:if test="${!empty match.info}">
 								      		 	<img src="assets/image/page/spy.png" style="width:13px;margin-top:-2px;"  title="有情报"/>
 								      		 </c:if>
