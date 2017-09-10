@@ -22,6 +22,7 @@ import com.wwqk.model.Fun;
 import com.wwqk.model.League;
 import com.wwqk.model.LeagueAssists;
 import com.wwqk.model.LeagueAssists163;
+import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.LeagueShooter;
 import com.wwqk.model.LeagueShooter163;
@@ -582,7 +583,9 @@ public class AdminController extends Controller {
 	//日常管理：手动更新比赛信息； 手动更新一只球队球员情况
 	public void dailyManage(){
 		//获取比赛联赛信息
-		
+		List<LeagueMatch> lstMatch = LeagueMatch.dao.find(
+				"select m.home_team_id, m.away_team_id, m.home_team_name, m.away_team_name, l.name league_name from league_match m, league l where m.league_id = l.id");
+		setAttr("lstMatch", lstMatch);
 		render("admin/dailyManage.jsp");
 	}
 	
@@ -649,5 +652,13 @@ public class AdminController extends Controller {
 	public void updateOddsMatches(){
 		AnalyzeZgzcw.getInstance().setHomeAwayId();
 		renderJson(1);
+	}
+	
+	//分析比赛历史数据
+	public void generateMatchStatic(){
+		String result = AnalyzeZgzcw.getInstance().analyzeWinOrLose(this);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("data", result);
+		renderJson(map);
 	}
 }

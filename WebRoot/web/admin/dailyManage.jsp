@@ -85,6 +85,26 @@
                     </div>
                 </div>
             </div>
+            
+            
+            <div class="row" style="margin-top:20px;">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <select id="matches">
+                		<option value="">--请选择比赛--</option>
+                		<c:forEach items="${lstMatch}" var="match" >
+                			<option value="${match.home_team_id},${match.away_team_id}">${match.league_name} ${match.home_team_name}vs${match.away_team_name}</option>
+                		</c:forEach>
+                	</select>
+                    <button onclick="generateMatchStatic();" class="btn sbold green" style="margin-left:10px;"> 获取比赛历史统计
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;">
+                	<div style="width:300px;min-height:100px;" id="result_div"></div>
+                </div>
+            </div>
+            
+            
         </div>
         
     </div>
@@ -215,6 +235,25 @@ function updateOddsMatches(){
 			function(result){
 				$("body").hideLoading();
 				showToast(1, "更新成功！", "温馨提示");
+			}
+	);
+}
+
+function generateMatchStatic(){
+	var match = $("#matches").val();
+	if(match==''){
+		showToast(3, "请选择比赛！", "温馨提示");
+		return;
+	}
+	var home_id_str = match.split(",")[0];
+	var away_id_str = match.split(",")[1];
+	$("body").showLoading();
+	showToast(1, "更新中...", "温馨提示");
+	$.post("/admin/generateMatchStatic",{home_id:home_id_str,away_id:away_id_str},
+			function(result){
+				$("body").hideLoading();
+				showToast(1, "更新成功！", "温馨提示");
+				$("#result_div").html(result.data);
 			}
 	);
 }
