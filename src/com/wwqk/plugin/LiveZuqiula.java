@@ -90,14 +90,15 @@ public class LiveZuqiula {
 					MatchSourceSina matchSourceSina = MatchSourceSina.dao.findFirst("select * from match_source_sina");
 					String yearShow = matchSourceSina.getStr("year_show");
 					Date matchDateTime = DateTimeUtils.getZuqiulaMatchDate(dateStr+" "+timeStr);
-					if(matchDateTime.before(new Date())){
+					Date nowDate = DateTimeUtils.addHours(new Date(), -2);
+					if(matchDateTime.before(nowDate)){
 						continue;
 					}
 					List<MatchLive> lstMatchLives = new ArrayList<MatchLive>();
-					Date dateVilidate = DateTimeUtils.addDays(new Date(), -2);
+					//Date dateVilidate = DateTimeUtils.addDays(new Date(), -2);
 					AllLiveMatch allLiveMatch = AllLiveMatch.dao.findFirst(
 							"select * from all_live_match where home_team_name = ? and away_team_name = ? and year_show = ? and match_datetime > ? ",
-							homeTeamName, awayTeamName, yearShow, dateVilidate);
+							homeTeamName, awayTeamName, yearShow, nowDate);
 					boolean isNeedInsert = false;
 					if(allLiveMatch==null){
 						isNeedInsert = true;

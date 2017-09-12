@@ -79,7 +79,8 @@ public class Live24zbw {
 							
 							String timeStr = StringUtils.trim(element.child(0).text());
 							Date matchDateTime = DateTimeUtils.getMatchDate(dateStr+" "+timeStr);
-							if(matchDateTime.before(new Date())){
+							Date nowDate = DateTimeUtils.addHours(new Date(), -2);
+							if(matchDateTime.before(nowDate)){
 								continue;
 							}
 							List<MatchLive> lstMatchLives = new ArrayList<MatchLive>();
@@ -88,17 +89,17 @@ public class Live24zbw {
 							String awayTeamName = StringUtils.trim(homeAwayNames.get(1).text());
 							String homeTeamId = CommonUtils.nameIdMap.get(homeTeamName);
 							String awayTeamId = CommonUtils.nameIdMap.get(awayTeamName);
-							Date dateVilidate = DateTimeUtils.addDays(new Date(), -2);
+							//Date dateVilidate = DateTimeUtils.addDays(new Date(), -2);
 							AllLiveMatch allLiveMatch = AllLiveMatch.dao.findFirst(
 									"select * from all_live_match where home_team_name = ? and away_team_name = ? and year_show = ? and match_datetime > ? ",
-									homeTeamName, awayTeamName, yearShow, dateVilidate);
+									homeTeamName, awayTeamName, yearShow, nowDate);
 							boolean isNeedInsert = false;
 							if(allLiveMatch==null){
 								if(StringUtils.isNotBlank(homeTeamId) && StringUtils.isNotBlank(awayTeamId)){
 									//因为本系统已经替换了主客队名称，需再次查询一下主客队id
 									allLiveMatch = AllLiveMatch.dao.findFirst(
 											"select * from all_live_match where home_team_id = ? and away_team_id = ? and year_show = ? and match_datetime > ? ",
-											homeTeamId, awayTeamId, yearShow, dateVilidate);
+											homeTeamId, awayTeamId, yearShow, nowDate);
 									if(allLiveMatch==null){
 										isNeedInsert = true;
 										allLiveMatch = new AllLiveMatch();
