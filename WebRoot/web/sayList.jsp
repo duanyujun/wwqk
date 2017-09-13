@@ -19,7 +19,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/dropload/dropload.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
-    <title>趣点足球网 - ${enname}|${player.name}的说说|${player.name}的动态|${player.name}的资讯|${player.name}的生活</title>
+    <title>趣点足球网 - ${player.nationality} ${player.name}|${enname}|${player.name}转会|${player.name}的近况|${player.name}职业生涯</title>
     <style>
     	#article_div ul{list-style:none;count-reset:count; }
     	#article_div li{line-height:30px;height:30px;}
@@ -39,10 +39,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 					<ul style="float:left;" class="hidden-sm hidden-xs">
 						<li class="menu_width"><a href="">首页</a></li>
-						<li class="menu_width menu_sel"><a href="fun.html">趣点</a></li>
+						<li class="menu_width"><a href="fun.html">趣点</a></li>
 						<li class="menu_width"><a href="live.html">直播</a></li>
 						<li class="menu_width"><a href="match.html">比赛</a></li>
-						<li class="menu_width"><a href="data.html">数据</a></li>
+						<li class="menu_width menu_sel"><a href="data.html">数据</a></li>
 					</ul>
 				</div>
 			</div>
@@ -52,7 +52,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	       		<a href="/" target="_self"><span class="wwqk_menu">首页</span></a>
 	       	</div>
 	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
-	       		<a href="/fun.html" target="_self"><span class="wwqk_menu dline">趣点</span></a>
+	       		<a href="/fun.html" target="_self"><span class="wwqk_menu">趣点</span></a>
 	       	</div>
 	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
 	       		<a href="/live.html" target="_self"><span class="wwqk_menu">直播</span></a>
@@ -61,7 +61,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	       		<a href="/match.html" target="_self"><span class="wwqk_menu">比赛</span></a>
 	       	</div>
 	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
-	       		<a href="/data.html" target="_self"><span class="wwqk_menu">数据</span></a>
+	       		<a href="/data.html" target="_self"><span class="wwqk_menu dline">数据</span></a>
 	       	</div>
 	    </div>
 	    
