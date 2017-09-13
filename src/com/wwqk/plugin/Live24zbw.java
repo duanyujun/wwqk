@@ -135,8 +135,8 @@ public class Live24zbw {
 									allLiveMatch.set("match_key", yearShow+"-"+homeTeamId+"vs"+awayTeamId);
 								}
 							}else{
-								allLiveMatch.set("home_team_enname", PinyinUtils.getPingYin(homeTeamName));
-								allLiveMatch.set("away_team_enname", PinyinUtils.getPingYin(awayTeamName));
+								allLiveMatch.set("home_team_enname", PinyinUtils.getPinyinWithHyphen(homeTeamName));
+								allLiveMatch.set("away_team_enname", PinyinUtils.getPinyinWithHyphen(awayTeamName));
 							}
 							
 							allLiveMatch.set("update_time", new Date());

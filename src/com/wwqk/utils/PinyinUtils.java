@@ -13,10 +13,39 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
  *
  */
 public class PinyinUtils {
+	
+	/**
+	 * 将中文词语转换成带连字符的拼音，如“拼音”转成“pin-yin”
+	 * @param word
+	 * @return
+	 */
+	public static String getPinyinWithHyphen(String word){
+		if(StringUtils.isBlank(word)){
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+		for(int i=0; i<word.length();i++){
+			char charStr = word.charAt(i);
+			Character charObj = new Character(charStr);
+			if(isEnglish(charObj.toString())){
+				sb.append(charObj.toString());
+			}else{
+				sb.append(getPingYin(charObj.toString())).append("-");
+			}
+		}
+		if(sb.toString().lastIndexOf("-") == (sb.toString().length()-1)){
+			sb.deleteCharAt(sb.length() - 1);
+		}
+		
+		return sb.toString();
+	}
 
 	
 	// 将汉字转换为全拼  
     public static String getPingYin(String src) {  
+    	if(StringUtils.isBlank(src)){
+    		return "";
+    	}
   
         char[] t1 = null;  
         t1 = src.toCharArray();  
@@ -77,5 +106,9 @@ public class PinyinUtils {
         System.out.println(getPinYinHeadChar("綦江县"));  
         System.out.println(getCnASCII("綦江县"));  
     }  
+    
+    private static boolean isEnglish(String charaString){
+        return charaString.matches("^[a-zA-Z]*");
+    }
     
 }
