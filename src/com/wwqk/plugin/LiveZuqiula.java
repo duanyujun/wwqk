@@ -112,8 +112,8 @@ public class LiveZuqiula {
 					allLiveMatch.set("league_name", leagueName);
 					allLiveMatch.set("home_team_name", homeTeamName);
 					allLiveMatch.set("away_team_name", awayTeamName);
-					allLiveMatch.set("home_team_enname", PinyinUtils.getPinyinWithHyphen(homeTeamName));
-					allLiveMatch.set("away_team_enname", PinyinUtils.getPinyinWithHyphen(awayTeamName));
+					allLiveMatch.set("home_team_enname", PinyinUtils.getPingYin(homeTeamName));
+					allLiveMatch.set("away_team_enname", PinyinUtils.getPingYin(awayTeamName));
 					allLiveMatch.set("year_show", yearShow);
 					allLiveMatch.set("update_time", new Date());
 					if(isNeedInsert){
