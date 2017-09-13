@@ -26,6 +26,7 @@ import com.wwqk.model.Team;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.MatchUtils;
+import com.wwqk.utils.PinyinUtils;
 import com.wwqk.utils.StringUtils;
 
 public class Live24zbw {
@@ -133,7 +134,11 @@ public class Live24zbw {
 									allLiveMatch.set("away_team_enname", away.getStr("name_en"));
 									allLiveMatch.set("match_key", yearShow+"-"+homeTeamId+"vs"+awayTeamId);
 								}
+							}else{
+								allLiveMatch.set("home_team_enname", PinyinUtils.getPingYin(homeTeamName));
+								allLiveMatch.set("away_team_enname", PinyinUtils.getPingYin(awayTeamName));
 							}
+							
 							allLiveMatch.set("update_time", new Date());
 							if(isNeedInsert){
 								allLiveMatch.save();

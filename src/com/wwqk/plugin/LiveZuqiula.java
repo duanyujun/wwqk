@@ -23,6 +23,7 @@ import com.wwqk.model.MatchLive;
 import com.wwqk.model.MatchSourceSina;
 import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.MatchUtils;
+import com.wwqk.utils.PinyinUtils;
 import com.wwqk.utils.StringUtils;
 
 public class LiveZuqiula {
@@ -111,6 +112,8 @@ public class LiveZuqiula {
 					allLiveMatch.set("league_name", leagueName);
 					allLiveMatch.set("home_team_name", homeTeamName);
 					allLiveMatch.set("away_team_name", awayTeamName);
+					allLiveMatch.set("home_team_enname", PinyinUtils.getPingYin(homeTeamName));
+					allLiveMatch.set("away_team_enname", PinyinUtils.getPingYin(awayTeamName));
 					allLiveMatch.set("year_show", yearShow);
 					allLiveMatch.set("update_time", new Date());
 					if(isNeedInsert){
