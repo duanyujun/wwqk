@@ -69,7 +69,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    <div class="row visible-sm visible-xs" style="margin-top:40px;">
 			<div id="main_content" style="min-height:10px;" class="col-sm-12 col-xs-12">		
 				<div class="bread">
-					<a href="/" target="_self">首页</a>&nbsp;&gt;&nbsp;<a href="/say.html" target="_self">趣点</a>&nbsp;&gt;&nbsp;${player.name}
+					<a href="/" target="_self">首页</a>&nbsp;&gt;&nbsp;<a href="/data.html" target="_self">数据</a>&nbsp;&gt;&nbsp;${player.name}
 				</div>
 			</div>
 		</div>
@@ -147,7 +147,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:70px;">
 		<div id="main_content" style="min-height:10px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="bread">
-				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/say.html" target="_blank">说说</a>&nbsp;&gt;&nbsp;${player.name}
+				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/data.html" target="_blank">数据</a>&nbsp;&gt;&nbsp;${player.name}
 			</div>
 		</div>
 	</div>
