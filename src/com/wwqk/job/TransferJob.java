@@ -18,8 +18,9 @@ public class TransferJob implements Job {
 		System.err.println("TransferJob player end!!!");
 		HttpClient httpClient = new DefaultHttpClient();
 		List<Player> lstPlayers = Player.dao.find("SELECT * FROM player ORDER BY team_id IS NULL, team_id DESC");
+		int i=0;
 		for(Player player : lstPlayers){
-			System.err.println("player name："+player.getStr("name")+" player id："+player.getStr("id")+" team id："+player.getStr("team_id"));
+			System.err.println((++i)+" player name："+player.getStr("name")+" player id："+player.getStr("id")+" team id："+player.getStr("team_id"));
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
