@@ -19,7 +19,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/dropload/dropload.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
-    <title>趣点足球网 - ${player.nationality} ${player.name}|${enname}|${player.name}转会|${player.name}的近况|${player.name}职业生涯</title>
+    <title>趣点足球网 - ${player.nationality} - ${player.name}|${enname}|${player.name}转会|${player.name}的近况|${player.name}职业生涯</title>
     <style>
     	#article_div ul{list-style:none;count-reset:count; }
     	#article_div li{line-height:30px;height:30px;}
@@ -82,7 +82,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		
 			<div class="col-sm-7 col-xs-7" style="margin-top:10px;">${player.nationality} ${player.birthday}（${player.age}岁）</div>
 			<div class="col-sm-7 col-xs-7" style="margin-top:10px;">${player.height}&nbsp;·&nbsp;${player.weight}&nbsp;<c:if test="${!empty player.foot}">·&nbsp;惯用${player.foot}脚</c:if></div>
-			<div class="col-sm-7 col-xs-7" style="margin-top:10px;"><a href="team-${player.team_name_en}-${player.team_id}.html" target="_self" title="${player.team_name}" style="color:grey;">${player.team_name}</a>&nbsp;·&nbsp;${player.position}&nbsp;·&nbsp;${player.number}号</div>
+			<c:if test="${!empty player.team_id}">
+				<div class="col-sm-7 col-xs-7" style="margin-top:10px;"><a href="team-${player.team_name_en}-${player.team_id}.html" target="_self" title="${player.team_name}" style="color:grey;">${player.team_name}</a>&nbsp;·&nbsp;${player.position}&nbsp;·&nbsp;${player.number}号</div>
+			</c:if>
+			
 			<div class="col-sm-7 col-xs-7" style="margin-top:10px;">赛季数据：
 				<c:if test="${player.goal_count!=0}">
 	      			<span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span>
@@ -172,19 +175,21 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				      		</c:if>
 						</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">惯用脚：<c:if test="${!(player.foot=='0' && empty player.foot)}">${player.foot}</c:if></div>
-						<div class="col-lg-12 col-md-12 team-title" style="margin-top:10px;font-size:14px;">效力球队：
-							<a href="team-${player.team_name_en}-${player.team_id}.html" target="_blank" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a>
-							&nbsp;
-							<c:if test="${player.goal_count!=0}">
-				      			<span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span>
-				      		</c:if>
-				      		<c:if test="${player.goal_count!=0 && player.assists_count!=0}">
-				      		&nbsp;
-				      		</c:if>
-				      		<c:if test="${player.assists_count!=0}">
-				      			<span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span>
-				      		</c:if>
-						</div>
+						<c:if test="${!empty player.team_id}">
+							<div class="col-lg-12 col-md-12 team-title" style="margin-top:10px;font-size:14px;">效力球队：
+								<a href="team-${player.team_name_en}-${player.team_id}.html" target="_blank" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a>
+								&nbsp;
+								<c:if test="${player.goal_count!=0}">
+					      			<span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span>
+					      		</c:if>
+					      		<c:if test="${player.goal_count!=0 && player.assists_count!=0}">
+					      		&nbsp;
+					      		</c:if>
+					      		<c:if test="${player.assists_count!=0}">
+					      			<span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span>
+					      		</c:if>
+							</div>
+						</c:if>
 						
 					</div>
 				</div>
