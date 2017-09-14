@@ -25,6 +25,8 @@ import com.wwqk.model.Team;
 public class CommonUtils {
 	
 	private static final String NO_INFO = "无信息";
+	private static final String FREE = "免费";
+	private static final String LOAN = "租借";
 	private static final BigDecimal HUNDRED = new BigDecimal(100);
 	private static final Pattern VALUE_PATTERN_1 = Pattern.compile("\\d+\\.\\d+");
 	private static final Pattern VALUE_PATTERN_2 = Pattern.compile("\\d+");
@@ -237,6 +239,38 @@ public class CommonUtils {
 			}
 		}
 		return euValue;
+	}
+	
+	/**
+	 * 返回数组:前面数量，后面是否带M
+	 * @param euValue
+	 * @return
+	 */
+	public static String[] getCNValueFromEuro(String euValue){
+		String[] result = new String[2];
+		result[0] = NO_INFO;
+		if(StringUtils.isBlank(euValue)){
+			return result;
+		}
+		if(euValue.contains("Free")){
+			result[0] = FREE;
+			return result;
+		}
+		if(euValue.contains("Loan")){
+			result[0] = LOAN;
+			return result;
+		}
+		euValue = euValue.replace("&euro;", "");
+		euValue = euValue.replace("€", "");
+		if(euValue.contains("M")){
+			result[0] = StringUtils.trim(euValue.replace("M", ""));
+			result[1] = "M";
+		}else if(euValue.contains("K")){
+			result[0] = StringUtils.trim(euValue.replace("K", ""));
+			result[0] = result[0].substring(0, result[0].length()-1);
+		}
+		
+		return result;
 	}
 	
 	/**
