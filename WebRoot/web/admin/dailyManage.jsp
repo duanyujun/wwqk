@@ -86,6 +86,14 @@
                 </div>
             </div>
             
+            <div class="row" style="margin-top:20px;">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <input type="text" id="playerId" maxlength="20" placeholder="球员Id" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+                    <button onclick="updatePlayerTransfer();" class="btn sbold green" style="margin-left:10px;"> 更新球员转会
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </div>
             
             <div class="row" style="margin-top:20px;">
                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -256,6 +264,25 @@ function generateMatchStatic(){
 				$("#result_div").html(result.data);
 			}
 	);
+}
+
+
+function updatePlayerTransfer(){
+
+	if($("#playerId").val()==''){
+		showToast(2, "请填写球员ID", "温馨提示");
+		return;
+	}
+	$("body").showLoading();
+	showToast(1, "更新中...", "温馨提示");
+	$.post("/admin/updatePlayerTransfer",
+				{playerId: $("#playerId").val()},
+				function(result){
+					$("body").hideLoading();
+					showToast(1, "更新成功！", "温馨提示");
+				}
+	);
+	
 }
 
 </script>

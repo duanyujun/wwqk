@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
@@ -35,6 +37,7 @@ import com.wwqk.plugin.Live24zbw;
 import com.wwqk.plugin.LiveZuqiula;
 import com.wwqk.plugin.MatchSina;
 import com.wwqk.plugin.OddsUtils;
+import com.wwqk.plugin.PlayerInfoPlugin;
 import com.wwqk.plugin.ShooterAssister163;
 import com.wwqk.plugin.TeamPlayers;
 import com.wwqk.plugin.TeamPosition;
@@ -660,5 +663,17 @@ public class AdminController extends Controller {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("data", result);
 		renderJson(map);
+	}
+	
+	//更新球员转会
+	public void updatePlayerTransfer(){
+		String playerId = getPara("playerId");
+		Player player = Player.dao.findById(playerId);
+		if(player!=null){
+			HttpClient httpClient = new DefaultHttpClient();
+			PlayerInfoPlugin.updateTransfer(httpClient, player);
+			httpClient.getConnectionManager().shutdown();
+		}
+		renderJson(1);
 	}
 }
