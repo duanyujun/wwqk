@@ -36,15 +36,15 @@ public class LiveZuqiula {
 
 	public static void getLiveSource() {
 		Map<String, String> leagueMap = new HashMap<String, String>();
-		leagueMap.put("英超", "1");
-		leagueMap.put("西甲", "2");
-		leagueMap.put("德甲", "3");
-		leagueMap.put("意甲", "4");
-		leagueMap.put("法甲", "5");
-		leagueMap.put("中甲", "6");
-		leagueMap.put("世预赛", "7");
-		leagueMap.put("世亚预", "8");
-		leagueMap.put("世欧预", "9");
+//		leagueMap.put("英超", "1");
+//		leagueMap.put("西甲", "2");
+//		leagueMap.put("德甲", "3");
+//		leagueMap.put("意甲", "4");
+//		leagueMap.put("法甲", "5");
+//		leagueMap.put("中甲", "6");
+//		leagueMap.put("世预赛", "7");
+//		leagueMap.put("世亚预", "8");
+//		leagueMap.put("世欧预", "9");
 		leagueMap.put("篮球", "10");
 		leagueMap.put("排球", "11");
 		

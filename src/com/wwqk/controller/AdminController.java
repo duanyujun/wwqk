@@ -628,8 +628,8 @@ public class AdminController extends Controller {
 	
 	//更新直播源
 	public void updateLives(){
-		Live24zbw.getLiveSource();
 		LiveZuqiula.getLiveSource();
+		Live24zbw.getLiveSource();
 		renderJson(1);
 	}
 	

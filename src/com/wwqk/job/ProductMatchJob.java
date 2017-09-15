@@ -21,10 +21,11 @@ public class ProductMatchJob implements Job {
 		CommonUtils.initNameIdMap();
 		//使用sina的比赛源
 		MatchSina.archiveMatch(CommonUtils.nameIdMap, CommonUtils.nameENNameMap);
-		//24zbw直播源
-		Live24zbw.getLiveSource();
 		//足球啦直播源
 		LiveZuqiula.getLiveSource();
+		//24zbw直播源
+		Live24zbw.getLiveSource();
+		
 		System.err.println("ProductMatchJob end");
 	}
 	
