@@ -30,6 +30,9 @@ public class LiveController extends Controller {
 		StringBuilder sb = new StringBuilder("(");
 		List<AllLiveMatch> lstResult = new ArrayList<AllLiveMatch>();
 		List<AllLiveMatch> lstAllLiveMatch = AllLiveMatch.dao.find("select * from all_live_match where match_datetime > ? order by match_datetime asc", nowDate);
+		//过滤相同比赛
+		filterSameMatch(lstAllLiveMatch);
+		
 		for(AllLiveMatch match:lstAllLiveMatch){
 			sb.append("'").append(match.getStr("match_key")).append("',");
 		}
@@ -46,6 +49,7 @@ public class LiveController extends Controller {
 			}
 			liveMap.get(live.getStr("match_key")).add(live);
 		}
+		
 		
 		Set<String> set = new HashSet<String>();
 		for(AllLiveMatch match : lstAllLiveMatch){
@@ -107,6 +111,42 @@ public class LiveController extends Controller {
 			render("matchDetail.jsp");
 		}
 		
+	}
+	
+	/**
+	 * 
+	 * @param lstAllLiveMatch
+	 */
+	private static void filterSameMatch(List<AllLiveMatch> lstAllLiveMatch){
+		Map<String, AllLiveMatch> homeMap = new HashMap<String, AllLiveMatch>();
+		Map<String, AllLiveMatch> awayMap = new HashMap<String, AllLiveMatch>();
+		Set<AllLiveMatch> needDelSet = new HashSet<AllLiveMatch>();
+		for(int i=0; i<lstAllLiveMatch.size(); i++){
+			AllLiveMatch oldMatch = homeMap.get(lstAllLiveMatch.get(i).getStr("home_team_name"));
+			if(oldMatch!=null){
+				//判断比赛时间
+				if(DateTimeUtils.isSameDate(oldMatch.getDate("match_datetime"), 
+						lstAllLiveMatch.get(i).getDate("match_datetime"))){
+					needDelSet.add(lstAllLiveMatch.get(i));
+				}
+			}else{
+				//判断客队
+				oldMatch = awayMap.get(lstAllLiveMatch.get(i).getStr("away_team_name"));
+				if(oldMatch!=null){
+					if(DateTimeUtils.isSameDate(oldMatch.getDate("match_datetime"), 
+							lstAllLiveMatch.get(i).getDate("match_datetime"))){
+						needDelSet.add(lstAllLiveMatch.get(i));
+					}
+				}
+			}
+			homeMap.put(lstAllLiveMatch.get(i).getStr("home_team_name"), lstAllLiveMatch.get(i));
+			awayMap.put(lstAllLiveMatch.get(i).getStr("away_team_name"), lstAllLiveMatch.get(i));
+		}
+		if(needDelSet.size()>0){
+			for(AllLiveMatch match:needDelSet){
+				lstAllLiveMatch.remove(match);
+			}
+		}
 	}
 	
 }
