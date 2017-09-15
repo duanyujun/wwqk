@@ -321,7 +321,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<script>
 	
 	$(function(){
-		$('.image').viewer({toolbar:false,zIndex:20000});
+		$('.image').viewer({toolbar:false,
+			zIndex:20000,
+			shown: function() {
+				$(".viewer-canvas").attr("data-action","mix");
+			 }});
 		
 		if (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
 			return;
@@ -371,7 +375,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	                    // 解锁loadDownFn里锁定的情况
 	                    me.unlock();
 	                    me.noData(false);
-	                    $('.image').viewer({toolbar:false});
+	                    $('.image').viewer({toolbar:false,
+	            			zIndex:20000,
+	            			shown: function() {
+	            				$(".viewer-canvas").attr("data-action","mix");
+	            			 }});
 	                },
 	                error: function(xhr, type){
 	                    // 即使加载出错，也得重置
