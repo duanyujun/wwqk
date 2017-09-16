@@ -299,7 +299,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<div id="article_div" class="col-lg-4 col-md-4" style="margin-left:15px;margin-top:-165px;">
 					
 					<c:if test="${!empty lstTransfer}">
-						<p>转会情况（单位：万欧元； M：百万欧元）</p>
+						<p>转会情况<span style="color:#aaa;">（单位：万欧元； M：百万欧元）</span></p>
 						<table >
 						  <tbody>
 						  	<c:forEach items="${lstTransfer}" var="transfer">
