@@ -25,7 +25,7 @@ import com.wwqk.model.Team;
 public class CommonUtils {
 	
 	private static final String NO_INFO = "无信息";
-	private static final String FREE = "免费";
+	private static final String FREE = "免签";
 	private static final String LOAN = "租借";
 	private static final BigDecimal HUNDRED = new BigDecimal(100);
 	private static final Pattern VALUE_PATTERN_1 = Pattern.compile("\\d+\\.\\d+");

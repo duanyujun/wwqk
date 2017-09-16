@@ -1,10 +1,14 @@
 package com.wwqk.controller;
 
+import java.util.List;
+
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 import com.wwqk.constants.LeagueEnum;
+import com.wwqk.model.Fun;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
+import com.wwqk.model.Transfer;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.EnumUtils;
 import com.wwqk.utils.PageUtils;
@@ -61,6 +65,14 @@ public class SayController extends Controller {
 		setAttr("sayPage", sayPage);
 		setAttr("pageUI", PageUtils.calcStartEnd(sayPage));
 		setAttr("initCount", sayPage.getList().size());
+		
+		//转会
+		List<Transfer> lstTransfer = Transfer.dao.find("select * from transfer where player_id = ? order by date desc",playerId);
+		setAttr("lstTransfer", lstTransfer);
+		
+		//最近的新闻
+		List<Fun> lstNews = Fun.dao.find("select id, title from fun where type = 1 and player_id = ? order by create_time desc", playerId);
+		setAttr("lstNews", lstNews);
 		
 		render("sayList.jsp");
 	}

@@ -296,14 +296,34 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</c:if>
 				</div>
 				
-				<div id="article_div" class="col-lg-4 col-md-4" style="margin-left:20px;margin-top:-145px;">
-					<ul style="display:none;">
-					  <li style="line-height:30px;height:30px;">1、还不错呀，应该还行</li>
-					  <li style="line-height:30px;height:30px;">1、还不错呀，应该还行</li>
-					  <li style="line-height:30px;height:30px;">1、还不错呀，应该还行</li>
-					  <li style="line-height:30px;height:30px;">1、还不错呀，应该还行</li>
-					  <li style="line-height:30px;height:30px;">1、还不错呀，应该还行</li>
-					</ul>
+				<div id="article_div" class="col-lg-4 col-md-4" style="margin-left:15px;margin-top:-165px;">
+					
+					<c:if test="${!empty lstTransfer}">
+						<p>转会情况（单位：万欧元； M：百万欧元）</p>
+						<table >
+						  <tbody>
+						  	<c:forEach items="${lstTransfer}" var="transfer">
+							    <tr>
+							      	<td style="height:25px;line-height:25px;color:#aaa;"><fmt:formatDate value="${transfer.date}" pattern="yyyy-MM-dd"/> ${transfer.from_team} → ${transfer.to_team} ${transfer.value}${transfer.extra}</td>
+							    </tr>
+						     </c:forEach>
+						  </tbody>
+						</table>
+					</c:if>
+					
+					<c:if test="${!empty lstNews}">
+						<p style="margin-top:10px;">相关新闻</p>
+						<table >
+						  <tbody>
+						  	<c:forEach items="${lstNews}" var="news">
+							    <tr>
+							      	<td class="text_cut" style="width:285px;height:25px;line-height:25px;color:#aaa;">${new.title}</td>
+							    </tr>
+						     </c:forEach>
+						  </tbody>
+						</table>
+					</c:if>
+					
 				</div>
 				
 			</div>
