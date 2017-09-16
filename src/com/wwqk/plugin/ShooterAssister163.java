@@ -189,6 +189,7 @@ public class ShooterAssister163 {
 				shooter163.set("player_name", player.get("name"));
 				shooter163.set("team_id", player.get("team_id"));
 				shooter163.set("team_name", player.get("team_name"));
+				shooter163.set("player_img", player.get("img_small_local"));
 			}else{
 				LeagueAssists163 assists163 = LeagueAssists163.dao.findFirst("select * from league_assists_163 where player_name_163 = ? and team_name_163 = ? ", shooter163.get("player_name_163"), shooter163.get("team_name_163"));
 				if(assists163!=null && StringUtils.isNotBlank(assists163.getStr("player_id"))){
@@ -224,6 +225,7 @@ public class ShooterAssister163 {
 				assists163.set("player_name", player.get("name"));
 				assists163.set("team_id", player.get("team_id"));
 				assists163.set("team_name", player.get("team_name"));
+				assists163.set("player_img", player.get("img_small_local"));
 			}else{
 				LeagueShooter163 shooter163 = LeagueShooter163.dao.findFirst("select * from league_shooter_163 where player_name_163 = ? and team_name_163 = ? ", assists163.get("player_name_163"), assists163.get("team_name_163"));
 				if(shooter163!=null && StringUtils.isNotBlank(shooter163.getStr("player_id"))){
