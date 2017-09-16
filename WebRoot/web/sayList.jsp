@@ -156,15 +156,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	</div>
 	
 	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:20px;padding-bottom: 130px;">
-		<div id="main_content" style="min-height:20px;" class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2">		
-			<div class="col-lg-7 col-md-7">
+		<div id="main_content" style="min-height:20px;" class="col-lg-6 col-lg-offset-2 col-md-6 col-md-offset-2">		
+			<div class="col-lg-12 col-md-12">
 				<div class="col-lg-12 col-md-12" >
 					<div class="col-lg-3 col-md-3">
 						<img src="${player.img_big_local}" style="width:150px;height:150px;" alt="${player.name}" title="${player.name}"/>
 					</div>
 					<div class="col-lg-9 col-md-9">
-						<div class="col-lg-6 col-md-6" style="margin-top:10px;">名字：${player.first_name}</div>
-						<div class="col-lg-6 col-md-6" style="margin-top:10px;">姓氏：${player.last_name}</div>
+						<div class="col-lg-12 col-md-12" >姓名：${player.first_name}·${player.last_name}</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;"><nobr>生日：${player.birthday}（${player.age}岁）</nobr></div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">国籍：${player.nationality}</div>
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">身高：${player.height}</div>
@@ -197,7 +196,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			
 			<c:if test="${!empty NO_SAY}">
 			<div class="row">
-				<div class="col-lg-9 col-md-9" style="margin-top:15px;">
+				<div class="col-lg-12 col-md-12" style="margin-top:15px;">
 					<div class="row">
 						<div class="col-lg-12 col-md-12" style="font-size:16px;">
 						<nobr><span style="font-weight:bold;">${player.name}</span>目前还没发表说说，去瞅瞅<b>${leagueName}</b>其他人的吧 <img src="assets/image/page/smile.png"  style="width:32px;height:32px;"/></nobr>
@@ -208,7 +207,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			</c:if>
 			
 			<div class="row">
-				<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12"  style="margin-top:15px;">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="margin-top:15px;">
 					<c:forEach items="${sayPage.list}" var="say" varStatus="status">
 						<div class="row" style="padding-left:15px;padding-right:15px;">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border:1px solid #E3E7EA;${status.index!=0?'border-top:0;':''}padding:10px;padding-bottom:10px;">
@@ -296,15 +295,18 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</c:if>
 				</div>
 				
-				<div id="article_div" class="col-lg-4 col-md-4" style="margin-left:15px;margin-top:-165px;">
+			</div>
+		</div>
+		<div  style="min-height:20px;" class="col-lg-4 col-md-4">		
+			<div id="article_div" class="col-lg-12 col-md-12" >
 					
 					<c:if test="${!empty lstTransfer}">
-						<p>转会情况<span style="color:#aaa;">（单位：万欧元； M：百万欧元）</span></p>
+						<p>转会情况<span style="color:#aaa;">（M：百万欧元）</span></p>
 						<table >
 						  <tbody>
 						  	<c:forEach items="${lstTransfer}" var="transfer">
 							    <tr>
-							      	<td style="height:25px;line-height:25px;color:#aaa;"><fmt:formatDate value="${transfer.date}" pattern="yyyy-MM-dd"/> ${transfer.from_team} → ${transfer.to_team} ${transfer.value}${transfer.extra}</td>
+							      	<td style="height:25px;line-height:25px;color:#aaa;"><fmt:formatDate value="${transfer.date}" pattern="yy/MM/dd"/> ${transfer.from_team} → ${transfer.to_team} ${transfer.value}${transfer.extra}<c:if test="${(empty transfer.extra) && transfer.value!='租借' &&  transfer.value!='免签' &&  transfer.value!='无信息'}">万欧元</c:if></td>
 							    </tr>
 						     </c:forEach>
 						  </tbody>
@@ -325,8 +327,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</c:if>
 					
 				</div>
-				
-			</div>
 		</div>
 		
 		
