@@ -76,7 +76,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					${team.telphone}
 				</div>
 				<div class="col-sm-7 col-xs-7" style="margin-top:10px;color:grey;">	
-					联赛排名：第<span style="color:black;">${team.rank}</span>名
+					联赛排名：第<span style="color:black;"> ${postion} </span>名
 				</div>
 				<div class="col-sm-12 col-xs-12" style="margin-top:10px;color:grey;">
 					${team.venue_address}&nbsp;·&nbsp;${team.venue_name}&nbsp;·&nbsp;容量：${team.venue_capacity}人
@@ -254,8 +254,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										  	<c:set var="i" value="1"/>
 										  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
 											<c:forEach items="${group}" var="player">
-												<td style="width:70px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}" style="width:50px;"/></td>
-										      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:270px;font-size:13px;color:grey;">
+												<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}" style="width:50px;"/></td>
+										      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:13px;color:grey;">
 										      		<p>
 										      		<a href="player-${player.en_url}-${player.id}.html" target="_blank">${player.name}</a>&nbsp;&nbsp;
 										      		<c:if test="${!empty player.number}">
