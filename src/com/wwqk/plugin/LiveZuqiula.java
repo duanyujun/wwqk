@@ -19,8 +19,11 @@ import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wwqk.model.AllLiveMatch;
+import com.wwqk.model.League;
 import com.wwqk.model.MatchLive;
 import com.wwqk.model.MatchSourceSina;
+import com.wwqk.model.Team;
+import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.MatchUtils;
 import com.wwqk.utils.PinyinUtils;
@@ -36,19 +39,17 @@ public class LiveZuqiula {
 
 	public static void getLiveSource() {
 		Map<String, String> leagueMap = new HashMap<String, String>();
-//		leagueMap.put("英超", "1");
-//		leagueMap.put("西甲", "2");
-//		leagueMap.put("德甲", "3");
-//		leagueMap.put("意甲", "4");
-//		leagueMap.put("法甲", "5");
+		leagueMap.put("英超", "1");
+		leagueMap.put("西甲", "2");
+		leagueMap.put("德甲", "3");
+		leagueMap.put("意甲", "4");
+		leagueMap.put("法甲", "5");
 //		leagueMap.put("中甲", "6");
 //		leagueMap.put("世预赛", "7");
 //		leagueMap.put("世亚预", "8");
 //		leagueMap.put("世欧预", "9");
-		leagueMap.put("篮球", "10");
-		leagueMap.put("排球", "11");
 		
-		//CommonUtils.initNameIdMap();
+		CommonUtils.initNameIdMap();
 		Connection connect = Jsoup.connect(SITE_URL).ignoreContentType(true);
 		for(Map.Entry<String, String> entry:MatchUtils.getZuqiulaHeader().entrySet()){
 			connect.header(entry.getKey(), entry.getValue());
@@ -71,8 +72,7 @@ public class LiveZuqiula {
 				Elements matchItems = element.select("li");
 				for(Element item:matchItems){
 					String leagueName = StringUtils.trim(item.select("a").get(0).text());
-					if(leagueMap.get(leagueName)!=null 
-							|| item.text().contains("篮球") 
+					if(item.text().contains("篮球") 
 							|| item.text().contains("排球")
 							|| item.text().contains("美网")){
 						continue;
@@ -96,14 +96,27 @@ public class LiveZuqiula {
 						continue;
 					}
 					List<MatchLive> lstMatchLives = new ArrayList<MatchLive>();
+					String homeTeamId = CommonUtils.nameIdMap.get(homeTeamName);
+					String awayTeamId = CommonUtils.nameIdMap.get(awayTeamName);
 					//Date dateVilidate = DateTimeUtils.addDays(new Date(), -2);
 					AllLiveMatch allLiveMatch = AllLiveMatch.dao.findFirst(
 							"select * from all_live_match where home_team_name = ? and away_team_name = ? and year_show = ? and match_datetime > ? ",
 							homeTeamName, awayTeamName, yearShow, nowDate);
 					boolean isNeedInsert = false;
 					if(allLiveMatch==null){
-						isNeedInsert = true;
-						allLiveMatch = new AllLiveMatch();
+						if(StringUtils.isNotBlank(homeTeamId) && StringUtils.isNotBlank(awayTeamId)){
+							//因为本系统已经替换了主客队名称，需再次查询一下主客队id
+							allLiveMatch = AllLiveMatch.dao.findFirst(
+									"select * from all_live_match where home_team_id = ? and away_team_id = ? and year_show = ? and match_datetime > ? ",
+									homeTeamId, awayTeamId, yearShow, nowDate);
+							if(allLiveMatch==null){
+								isNeedInsert = true;
+								allLiveMatch = new AllLiveMatch();
+							}
+						}else{
+							isNeedInsert = true;
+							allLiveMatch = new AllLiveMatch();
+						}
 					}
 					String dateAllStr = dateStr.replace("-", "月")+"日 "+weekDayStr;
 					allLiveMatch.set("match_date_week", dateAllStr);
@@ -115,6 +128,27 @@ public class LiveZuqiula {
 					allLiveMatch.set("home_team_enname", PinyinUtils.getPingYin(homeTeamName));
 					allLiveMatch.set("away_team_enname", PinyinUtils.getPingYin(awayTeamName));
 					allLiveMatch.set("year_show", yearShow);
+					String leagueId = leagueMap.get(leagueName);
+					if(StringUtils.isNotBlank(leagueId)){
+						if(StringUtils.isNotBlank(homeTeamId) && StringUtils.isNotBlank(awayTeamId)){
+							Team home = Team.dao.findById(homeTeamId);
+							Team away = Team.dao.findById(awayTeamId);
+							allLiveMatch.set("home_team_id", homeTeamId);
+							allLiveMatch.set("away_team_id", awayTeamId);
+							allLiveMatch.set("league_id", leagueId);
+							League league = League.dao.findById(leagueId);
+							allLiveMatch.set("league_enname", league.getStr("name_en"));
+							//使用本系统球队名称
+							allLiveMatch.set("home_team_name", home.getStr("name"));
+							allLiveMatch.set("away_team_name", away.getStr("name"));
+							allLiveMatch.set("home_team_enname", home.getStr("name_en"));
+							allLiveMatch.set("away_team_enname", away.getStr("name_en"));
+							allLiveMatch.set("match_key", yearShow+"-"+homeTeamId+"vs"+awayTeamId);
+						}
+					}else{
+						allLiveMatch.set("home_team_enname", PinyinUtils.getPingYin(homeTeamName));
+						allLiveMatch.set("away_team_enname", PinyinUtils.getPingYin(awayTeamName));
+					}
 					allLiveMatch.set("update_time", new Date());
 					if(isNeedInsert){
 						allLiveMatch.save();
