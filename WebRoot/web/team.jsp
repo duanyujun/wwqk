@@ -254,8 +254,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										  	<c:set var="i" value="1"/>
 										  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
 											<c:forEach items="${group}" var="player">
-												<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}" style="width:50px;"/></td>
-										      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:13px;color:grey;">
+												<td style="width:70px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}" style="width:50px;"/></td>
+										      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:270px;font-size:13px;color:grey;">
 										      		<p>
 										      		<a href="player-${player.en_url}-${player.id}.html" target="_blank">${player.name}</a>&nbsp;&nbsp;
 										      		<c:if test="${!empty player.number}">
