@@ -116,6 +116,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<c:forEach items="${lstMatchLive}" var="live">
 							<i class="fa fa-tv"></i><a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>
 						</c:forEach>
+						&nbsp;<nobr><a href="http://www.shoumi.org/" target="_blank">比分直播</a></nobr>
 						</span>
 					</c:if>
 				</div>
@@ -465,6 +466,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 											<c:forEach items="${lstMatchLive}" var="live">
 												<i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>
 											</c:forEach>
+											&nbsp;&nbsp;<nobr><a href="http://www.shoumi.org/" target="_blank">比分直播</a></nobr>
 											</span>
 										</c:if>
 									</div>
