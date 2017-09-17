@@ -163,7 +163,7 @@ public class LiveZuqiula {
 						Elements liveItems = liveGroup.get(0).select("a");
 						for(Element live:liveItems){
 							String liveName = StringUtils.trim(live.text());
-							if(liveName.contains("足球比分直播")){
+							if(liveName.contains("足球比分直播") || liveName.contains("图文直播") || liveName.contains("动画直播")){
 								continue;
 							}
 							MatchLive matchLive = new MatchLive();

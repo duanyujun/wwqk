@@ -15,6 +15,7 @@ import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.render.JspRender;
 import com.jfinal.render.ViewType;
 import com.wwqk.controller.AdminController;
+import com.wwqk.controller.BifenController;
 import com.wwqk.controller.DataController;
 import com.wwqk.controller.FunController;
 import com.wwqk.controller.HomeController;
@@ -106,7 +107,7 @@ public class MainConfig extends JFinalConfig {
 		me.add("/manage",ManageController.class, "web");
 		me.add("/upload", UploadController.class, "web");
 		me.add("/live", LiveController.class, "web");
-		
+		me.add("/bifen",BifenController.class, "web");
 	}
 
 	@Override
