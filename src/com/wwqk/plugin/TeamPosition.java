@@ -59,6 +59,7 @@ public class TeamPosition {
 	
 	@Before(Tx.class)
 	private static void handleLeaguePosition(Document document, String leagueId, String roundId){
+		List<Team> lstTeams = new ArrayList<Team>();
 		List<LeaguePosition> lstPositions = new ArrayList<LeaguePosition>();
 		Elements bodyElement = document.select(".detailed-table");
 		Elements teamLinks = bodyElement.get(0).select(".team_rank");
@@ -86,6 +87,8 @@ public class TeamPosition {
 			if(teamDB!=null){
 				teamName = teamDB.get("name");
 				leaguePosition.set("team_name_en", teamDB.getStr("name_en"));
+				teamDB.set("rank", rank);
+				lstTeams.add(teamDB);
 			}
 			leaguePosition.set("team_name", teamName);
 			leaguePosition.set("team_url", teamUrl);
@@ -104,6 +107,9 @@ public class TeamPosition {
 		if(lstPositions.size()>0){
 			Db.update("delete from league_position where league_id = ?", leagueId);
 			Db.batchSave(lstPositions, lstPositions.size());
+		}
+		if(lstTeams.size()>0){
+			Db.batchUpdate(lstTeams, lstTeams.size());
 		}
 	}
 	

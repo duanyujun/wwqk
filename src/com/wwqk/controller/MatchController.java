@@ -87,6 +87,8 @@ public class MatchController extends Controller {
 		
 		Team homeTeam = Team.dao.findById(history.getStr("home_team_id"));
 		setAttr("homeTeam", homeTeam);
+		Team awayTeam = Team.dao.findById(history.getStr("away_team_id"));
+		setAttr("awayTeam", awayTeam);
 		String yearShow = history.getStr("year_show").substring(0,2)+"/"+history.getStr("year_show").substring(2);
 		history.set("year_show", yearShow);
 		setAttr("history", history);

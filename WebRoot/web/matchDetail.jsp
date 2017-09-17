@@ -75,7 +75,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				【所属联赛】：<span class="a-title" ><a href="data-${leagueENName}-${history.league_id}.html" target="_blank">${leagueName}</a> （第${history.round}轮）</span>
 			</div>
 			<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;">
-				【对阵球队】：<span class="a-title"><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank">${homeTeam.name}</a> vs <a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank">${history.away_team_name}</a></span>
+				【对阵球队】：<span class="a-title"><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank">${homeTeam.name}</a><span style="color:#aaa" title="排名第${homeTeam.rank}">[ ${homeTeam.rank} ]</span> vs <a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank">${history.away_team_name}</a><span style="color:#aaa" title="排名第${away_team.rank}">[ ${away_team.rank} ]</span></span>
 				<c:if test="${history.status=='完场'}">
 				（完场：<span style="color:red;">${history.result}</span>）
 				</c:if>
@@ -424,7 +424,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									【所属联赛】：<span class="a-title" ><a href="data-${leagueENName}-${history.league_id}.html" target="_blank">${leagueName}</a> （第${history.round}轮）</span>
 								</div>
 								<div class="col-lg-12 col-md-12 ">
-									【对阵球队】：<span class="a-title" ><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank">${homeTeam.name}</a> vs <a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank">${history.away_team_name}</a></span>
+									【对阵球队】：<span class="a-title" ><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank">${homeTeam.name}</a><span style="color:#aaa" title="排名第${homeTeam.rank}">[ ${homeTeam.rank} ]</span> vs <a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank">${history.away_team_name}</a><span style="color:#aaa" title="排名第${awayTeam.rank}">[ ${awayTeam.rank} ]</span></span>
 									<c:if test="${history.status=='完场'}">
 									（完场：<span style="color:red;">${history.result}</span>）
 									</c:if>

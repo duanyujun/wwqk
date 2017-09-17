@@ -76,7 +76,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					${team.telphone}
 				</div>
 				<div class="col-sm-7 col-xs-7" style="margin-top:10px;color:grey;">	
-					联赛排名：第<span style="color:black;"> ${postion} </span>名
+					联赛排名：第<span style="color:black;">${team.rank}</span>名
 				</div>
 				<div class="col-sm-12 col-xs-12" style="margin-top:10px;color:grey;">
 					${team.venue_address}&nbsp;·&nbsp;${team.venue_name}&nbsp;·&nbsp;容量：${team.venue_capacity}人
