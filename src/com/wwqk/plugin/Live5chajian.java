@@ -1,6 +1,7 @@
 package com.wwqk.plugin;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,6 +9,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -25,15 +28,19 @@ import com.wwqk.model.MatchSourceSina;
 import com.wwqk.model.Team;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.DateTimeUtils;
-import com.wwqk.utils.MatchUtils;
 import com.wwqk.utils.PinyinUtils;
 import com.wwqk.utils.StringUtils;
 
 public class Live5chajian {
 	
-	private static final String SITE_URL = "http://www.24zbw.com/";
+	private static final String SITE_URL = "http://www.5chajian.com";
+	private static final Pattern datePattern = Pattern.compile("\\d+年\\d+月\\d+日");
 	
+	public static void main(String[] args) {
+		getLiveSource();
+	}
 
+	
 	public static void getLiveSource() {
 		Map<String, String> leagueMap = new HashMap<String, String>();
 		leagueMap.put("英超", "1");
@@ -43,141 +50,152 @@ public class Live5chajian {
 		leagueMap.put("法甲", "5");
 		CommonUtils.initNameIdMap();
 		Connection connect = Jsoup.connect(SITE_URL).ignoreContentType(true);
-		Connection data = connect.data(MatchUtils.get24zbwHeader());
 		try {
-			Document document = data.get();
-			Elements matchBody = document.select(".match-body");
-			if(matchBody.size()>0){
-				Element body = matchBody.get(0);
-				String[] groupMatches = body.html().split("match-turns\">");
-				for(String group:groupMatches){
-					if(!group.contains("match-item")){
+			Document document = connect.get();
+			MatchSourceSina matchSourceSina = MatchSourceSina.dao.findFirst("select * from match_source_sina");
+			String yearShow = matchSourceSina.getStr("year_show");
+			String[] matchArray = document.html().split("<tr class=\"date\">");
+			for(String matchHtml:matchArray){
+				Matcher matcher = datePattern.matcher(matchHtml);
+				if(!matcher.find()){
+					continue;
+				}
+				//获取赛季
+				Document matchDoc = getCompleteDocument(matchHtml);
+				String dateAndWeekStr = StringUtils.trim(matchDoc.select(".date").get(0).child(0).text());
+				//2017年09月18日
+				String dateStr = dateAndWeekStr.substring(0,11);
+				dateStr = dateStr.substring(5);
+				String weekStr = dateAndWeekStr.substring(dateAndWeekStr.length()-3);
+				Elements matchTrs = matchDoc.select(".against");
+				for(Element tr:matchTrs){
+					if(!"足球".equals(tr.child(0).attr("title"))){
 						continue;
 					}
-					//08月25日 星期五
-					String dateAllStr = group.substring(2,group.indexOf("</div>"));
-					String dateStr = dateAllStr.split(" ")[0];
-					String weekStr = dateAllStr.split(" ")[1];
-					group = "<div>"+group;
-					Document matchDoc = Jsoup.parse(group);
-					Elements matchItems = matchDoc.select(".match-item");
-					if(matchItems.size()>0){
-						//获取赛季
-						MatchSourceSina matchSourceSina = MatchSourceSina.dao.findFirst("select * from match_source_sina");
-						String yearShow = matchSourceSina.getStr("year_show");
-						for(Element element : matchItems){
-							if(element.select(".match-competition").size()==0){
-								continue;
-							}
-							if(element.text().contains("已结束")){
-								continue;
-							}
-							
-							String leagueName = element.select(".match-competition").get(0).text();
-							if(leagueName.contains("抽签")){
-								continue;
-							}
-							
-							String timeStr = StringUtils.trim(element.child(0).text());
-							Date matchDateTime = DateTimeUtils.getMatchDate(dateStr+" "+timeStr);
-							Date nowDate = DateTimeUtils.addHours(new Date(), -2);
-							if(matchDateTime.before(nowDate)){
-								continue;
-							}
-							List<MatchLive> lstMatchLives = new ArrayList<MatchLive>();
-							Elements homeAwayNames = element.select(".match-title");
-							String homeTeamName = StringUtils.trim(homeAwayNames.get(0).text());
-							String awayTeamName = StringUtils.trim(homeAwayNames.get(1).text());
-							String homeTeamId = CommonUtils.nameIdMap.get(homeTeamName);
-							String awayTeamId = CommonUtils.nameIdMap.get(awayTeamName);
-							//Date dateVilidate = DateTimeUtils.addDays(new Date(), -2);
-							AllLiveMatch allLiveMatch = AllLiveMatch.dao.findFirst(
-									"select * from all_live_match where home_team_name = ? and away_team_name = ? and year_show = ? and match_datetime > ? ",
-									homeTeamName, awayTeamName, yearShow, nowDate);
-							boolean isNeedInsert = false;
+					//<td class='tixing' name='2' t='2017-09-18 21:30'></td>
+					String dateTimeStr = StringUtils.trim(tr.select(".tixing").get(0).attr("t"));
+					Date matchDateTime = null;
+					try {
+						matchDateTime = DateTimeUtils.parseDate(dateTimeStr, DateTimeUtils.ISO_DATETIME_NOSEC_FORMAT_ARRAY);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					Date nowDate = DateTimeUtils.addHours(new Date(), -2);
+					if(matchDateTime.before(nowDate)){
+						continue;
+					}
+					String leagueName = null;
+					String homeTeamName = null;
+					String awayTeamName = null;
+					if("3".equals(tr.child(4).attr("colspan"))){
+						String tempStr = StringUtils.trim(tr.child(4).text());
+						if(!tempStr.contains("vs")){
+							continue;
+						}
+						int spaceIndex = tempStr.indexOf(" ");
+						leagueName = tempStr.substring(0, spaceIndex);
+						String homeAwayTeamStr = StringUtils.trim(tempStr.substring(spaceIndex+1));
+						homeTeamName = StringUtils.trim(homeAwayTeamStr.split("vs")[0]);
+						awayTeamName = StringUtils.trim(homeAwayTeamStr.split("vs")[1]);
+					}else{
+						leagueName = StringUtils.trim(tr.child(1).text());
+						homeTeamName = StringUtils.trim(tr.child(4).text());
+						awayTeamName = StringUtils.trim(tr.child(6).text());
+					}
+					
+					List<MatchLive> lstMatchLives = new ArrayList<MatchLive>();
+					String homeTeamId = CommonUtils.nameIdMap.get(homeTeamName);
+					String awayTeamId = CommonUtils.nameIdMap.get(awayTeamName);
+					AllLiveMatch allLiveMatch = AllLiveMatch.dao.findFirst(
+							"select * from all_live_match where home_team_name = ? and away_team_name = ? and year_show = ? and match_datetime > ? ",
+							homeTeamName, awayTeamName, yearShow, nowDate);
+					boolean isNeedInsert = false;
+					if(allLiveMatch==null){
+						if(StringUtils.isNotBlank(homeTeamId) && StringUtils.isNotBlank(awayTeamId)){
+							//因为本系统已经替换了主客队名称，需再次查询一下主客队id
+							allLiveMatch = AllLiveMatch.dao.findFirst(
+									"select * from all_live_match where home_team_id = ? and away_team_id = ? and year_show = ? and match_datetime > ? ",
+									homeTeamId, awayTeamId, yearShow, nowDate);
 							if(allLiveMatch==null){
-								if(StringUtils.isNotBlank(homeTeamId) && StringUtils.isNotBlank(awayTeamId)){
-									//因为本系统已经替换了主客队名称，需再次查询一下主客队id
-									allLiveMatch = AllLiveMatch.dao.findFirst(
-											"select * from all_live_match where home_team_id = ? and away_team_id = ? and year_show = ? and match_datetime > ? ",
-											homeTeamId, awayTeamId, yearShow, nowDate);
-									if(allLiveMatch==null){
-										isNeedInsert = true;
-										allLiveMatch = new AllLiveMatch();
-									}
-								}else{
-									isNeedInsert = true;
-									allLiveMatch = new AllLiveMatch();
-								}
+								isNeedInsert = true;
+								allLiveMatch = new AllLiveMatch();
 							}
-							allLiveMatch.set("match_date_week", dateAllStr);
-							allLiveMatch.set("weekday", weekStr);
-							allLiveMatch.set("match_datetime", matchDateTime);
-							allLiveMatch.set("league_name", leagueName);
-							allLiveMatch.set("home_team_name", homeTeamName);
-							allLiveMatch.set("away_team_name", awayTeamName);
-							allLiveMatch.set("year_show", yearShow);
-							String leagueId = leagueMap.get(leagueName);
-							if(StringUtils.isNotBlank(leagueId)){
-								if(StringUtils.isNotBlank(homeTeamId) && StringUtils.isNotBlank(awayTeamId)){
-									Team home = Team.dao.findById(homeTeamId);
-									Team away = Team.dao.findById(awayTeamId);
-									allLiveMatch.set("home_team_id", homeTeamId);
-									allLiveMatch.set("away_team_id", awayTeamId);
-									allLiveMatch.set("league_id", leagueId);
-									League league = League.dao.findById(leagueId);
-									allLiveMatch.set("league_enname", league.getStr("name_en"));
-									//使用本系统球队名称
-									allLiveMatch.set("home_team_name", home.getStr("name"));
-									allLiveMatch.set("away_team_name", away.getStr("name"));
-									allLiveMatch.set("home_team_enname", home.getStr("name_en"));
-									allLiveMatch.set("away_team_enname", away.getStr("name_en"));
-									allLiveMatch.set("match_key", yearShow+"-"+homeTeamId+"vs"+awayTeamId);
-								}
+						}else{
+							isNeedInsert = true;
+							allLiveMatch = new AllLiveMatch();
+						}
+					}
+					allLiveMatch.set("match_date_week", dateStr+" "+weekStr);
+					allLiveMatch.set("weekday", weekStr);
+					allLiveMatch.set("match_datetime", matchDateTime);
+					allLiveMatch.set("league_name", leagueName);
+					allLiveMatch.set("home_team_name", homeTeamName);
+					allLiveMatch.set("away_team_name", awayTeamName);
+					allLiveMatch.set("year_show", yearShow);
+					String leagueId = leagueMap.get(leagueName);
+					if(StringUtils.isNotBlank(leagueId)){
+						if(StringUtils.isNotBlank(homeTeamId) && StringUtils.isNotBlank(awayTeamId)){
+							Team home = Team.dao.findById(homeTeamId);
+							Team away = Team.dao.findById(awayTeamId);
+							allLiveMatch.set("home_team_id", homeTeamId);
+							allLiveMatch.set("away_team_id", awayTeamId);
+							allLiveMatch.set("league_id", leagueId);
+							League league = League.dao.findById(leagueId);
+							allLiveMatch.set("league_enname", league.getStr("name_en"));
+							//使用本系统球队名称
+							allLiveMatch.set("home_team_name", home.getStr("name"));
+							allLiveMatch.set("away_team_name", away.getStr("name"));
+							allLiveMatch.set("home_team_enname", home.getStr("name_en"));
+							allLiveMatch.set("away_team_enname", away.getStr("name_en"));
+							allLiveMatch.set("match_key", yearShow+"-"+homeTeamId+"vs"+awayTeamId);
+						}
+					}else{
+						allLiveMatch.set("home_team_enname", PinyinUtils.getPingYin(homeTeamName));
+						allLiveMatch.set("away_team_enname", PinyinUtils.getPingYin(awayTeamName));
+					}
+					
+					allLiveMatch.set("update_time", new Date());
+					if(isNeedInsert){
+						allLiveMatch.save();
+						if(StringUtils.isBlank(allLiveMatch.getStr("match_key"))){
+							allLiveMatch.set("match_key", allLiveMatch.get("id"));
+						}
+					}
+					allLiveMatch.update();
+					
+					Elements lives = tr.select(".live_link");
+					if(lives.size()>0){
+						Elements aLinks = lives.get(0).select("a");
+						for(Element elementLive:aLinks){
+							MatchLive matchLive = new MatchLive();
+							String liveName = StringUtils.trim(elementLive.text());
+							String liveUrl = elementLive.attr("href");
+							if(liveUrl.startsWith("..")){
+								liveUrl = SITE_URL+liveUrl.substring(2);
+							}else if(!liveUrl.startsWith("http")){
+								liveUrl = SITE_URL+liveUrl;
+							}
+							if(liveName.contains("足球比分") || liveName.contains("更多")){
+								continue;
+							}
+							if(CommonUtils.nameIdMap.get(homeTeamName)!=null && CommonUtils.nameIdMap.get(awayTeamName)!=null){
+								matchLive.set("match_key", yearShow+"-"+CommonUtils.nameIdMap.get(homeTeamName)+"vs"+CommonUtils.nameIdMap.get(awayTeamName));
+								matchLive.set("home_team_id", CommonUtils.nameIdMap.get(homeTeamName));
+								matchLive.set("away_team_id", CommonUtils.nameIdMap.get(awayTeamName));
+								matchLive.set("league_id", leagueMap.get(leagueName));
 							}else{
-								allLiveMatch.set("home_team_enname", PinyinUtils.getPingYin(homeTeamName));
-								allLiveMatch.set("away_team_enname", PinyinUtils.getPingYin(awayTeamName));
+								matchLive.set("match_key", String.valueOf(allLiveMatch.get("match_key")));
 							}
-							
-							allLiveMatch.set("update_time", new Date());
-							if(isNeedInsert){
-								allLiveMatch.save();
-								if(StringUtils.isBlank(allLiveMatch.getStr("match_key"))){
-									allLiveMatch.set("match_key", allLiveMatch.get("id"));
-								}
-							}
-							allLiveMatch.update();
-							
-							Elements lives = element.select(".live-item-source");
-							if(lives.size()>0){
-								for(Element elementLive:lives){
-									MatchLive matchLive = new MatchLive();
-									String liveName = StringUtils.trim(elementLive.text().replace("(推荐)", ""));
-									String liveUrl = elementLive.attr("href");
-									if(liveName.contains(" ") || "http://www.24zbw.com".equals(liveUrl)){
-										continue;
-									}
-									if(CommonUtils.nameIdMap.get(homeTeamName)!=null && CommonUtils.nameIdMap.get(awayTeamName)!=null){
-										matchLive.set("match_key", yearShow+"-"+CommonUtils.nameIdMap.get(homeTeamName)+"vs"+CommonUtils.nameIdMap.get(awayTeamName));
-										matchLive.set("home_team_id", CommonUtils.nameIdMap.get(homeTeamName));
-										matchLive.set("away_team_id", CommonUtils.nameIdMap.get(awayTeamName));
-										matchLive.set("league_id", leagueMap.get(leagueName));
-									}else{
-										matchLive.set("match_key", String.valueOf(allLiveMatch.get("match_key")));
-									}
-									matchLive.set("home_team_name", homeTeamName);
-									matchLive.set("away_team_name", awayTeamName);
-									matchLive.set("live_name", liveName);
-									matchLive.set("live_url", liveUrl);
-									matchLive.set("match_date", matchDateTime);
-									lstMatchLives.add(matchLive);
-								}
-							}
-							
-							saveOneMatchLive(lstMatchLives);
+							matchLive.set("home_team_name", homeTeamName);
+							matchLive.set("away_team_name", awayTeamName);
+							matchLive.set("live_name", liveName);
+							matchLive.set("live_url", liveUrl);
+							matchLive.set("match_date", matchDateTime);
+							lstMatchLives.add(matchLive);
 						}
 					}
 					
+					saveOneMatchLive(lstMatchLives);
 				}
 			}
 			
@@ -211,6 +229,13 @@ public class Live5chajian {
 				}
 			}
 		}
+	}
+	
+	
+	private static Document getCompleteDocument(String matchHtml){
+		String completeHtml = "<html><head><head/><body><table><thead></thead><tbody><tr class=\"date\">"+matchHtml+"</tbody></table></body></html>";
+		Document document = Jsoup.parse(completeHtml);
+		return document;
 	}
 	
 }

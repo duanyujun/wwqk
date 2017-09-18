@@ -34,6 +34,7 @@ import com.wwqk.model.Say;
 import com.wwqk.model.Team;
 import com.wwqk.plugin.AnalyzeZgzcw;
 import com.wwqk.plugin.Live24zbw;
+import com.wwqk.plugin.Live5chajian;
 import com.wwqk.plugin.LiveZuqiula;
 import com.wwqk.plugin.MatchSina;
 import com.wwqk.plugin.OddsUtils;
@@ -630,6 +631,7 @@ public class AdminController extends Controller {
 	public void updateLives(){
 		LiveZuqiula.getLiveSource();
 		Live24zbw.getLiveSource();
+		Live5chajian.getLiveSource();
 		renderJson(1);
 	}
 	

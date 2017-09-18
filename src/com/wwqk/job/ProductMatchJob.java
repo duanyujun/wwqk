@@ -4,6 +4,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import com.wwqk.plugin.Live24zbw;
+import com.wwqk.plugin.Live5chajian;
 import com.wwqk.plugin.LiveZuqiula;
 import com.wwqk.plugin.MatchSina;
 import com.wwqk.utils.CommonUtils;
@@ -25,6 +26,8 @@ public class ProductMatchJob implements Job {
 		LiveZuqiula.getLiveSource();
 		//24zbw直播源
 		Live24zbw.getLiveSource();
+		//5chajian直播源
+		Live5chajian.getLiveSource();
 		
 		System.err.println("ProductMatchJob end");
 	}
