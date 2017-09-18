@@ -37,7 +37,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<li class="menu_width"><a href="">首页</a></li>
 					<li class="menu_width"><a href="fun.html">趣点</a></li>
 					<li class="menu_width"><a href="live.html">直播</a></li>
-					<li class="menu_width menu_sel"><a href="match.html">比赛</a></li>
+					<li class="menu_width menu_sel"><a href="bifen.html">比分</a></li>
 					<li class="menu_width"><a href="data.html">数据</a></li>
 				</ul>
 				<div class="visible-sm visible-xs small-menu">
@@ -45,7 +45,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<option value="">首页</option>
 						<option value="fun.html">趣点</option>
 						<option value="live.html">直播</option>
-						<option selected value="match.html">比赛</option>
+						<option selected value="bifen.html">比分</option>
 						<option value="data.html">数据</option>
 					</select>	
 				</div>

@@ -39,8 +39,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<ul style="float:left;" class="hidden-sm hidden-xs">
 						<li class="menu_width"><a href="">首页</a></li>
 						<li class="menu_width"><a href="fun.html">趣点</a></li>
-						<li class="menu_width"><a href="live.html">直播</a></li>
-						<li class="menu_width menu_sel"><a href="match.html">比赛</a></li>
+						<li class="menu_width menu_sel"><a href="live.html">直播</a></li>
+						<li class="menu_width "><a href="bifen.html">比分</a></li>
 						<li class="menu_width"><a href="data.html">数据</a></li>
 					</ul>
 				</div>
@@ -55,10 +55,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	       		<a href="/fun.html" target="_self"><span class="wwqk_menu">趣点</span></a>
 	       	</div>
 	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
-	       		<a href="/live.html" target="_self"><span class="wwqk_menu">直播</span></a>
+	       		<a href="/live.html" target="_self"><span class="wwqk_menu dline">直播</span></a>
 	       	</div>
 	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
-	       		<a href="/match.html" target="_self"><span class="wwqk_menu dline">比赛</span></a>
+	       		<a href="/bifen.html" target="_self"><span class="wwqk_menu ">比分</span></a>
 	       	</div>
 	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
 	       		<a href="/data.html" target="_self"><span class="wwqk_menu">数据</span></a>
@@ -67,7 +67,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    <!-- 移动端内容开始 -->
 	    <div class="row visible-sm visible-xs" style="margin-top:45px;">
 			<div class="col-sm-12 col-xs-12 bread">
-				当前位置：<a href="/" target="_self">首页</a>&nbsp;&gt;&nbsp;<a href="/match" target="_self">比赛</a>&nbsp;&gt;&nbsp;${homeTeam.name}vs${history.away_team_name}
+				当前位置：<a href="/" target="_self">首页</a>&nbsp;&gt;&nbsp;<a href="/live.html" target="_self">直播</a>&nbsp;&gt;&nbsp;${homeTeam.name}vs${history.away_team_name}
 			</div>
 		</div>
 		<div class="row visible-sm visible-xs" style="font-size:13px;color:grey;">
@@ -409,7 +409,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:70px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-9 col-md-9 col-sm-11 col-xs-11 bread">
-				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/match" target="_blank">比赛</a>&nbsp;&gt;&nbsp;<span style="font-size:18px;color:#000;">${leagueName} ${history.year_show}赛季 第${history.round}轮 ${homeTeam.name} VS ${history.away_team_name}</span>
+				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/live.html" target="_blank">直播</a>&nbsp;&gt;&nbsp;<span style="font-size:18px;color:#000;">${leagueName} ${history.year_show}赛季 第${history.round}轮 ${homeTeam.name} VS ${history.away_team_name}</span>
 			</div>
 		</div>
 	</div>
