@@ -75,7 +75,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				【所属联赛】：<span class="a-title" ><a href="data-${leagueENName}-${history.league_id}.html" target="_blank">${leagueName}</a> （第${history.round}轮）</span>
 			</div>
 			<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;">
-				【对阵球队】：<span class="a-title"><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank">${homeTeam.name}</a><span style="color:#aaa" title="排名第${homeTeam.rank}">[ ${homeTeam.rank} ]</span> vs <a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank">${history.away_team_name}</a><span style="color:#aaa" title="排名第${away_team.rank}">[ ${away_team.rank} ]</span></span>
+				【对阵球队】：<span class="a-title"><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank">${homeTeam.name}</a><span style="color:#888" title="排名第${homeTeam.rank}">[ ${homeTeam.rank} ]</span> vs <a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank">${history.away_team_name}</a><span style="color:#888" title="排名第${away_team.rank}">[ ${away_team.rank} ]</span></span>
 				<c:if test="${history.status=='完场'}">
 				（完场：<span style="color:red;">${history.result}</span>）
 				</c:if>
@@ -116,7 +116,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<c:forEach items="${lstMatchLive}" var="live">
 							<i class="fa fa-tv"></i><a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>
 						</c:forEach>
-						&nbsp;<nobr><a href="http://www.shoumi.org/" target="_blank">比分直播</a></nobr>
+						&nbsp;<nobr><a href="/bifen.html" target="_self">比分直播</a></nobr>
 						</span>
 					</c:if>
 				</div>
@@ -425,7 +425,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									【所属联赛】：<span class="a-title" ><a href="data-${leagueENName}-${history.league_id}.html" target="_blank">${leagueName}</a> （第${history.round}轮）</span>
 								</div>
 								<div class="col-lg-12 col-md-12 ">
-									【对阵球队】：<span class="a-title" ><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank">${homeTeam.name}</a><span style="color:#aaa" title="排名第${homeTeam.rank}">[ ${homeTeam.rank} ]</span> vs <a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank">${history.away_team_name}</a><span style="color:#aaa" title="排名第${awayTeam.rank}">[ ${awayTeam.rank} ]</span></span>
+									【对阵球队】：<span class="a-title" ><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank">${homeTeam.name}</a><span style="color:#888" title="排名第${homeTeam.rank}">[ ${homeTeam.rank} ]</span> vs <a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank">${history.away_team_name}</a><span style="color:#888" title="排名第${awayTeam.rank}">[ ${awayTeam.rank} ]</span></span>
 									<c:if test="${history.status=='完场'}">
 									（完场：<span style="color:red;">${history.result}</span>）
 									</c:if>
@@ -466,7 +466,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 											<c:forEach items="${lstMatchLive}" var="live">
 												<i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>
 											</c:forEach>
-											&nbsp;&nbsp;<nobr><a href="http://www.shoumi.org/" target="_blank">比分直播</a></nobr>
+											&nbsp;&nbsp;<nobr><a href="/bifen.html" target="_blank">比分直播</a></nobr>
 											</span>
 										</c:if>
 									</div>

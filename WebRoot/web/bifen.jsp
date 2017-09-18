@@ -95,6 +95,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<div id="chat_div" style="float:left;margin-left:5px;height:455px;width:305px;border:1px solid #c0c0c0;">
 					
 				</div>
+				<div id="cp_div" style="float:left;width:305px;margin-left:5px;margin-top:10px;border:1px solid #c0c0c0;min-height:70px;">
+					<div class="title2" style="text-align:left;"><span class="headactions">最新彩票开奖结果 <a id="toggleA" href="javascript:;" onclick="toggleCp();">更多信息...</a></span></div>
+					<div id="cp" style="min-height:70px;"></div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -104,38 +108,57 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	</div>
 	
 	<script>
-	var pc_frame_url = '<iframe id="pc_iframe" name="pc_iframe" height="20000" src="http://live1.bet007.com/live.aspx?Edition=1&amp;lang=0&amp;ad=趣点足球网&amp;adurl=http://www.yutet.com&amp;color=F7F3DE&amp;sound=0" frameborder="0" width="720"></iframe>';
-	var chat_frame_url = '<div class="title2" style="text-align:left;">聊球室</div><iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://chat.17jc.cc/bo360/chat?h=470" marginheight="0" marginwidth="0" frameborder="0" width="298" height="420" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>';
-	var m_bifen_url = '<iframe id="mobile_iframe" name="mobile_iframe" scrolling="no" frameborder="0" align="center" src="http://m.win007.com/" style="width:100%;height: 20000px;" rel="nofollow" border="0"></iframe>';
 	
-	function getNode(id) {	return document.getElementById(id);}
-	function dw(str){	document.write(str);}
+	var pc_frame_url = '<iframe id="pc_iframe" name="pc_iframe" height="20000" src="http://live1.bet007.com/live.aspx?Edition=1&amp;lang=0&amp;ad=趣点足球网&amp;adurl=http://www.yutet.com&amp;color=F7F3DE&amp;sound=0" frameborder="0" width="720"></iframe>';
+	var chat_frame_url = '<div class="title2" style="text-align:left;">侃球室</div><iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://chat.17jc.cc/bo360/chat?h=470" marginheight="0" marginwidth="0" frameborder="0" width="298" height="420" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>';
+	var m_bifen_url = '<iframe id="mobile_iframe" name="mobile_iframe" scrolling="no" frameborder="0" align="center" src="http://m.win007.com/" style="width:100%;height: 20000px;" rel="nofollow" border="0"></iframe>';
+	var cp_url = '<iframe frameBorder="0" scrolling="no" align="center" width="303" height="65" rel="nofollow" src="http://www.360zhibo.com/kjgd2013.html"></iframe>';
+	var cp_more_url = '<iframe frameBorder="0" scrolling="no" align="center" width="303" height="670" rel="nofollow" src="http://www.360zhibo.com/kjgd3013.html"></iframe>';
+	
+	var isAll = false;
+	function toggleCp(){
+		if(isAll){
+			isAll = false;
+			document.getElementById('cp').innerHTML = cp_url;
+			$("#toggleA").html("更多信息...");
+		}else{
+			isAll = true;
+			document.getElementById('cp').innerHTML = cp_more_url;
+			$("#toggleA").html("折叠...");
+		}
+	}
 	
 	$(function(){
 		  setIframeContent();
 	});
 	
 	window.onresize = function(){
+		isAll = false;
 		var winWidth = $(window).width();
 		if (winWidth<992) {
 			  $("#pc_div").html("");
 			  $("#chat_div").html("");
+			  $("#cp").html("");
 			  $("#mobile_div").html(m_bifen_url);
 		}else{
 			 $("#pc_div").html(pc_frame_url);
 		     $("#chat_div").html(chat_frame_url);
+		     $("#cp").html(cp_url);
 		     $("#mobile_div").html("");
 		}
 	};
 	
 	function setIframeContent(){
+		  isAll = false;
 		  if(!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
 			  $("#pc_div").html(pc_frame_url);
 			  $("#chat_div").html(chat_frame_url);
+			  $("#cp").html(cp_url);
 			  $("#mobile_div").html("");
 		  }else{
 			  $("#pc_div").html("");
 			  $("#chat_div").html("");
+			  $("#cp").html("");
 			  $("#mobile_div").html(m_bifen_url);
 		  }
 	}

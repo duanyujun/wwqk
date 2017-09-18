@@ -95,7 +95,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</c:if>
 			</div>
 			<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;" title="<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/> ${match.home_team_name} vs ${match.away_team_name} 统计">
-				【比分】：<span class="a-title"><a href="http://www.shoumi.org/" href="_blank">比分直播</a></span>
+				【比分】：<span class="a-title"><a href="/bifen.html" href="_self">比分直播</a></span>
 			</div>
 			<c:if test="${!empty match.info and match.info!=''}">
 				   <div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;" title="<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/> ${match.home_team_name} vs ${match.away_team_name} 情报">
@@ -147,7 +147,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									</c:if>
 								</div>
 								<div class="col-lg-12 col-md-12 "  title="<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/> ${match.home_team_name} vs ${match.away_team_name} 情报">
-									【比分】：<span class="a-title"><a href="http://www.shoumi.org/" href="_blank">比分直播</a></span>
+									【比分】：<span class="a-title"><a href="/bifen.html" href="_blank">比分直播</a></span>
 								</div>
 								<c:if test="${!empty match.info and match.info!=''}">
 									   <div class="col-lg-12 col-md-12 " style="" title="<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/> ${match.home_team_name} vs ${match.away_team_name} 情报">
