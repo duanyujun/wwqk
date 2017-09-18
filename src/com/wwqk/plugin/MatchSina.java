@@ -1,15 +1,12 @@
 package com.wwqk.plugin;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -86,12 +83,13 @@ public class MatchSina {
 				}
 				if(updateCurrentRound){
 					//该轮比赛已经全部打完了，在网站上保留一天
-					Timestamp ts = DateTimeUtils.addDays(lastDateInOneRound, 1);
-					if(ts.before(new Date())){
-						int currentRound = source.getInt("current_round");
-						source.set("current_round", currentRound+1>source.getInt("round_max")?source.getInt("round_max"):currentRound+1);
-						source.update();
-					}
+//					Timestamp ts = DateTimeUtils.addDays(lastDateInOneRound, 1);
+//					if(ts.before(new Date())){
+//						
+//					}
+					int currentRound = source.getInt("current_round");
+					source.set("current_round", currentRound+1>source.getInt("round_max")?source.getInt("round_max"):currentRound+1);
+					source.update();
 				}
 			}
 		}
