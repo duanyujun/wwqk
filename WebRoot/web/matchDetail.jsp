@@ -16,8 +16,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="description" content='<fmt:formatDate value="${history.match_date}" pattern="yyyy年MM月dd日"/>${homeTeam.name}vs${history.away_team_name}直播,${homeTeam.name}vs${history.away_team_name}免费直播,${history.away_team_name}vs${homeTeam.name}直播,${homeTeam.name}直播,${history.away_team_name}直播,更多${leagueName}视频直播尽在趣点足球网,<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 阵容' />
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-    <script src="common/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    
     <style type="text/css">
     	.nav>li>a{padding:5px; 10px;}
     </style>
@@ -760,7 +759,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<%@ include file="/common/footer.jsp"%>		
 </div>
 	<script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
-
+	<script src="common/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	
 	<script>
 	(function(){
 	    var bp = document.createElement('script');

@@ -36,7 +36,7 @@
 		//Handles the go to top button at the footer
 		var handleGoTop = function() {
 		    var offset = 300;
-		    var duration = 400;
+		    var duration = 300;
 		    if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) { // ios supported
 		        $(window).bind("touchend touchcancel touchleave", function(e) {
 		            if ($(this).scrollTop() > offset) {

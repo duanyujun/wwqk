@@ -253,130 +253,140 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				
 				<div class="row" style="margin-top:10px;">
 					<div class="col-lg-9 col-md-9">
-						<table class="table table-hover" style="border:1px solid #dddddd;">
-						  <caption style="min-height:60px;"><img src="assets/image/page/cup-${leagueId}.jpg" />&nbsp;<span style="font-size:18px;">${leagueName}联赛积分榜</span></caption>
-						  <thead>
-						    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
-						      <th>排名</th>
-						      <th>球队</th>
-						      <th>场次</th>
-						      <th>胜</th>
-						      <th>平</th>
-						      <th>负</th>
-						      <th>进球</th>
-						      <th>失球</th>
-						      <th>净胜球</th>
-						      <th>积分</th>
-						    </tr>
-						  </thead>
-						  <tbody>
-						  <c:forEach items="${positionList}"  var="team" varStatus="status">
-						  	<c:if test="${leagueId==4}">
-						  		<c:choose> 
-								  <c:when test="${status.index<3}">   
-								    <tr style="background:#E0F4F0;">
-								  </c:when> 
-								  <c:when test="${status.index>16}">   
-								    <tr style="background:#EEEEEE;">
-								  </c:when> 
-								  <c:otherwise>   
-								    <tr> 
-								  </c:otherwise> 
-								</c:choose> 
-						  	</c:if>
-						  	<c:if test="${leagueId==5}">
-						  		<c:choose> 
-								  <c:when test="${status.index<2}">   
-								    <tr style="background:#E0F4F0;">
-								  </c:when> 
-								  <c:when test="${status.index>17}">   
-								    <tr style="background:#EEEEEE;">
-								  </c:when> 
-								  <c:otherwise>   
-								    <tr> 
-								  </c:otherwise> 
-								</c:choose> 
-						  	</c:if>
-						  	<c:if test="${leagueId!=4 && leagueId!=5}">
-						  		<c:choose> 
-								  <c:when test="${status.index<4}">   
-								    <tr style="background:#E0F4F0;">
-								  </c:when> 
-								  <c:when test="${status.index>16}">   
-								    <tr style="background:#EEEEEE;">
-								  </c:when> 
-								  <c:otherwise>   
-								    <tr> 
-								  </c:otherwise> 
-								</c:choose> 
-						  	</c:if>
-							  <td>${status.count}</td>
-						      <td class="team-title" ><a href="team-${team.team_name_en}-${team.team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${team.team_id}.png" style="width:25px;height:25px;" alt="${team.team_name}" title="${team.team_name}"/>&nbsp;${team.team_name}</a></td>
-						      <td>${team.round_count}</td>
-						      <td>${team.win_count}</td>
-						      <td>${team.even_count}</td>
-						      <td>${team.lose_count}</td>
-						      <td>${team.win_goal_count}</td>
-						      <td>${team.lose_goal_count}</td>
-						      <td>${team.goal_count}</td>
-						      <td>${team.points}</td>
-						    </tr>
-						    
-						   </c:forEach>
-						  </tbody>
-						</table>
-					</div>
-				</div>
-				
-				<div class="row" style="margin-top:20px;">
-					<div class="col-lg-5 col-md-5">
-						<table class="table table-striped table-hover " style="border:1px solid #dddddd;">
-						  <caption><span style="font-size:18px;">射手榜</span></caption>
-						  <thead>
-						    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
-						      <th>排名</th>
-						      <th>球员</th>
-						      <th>球队</th>
-						      <th><center>进球数</center></th>
-						      <th><center>点球数</center></th>
-						    </tr>
-						  </thead>
-						  <tbody>
-						  	<c:forEach items="${shooterList}"  var="shooter" varStatus="status">
-							    <tr>
-							      <td>${status.count}</td>
-							      <td class="team-title" ><a href="player-${shooter.player_name_en}-${shooter.player_id}.html" target="_blank"><img src="${shooter.player_img}" style="width:25px;height:25px;" alt="${shooter.player_name}" title="${shooter.player_name}"/>&nbsp;${shooter.player_name}</a></td>
-							      <td class="team-title" ><a href="team-${shooter.team_name_en}-${shooter.team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${shooter.team_id}.png" style="width:25px;height:25px;" alt="${shooter.team_name}" title="${shooter.team_name}"/>&nbsp;${shooter.team_name}</a></td>
-							      <td ><center>${shooter.goal_count}</center></td>
-							      <td ><center>${shooter.penalty_count}</center></td>
-							    </tr>
-							</c:forEach>
-						  </tbody>
-						</table>
-					</div>
-					
-					<div class="col-lg-4 col-md-4" >
-						<table class="table table-striped table-hover " style="border:1px solid #dddddd;">
-						  <caption><span style="font-size:18px;">助攻榜</span></caption>
-						  <thead>
-						    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
-						      <th><nobr>排名</nobr></th>
-						      <th>球员</th>
-						      <th>球队</th>
-						      <th align="center"><nobr>助攻数</nobr></th>
-						    </tr>
-						  </thead>
-						  <tbody>
-						  	<c:forEach items="${assistsList}"  var="assists" varStatus="status">
-							    <tr>
-							      <td>${status.count}</td>
-							      <td class="team-title" ><a href="player-${assists.player_name_en}-${assists.player_id}.html" target="_blank"><nobr><img src="${assists.player_img}" style="width:25px;height:25px;" alt="${assists.player_name}" title="${assists.player_name}" />&nbsp;${assists.player_name}</nobr></a></td>
-							      <td class="team-title" ><a href="team-${assists.team_name_en}-${assists.team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${assists.team_id}.png" style="width:25px;height:25px;" alt="${assists.team_name}" title="${assists.team_name}"/>&nbsp;${assists.team_name}</nobr></a></td>
-							      <td ><center>${assists.assists_count}</center></td>
-							    </tr>
-						    </c:forEach>
-						  </tbody>
-						</table>
+						<ul id="myTab" class="nav nav-tabs bread" >
+							<li class="active"><a href="#team_rank" data-toggle="tab">球队排名</a></li>
+							<li><a href="#player_rank" data-toggle="tab">球员排名</a></li>
+						</ul>
+						<div id="myTabContent" class="tab-content">
+								<div class="tab-pane fade in active" id="team_rank">
+										<table class="table table-hover" style="border:1px solid #dddddd;border-top:none;">
+										  <thead>
+										  	<tr >
+										  		<th colspan="10" style="border-right:1px solid #dddddd;border-bottom:2px solid #3CB371;"><center>积分榜</center></th>
+										  	</tr>
+										    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
+										      <th>排名</th>
+										      <th>球队</th>
+										      <th>场次</th>
+										      <th>胜</th>
+										      <th>平</th>
+										      <th>负</th>
+										      <th>进球</th>
+										      <th>失球</th>
+										      <th>净胜球</th>
+										      <th>积分</th>
+										    </tr>
+										  </thead>
+										  <tbody>
+										  <c:forEach items="${positionList}"  var="team" varStatus="status">
+										  	<c:if test="${leagueId==4}">
+										  		<c:choose> 
+												  <c:when test="${status.index<3}">   
+												    <tr style="background:#E0F4F0;">
+												  </c:when> 
+												  <c:when test="${status.index>16}">   
+												    <tr style="background:#EEEEEE;">
+												  </c:when> 
+												  <c:otherwise>   
+												    <tr> 
+												  </c:otherwise> 
+												</c:choose> 
+										  	</c:if>
+										  	<c:if test="${leagueId==5}">
+										  		<c:choose> 
+												  <c:when test="${status.index<2}">   
+												    <tr style="background:#E0F4F0;">
+												  </c:when> 
+												  <c:when test="${status.index>17}">   
+												    <tr style="background:#EEEEEE;">
+												  </c:when> 
+												  <c:otherwise>   
+												    <tr> 
+												  </c:otherwise> 
+												</c:choose> 
+										  	</c:if>
+										  	<c:if test="${leagueId!=4 && leagueId!=5}">
+										  		<c:choose> 
+												  <c:when test="${status.index<4}">   
+												    <tr style="background:#E0F4F0;">
+												  </c:when> 
+												  <c:when test="${status.index>16}">   
+												    <tr style="background:#EEEEEE;">
+												  </c:when> 
+												  <c:otherwise>   
+												    <tr> 
+												  </c:otherwise> 
+												</c:choose> 
+										  	</c:if>
+											  <td>${status.count}</td>
+										      <td class="team-title" ><a href="team-${team.team_name_en}-${team.team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${team.team_id}.png" style="width:25px;height:25px;" alt="${team.team_name}" title="${team.team_name}"/>&nbsp;${team.team_name}</a></td>
+										      <td>${team.round_count}</td>
+										      <td>${team.win_count}</td>
+										      <td>${team.even_count}</td>
+										      <td>${team.lose_count}</td>
+										      <td>${team.win_goal_count}</td>
+										      <td>${team.lose_goal_count}</td>
+										      <td>${team.goal_count}</td>
+										      <td>${team.points}</td>
+										    </tr>
+										    
+										   </c:forEach>
+										  </tbody>
+										</table>
+								</div>
+								<div class="tab-pane fade" id="player_rank">
+													<table class="table table-striped table-hover " style="float:left;width:55%;border:1px solid #dddddd;border-top:none;border-right:none;">
+													  <thead>
+													  	<tr >
+													  		<th colspan="5" style="border-bottom:2px solid #3CB371;"><center>射手榜</center></th>
+													  	</tr>
+													    <tr style="background:#3CB371;color:white;border:1px solid #3CB371;">
+													      <th>排名</th>
+													      <th>球员</th>
+													      <th>球队</th>
+													      <th><center>进球数</center></th>
+													      <th ><center>点球数</center></th>
+													    </tr>
+													  </thead>
+													  <tbody>
+													  	<c:forEach items="${shooterList}"  var="shooter" varStatus="status">
+														    <tr>
+														      <td>${status.count}</td>
+														      <td class="team-title" ><a href="player-${shooter.player_name_en}-${shooter.player_id}.html" target="_blank"><img src="${shooter.player_img}" style="width:25px;height:25px;" alt="${shooter.player_name}" title="${shooter.player_name}"/>&nbsp;${shooter.player_name}</a></td>
+														      <td class="team-title" ><a href="team-${shooter.team_name_en}-${shooter.team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${shooter.team_id}.png" style="width:25px;height:25px;" alt="${shooter.team_name}" title="${shooter.team_name}"/>&nbsp;${shooter.team_name}</a></td>
+														      <td ><center>${shooter.goal_count}</center></td>
+														      <td style="border-right:1px solid #dddddd;"><center>${shooter.penalty_count}</center></td>
+														    </tr>
+														</c:forEach>
+													  </tbody>
+													</table>
+												
+													<table class="table table-striped table-hover pull-right" style="float:left;width:40%;border:1px solid #dddddd;border-top:none;border-left:none;">
+													  <thead>
+													  	<tr>
+													  		<th colspan="4" style="border-bottom:2px solid #3CB371;"><center>助攻榜</center></th>
+													  	</tr>
+													    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
+													      <th><nobr>排名</nobr></th>
+													      <th>球员</th>
+													      <th>球队</th>
+													      <th align="center"><nobr>助攻数</nobr></th>
+													    </tr>
+													  </thead>
+													  <tbody>
+													  	<c:forEach items="${assistsList}"  var="assists" varStatus="status">
+														    <tr>
+														      <td style="border-left:1px solid #dddddd;">${status.count}</td>
+														      <td class="team-title" ><a href="player-${assists.player_name_en}-${assists.player_id}.html" target="_blank"><nobr><img src="${assists.player_img}" style="width:25px;height:25px;" alt="${assists.player_name}" title="${assists.player_name}" />&nbsp;${assists.player_name}</nobr></a></td>
+														      <td class="team-title" ><a href="team-${assists.team_name_en}-${assists.team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${assists.team_id}.png" style="width:25px;height:25px;" alt="${assists.team_name}" title="${assists.team_name}"/>&nbsp;${assists.team_name}</nobr></a></td>
+														      <td ><center>${assists.assists_count}</center></td>
+														    </tr>
+													    </c:forEach>
+													  </tbody>
+													</table>
+								</div>
+						</div>
+							
 					</div>
 				</div>
 				
@@ -385,6 +395,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		
 		<%@ include file="/common/footer.jsp"%>	
 		</div>
+		
+		<script src="common/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+		
 		<script>
 		(function(){
 		    var bp = document.createElement('script');
