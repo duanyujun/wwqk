@@ -45,6 +45,13 @@
 		              </div>
 		              <div class="col-md-3"><label for="title"></label></div>
 		          </div>
+		           <div class="form-group">
+		              <label class="col-md-3 control-label"><font color="red">*</font>英文标题：</label>
+		              <div class="col-md-6">
+		                  <input type="text" class="form-control" id="title_en" name="title_en" required value="${fun.title_en}" placeholder="请输入英文标题">
+		              </div>
+		              <div class="col-md-3"><label for="title_en"></label></div>
+		          </div>
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>摘要：</label>
 		              <div class="col-md-6">

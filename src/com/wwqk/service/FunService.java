@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.upload.UploadFile;
+import com.wwqk.model.Article;
 import com.wwqk.model.Fun;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
@@ -118,20 +119,23 @@ public class FunService {
 		}else{
 			fun = Fun.dao.findById(id);
 		}
-		
+		String player_id = controller.getPara("player_id");
 		fun.set("title", controller.getPara("title"));
+		fun.set("title_en", controller.getPara("title_en"));
 		fun.set("summary", controller.getPara("summary")); 
-		fun.set("content", addClass4Img(controller.getPara("content")));
+		String content = addClass4Img(controller.getPara("content"));
+		if(StringUtils.isBlank(player_id)){
+			fun.set("content", content);
+		}
 		fun.set("keyword", controller.getPara("keyword"));
 		fun.set("source_name", controller.getPara("source_name"));
 		fun.set("source_url", controller.getPara("source_url"));
-		String player_id = controller.getPara("player_id");
 		if(StringUtils.isNotBlank(player_id)){
 			Player player = Player.dao.findById(player_id);
-			fun.set("player_id", player.get("player_id"));
+			fun.set("player_id", player_id);
 			fun.set("player_name", player.get("name"));
 			fun.set("player_name_en", player.get("en_url"));
-			fun.set("player_img_local", player.get("img_small_local"));
+			fun.set("image_small", player.get("img_small_local"));
 		}
 		
 		if(StringUtils.isNotBlank(image_small)){
@@ -162,6 +166,22 @@ public class FunService {
 		}
 		
 		save(fun);
+		//将文本内容保存到article表里面
+		if(fun.get("id")!=null && fun.get("player_id")!=null){
+			Article article = Article.dao.findFirst("select * from article where fun_id = ? ", fun.get("id"));
+			if(article==null){
+				article = new Article();
+			}
+			article.set("title", controller.getPara("title"));
+			article.set("content", content);
+			article.set("player_id", fun.get("player_id"));
+			article.set("fun_id", fun.get("id"));
+			if(article.get("id")==null){
+				article.save();
+			}else{
+				article.update();
+			}
+		}
 	}
 	
 	public static void save(Fun fun){

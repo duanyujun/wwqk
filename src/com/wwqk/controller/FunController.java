@@ -2,6 +2,7 @@ package com.wwqk.controller;
 
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
+import com.wwqk.model.Article;
 import com.wwqk.model.Fun;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.PageUtils;
@@ -30,6 +31,10 @@ public class FunController extends Controller {
 		}
 		
 		Fun fun = Fun.dao.findById(id);
+		if(fun.get("player_id")!=null){
+			Article article = Article.dao.findFirst("select * from article where fun_id = ? ", id);
+			fun.set("content", article.get("content"));
+		}
 		setAttr("fun", fun);
 		
 		render("funDetail.jsp");

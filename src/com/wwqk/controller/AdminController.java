@@ -20,6 +20,7 @@ import com.jfinal.upload.UploadFile;
 import com.wwqk.constants.CommonConstants;
 import com.wwqk.constants.FlagMask;
 import com.wwqk.model.AllLiveMatch;
+import com.wwqk.model.Article;
 import com.wwqk.model.Fun;
 import com.wwqk.model.League;
 import com.wwqk.model.LeagueAssists;
@@ -257,6 +258,10 @@ public class AdminController extends Controller {
 		String id = getPara("id");
 		if(id!=null){
 			Fun fun = Fun.dao.findById(id);
+			if(fun.get("player_id")!=null){
+				Article article = Article.dao.findFirst("select * from article where fun_id = ? ", id);
+				fun.set("content", article.get("content"));
+			}
 			setAttr("fun", fun);
 		}
 		//全部player
@@ -275,6 +280,8 @@ public class AdminController extends Controller {
 		if(StringUtils.isNotBlank(ids)){
 			String whereSql = " where id in (" + ids +")";
 			Db.update("delete from fun "+whereSql);
+			String articleWhereSql = " where fun_id in (" + ids +")";
+			Db.update("delete from article "+articleWhereSql);
 			renderJson(1);
 		}else{
 			renderJson(0);

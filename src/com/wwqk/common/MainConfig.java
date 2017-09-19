@@ -32,6 +32,7 @@ import com.wwqk.controller.TeamController;
 import com.wwqk.controller.UploadController;
 import com.wwqk.controller.UserController;
 import com.wwqk.model.AllLiveMatch;
+import com.wwqk.model.Article;
 import com.wwqk.model.Career;
 import com.wwqk.model.Coach;
 import com.wwqk.model.CoachCareer;
@@ -159,7 +160,7 @@ public class MainConfig extends JFinalConfig {
 		
 		arp.addMapping("all_live_match", AllLiveMatch.class);
 		
-		//arp.addMapping("article", Article.class);
+		arp.addMapping("article", Article.class);
 		
 		me.add(c3p0Plugin);
 		me.add(arp);
