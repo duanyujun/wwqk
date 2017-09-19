@@ -4,7 +4,7 @@
 <link href="${ctx}/assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
 <script src="${ctx}/assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
 <script src="${ctx}/assets/global/plugins/bootstrap-toastr/toastr.js" type="text/javascript"></script>
-
+<script type="text/javascript" src="${ctx}/assets/global/plugins/My97DatePicker/WdatePicker.js"></script> 
 
 
 <style>
@@ -58,6 +58,12 @@
 		                  <input type="text" class="form-control" id="summary" name="summary" required value="${fun.summary}"  placeholder="请输入摘要">
 		              </div>
 		              <div class="col-md-3"><label for="summary"></label></div>
+		          </div>
+		          <div class="form-group">
+		              <label class="col-md-3 control-label">发表时间：</label>
+		              <div class="col-md-9" >
+				           <input type="text" id="create_time" class="form-control" name="create_time" onFocus="WdatePicker({el:'create_time',dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="${fun.create_time}" placeholder="请输入发表时间" style="width:180px;display:inline-block;"><img onclick="WdatePicker({el:'create_time',dateFmt:'yyyy-MM-dd HH:mm:ss'})" src="assets/image/page/cal_pick.png"  style="cursor:pointer; ">
+		              </div>
 		          </div>
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>内容：</label>

@@ -123,6 +123,7 @@ public class FunService {
 		fun.set("title", controller.getPara("title"));
 		fun.set("title_en", controller.getPara("title_en"));
 		fun.set("summary", controller.getPara("summary")); 
+		String create_time = controller.getPara("create_time");
 		String content = addClass4Img(controller.getPara("content"));
 		if(StringUtils.isBlank(player_id)){
 			fun.set("content", content);
@@ -137,7 +138,9 @@ public class FunService {
 			fun.set("player_name_en", player.get("en_url"));
 			fun.set("image_small", player.get("img_small_local"));
 		}
-		
+		if(StringUtils.isNotBlank(create_time)){
+			fun.set("create_time", create_time);
+		}
 		if(StringUtils.isNotBlank(image_small)){
 			fun.set("image_small", image_small);
 		}
