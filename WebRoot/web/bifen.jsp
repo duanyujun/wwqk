@@ -89,7 +89,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:8px;padding-bottom: 130px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2">		
 			<div class="col-lg-12 col-md-12" style="padding-left:0px;">
-				<div id="pc_div" style="float:left;height:20000px;width:710px;">
+				<div id="pc_div" style="float:left;height:20000px;width:690px;">
 					
 				</div>
 				<div id="chat_div" style="float:left;margin-left:5px;height:455px;width:300px;border:1px solid #c0c0c0;">
@@ -109,7 +109,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	<script>
 	
-	var pc_frame_url = '<iframe id="pc_iframe" name="pc_iframe" height="20000" src="http://live1.bet007.com/live.aspx?Edition=1&amp;lang=0&amp;ad=»§µ„◊„«ÚÕ¯&amp;adurl=http://www.yutet.com&amp;color=DCEFFF&amp;sound=0" frameborder="0" width="710"></iframe>';
+	var pc_frame_url = '<iframe id="pc_iframe" name="pc_iframe" height="20000" src="http://live1.bet007.com/live.aspx?Edition=1&amp;lang=0&amp;ad=»§µ„◊„«ÚÕ¯&amp;adurl=http://www.yutet.com&amp;color=DCEFFF&amp;sound=0" frameborder="0" width="690"></iframe>';
 	var chat_frame_url = '<div class="title2" style="text-align:left;">Ÿ©«Ú “</div><iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://chat.17jc.cc/bo360/chat?h=470" marginheight="0" marginwidth="0" frameborder="0" width="297" height="420" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>';
 	var m_bifen_url = '<iframe id="mobile_iframe" name="mobile_iframe" scrolling="no" frameborder="0" align="center" src="http://m.win007.com/" style="width:100%;height: 20000px;" rel="nofollow" border="0"></iframe>';
 	var cp_url = '<iframe frameBorder="0" scrolling="no" align="center" width="297" height="65" rel="nofollow" src="http://www.360zhibo.com/kjgd2013.html"></iframe>';
