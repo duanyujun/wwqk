@@ -142,7 +142,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.title}" title="${fun.title}"/></a>
 						</c:if>
 						<c:if test="${fun.type==2}">
-							<a href="sdetail-${fun.player_name_en}-${fun.source_id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.player_name_en}" title="${fun.player_name_en}"/></a>
+							<a href="sdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.player_name_en}-${fun.source_id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.player_name_en}" title="${fun.player_name_en}"/></a>
 						</c:if>
 					</div>
 					<div class="col-lg-8 col-md-8 content_pleft" >
@@ -152,7 +152,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_blank" title="${fun.title}">${fun.title}</a>
 								</c:if>
 								<c:if test="${fun.type==2}">
-									<a href="sdetail-${fun.player_name_en}-${fun.source_id}.html" target="_blank"><div class="text_cut" style="width:410px;line-height:32px;" title="${fun.summary}">${fun.summary}</div></a>
+									<a href="sdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.player_name_en}-${fun.source_id}.html" target="_blank"><div class="text_cut" style="width:410px;line-height:32px;" title="${fun.summary}">${fun.summary}</div></a>
 								</c:if>
 							</span>
 						</div>

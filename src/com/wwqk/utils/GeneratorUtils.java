@@ -55,7 +55,7 @@ public class GeneratorUtils{
 				List<Say> lstSay = Say.dao.find("select s.id, p.en_url from say s, player p where s.player_id = p.id and s.create_time > ?", nowDate);
 				StringBuilder sb = new StringBuilder();
 				for(Say say : lstSay){
-					sb.append("<a href=\"http://www.yutet.com/sdetail-"+say.getStr("en_url")+"-"+say.get("id")+".html\" target=\"_blank\">s"+say.get("id")+"</a>&nbsp;");
+					sb.append("<a href=\"http://www.yutet.com/sdetail-"+DateTimeUtils.formatDate(say.getDate("create_time"))+"-"+say.getStr("en_url")+"-"+say.get("id")+".html\" target=\"_blank\">s"+say.get("id")+"</a>&nbsp;");
 				}
 				sayTds.get(0).html(sb.toString());
 				lstSay = null;
@@ -67,7 +67,7 @@ public class GeneratorUtils{
 				List<Fun> lstFun = Fun.dao.find("select id, title,title_en,create_time from fun where type = 1 ");
 				StringBuilder sb = new StringBuilder();
 				for(Fun fun : lstFun){
-					sb.append("<a href=\"http://www.yutet.com/fdetail-"+DateTimeUtils.formatDate(fun.getDate("create_time"))+"-"+fun.get("id")+".html\" target=\"_blank\">"+fun.get("title")+"</a>&nbsp;");
+					sb.append("<a href=\"http://www.yutet.com/fdetail-"+DateTimeUtils.formatDate(fun.getDate("create_time"))+"-"+fun.getStr("title_en")+"-"+fun.get("id")+".html\" target=\"_blank\">"+fun.get("title")+"</a>&nbsp;");
 				}
 				funTds.get(0).html(sb.toString());
 			}
