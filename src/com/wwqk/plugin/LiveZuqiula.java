@@ -171,7 +171,12 @@ public class LiveZuqiula {
 							matchLive.set("home_team_name", homeTeamName);
 							matchLive.set("away_team_name", awayTeamName);
 							matchLive.set("live_name", liveName);
-							matchLive.set("live_url",SITE_URL+live.attr("href"));
+							String fullLiveUrl = SITE_URL+live.attr("href");
+							if(fullLiveUrl.indexOf("http:")!=fullLiveUrl.lastIndexOf("http:")){
+								fullLiveUrl = fullLiveUrl.substring(fullLiveUrl.lastIndexOf("http:"));
+							}
+							matchLive.set("live_url",fullLiveUrl);
+							
 							matchLive.set("match_date", matchDateTime);
 							lstMatchLives.add(matchLive);
 						}
