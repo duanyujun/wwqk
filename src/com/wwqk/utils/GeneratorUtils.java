@@ -64,7 +64,7 @@ public class GeneratorUtils{
 			//趣点
 			Elements funTds = document.select("#funs_td");
 			if(funTds.size()>0){
-				List<Fun> lstFun = Fun.dao.find("select id, title, create_time from fun where type = 1 ");
+				List<Fun> lstFun = Fun.dao.find("select id, title,title_en,create_time from fun where type = 1 ");
 				StringBuilder sb = new StringBuilder();
 				for(Fun fun : lstFun){
 					sb.append("<a href=\"http://www.yutet.com/fdetail-"+DateTimeUtils.formatDate(fun.getDate("create_time"))+"-"+fun.get("id")+".html\" target=\"_blank\">"+fun.get("title")+"</a>&nbsp;");

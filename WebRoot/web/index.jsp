@@ -100,7 +100,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			    	<!-- 内容 -->
 			    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:10px;padding-left:38px;">
 						<c:if test="${fun.type==1}">
-							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_self" ><span class="summary-mobile">${fun.summary}</span></a>
+							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_self" ><span class="summary-mobile">${fun.summary}</span></a>
 						</c:if>
 						<c:if test="${fun.type==2}">
 							<span class="summary-mobile line-cut">${fun.summary}</span>
@@ -109,7 +109,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			    	<!-- 图片 -->
 			    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:8px;padding-left:38px;">
 						<c:if test="${fun.type==1}">
-							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_self" ><img src="${fun.image_small}" class="img-responsive" alt="${fun.title}" title="${fun.title}"/></a>
+							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_self" ><img src="${fun.image_small}" class="img-responsive" alt="${fun.title}" title="${fun.title}"/></a>
 						</c:if>
 						<c:if test="${fun.type==2}">
 							<c:if test="${!empty fun.image_big}">
@@ -139,7 +139,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				
 					<div class="col-lg-4 col-md-4 content-title" style="padding-left:0px;">
 						<c:if test="${fun.type==1}">
-							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.title}" title="${fun.title}"/></a>
+							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.title}" title="${fun.title}"/></a>
 						</c:if>
 						<c:if test="${fun.type==2}">
 							<a href="sdetail-${fun.player_name_en}-${fun.source_id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.player_name_en}" title="${fun.player_name_en}"/></a>
@@ -149,7 +149,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="col-lg-12 col-md-12">
 							<span class="msg-title">
 								<c:if test="${fun.type==1}">
-									<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank" title="${fun.title}">${fun.title}</a>
+									<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_blank" title="${fun.title}">${fun.title}</a>
 								</c:if>
 								<c:if test="${fun.type==2}">
 									<a href="sdetail-${fun.player_name_en}-${fun.source_id}.html" target="_blank"><div class="text_cut" style="width:410px;line-height:32px;" title="${fun.summary}">${fun.summary}</div></a>
