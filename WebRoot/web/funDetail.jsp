@@ -112,9 +112,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 	</div>
 	
-	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:20px;padding-bottom: 130px;">
-		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
-			<div class="col-lg-9 col-md-9 col-lg-12 col-md-12">
+	<div class="row clear_row_margin hidden-sm hidden-xs" style="padding-bottom: 130px;">
+		<div id="main_content" style="min-height:20px;" class="col-lg-9 col-lg-offset-2 col-md-9 col-md-offset-2 col-sm-12 col-xs-12">		
+			<div class="col-lg-10 col-md-10 col-lg-12 col-md-12">
 				<div class="col-lg-12 col-md-12"><h2 style="font-weight:bold;">${fun.title}</h2></div>
 				<div class="col-lg-12 col-md-12">
 					<div class="mob-author">
@@ -155,7 +155,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</div>
 				
 				<c:if test="${!empty fun.source_name}">
-					<div class="col-lg-12 col-md-12 bread" style="margin-top:10px;font-size:14px;">
+					<div class="col-lg-12 col-md-12 bread" style="font-size:14px;">
 						来源：<a href="${fun.source_url}" target="_blank">${fun.source_name}</a>
 					</div>
 				</c:if>
