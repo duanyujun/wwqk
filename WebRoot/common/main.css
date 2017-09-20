@@ -202,3 +202,18 @@ DIV.green-black SPAN.disabled {
 	-webkit-box-orient: vertical;
 }
 .summary-mobile{color:#1A1A1A;font-size:14px;}
+.udv-clearfix{width:100%;}
+.schedule-nav .sn-list{float:left;width:100%;background:#E3F3FC;padding-bottom:10px;}
+.schedule-nav .sn-list li{float:left;width:28px;height:28px;display:inline;margin:10px 0 0 10px;background-color:#fff;text-align:center;line-height:28px;color:#bbb;font-size:16px;cursor:pointer}
+.schedule-nav .sn-list .current{font-size:24px;color:#fff;background-color:#00A50D;}
+
+.schedule-round .sr-ctr{width:100%;overflow:hidden}
+.schedule-round .sr-ctr-in{width:100%}
+.schedule-round .sr-box{font-size:14px;width:19%;float:left;background-color:#e3f3fc;margin-right:1%;margin-top:15px}
+.schedule-round .sr-box .up{line-height:25px;}
+.schedule-round .sr-box .date{color:#999;text-align:left;padding-left:13px;}
+.schedule-round .sr-box .time{color:#aaa;text-align:center;cursor:pointer;line-height:16px;}
+.schedule-round .sr-box .team{padding-left:13px;text-align:left;height:25px}
+.schedule-round .sr-box .team span{margin-left:10px;color:#b03700}
+.schedule-round .sr-box .team_away{padding-right:13px;text-align:right;height:25px}
+.schedule-round .sr-box .team_away span{margin-right:10px;color:#b03700}
