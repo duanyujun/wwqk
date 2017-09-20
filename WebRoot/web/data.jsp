@@ -480,9 +480,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 												            <div class="sr-box" >
 												                <div class="up">
 												                    <p class="date"><fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/> ${match.match_weekday}</p>
-												                    <p class="team a-title"><a href="http://match.sports.sina.com.cn/football/team.php?id=98&amp;l_type=8&amp;dpc=1" target="_blank" class="link-333333 ml35"><img src="http://www.sinaimg.cn/lf/sports/logo35/98.png" height="20" width="20" alt="${match.home_team_name}">&nbsp;${match.home_team_name}</a></p>
-								 				                    <p class="time a-title" title="直播"><a href="http://www.baidu.com" target="_blank" style="color:#aaa;">20:00</a></p>
-												                    <p class="team_away a-title"><a href="http://match.sports.sina.com.cn/football/team.php?id=66&amp;l_type=8&amp;dpc=1" target="_blank" class="link-333333 ml35"><img src="http://www.sinaimg.cn/lf/sports/logo35/66.png" height="20" width="20" alt="${match.away_team_name}">&nbsp;${match.away_team_name}</a></p>
+												                    <p class="team a-title"><a href="http://match.sports.sina.com.cn/football/team.php?id=98&amp;l_type=8&amp;dpc=1" target="_blank" class="link-333333 ml35"><img src="${match.home_team_img}" height="20" width="20" alt="${match.home_team_name}">&nbsp;${match.home_team_name}</a></p>
+								 				                    <p class="time a-title" title="直播"><a href="http://www.baidu.com" target="_blank" style="color:#aaa;"><fmt:formatDate value="${match.match_date}" pattern="HH:mm"/></a></p>
+												                    <p class="team_away a-title"><a href="http://match.sports.sina.com.cn/football/team.php?id=66&amp;l_type=8&amp;dpc=1" target="_blank" class="link-333333 ml35"><img src="${match.away_team_img}" height="20" width="20" alt="${match.away_team_name}">&nbsp;${match.away_team_name}</a></p>
 												                </div>
 												            </div>
 											        	</c:forEach>
