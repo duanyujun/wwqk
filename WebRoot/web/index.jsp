@@ -485,14 +485,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		strhtml+="			    	</div>";
 		strhtml+="			    	<div class=\"col-sm-12 col-xs-12 content-title\" style=\"margin-top:10px;padding-left:45px;\">";
 		if(fun.type==1){
-			strhtml+="							<a href=\"fdetail-"+date_str+"-"+fun.id+".html\" target=\"_self\" ><span class=\"summary-mobile\">"+fun.summary+"</span></a>";
+			strhtml+="							<a href=\"fdetail-"+date_str+"-"+fun.title_en+"-"+fun.id+".html\" target=\"_self\" ><span class=\"summary-mobile\">"+fun.summary+"</span></a>";
 		}else{
 			strhtml+="							<span class=\"summary-mobile\">"+fun.summary+"</span>";
 		}
 		strhtml+="					</div>";
 		strhtml+="			    	<div class=\"col-sm-12 col-xs-12 content-title\" style=\"margin-top:8px;padding-left:45px;\">";
 		if(fun.type==1){
-			strhtml+="							<a href=\"fdetail-"+date_str+"-"+fun.id+".html\" target=\"_self\" ><img src=\""+fun.image_small+"\" class=\"img-responsive\" alt=\""+fun.title+"\" /></a>";
+			strhtml+="							<a href=\"fdetail-"+date_str+"-"+fun.title_en+"-"+fun.id+".html\" target=\"_self\" ><img src=\""+fun.image_small+"\" class=\"img-responsive\" alt=\""+fun.title+"\" /></a>";
 		}else{
 			if(fun.image_big && fun.image_big!=''){
 				strhtml+="<div class='mobile-div-img' data-bg-sm='"+fun.image_big+"' width='"+fun.image_big_width+"' height='"+fun.image_big_height+"' style='width:"+width+"px;height:"+height+"px;'><img class='image' src='"+fun.image_big+"' style='width:"+width+"px;height:"+height+"px;' /></div>";

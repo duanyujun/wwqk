@@ -84,13 +84,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			    	<!-- 内容 -->
 			    	<div class="col-sm-12 col-xs-12 content-title" style="padding-left:45px;">
 						<span class="msg-title">
-							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank" title="${fun.title}" style="font-size:16px;">${fun.title}</a>
+							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_blank" title="${fun.title}" style="font-size:16px;">${fun.title}</a>
 						</span><br>
-						<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_self" ><span class="summary-mobile line-cut">${fun.summary}</span></a>
+						<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_self" ><span class="summary-mobile line-cut">${fun.summary}</span></a>
 					</div>
 			    	<!-- 图片 -->
 			    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:8px;padding-left:45px;">
-						<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_self" ><img src="${fun.image_small}" class="img-responsive" alt="${fun.title}" title="${fun.title}"/></a>
+						<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_self" ><img src="${fun.image_small}" class="img-responsive" alt="${fun.title}" title="${fun.title}"/></a>
 					</div>
 					<div class="col-sm-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
 						<div class="index-line"></div>
@@ -121,12 +121,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</c:if>
 				
 					<div class="col-lg-4 col-md-4 content-title" style="padding-left:0px;">
-							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.title}" title="${fun.title}"/></a>
+							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.title}" title="${fun.title}"/></a>
 					</div>
 					<div class="col-lg-8 col-md-8" style="padding-left:8px;">
 						<div class="col-lg-12 col-md-12">
 							<span class="msg-title">
-								<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.id}.html" target="_blank" title="${fun.title}">${fun.title}</a>
+								<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_blank" title="${fun.title}">${fun.title}</a>
 							</span>
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:5px;">
@@ -325,12 +325,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		strhtml+="			    	</div>";
 		strhtml+="			    	<div class=\"col-sm-12 col-xs-12 content-title\" style=\"padding-left:45px;\">";
 		strhtml+="						<span class=\"msg-title\">";
-		strhtml+="							<a href=\"fdetail-"+date_str+"-"+fun.id+".html\" target=\"_self\" title=\""+fun.title+"\" style=\"font-size:16px;\">"+fun.title+"</a>";
+		strhtml+="							<a href=\"fdetail-"+date_str+"-"+fun.title_en+"-"+fun.id+".html\" target=\"_self\" title=\""+fun.title+"\" style=\"font-size:16px;\">"+fun.title+"</a>";
 		strhtml+="						</span><br>";
-		strhtml+="						<a href=\"fdetail-"+date_str+"-"+fun.id+".html\" target=\"_self\" ><span class=\"summary\">"+fun.summary+"</span></a>";
+		strhtml+="						<a href=\"fdetail-"+date_str+"-"+fun.title_en+"-"+fun.id+".html\" target=\"_self\" ><span class=\"summary\">"+fun.summary+"</span></a>";
 		strhtml+="					</div>";
 		strhtml+="			    	<div class=\"col-sm-12 col-xs-12 content-title\" style=\"margin-top:8px;padding-left:45px;\">";
-		strhtml+="						<a href=\"fdetail-"+date_str+"-"+fun.id+".html\" target=\"_self\" ><img src=\""+fun.image_small+"\" class=\"img-responsive\" alt=\""+fun.title+"\" title=\""+fun.title+"\"/></a>";
+		strhtml+="						<a href=\"fdetail-"+date_str+"-"+fun.title_en+"-"+fun.id+".html\" target=\"_self\" ><img src=\""+fun.image_small+"\" class=\"img-responsive\" alt=\""+fun.title+"\" title=\""+fun.title+"\"/></a>";
 		strhtml+="					</div>";
 		strhtml+="					<div class=\"col-sm-12 col-xs-12\" style=\"padding-left:0px;padding-right:0px;\">";
 		strhtml+="						<div class=\"index-line\"></div>";
