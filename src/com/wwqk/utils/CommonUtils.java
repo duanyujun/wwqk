@@ -350,6 +350,31 @@ public class CommonUtils {
 	}
 	
 	/**
+	 * 得到各个参数
+	 * @param markStr 如下面一行o、w、c
+	 * @param allParamStr p-o2-w6-c7.html格式
+	 * @return String
+	 */
+	public static String getRealParam(String mark, String allParamStr){
+		String result = null;
+		if(StringUtils.isBlank(allParamStr)){
+			return result;
+		}
+		String allMark = "-"+mark;
+		if(allParamStr.lastIndexOf("-")==allParamStr.indexOf(allMark)){
+			result = allParamStr.substring(allParamStr.indexOf(allMark)+allMark.length());
+		}else{
+			Pattern pattern = Pattern.compile("\\-"+mark+"(.*?)\\-");
+			Matcher matcher = pattern.matcher(allParamStr);
+			if(matcher.find()){
+				result = matcher.group(1);
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
 	 * 是否是从联赛过来
 	 * @param param
 	 * @return

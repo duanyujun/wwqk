@@ -254,12 +254,52 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<div class="row" style="margin-top:10px;">
 					<div class="col-lg-9 col-md-9">
 						<ul id="myTab" class="nav nav-tabs bread" >
-							<li class="active"><a href="#team_rank" data-toggle="tab">球队排名</a></li>
+							<li class="active"><a href="#match_rank" data-toggle="tab">赛程</a></li>
+							<li ><a href="#team_rank" data-toggle="tab">球队排名</a></li>
 							<li><a href="#player_rank" data-toggle="tab">球员排名</a></li>
-							<li><a href="#match_rank" data-toggle="tab">赛季赛程</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
-								<div class="tab-pane fade in active" id="team_rank">
+								<div class="tab-pane fade in active" id="match_rank" style="border:1px solid #ddd;border-top:none;padding-bottom:8px;">
+									<div class="schedule-nav" >
+										    <div class="sn-list round">
+										        <ul class="udv-clearfix" style="margin-left:-15px;">
+										            <c:forEach items="${lstRound}" var="round">
+										            	<li title="第${round}轮" ><a href="data-${leagueENName}-r${round}-${leagueId}.html" target="_blank" class="${round==currentRound?'current':''}">${round}</a></li>
+										            </c:forEach>
+										            
+										            <li title="更多比赛"><a href="history-${leagueENName}-${leagueId}.html" target="_blank">...</a></li>
+										        </ul>
+										    </div>
+										</div>
+		
+										<div id="roundCtr" style="margin-bottom:5px;margin-left:1%;">
+											<div class="schedule-round">
+											    <div class="sr-ctr">
+											        <div class="sr-ctr-in udv-clearfix" >
+											        	<c:forEach items="${lstMatch}" var="match">
+												            <div class="sr-box" >
+												                <div class="up">
+												                    <p class="date"><fmt:formatDate value="${match.match_date}" pattern="MM-dd HH:mm"/> ${match.match_weekday}</p>
+												                    <p class="team a-title"><a href="team-${match.home_team_en_name}-${match.home_team_id}.html" target="_blank" class="link-333333 ml35"><img src="${match.home_team_img}" height="20" width="20" alt="${match.home_team_name}">&nbsp;${match.home_team_name}</a></p>
+								 				                    <c:if test="${match.status!='完场'}">
+									 				                    <p class="time a-title" title="直播"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank" ><img src="assets/image/page/vs.png" style="width:20px;"/></a></p>
+								 				                    </c:if>
+								 				                    <c:if test="${match.status=='完场'}">
+								 				                    	<p class="time a-title" title="集锦"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank" style="color:red;">${match.result}</a></p>
+								 				                    </c:if>
+												                    
+												                    <p class="team_away a-title"><a href="team-${match.away_team_en_name}-${match.away_team_id}.html" target="_blank" class="link-333333 ml35"><img src="${match.away_team_img}" height="20" width="20" alt="${match.away_team_name}">&nbsp;${match.away_team_name}</a></p>
+												                </div>
+												            </div>
+											        	</c:forEach>
+											        
+											        </div>
+											    </div>
+											</div>
+										</div>
+								</div>
+						
+								<div class="tab-pane fade" id="team_rank">
 										<table class="table table-hover" style="border:1px solid #dddddd;border-top:none;">
 										  <thead>
 										  	<tr >
@@ -386,113 +426,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 													  </tbody>
 													</table>
 								</div>
-								<div class="tab-pane fade" id="match_rank" style="border:1px solid #ddd;border-top:none;padding-bottom:8px;">
-									<div class="schedule-nav" >
-										    <div class="sn-list">
-										        <ul class="udv-clearfix" style="margin-left:-15px;">
-										            
-										            <li data-round="0">1</li>
-										            
-										            <li data-round="1">2</li>
-										            
-										            <li data-round="2">3</li>
-										            
-										            <li data-round="3">4</li>
-										            
-										            <li data-round="4">5</li>
-										            
-										            <li data-round="5" class="current" title="第6轮">6</li>
-										            
-										            <li data-round="6">7</li>
-										            
-										            <li data-round="7">8</li>
-										            
-										            <li data-round="8">9</li>
-										            
-										            <li data-round="9">10</li>
-										            
-										            <li data-round="10">11</li>
-										            
-										            <li data-round="11">12</li>
-										            
-										            <li data-round="12">13</li>
-										            
-										            <li data-round="13">14</li>
-										            
-										            <li data-round="14">15</li>
-										            
-										            <li data-round="15">16</li>
-										            
-										            <li data-round="16">17</li>
-										            
-										            <li data-round="17">18</li>
-										            
-										            <li data-round="18">19</li>
-										            
-										            <li data-round="19">20</li>
-										            
-										            <li data-round="20">21</li>
-										            
-										            <li data-round="21">22</li>
-										            
-										            <li data-round="22">23</li>
-										            
-										            <li data-round="23">24</li>
-										            
-										            <li data-round="24">25</li>
-										            
-										            <li data-round="25">26</li>
-										            
-										            <li data-round="26">27</li>
-										            
-										            <li data-round="27">28</li>
-										            
-										            <li data-round="28">29</li>
-										            
-										            <li data-round="29">30</li>
-										            
-										            <li data-round="30">31</li>
-										            
-										            <li data-round="31">32</li>
-										            
-										            <li data-round="32">33</li>
-										            
-										            <li data-round="33">34</li>
-										            
-										            <li data-round="34">35</li>
-										            
-										            <li data-round="35">36</li>
-										            
-										            <li data-round="36">37</li>
-										            
-										            <li data-round="37">38</li>
-										            
-										            <li data-round="37" title="更多比赛">...</li>
-										        </ul>
-										    </div>
-										</div>
-		
-										<div id="roundCtr" style="margin-bottom:5px;margin-left:1%;">
-											<div class="schedule-round">
-											    <div class="sr-ctr">
-											        <div class="sr-ctr-in udv-clearfix" >
-											        	<c:forEach items="${lstMatch}" var="match">
-												            <div class="sr-box" >
-												                <div class="up">
-												                    <p class="date"><fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/> ${match.match_weekday}</p>
-												                    <p class="team a-title"><a href="http://match.sports.sina.com.cn/football/team.php?id=98&amp;l_type=8&amp;dpc=1" target="_blank" class="link-333333 ml35"><img src="${match.home_team_img}" height="20" width="20" alt="${match.home_team_name}">&nbsp;${match.home_team_name}</a></p>
-								 				                    <p class="time a-title" title="直播"><a href="http://www.baidu.com" target="_blank" style="color:#aaa;"><fmt:formatDate value="${match.match_date}" pattern="HH:mm"/></a></p>
-												                    <p class="team_away a-title"><a href="http://match.sports.sina.com.cn/football/team.php?id=66&amp;l_type=8&amp;dpc=1" target="_blank" class="link-333333 ml35"><img src="${match.away_team_img}" height="20" width="20" alt="${match.away_team_name}">&nbsp;${match.away_team_name}</a></p>
-												                </div>
-												            </div>
-											        	</c:forEach>
-											        
-											        </div>
-											    </div>
-											</div>
-										</div>
-		
-								</div>
+								
 						</div>
 							
 					</div>
