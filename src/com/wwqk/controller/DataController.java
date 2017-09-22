@@ -53,7 +53,7 @@ public class DataController extends Controller {
 			currentRound = source.get("current_round");
 		}
 		List<LeagueMatchHistory> lstMatch = LeagueMatchHistory.dao.find(
-				"select * from league_match_history where league_id = ? and year = ? and round = ? order by match_date desc",leagueId,source.get("year"),currentRound);
+				"select * from league_match_history where league_id = ? and year = ? and round = ? order by match_date asc",leagueId,source.get("year"),currentRound);
 		//查询球队信息
 		List<Team> lstTeam = Team.dao.find("select id,team_img_local from team where league_id = ?", leagueId);
 		Map<String, String> teamMap = new HashMap<String, String>();
@@ -61,8 +61,6 @@ public class DataController extends Controller {
 			teamMap.put(team.getStr("id"), team.getStr("team_img_local"));
 		}
 		for(LeagueMatchHistory match:lstMatch){
-			match.set("status", "完场");
-			match.set("result", "1:2");
 			match.getAttrs().put("home_team_img", teamMap.get(match.getStr("home_team_id")));
 			match.getAttrs().put("away_team_img", teamMap.get(match.getStr("away_team_id")));
 		}

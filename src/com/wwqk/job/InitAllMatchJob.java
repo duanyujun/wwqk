@@ -39,20 +39,25 @@ public class InitAllMatchJob implements Job {
 		//初始化球队名称ID源
 		CommonUtils.initNameIdMap();
 		//使用sina的比赛源
-		initAll(CommonUtils.nameIdMap, CommonUtils.nameENNameMap);
+		try {
+			initAll(CommonUtils.nameIdMap, CommonUtils.nameENNameMap);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		System.err.println("InitAllMatchJob end");
 	}
 	
-	public static void initAll(Map<String, String> nameIdMap, Map<String, String> nameENNameMap){
-		List<MatchSourceSina> lstMatchSources = MatchSourceSina.dao.find("select * from match_source_sina");
+	public static void initAll(Map<String, String> nameIdMap, Map<String, String> nameENNameMap) throws InterruptedException{
+		List<MatchSourceSina> lstMatchSources = MatchSourceSina.dao.find("select * from match_source_sina where league_id != 1");
 		//http://platform.sina.com.cn/sports_all/client_api?_sport_t_=livecast&_sport_a_=matchesByType&callback=jQuery191029773931918148344_1502525791216&app_key=3571367214&type=4&rnd=2&season=2017&_=1502525791219
 		for(MatchSourceSina source:lstMatchSources){
-			List<LeagueMatchHistory> lstNeedInsert = new ArrayList<LeagueMatchHistory>();
-			List<LeagueMatchHistory> lstNeedUpdate = new ArrayList<LeagueMatchHistory>();
-			
 			for(int i=source.getInt("current_round");i<=source.getInt("round_max");i++){
-				System.err.println(i);
+				Thread.sleep(2000);
+				List<LeagueMatchHistory> lstNeedInsert = new ArrayList<LeagueMatchHistory>();
+				List<LeagueMatchHistory> lstNeedUpdate = new ArrayList<LeagueMatchHistory>();
+				System.err.println("league_id："+source.getStr("league_id")+"  round："+i);
 				LeagueMatchHistory historyExist = LeagueMatchHistory.dao.findFirst("select * from league_match_history where league_id =? and year=? and round=? order by match_date desc", source.getStr("league_id"), source.getInt("year"), i);
 				long startMills = System.currentTimeMillis();
 				long endMills = startMills + getRandNum(1, 4);
