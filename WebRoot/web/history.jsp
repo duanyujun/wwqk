@@ -69,7 +69,19 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<table class="table table-condensed table-hover" style="border-bottom:1px solid #dddddd;">
 						  <thead>
 						    <tr>
-						      <th style="width:170px;" colspan="3">比赛时间</th>
+						      <th style="width:170px;" colspan="3">
+							  	 <select id="year" name="year" onchange="setYear(this);">
+							  	 		<c:forEach items="${lstYear}" var="year">
+								  	 		<option value="${year.year}">&nbsp;${year.year_show}&nbsp;</option>
+							  	 		</c:forEach>
+							  	 </select>
+							  	 <select id="round" name="round" onchange="setRound(this);">
+							  	 		<option value="">&nbsp;选择轮次&nbsp;</option>
+							  	 		<c:forEach items="${lstRound}" var="round">
+								  	 		<option value="${round}">&nbsp;第${round}轮&nbsp;</option>
+							  	 		</c:forEach>
+							  	 </select>
+							  </th>
 						      <th style="width:55px;"></th>
 						      <th style="width:150px;"></th>
 						      <th style="width:150px;"></th>
@@ -191,7 +203,37 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	<%@ include file="/common/footer.jsp"%>		
 	</div>
-	<script>
+	<script type="text/javascript">
+	function setYear(obj){
+		var year = obj.value;
+		var round = $("#round").val();
+		goWithParam(year, round);
+	}
+	
+	function setRound(obj){
+		var round = obj.value;
+		var year = $("#year").val();
+		goWithParam(year, round);
+	}
+	
+	function goWithParam(year, round){
+		var filter = '${filter}';
+		if(filter!=''){
+			var lastIdx = filter.lastIndexOf("-");
+			filter = filter.substring(0, lastIdx);
+		}
+		var whereStr = filter;
+		if(round!=''){
+			whereStr += "-r"+round;
+		}
+		if(year!=''){
+ 			whereStr += "-y"+year;
+		}
+		whereStr += "-"+'${finalId}';
+		
+		window.location.href = "/history-"+whereStr+".html";
+	}
+	
 	(function(){
 	    var bp = document.createElement('script');
 	    var curProtocol = window.location.protocol.split(':')[0];
@@ -204,6 +246,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    var s = document.getElementsByTagName("script")[0];
 	    s.parentNode.insertBefore(bp, s);
 	})();
+	
+	
 	</script>
 		
 </body>	

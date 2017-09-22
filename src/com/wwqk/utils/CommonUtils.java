@@ -383,12 +383,9 @@ public class CommonUtils {
 		if(StringUtils.isBlank(param)){
 			return false;
 		}
-		param = param.substring(0, param.lastIndexOf("-"));
-		List values = EnumUtils.getEnumValues(LeagueENEnum.values());
-		for(Object value : values){
-			if((((IEnum)value).getValue()).equals(param)){
-				return true;
-			}
+		param = param.substring(param.lastIndexOf("-")+1);
+		if(Integer.valueOf(param).intValue()<6){
+			return true;
 		}
 		return false;
 	}
