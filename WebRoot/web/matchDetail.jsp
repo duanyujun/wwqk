@@ -71,7 +71,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 		<div class="row visible-sm visible-xs" style="font-size:13px;color:grey;">
 			<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;">
-				【所属联赛】：<span class="a-title" ><a href="data-${leagueENName}-${history.league_id}.html" target="_blank">${leagueName}</a> （第${history.round}轮）</span>
+				【所属联赛】：<span class="a-title" ><a href="data-${leagueENName}-${history.league_id}.html" target="_blank">${leagueName}</a> （第${history.match_round}轮）</span>
 			</div>
 			<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;">
 				【对阵球队】：<span class="a-title"><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank">${homeTeam.name}</a><span style="color:#888" title="排名第${homeTeam.rank}">[ ${homeTeam.rank} ]</span> vs <a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank">${history.away_team_name}</a><span style="color:#888" title="排名第${away_team.rank}">[ ${away_team.rank} ]</span></span>
@@ -408,7 +408,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:70px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-9 col-md-9 col-sm-11 col-xs-11 bread">
-				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/live.html" target="_blank">直播</a>&nbsp;&gt;&nbsp;<span style="font-size:18px;color:#000;">${leagueName} ${history.year_show}赛季 第${history.round}轮 ${homeTeam.name} VS ${history.away_team_name}</span>
+				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/live.html" target="_blank">直播</a>&nbsp;&gt;&nbsp;<span style="font-size:18px;color:#000;">${leagueName} ${history.year_show}赛季 第${history.match_round}轮 ${homeTeam.name} VS ${history.away_team_name}</span>
 			</div>
 		</div>
 	</div>
@@ -421,7 +421,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="well well-lg" style="line-height:2;text-indent:20px;">
 							<div class="row">
 								<div class="col-lg-12 col-md-12 ">
-									【所属联赛】：<span class="a-title" ><a href="data-${leagueENName}-${history.league_id}.html" target="_blank">${leagueName}</a> （第${history.round}轮）</span>
+									【所属联赛】：<span class="a-title" ><a href="data-${leagueENName}-${history.league_id}.html" target="_blank">${leagueName}</a> （第${history.match_round}轮）</span>
 								</div>
 								<div class="col-lg-12 col-md-12 ">
 									【对阵球队】：<span class="a-title" ><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank">${homeTeam.name}</a><span style="color:#888" title="排名第${homeTeam.rank}">[ ${homeTeam.rank} ]</span> vs <a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank">${history.away_team_name}</a><span style="color:#888" title="排名第${awayTeam.rank}">[ ${awayTeam.rank} ]</span></span>

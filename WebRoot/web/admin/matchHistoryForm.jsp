@@ -18,7 +18,7 @@
     <div class="portlet-title">
         <div class="caption font-dark">
             <i class="icon-settings font-dark"></i>
-            <span class="caption-subject bold uppercase"><fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd HH:mm"/>（第${history.round}轮） ${history.home_team_name} vs ${history.away_team_name}</span>
+            <span class="caption-subject bold uppercase"><fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd HH:mm"/>（第${history.match_round}轮） ${history.home_team_name} vs ${history.away_team_name}</span>
         </div>
     </div>
     <div class="portlet-body">

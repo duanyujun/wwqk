@@ -63,7 +63,7 @@ public class MatchHistoryService {
 				obj[2] = history.get("home_team_name");
 				obj[3] = history.get("away_team_name");
 				obj[4] = history.get("status");
-				obj[5] = history.get("round");
+				obj[5] = history.get("match_round");
 				data[i] = obj;
 			}
 		}

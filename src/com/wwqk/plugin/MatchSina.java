@@ -29,7 +29,7 @@ public class MatchSina {
 		for(MatchSourceSina source:lstMatchSources){
 			List<LeagueMatchHistory> lstNeedInsert = new ArrayList<LeagueMatchHistory>();
 			List<LeagueMatchHistory> lstNeedUpdate = new ArrayList<LeagueMatchHistory>();
-			LeagueMatchHistory historyExist = LeagueMatchHistory.dao.findFirst("select * from league_match_history where league_id =? and year=? and round=? order by match_date desc", source.getStr("league_id"), source.getInt("year"), source.get("current_round"));
+			LeagueMatchHistory historyExist = LeagueMatchHistory.dao.findFirst("select * from league_match_history where league_id =? and year=? and match_round=? order by match_date desc", source.getStr("league_id"), source.getInt("year"), source.get("current_round"));
 			long startMills = System.currentTimeMillis();
 			long endMills = startMills + getRandNum(1, 4);
 			String oneRoundUrl = "http://platform.sina.com.cn/sports_all/client_api?_sport_t_=livecast&_sport_a_=matchesByType&callback=jQuery1910"+get17Length()
@@ -63,7 +63,7 @@ public class MatchSina {
 					match.set("league_id", history.getStr("league_id"));
 					match.set("year", history.getInt("year"));
 					match.set("year_show", source.getStr("year_show"));
-					match.set("round", history.getInt("round"));
+					match.set("match_round", history.getInt("match_round"));
 					match.set("status", history.getStr("status"));
 					match.set("livecast_id", history.getStr("livecast_id"));
 					match.set("update_time", new Date());
@@ -111,7 +111,7 @@ public class MatchSina {
 					JSONObject object = (JSONObject)dataArray.get(i);
 					
 					LeagueMatchHistory history = new LeagueMatchHistory();
-					history.set("round", object.getIntValue("Round"));
+					history.set("match_round", object.getIntValue("Round"));
 					history.set("match_date", DateTimeUtils.parseDate(object.getString("date")+" "+object.getString("time"), DateTimeUtils.ISO_DATETIME_NOSEC_FORMAT_ARRAY));
 					history.set("home_team_id", nameIdMap.get(StringUtils.trim(object.getString("Team1"))));
 					history.set("home_team_name", StringUtils.trim(object.getString("Team1")));
@@ -120,7 +120,7 @@ public class MatchSina {
 					history.set("home_team_en_name", nameENNameMap.get(object.getString("Team1")));
 					history.set("away_team_en_name", nameENNameMap.get(object.getString("Team2")));
 					
-					LeagueMatchHistory historyDb = LeagueMatchHistory.dao.findFirst("select * from league_match_history where home_team_id=? and away_team_id=? and round=? and year=?",
+					LeagueMatchHistory historyDb = LeagueMatchHistory.dao.findFirst("select * from league_match_history where home_team_id=? and away_team_id=? and match_round=? and year=?",
 							nameIdMap.get(nameIdMap.get(object.getString("Team1"))), nameIdMap.get(object.getString("Team2")), object.getString("Round"), source.getInt("year"));
 					if(historyDb==null){
 						history.set("status", EnumUtils.getValue(SinaMatchStatusEnum.values(), object.getString("match_status")));

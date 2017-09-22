@@ -72,7 +72,7 @@
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>轮次：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="round" name="round" required value="${match.round}" placeholder="请输入轮次">
+		                  <input type="text" class="form-control" id="match_round" name="match_round" required value="${match.match_round}" placeholder="请输入轮次">
 		              </div>
 		              <div class="col-md-3"><label for="name"></label></div>
 		          </div>

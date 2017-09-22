@@ -55,7 +55,7 @@ public class MatchService {
 			orderSql = " order by status "+sortType;
 			break;
 		case 6:
-			orderSql = " order by round "+sortType;
+			orderSql = " order by match_round "+sortType;
 			break;
 		default:
 			break;
@@ -81,7 +81,7 @@ public class MatchService {
 				obj[3] = history.get("away_team_name");
 				obj[4] = history.get("result");
 				obj[5] = history.get("status");
-				obj[6] = history.get("round");
+				obj[6] = history.get("match_round");
 				data[i] = obj;
 			}
 		}
@@ -155,7 +155,7 @@ public class MatchService {
 		match.set("away_team_name", controller.getPara("away_team_name"));
 		match.set("result", controller.getPara("result"));
 		match.set("status", controller.getPara("status"));
-		match.set("round", controller.getPara("round"));
+		match.set("match_round", controller.getPara("match_round"));
 		match.set("opta_id", controller.getPara("opta_id"));
 		
 		match.update();

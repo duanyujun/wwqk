@@ -34,7 +34,7 @@ public class Match163 {
 			for(int i=1; i<=source.getInt("current_round"); i++){
 				List<LeagueMatchHistory> lstNeedInsert = new ArrayList<LeagueMatchHistory>();
 				List<LeagueMatchHistory> lstNeedUpdate = new ArrayList<LeagueMatchHistory>();
-				LeagueMatchHistory historyExist = LeagueMatchHistory.dao.findFirst("select * from league_match_history where league_id =? and year=? and round=?", source.getStr("league_id"), source.getInt("year"), i);
+				LeagueMatchHistory historyExist = LeagueMatchHistory.dao.findFirst("select * from league_match_history where league_id =? and year=? and match_round=?", source.getStr("league_id"), source.getInt("year"), i);
 				String matchUrl = "http://goal.sports.163.com/"+source.getStr("league_id_163")+"/schedule/team/0_"+i+"_"+source.getInt("year")+".html";
 				if(historyExist==null){
 					Map<String, LeagueMatchHistory> map = getMatchHistory(matchUrl, source, nameIdMap, nameENNameMap);
@@ -68,7 +68,7 @@ public class Match163 {
 					match.set("match_weekday", DateTimeUtils.formatDate2WeekDay(entry.getValue().getDate("match_date")) );
 					match.set("result", entry.getValue().getStr("result"));
 					match.set("league_id", entry.getValue().getStr("league_id"));
-					match.set("round", entry.getValue().getStr("round"));
+					match.set("match_round", entry.getValue().getStr("match_round"));
 					match.set("status", entry.getValue().getStr("status"));
 					match.set("update_time", new Date());
 					lstMatch.add(match);
@@ -108,7 +108,7 @@ public class Match163 {
 					Elements tdElements = element.select("td");
 					if(tdElements.size()>0){
 						LeagueMatchHistory history = new LeagueMatchHistory();
-						history.set("round", tdElements.get(0).text());
+						history.set("match_round", tdElements.get(0).text());
 						history.set("match_date", DateTimeUtils.parseDate(tdElements.get(1).text(), DateTimeUtils.ISO_DATETIME_NOSEC_FORMAT_ARRAY));
 						history.set("home_team_id", nameIdMap.get(tdElements.get(3).text()));
 						history.set("home_team_name", tdElements.get(3).text());
@@ -117,7 +117,7 @@ public class Match163 {
 						history.set("home_team_en_name", nameENNameMap.get(tdElements.get(3).text()));
 						history.set("away_team_en_name", nameENNameMap.get(tdElements.get(5).text()));
 						
-						LeagueMatchHistory historyDb = LeagueMatchHistory.dao.findFirst("select * from league_match_history where home_team_id=? and away_team_id=? and round=? and year=?",
+						LeagueMatchHistory historyDb = LeagueMatchHistory.dao.findFirst("select * from league_match_history where home_team_id=? and away_team_id=? and match_round=? and year=?",
 								nameIdMap.get(tdElements.get(3).text()), nameIdMap.get(tdElements.get(5).text()), tdElements.get(0).text(), source.getInt("year"));
 						if(historyDb==null){
 							history.set("status", tdElements.get(2).text());

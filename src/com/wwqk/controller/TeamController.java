@@ -10,6 +10,7 @@ import com.wwqk.constants.LeagueENEnum;
 import com.wwqk.constants.LeagueEnum;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.LeaguePosition;
+import com.wwqk.model.MatchSourceSina;
 import com.wwqk.model.Player;
 import com.wwqk.model.Team;
 import com.wwqk.utils.CommonUtils;
@@ -50,8 +51,9 @@ public class TeamController extends Controller {
 		}
 		setAttr("team", team);
 		
+		MatchSourceSina source = MatchSourceSina.dao.findFirst("select * from match_source_sina where league_id = ?",team.get("league_id"));
 		//最近五场比赛
-		List<LeagueMatchHistory> lstMatchHistory = LeagueMatchHistory.dao.find("select * from league_match_history where home_team_id = ? or away_team_id = ? order by year desc,round desc,match_date desc limit 0,5 ", teamId, teamId);
+		List<LeagueMatchHistory> lstMatchHistory = LeagueMatchHistory.dao.find("select * from league_match_history where year = ? and match_round <=? and (home_team_id = ? or away_team_id = ?) order by match_round desc limit 0,5 ",source.get("year"),source.get("current_round"), teamId, teamId);
 		setAttr("lstMatchHistory", lstMatchHistory);
 		
 		//衣服是否需要背景色

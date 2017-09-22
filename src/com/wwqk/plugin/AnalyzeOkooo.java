@@ -71,7 +71,7 @@ public class AnalyzeOkooo {
 	}
 	
 	private boolean isCurrentRoundMatchesAllEnd(OddsSource source, int currentRound){
-		List<OddsMatches> lstMatches = OddsMatches.dao.find("select * from odds_matches where league_id = ? and year = ? and round = ? ",
+		List<OddsMatches> lstMatches = OddsMatches.dao.find("select * from odds_matches where league_id = ? and year = ? and match_round = ? ",
 				source.getInt("league_id"), source.getInt("year"), currentRound);
 		if(lstMatches.size()==0){
 			return false;
@@ -113,7 +113,7 @@ public class AnalyzeOkooo {
 			match = new OddsMatches();
 		}
 		match.set("match_time", StringUtils.trim(tds.get(0).text()));
-		match.set("round", StringUtils.trim(tds.get(1).text()));
+		match.set("match_round", StringUtils.trim(tds.get(1).text()));
 		match.set("home_name", StringUtils.trim(tds.get(2).text()));
 		String result = StringUtils.trim(tds.get(3).text());
 		match.set("result", result);

@@ -58,7 +58,7 @@ public class InitAllMatchJob implements Job {
 				List<LeagueMatchHistory> lstNeedInsert = new ArrayList<LeagueMatchHistory>();
 				List<LeagueMatchHistory> lstNeedUpdate = new ArrayList<LeagueMatchHistory>();
 				System.err.println("league_id："+source.getStr("league_id")+"  round："+i);
-				LeagueMatchHistory historyExist = LeagueMatchHistory.dao.findFirst("select * from league_match_history where league_id =? and year=? and round=? order by match_date desc", source.getStr("league_id"), source.getInt("year"), i);
+				LeagueMatchHistory historyExist = LeagueMatchHistory.dao.findFirst("select * from league_match_history where league_id =? and year=? and match_round=? order by match_date desc", source.getStr("league_id"), source.getInt("year"), i);
 				long startMills = System.currentTimeMillis();
 				long endMills = startMills + getRandNum(1, 4);
 				String oneRoundUrl = "http://platform.sina.com.cn/sports_all/client_api?_sport_t_=livecast&_sport_a_=matchesByType&callback=jQuery1910"+get17Length()
@@ -92,7 +92,7 @@ public class InitAllMatchJob implements Job {
 					JSONObject object = (JSONObject)dataArray.get(i);
 					
 					LeagueMatchHistory history = new LeagueMatchHistory();
-					history.set("round", object.getIntValue("Round"));
+					history.set("match_round", object.getIntValue("Round"));
 					history.set("match_date", DateTimeUtils.parseDate(object.getString("date")+" "+object.getString("time"), DateTimeUtils.ISO_DATETIME_NOSEC_FORMAT_ARRAY));
 					history.set("home_team_id", nameIdMap.get(StringUtils.trim(object.getString("Team1"))));
 					history.set("home_team_name", StringUtils.trim(object.getString("Team1")));
@@ -101,7 +101,7 @@ public class InitAllMatchJob implements Job {
 					history.set("home_team_en_name", nameENNameMap.get(object.getString("Team1")));
 					history.set("away_team_en_name", nameENNameMap.get(object.getString("Team2")));
 					
-					LeagueMatchHistory historyDb = LeagueMatchHistory.dao.findFirst("select * from league_match_history where home_team_id=? and away_team_id=? and round=? and year=?",
+					LeagueMatchHistory historyDb = LeagueMatchHistory.dao.findFirst("select * from league_match_history where home_team_id=? and away_team_id=? and match_round=? and year=?",
 							nameIdMap.get(nameIdMap.get(object.getString("Team1"))), nameIdMap.get(object.getString("Team2")), object.getString("Round"), source.getInt("year"));
 					if(historyDb==null){
 						history.set("status", EnumUtils.getValue(SinaMatchStatusEnum.values(), object.getString("match_status")));
