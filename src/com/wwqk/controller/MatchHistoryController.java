@@ -15,86 +15,50 @@ import com.wwqk.utils.PageUtils;
 import com.wwqk.utils.StringUtils;
 
 public class MatchHistoryController extends Controller {
-
+	
 	public void index(){
-		String filter = null;
+		String sourceParam = getPara("id");
+		String id = getPara("id");
+		int pageNumber = getParaToInt("pageNumber", 1);
+		//联赛id
 		String leagueId = null;
 		//获取轮数
 		int currentRound = 0;
 		//赛季
 		int year = 0;
-		String area = "全部";
-		String whereSql = "";
-		String id = getPara("id");
-		String finalId = null;
-		int pageNumber = getParaToInt("pageNumber", 1);
 		if(StringUtils.isNotBlank(id)){
-			String roundStr = CommonUtils.getRealParam("r", id);
-			if(StringUtils.isNotBlank(roundStr)){
-				currentRound = Integer.valueOf(roundStr);
-			}
-			String yearStr = CommonUtils.getRealParam("y", id);
-			if(StringUtils.isNotBlank(yearStr)){
-				year = Integer.valueOf(yearStr);
-			}
 			if(id.contains("-page-")){
 				pageNumber = CommonUtils.getPageNo(id);
 				//去掉pageNo段
 				id = id.replaceAll("-page-\\d+", "");
+				sourceParam = id;
 			}
-			filter = id;
-			boolean isFromLeague = false;
-			//判断是从league还是team来的
-			if(CommonUtils.isFromLeague(id)){
-				isFromLeague = true;
+			String roundStr = CommonUtils.getRealParam("r", id);
+			if(StringUtils.isNotBlank(roundStr)){
+				currentRound = Integer.valueOf(roundStr);
+				sourceParam = sourceParam.replaceAll("-r\\d+", "");
 			}
-			
+			String yearStr = CommonUtils.getRealParam("y", id);
+			if(StringUtils.isNotBlank(yearStr)){
+				year = Integer.valueOf(yearStr);
+				sourceParam = sourceParam.replaceAll("-y\\d+", "");
+			}
 			id = CommonUtils.getRewriteId(id);
-			finalId = id;
-			if(StringUtils.isNotBlank(id)){
-				if(isFromLeague){
-					leagueId = id;
-					whereSql = " and league_id = " + id;
-					if(year!=0){
-						whereSql += " and year = "+year;
-					}
-					if(currentRound!=0){
-						whereSql += " and match_round = "+currentRound;
-					}
-					area = EnumUtils.getValue(LeagueEnum.values(), id);
-					setAttr("leagueId", leagueId);
-				}else{
-					if(year!=0){
-						whereSql += " and year = "+year;
-					}
-					if(currentRound!=0){
-						whereSql += " and match_round = "+currentRound;
-					}
-					whereSql = " and (home_team_id = " + id+" or away_team_id = "+id+")";
-					Team team = Team.dao.findById(id);
-					area = team.getStr("name");
-					leagueId = team.getStr("league_id");
-				}
-			}
-		}else{
-			if(leagueId==null){
-				leagueId = LeagueEnum.YC.getKey();	
-			}
-			finalId = leagueId;
-			whereSql = " and league_id = " + leagueId;
-			setAttr("leagueId", leagueId);
-			filter = EnumUtils.getValue(LeagueENEnum.values(), leagueId)+"-"+leagueId;
 		}
 		
-		setAttr("filter", filter);
-		setAttr("finalId", finalId);
+		boolean isFromLeague = false;
+		//判断是从league还是team来的
+		if(CommonUtils.isFromLeague(id)){
+			isFromLeague = true;
+		}
 		
-		Page<LeagueMatchHistory> matchPage = LeagueMatchHistory.dao.paginate(pageNumber, 50, whereSql);
-		setWinLoseColor(area, matchPage);
-		setAttr("matchPage", matchPage);
-		setAttr("pageUI", PageUtils.calcStartEnd(matchPage));
-		setAttr("area", area);
-		
+		if(StringUtils.isBlank(sourceParam)){
+			sourceParam = LeagueENEnum.YC.getValue();
+		}else{
+			int lastIdx = sourceParam.lastIndexOf("-");
+			sourceParam = sourceParam.substring(0, lastIdx);
+		}
+		setAttr("filter", sourceParam);
 		
 		//赛季
 		List<LeagueMatchHistory> lstYear = LeagueMatchHistory.dao.find("SELECT DISTINCT(year), year_show FROM league_match_history order by year desc");
@@ -105,11 +69,47 @@ public class MatchHistoryController extends Controller {
 		}
 		if(year==0){
 			year = lstYear.get(0).getInt("year");
-			setAttr("year", year);
 		}
-		if(currentRound!=0){
-			setAttr("currentRound", year);
+		setAttr("year", year);
+		setAttr("currentRound", currentRound);
+		
+		String whereSql = "";
+		String area = "全部";
+		if(isFromLeague){
+			leagueId = id;
+			if(StringUtils.isBlank(leagueId)){
+				leagueId = LeagueEnum.YC.getKey();	
+			}
+			whereSql = " and league_id = " + leagueId;
+			if(year!=0){
+				whereSql += " and year = "+year;
+			}
+			if(currentRound!=0){
+				whereSql += " and match_round = "+currentRound;
+			}
+			area = EnumUtils.getValue(LeagueEnum.values(), id);
+			setAttr("leagueId", leagueId);
+			setAttr("id", leagueId);
+		}else{
+			if(year!=0){
+				whereSql += " and year = "+year;
+			}
+			if(currentRound!=0){
+				whereSql += " and match_round = "+currentRound;
+			}
+			whereSql = " and (home_team_id = " + id+" or away_team_id = "+id+")";
+			Team team = Team.dao.findById(id);
+			area = team.getStr("name");
+			leagueId = team.getStr("league_id");
+			setAttr("id", team.get("id"));
 		}
+		setAttr("leagueId", leagueId);
+		
+		Page<LeagueMatchHistory> matchPage = LeagueMatchHistory.dao.paginate(pageNumber, 50, whereSql);
+		setWinLoseColor(area, matchPage);
+		setAttr("lstMatch", matchPage.getList());
+		setAttr("pageUI", PageUtils.calcStartEnd(matchPage));
+		setAttr("area", area);
 		
 		List<String> lstRound = new ArrayList<String>();
 		int maxRound = 38;
@@ -121,11 +121,11 @@ public class MatchHistoryController extends Controller {
 			lstRound.add(String.valueOf(i));
 		}
 		setAttr("lstRound", lstRound);
-		
 		setAttr("lstYear", lstYear);
+		
 		render("history.jsp");
 	}
-	
+
 	private void setWinLoseColor(String area, Page<LeagueMatchHistory> matchPage){
 		for(LeagueMatchHistory match : matchPage.getList()){
 			if(match.getStr("result").contains("-")){

@@ -381,7 +381,7 @@ public class CommonUtils {
 	 */
 	public static final boolean isFromLeague(String param){
 		if(StringUtils.isBlank(param)){
-			return false;
+			return true;
 		}
 		param = param.substring(param.lastIndexOf("-")+1);
 		if(Integer.valueOf(param).intValue()<6){

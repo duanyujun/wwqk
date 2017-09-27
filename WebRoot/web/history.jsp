@@ -37,16 +37,16 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<li class="menu_width"><a href="">首页</a></li>
 					<li class="menu_width"><a href="fun.html">趣点</a></li>
 					<li class="menu_width"><a href="live.html">直播</a></li>
-					<li class="menu_width menu_sel"><a href="bifen.html">比分</a></li>
-					<li class="menu_width"><a href="data.html">数据</a></li>
+					<li class="menu_width"><a href="bifen.html">比分</a></li>
+					<li class="menu_width menu_sel"><a href="data.html">数据</a></li>
 				</ul>
 				<div class="visible-sm visible-xs small-menu">
 					<select id="menuSelect" class="form-control small-select">
 						<option value="">首页</option>
 						<option value="fun.html">趣点</option>
 						<option value="live.html">直播</option>
-						<option selected value="bifen.html">比分</option>
-						<option value="data.html">数据</option>
+						<option value="bifen.html">比分</option>
+						<option selected value="data.html">数据</option>
 					</select>	
 				</div>
 			</div>
@@ -69,18 +69,20 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<table class="table table-condensed table-hover" style="border-bottom:1px solid #dddddd;">
 						  <thead>
 						    <tr>
-						      <th style="width:170px;" colspan="3">
+						      <th style="width:300px;" colspan="3">
+						      	<nobr>
 							  	 <select id="year" name="year" onchange="setYear(this);">
-							  	 		<c:forEach items="${lstYear}" var="year">
-								  	 		<option value="${year.year}">&nbsp;${year.year_show}&nbsp;</option>
+							  	 		<c:forEach items="${lstYear}" var="yearItem">
+								  	 		<option value="${yearItem.year}" ${yearItem.year == year?'selected':''}>&nbsp;${yearItem.year_show}&nbsp;</option>
 							  	 		</c:forEach>
 							  	 </select>
 							  	 <select id="round" name="round" onchange="setRound(this);">
 							  	 		<option value="">&nbsp;选择轮次&nbsp;</option>
 							  	 		<c:forEach items="${lstRound}" var="round">
-								  	 		<option value="${round}">&nbsp;第${round}轮&nbsp;</option>
+								  	 		<option value="${round}" ${round==currentRound?'selected':''}>&nbsp;第${round}轮&nbsp;</option>
 							  	 		</c:forEach>
 							  	 </select>
+							  	 </nobr>
 							  </th>
 						      <th style="width:55px;"></th>
 						      <th style="width:150px;"></th>
@@ -90,7 +92,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						    </tr>
 						  </thead>
 						  <tbody>
-						  	<c:forEach items="${matchPage.list}" var="match">
+						  	<c:forEach items="${lstMatch}" var="match">
 						    <tr>
 						      <td style="width:80px;"><fmt:formatDate value="${match.match_date}" pattern="yyyy-MM-dd"/></td>
 						      <td style="width:35px;"><b>${match.match_weekday}</b></td>
@@ -217,21 +219,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	}
 	
 	function goWithParam(year, round){
-		var filter = '${filter}';
-		if(filter!=''){
-			var lastIdx = filter.lastIndexOf("-");
-			filter = filter.substring(0, lastIdx);
-		}
-		var whereStr = filter;
+		var roundStr = '';
 		if(round!=''){
-			whereStr += "-r"+round;
+			roundStr = "-r"+round;
 		}
-		if(year!=''){
- 			whereStr += "-y"+year;
-		}
-		whereStr += "-"+'${finalId}';
-		
-		window.location.href = "/history-"+whereStr+".html";
+		var filter = '${filter}'+'-y'+year+roundStr+'-${id}';
+		window.location.href = "/history-"+filter+".html";
 	}
 	
 	(function(){
