@@ -107,7 +107,7 @@ public class MatchHistoryController extends Controller {
 		
 		Page<LeagueMatchHistory> matchPage = LeagueMatchHistory.dao.paginate(pageNumber, 50, whereSql);
 		setWinLoseColor(area, matchPage);
-		setAttr("lstMatch", matchPage.getList());
+		setAttr("matchPage", matchPage);
 		setAttr("pageUI", PageUtils.calcStartEnd(matchPage));
 		setAttr("area", area);
 		
