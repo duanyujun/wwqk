@@ -100,7 +100,7 @@ public class MatchHistoryController extends Controller {
 			if(currentRound!=0){
 				whereSql += " and match_round = "+currentRound;
 			}
-			whereSql = " and (home_team_id = " + id+" or away_team_id = "+id+")";
+			whereSql += " and (home_team_id = " + id+" or away_team_id = "+id+")";
 			area = team.getStr("name");
 			setAttr("id", team.get("id"));
 		}
