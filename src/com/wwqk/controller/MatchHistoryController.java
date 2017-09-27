@@ -91,6 +91,9 @@ public class MatchHistoryController extends Controller {
 			setAttr("leagueId", leagueId);
 			setAttr("id", leagueId);
 		}else{
+			Team team = Team.dao.findById(id);
+			leagueId = team.getStr("league_id");
+			whereSql = " and league_id = " + leagueId;
 			if(year!=0){
 				whereSql += " and year = "+year;
 			}
@@ -98,9 +101,7 @@ public class MatchHistoryController extends Controller {
 				whereSql += " and match_round = "+currentRound;
 			}
 			whereSql = " and (home_team_id = " + id+" or away_team_id = "+id+")";
-			Team team = Team.dao.findById(id);
 			area = team.getStr("name");
-			leagueId = team.getStr("league_id");
 			setAttr("id", team.get("id"));
 		}
 		setAttr("leagueId", leagueId);
