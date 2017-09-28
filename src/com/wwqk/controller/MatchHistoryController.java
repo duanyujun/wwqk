@@ -106,7 +106,11 @@ public class MatchHistoryController extends Controller {
 		}
 		setAttr("leagueId", leagueId);
 		
-		Page<LeagueMatchHistory> matchPage = LeagueMatchHistory.dao.paginate(pageNumber, 50, whereSql);
+		int pageSize = 50;
+		if(LeagueEnum.DJ.getKey().equals(leagueId)){
+			pageSize = 54;
+		}
+		Page<LeagueMatchHistory> matchPage = LeagueMatchHistory.dao.paginate(pageNumber, pageSize, whereSql);
 		setWinLoseColor(area, matchPage);
 		setAttr("matchPage", matchPage);
 		setAttr("pageUI", PageUtils.calcStartEnd(matchPage));
