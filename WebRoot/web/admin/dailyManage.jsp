@@ -108,7 +108,7 @@
                     </button>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;">
-                	<div style="width:300px;min-height:100px;" id="result_div"></div>
+                	<div style="width:100%;min-height:100px;" id="result_div"></div>
                 </div>
             </div>
             

@@ -82,7 +82,7 @@ public class MatchesStaticGenerator {
 			  .append(drawCount).append("平<span class='red_result'>").append(loseCount).append("</span>负。场均进")
 			  .append(evenGoalCount).append("球，丢").append(evenLoseGoalCount).append("球<br>");
 		}else{
-			sb.append("客队(联赛客场）：近").append(lstMatches.size()).append("场比赛，<span class='red_result'>").append(winCount).append("</span>赢")
+			sb.append("客队（联赛客场）：近").append(lstMatches.size()).append("场比赛，<span class='red_result'>").append(winCount).append("</span>赢")
 			  .append(drawCount).append("平<span class='red_result'>").append(loseCount).append("</span>负。场均进")
 			  .append(evenGoalCount).append("球，丢").append(evenLoseGoalCount).append("球<br>");
 		}
