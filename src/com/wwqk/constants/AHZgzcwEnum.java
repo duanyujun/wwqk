@@ -18,6 +18,8 @@ public enum AHZgzcwEnum implements IEnum{
 	SQ("13", "三球"), 
 	SSB("14", "三/三半"), 
 	SB("15", "三半"), 
+	SBSQ("16","三半/四"),
+	SIQ("17","四球"),
 	
 	MPSBQ("102", "受平/半"),
 	MBQ("103", "受半球"),

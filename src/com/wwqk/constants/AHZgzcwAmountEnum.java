@@ -2,7 +2,7 @@ package com.wwqk.constants;
 
 import com.wwqk.utils.IEnum;
 
-public enum AHAmountEnum implements IEnum{
+public enum AHZgzcwAmountEnum implements IEnum{
 	PS("1", "0"), 
 	PSBQ("2", "-0.25"),
 	BQ("3", "-0.5"),
@@ -16,6 +16,10 @@ public enum AHAmountEnum implements IEnum{
 	LQB("11", "-2.5"),
 	LQSQ("12", "-2.75"),
 	SQ("13", "-3"), 
+	SSB("14", "-3.25"), 
+	SB("15", "-3.5"), 
+	SBSQ("16","-3.75"),
+	SIQ("17","-4"),
 	
 	MPSBQ("102", "0.25"),
 	MBQ("103", "0.5"),
@@ -29,6 +33,8 @@ public enum AHAmountEnum implements IEnum{
 	MLQB("111", "2.5"),
 	MLQSQ("112", "2.75"),
 	MSQ("113", "3"),
+	MSSB("114", "3.25"),
+	MSB("115", "3.5"), 
 	
 	OTHERS("1000","其他");
 	
@@ -38,7 +44,7 @@ public enum AHAmountEnum implements IEnum{
 	/** 值 */
 	private String value;
 	
-	private AHAmountEnum(String key, String value) {
+	private AHZgzcwAmountEnum(String key, String value) {
 		this.key = key;
 		this.value = value;	
 	}
