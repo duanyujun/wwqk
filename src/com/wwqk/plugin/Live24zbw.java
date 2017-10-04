@@ -74,7 +74,7 @@ public class Live24zbw {
 							}
 							
 							String leagueName = element.select(".match-competition").get(0).text();
-							if(leagueName.contains("抽签")){
+							if(leagueName.contains("抽签") || StringUtils.isBlank(leagueName)){
 								continue;
 							}
 							

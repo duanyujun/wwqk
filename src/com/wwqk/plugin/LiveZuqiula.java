@@ -83,7 +83,9 @@ public class LiveZuqiula {
 						continue;
 					}
 					if(teamName.contains(" ")){
-						leagueName = StringUtils.trim(teamName.substring(0, teamName.indexOf(" ")));
+						if(!(teamName.contains("第") && teamName.contains("轮"))){
+							leagueName = StringUtils.trim(teamName.substring(0, teamName.indexOf(" ")));
+						}
 						teamName = StringUtils.trim(teamName.substring(teamName.indexOf(" ")+1));
 					}
 					String homeTeamName = teamName.split("vs")[0];
