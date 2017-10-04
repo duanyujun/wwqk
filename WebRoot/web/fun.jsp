@@ -131,12 +131,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:5px;">
 							<div class="mob-author">
-	                                <div class="author-face">
-				                       	<img src="assets/image/page/logo-small.png">	
-		                            </div>
-		                            
-		                            <span class="mob-author-a">
-		                                <span class="author-name">趣点足球网</span>
+	                               
+		                            <span class="mob-author-a" style="margin-left:0;">
+		                            	<c:if test="${empty fun.source_name}">
+		                            		<span class="author-name">趣点足球网</span>
+		                            	</c:if>
+		                                <c:if test="${!empty fun.source_name}">
+		                            		<span class="author-name">${fun.source_name}</span>
+		                            	</c:if>
 		                            </span>
 		                            <span class="author-name">
 										&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>

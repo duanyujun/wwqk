@@ -70,18 +70,16 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</c:if>
 			    	<div class="col-sm-12 col-xs-12" style="padding-left:8px;">
 		   					<div class="mob-author">
-		                               <div class="author-face">
-				                        <c:if test="${fun.type==1}">
-											<img src="assets/image/page/logo-small.png">
-										</c:if>
-										<c:if test="${fun.type==2}">
+		   					
+		   							<c:if test="${fun.type==2}">
+			                            <div class="author-face">
 											<a href="player-${fun.player_name_en}-${fun.player_id}.html" target="_self"><img src="${fun.player_image}"></a>
-										</c:if>
-		                            </div>
+			                            </div>
+		                            </c:if>
 		                            
 		                            <c:if test="${fun.type==1}">
-										<a href="fun.html" target="_blank" class="mob-author-a">
-			                                <span class="author-name">趣点足球网</span>
+										<a href="${(empty fun.source_name)?'fun.html':fun.source_url}" target="_blank" class="mob-author-a" >
+			                                <span class="author-name" style="margin-left:0;">${(empty fun.source_name)?'趣点足球网':fun.source_name}</span>
 			                            </a>
 			                            <span class="author-name">
 											&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>
@@ -158,18 +156,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						</div>
 						<div class="col-lg-12 col-md-12" style="margin-top:5px;">
 							<div class="mob-author">
-	                                <div class="author-face">
-				                        <c:if test="${fun.type==1}">
-											<img src="assets/image/page/logo-small.png">
-										</c:if>
-										<c:if test="${fun.type==2}">
-											<a href="player-${fun.player_name_en}-${fun.player_id}.html" target="_blank"><img src="${fun.player_image}"></a>
-										</c:if>
-		                            </div>
+									<c:if test="${fun.type==2}">
+		                                <div class="author-face">
+					                        <a href="player-${fun.player_name_en}-${fun.player_id}.html" target="_blank"><img src="${fun.player_image}"></a>
+			                            </div>
+		                            </c:if>
 		                            
 		                            <c:if test="${fun.type==1}">
-										<a href="fun.html" target="_blank" class="mob-author-a">
-			                                <span class="author-name">趣点足球网</span>
+			                            <a href="${(empty fun.source_name)?'fun.html':fun.source_url}" target="_blank" class="mob-author-a" style="margin-left:0;">
+			                                <span class="author-name" style="margin-left:0;">${(empty fun.source_name)?'趣点足球网':fun.source_name}</span>
 			                            </a>
 			                            <span class="author-name">
 											&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>
