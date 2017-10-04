@@ -319,7 +319,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  <tbody>
 						  	<c:forEach items="${lstNews}" var="news">
 							    <tr>
-							      	<td class="text_cut" style="width:285px;height:25px;line-height:25px;color:#aaa;">${new.title}</td>
+							      	<td class="text_cut a-title" style="width:285px;height:25px;line-height:25px;color:#aaa;" title="<fmt:formatDate value="${news.create_time}" pattern="yyyy-MM-dd"/> ${news.title}"><a target="_blank" href="/fdetail-<fmt:formatDate value="${news.create_time}" pattern="yyyy-MM-dd"/>-${news.title_en}-${news.id}.html"><fmt:formatDate value="${news.create_time}" pattern="MM/dd"/> ${news.title}</a></td>
 							    </tr>
 						     </c:forEach>
 						  </tbody>

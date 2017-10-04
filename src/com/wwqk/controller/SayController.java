@@ -71,7 +71,7 @@ public class SayController extends Controller {
 		setAttr("lstTransfer", lstTransfer);
 		
 		//最近的新闻
-		List<Fun> lstNews = Fun.dao.find("select id, title from fun where type = 1 and player_id = ? order by create_time desc", playerId);
+		List<Fun> lstNews = Fun.dao.find("select id, title, create_time, title_en from fun where type = 1 and player_id = ? order by create_time desc", playerId);
 		setAttr("lstNews", lstNews);
 		
 		render("sayList.jsp");
