@@ -22,6 +22,8 @@ import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
+import com.sun.java.swing.plaf.windows.resources.windows;
+import com.wwqk.constants.AHZgzcwAmountEnum;
 import com.wwqk.constants.AHZgzcwEnum;
 import com.wwqk.constants.ZgzcwAHProviderEnum;
 import com.wwqk.constants.ZgzcwProviderEnum;
@@ -43,6 +45,7 @@ public class AnalyzeZgzcw {
 	private Map<String, String> ahNameKeyMap = new HashMap<String, String>();
 	private Map<String, String> providerMap = new HashMap<String, String>();
 	private Map<String, String> ahProviderMap = new HashMap<String, String>();
+	private Map<String, String> ahAmountEnumMap = new HashMap<String, String>();
 	private Pattern matchIdPattern = Pattern.compile("fenxi.zgzcw.com/(\\d+)/ypdb");
 	private static AnalyzeZgzcw instance = null;
 	
@@ -65,6 +68,7 @@ public class AnalyzeZgzcw {
 		 for(ZgzcwAHProviderEnum enumObj:ZgzcwAHProviderEnum.values()){
 			 ahProviderMap.put(enumObj.getKey(), enumObj.getValue()) ;
 		 }
+		 
 		 CommonUtils.initNameIdMap();
 	}
 	
@@ -397,6 +401,10 @@ public class AnalyzeZgzcw {
 			return sb.toString();
 		}
 		
+		for(AHZgzcwAmountEnum enumObj:AHZgzcwAmountEnum.values()){
+			 ahAmountEnumMap.put(enumObj.getKey(), enumObj.getValue());
+		}
+		
 		//1、主队主场战斗力（近15场比赛）：胜平负各多少，半场胜平负，	场均进球丢球数量
 		List<OddsMatches> lstHomeMatches = OddsMatches.dao.find("select * from odds_matches where home_id = ? and result !=? order by match_time desc limit 0,15",
 				homeId, "-:-");
@@ -417,7 +425,44 @@ public class AnalyzeZgzcw {
 				awayId, "-:-");
 		sb.append(MatchesStaticGenerator.process(lstAwayMatches5, false));
 		
+		//主队亚盘
+		sb.append(MatchesStaticGenerator.processAH(lstHomeMatches, true, ahAmountEnumMap));
 		
+		//客队亚盘
+		sb.append(MatchesStaticGenerator.processAH(lstAwayMatches, false, ahAmountEnumMap));
+		
+		//该场比赛亚盘大小
+		OddsMatches currentMatches = OddsMatches.dao.findFirst("select * from odds_matches where home_id = ? and away_id = ? order by match_time desc", homeId,awayId);
+		String matchId = currentMatches.getStr("match_id");
+		OddsAH oddsAH = OddsAH.dao.findFirst("select * from odds_ah where match_id = ? and pid= 1", matchId);
+		if(oddsAH!=null){
+			String startAHAmount = oddsAH.getStr("start_ah_amount_enum");
+			int allSameAH = 0;
+			int winSameAH = 0;
+			int drawSameAh = 0;
+			int loseSameAH = 0;
+			List<OddsMatches> lstAllHome = OddsMatches.dao.find("select * from odds_matches where home_id = ? and result !=?",
+					homeId, "-:-");
+			for(OddsMatches matches : lstAllHome){
+				OddsAH oneMatch = OddsAH.dao.findFirst("select * from odds_ah where match_id = ? and pid = 1 ", matches.getStr("match_id"));
+				if(oneMatch!=null && oneMatch.getStr("end_ah_amount_enum").equals(startAHAmount)){
+					allSameAH++;
+					BigDecimal homeScore = new BigDecimal(matches.getInt("home_score"));
+					BigDecimal awayScore = new BigDecimal(matches.getInt("away_score"));
+					BigDecimal endAhAmount = new BigDecimal(ahAmountEnumMap.get(oneMatch.getStr("end_ah_amount_enum")));
+					homeScore = homeScore.add(endAhAmount);
+					if(homeScore.compareTo(awayScore)==1){
+						winSameAH++;
+					}else if(homeScore.compareTo(awayScore)==0){
+						drawSameAh++;
+					}else{
+						loseSameAH++;
+					}
+				}
+			}
+			sb.append("亚盘初赔为").append(EnumUtils.getValue(AHZgzcwEnum.values(), oddsAH.getStr("start_ah_amount_enum")))
+			.append("，相同终盘情况下主队赢盘情况：").append(winSameAH).append("赢").append(drawSameAh).append("走").append(loseSameAH).append("输<br>");
+		}
 		
 		return sb.toString();
 	}
