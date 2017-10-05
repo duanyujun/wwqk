@@ -87,11 +87,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						暂无
 					</c:if>
 					<c:if test="${!empty lstMatchLive}">
-						<span class="a-title" >
-						<c:forEach items="${lstMatchLive}" var="live">
-							<i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;	
-						</c:forEach>
-						</span>
+							<span class="a-title" >
+								<c:forEach items="${lstMatchLive}" var="live">
+									<i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;	
+								</c:forEach>
+							</span>
 					</c:if>
 			</div>
 			<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;" title="<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/> ${match.home_team_name} vs ${match.away_team_name} 统计">
@@ -125,36 +125,48 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="well well-lg" style="line-height:2;text-indent:20px;">
 							<div class="row">
 								<div class="col-lg-12 col-md-12 ">
-									【所属联赛】：${match.league_name}
+									<table>
+										<tr>
+											<td style="width:120px;">【所属联赛】：</td>
+											<td>${match.league_name}</td>
+										</tr>
+										<tr>
+											<td>【对阵球队】：</td>
+											<td>${match.home_team_name} vs ${match.away_team_name}</td>
+										</tr>
+										<tr>
+											<td>【赛事时间】：</td>
+											<td><fmt:formatDate value="${match.match_datetime}" pattern="yyyy年MM月dd日  HH:mm"/> ${match.weekday}</td>
+										</tr>
+										<tr>
+											<td>【现场比分】：</td>
+											<td><span class="a-title"><a href="/bifen.html" target="_blank">比分直播</a></span></td>
+										</tr>
+										<c:if test="${!empty match.info and match.info!=''}">
+										<tr>
+											<td>【比赛情报】：</td>
+											<td>${match.info}</td>
+										</tr>
+										</c:if>
+										<tr>
+											<td>【直播地址】：</td>
+											<td style="text-indent:0px;">
+												<c:if test="${empty lstMatchLive}">
+													暂无
+												</c:if>
+												<c:if test="${!empty lstMatchLive}">
+														<span class="a-title" >
+															<c:forEach items="${lstMatchLive}" var="live">
+																<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;</nobr>
+															</c:forEach>
+														</span>
+												</c:if>
+											</td>
+										</tr>
+										
+									</table>
 								</div>
-								<div class="col-lg-12 col-md-12 ">
-									【对阵球队】：${match.home_team_name} vs ${match.away_team_name}
-								</div>
-								<div class="col-lg-12 col-md-12 ">
-									【赛事时间】：<fmt:formatDate value="${match.match_datetime}" pattern="yyyy年MM月dd日  HH:mm"/> ${match.weekday}
-								</div>
-								
-								<div class="col-lg-12 col-md-12 ">
-									【直播地址】：
-									<c:if test="${empty lstMatchLive}">
-										暂无
-									</c:if>
-									<c:if test="${!empty lstMatchLive}">
-										<span class="a-title" >
-											<c:forEach items="${lstMatchLive}" var="live"><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;	
-										</c:forEach>
-										</span>
-									</c:if>
-								</div>
-								<div class="col-lg-12 col-md-12 "  title="<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/> ${match.home_team_name} vs ${match.away_team_name} 情报">
-									【比分】：<span class="a-title"><a href="/bifen.html" target="_blank">比分直播</a></span>
-								</div>
-								<c:if test="${!empty match.info and match.info!=''}">
-									   <div class="col-lg-12 col-md-12 " style="" title="<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/> ${match.home_team_name} vs ${match.away_team_name} 情报">
-											【情报】：${match.info}
-										</div>
-								</c:if>
-							</div>
+						 </div>
 							
 						</div>
 					</div>
