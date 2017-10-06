@@ -227,6 +227,20 @@ public class MatchUtils {
 	       return header;
 	}
 	
+	public static Map<String, String> get7MHeader(){
+		   Map<String, String> header = new HashMap<String, String>();  
+	       header.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+	       header.put("Accept-Encoding", "gzip, deflate");  
+	       header.put("Accept-Language", "zh-CN,zh;q=0.8,en;q=0.6");
+	       header.put("Host", "report.7m.cn");
+	       header.put("Cache-Control", "no-cache");
+	       header.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36");
+	       //header.put("Referer", "http://news.7m.cn/report/index_gb.shtml");  
+	       header.put("Connection", "keep-alive"); 
+	       header.put("Pragma", "no-cache"); 
+	       
+	       return header;
+	}
 	
 	public static String getZgzcwHtmlContent(HttpClient httpclient, String refererUrl, String url){
 		HttpGet httpget = new HttpGet(url);
