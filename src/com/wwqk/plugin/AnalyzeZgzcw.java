@@ -22,7 +22,6 @@ import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
-import com.sun.java.swing.plaf.windows.resources.windows;
 import com.wwqk.constants.AHZgzcwAmountEnum;
 import com.wwqk.constants.AHZgzcwEnum;
 import com.wwqk.constants.ZgzcwAHProviderEnum;
