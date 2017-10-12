@@ -9,7 +9,7 @@
 					<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261131271'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1261131271%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
 				</div>
 				<div class="col-lg-12 col-md-12" style="margin-top:10px;">
-					Copyright © 趣点足球网   粤ICP备16048166号-4
+					Copyright © 趣点足球网   <a href="http://www.miitbeian.gov.cn" target="_blank" style="color:white;">粤ICP备16048166号-4</a>
 				</div>
 				<div class="col-lg-12 col-md-12 hidden-sm hidden-xs" style="margin-top:10px;color:#222;">
 					免责声明：本网站内容来源于互联网，如有侵权，请联系QQ：920841228
