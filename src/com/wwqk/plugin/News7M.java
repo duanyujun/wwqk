@@ -2,7 +2,6 @@ package com.wwqk.plugin;
 
 import java.io.IOException;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -38,7 +37,15 @@ public class News7M {
 			for(int i=0; i<jsonArray.size(); i++){
 				long startMills = System.currentTimeMillis();
 				JSONObject jsonObject = (JSONObject)jsonArray.get(i);
+				
 				String matchId = jsonObject.getString("GameId");
+				String leagueName = jsonObject.getString("GameId");
+				String homeName = jsonObject.getString("HomeName");
+				String awayName = jsonObject.getString("AwayName");
+				String predictionDesc = jsonObject.getString("PredictionDesc");
+				
+				
+				
 				connect = Jsoup.connect(MATCH_URL+matchId+".js?"+startMills+"&_="+(startMills-400)).ignoreContentType(true);
 				data = connect.data(MatchUtils.get7MMatchHeader(matchId));
 				String gameEventStr = data.get().text();
