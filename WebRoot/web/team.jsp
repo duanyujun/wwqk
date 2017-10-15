@@ -341,12 +341,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									<table class="table" style="border:1px solid #dddddd;">
 									  <caption style="min-height:30px;text-align:left;"><b style="margin-left:10px;">联赛排名</b></caption>
 									  <thead>
-									    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
-									      <th>排名</th>
-									      <th>球队</th>
-									      <th>场次</th>
-									      <th>净胜球</th>
-									      <th>积分</th>
+									    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;font-size:12px;">
+									      <th><nobr>排名</nobr></th>
+									      <th><nobr>球队</nobr></th>
+									      <th><nobr>场次</nobr></th>
+									      <th><nobr>净胜球</nobr></th>
+									      <th><nobr>积分</nobr></th>
 									    </tr>
 									  </thead>
 									  <tbody>
