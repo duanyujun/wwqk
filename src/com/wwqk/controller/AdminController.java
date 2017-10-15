@@ -38,6 +38,7 @@ import com.wwqk.plugin.Live24zbw;
 import com.wwqk.plugin.Live5chajian;
 import com.wwqk.plugin.LiveZuqiula;
 import com.wwqk.plugin.MatchSina;
+import com.wwqk.plugin.News7M;
 import com.wwqk.plugin.OddsUtils;
 import com.wwqk.plugin.PlayerInfoPlugin;
 import com.wwqk.plugin.ShooterAssister163;
@@ -683,6 +684,12 @@ public class AdminController extends Controller {
 			PlayerInfoPlugin.updateTransfer(httpClient, player);
 			httpClient.getConnectionManager().shutdown();
 		}
+		renderJson(1);
+	}
+	
+	//更新情报
+	public void updateMatchNews(){
+		News7M.crawl();
 		renderJson(1);
 	}
 }

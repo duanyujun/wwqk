@@ -87,9 +87,14 @@
             </div>
             
             <div class="row" style="margin-top:20px;">
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="col-md-6 col-sm-12 col-xs-12">
                     <input type="text" id="playerId" maxlength="20" placeholder="球员Id" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" />
                     <button onclick="updatePlayerTransfer();" class="btn sbold green" style="margin-left:10px;"> 更新球员转会
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <button onclick="updateMatchNews();" class="btn sbold green" style="margin-left:10px;"> 更新情报
                         <i class="fa fa-refresh"></i>
                     </button>
                 </div>
@@ -283,6 +288,17 @@ function updatePlayerTransfer(){
 				}
 	);
 	
+}
+
+function updateMatchNews(){
+	$("body").showLoading();
+	showToast(1, "更新中...", "温馨提示");
+	$.post("/admin/updateMatchNews",
+				function(result){
+					$("body").hideLoading();
+					showToast(1, "更新成功！", "温馨提示");
+				}
+	);
 }
 
 </script>

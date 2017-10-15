@@ -68,7 +68,6 @@ import com.wwqk.model.ShooterAssistsSource;
 import com.wwqk.model.Team;
 import com.wwqk.model.TipsAll;
 import com.wwqk.model.TipsMatch;
-import com.wwqk.model.TipsInjury;
 import com.wwqk.model.Transfer;
 import com.wwqk.model.Trophy;
 import com.wwqk.model.Users;
@@ -160,14 +159,10 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("odds_matches", OddsMatches.class);
 		arp.addMapping("odds_euro", OddsEuro.class);
 		arp.addMapping("odds_ah", OddsAH.class);
-		
 		arp.addMapping("all_live_match", AllLiveMatch.class);
-		
 		arp.addMapping("article", Article.class);
 		arp.addMapping("tips_match", TipsMatch.class);
 		arp.addMapping("tips_all", TipsAll.class);
-		arp.addMapping("tips_injury", TipsInjury.class);
-		
 		
 		me.add(c3p0Plugin);
 		me.add(arp);
