@@ -59,6 +59,7 @@ import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.GeneratorUtils;
 import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.StringUtils;
+import com.wwqk.utils.TranslateUtils;
 
 public class AdminController extends Controller {
 	
@@ -690,6 +691,7 @@ public class AdminController extends Controller {
 	//更新情报
 	public void updateMatchNews(){
 		News7M.crawl();
+		TranslateUtils.translate();
 		renderJson(1);
 	}
 }
