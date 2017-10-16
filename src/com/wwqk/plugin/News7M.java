@@ -46,7 +46,7 @@ public class News7M {
 			for(int i=0; i<jsonArray.size(); i++){
 				JSONObject jsonObject = (JSONObject)jsonArray.get(i);
 				saveOneMatchAndNews(jsonObject);
-				Thread.sleep(200);
+				Thread.sleep(100);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
