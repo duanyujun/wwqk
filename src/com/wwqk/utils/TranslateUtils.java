@@ -33,6 +33,13 @@ public class TranslateUtils {
 		if(existLiveMatch!=null){
 			match.set("live_match_id", existLiveMatch.get("id"));
 			match.set("match_key", existLiveMatch.get("match_key"));
+			match.set("home_team_id", existLiveMatch.get("home_team_id"));
+			match.set("away_team_id", existLiveMatch.get("away_team_id"));
+			match.set("home_team_enname", existLiveMatch.get("home_team_enname"));
+			match.set("away_team_enname", existLiveMatch.get("away_team_enname"));
+			match.set("year_show", existLiveMatch.get("year_show"));
+			match.set("home_team_img", existLiveMatch.get("home_team_img"));
+			match.set("away_team_img", existLiveMatch.get("away_team_img"));
 			List<TipsAll> lstTipsAll = TipsAll.dao.find("select * from tips_all where game_id = ?", match.getStr("game_id"));
 			for(TipsAll tipsAll : lstTipsAll){
 				tipsAll.set("live_match_id", existLiveMatch.get("id"));

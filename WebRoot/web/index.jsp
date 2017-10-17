@@ -329,7 +329,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		if(jsonObj.length!=0){
 			//消息提示
 			showMsg();
-			setInterval("showMsg()",12000); 
+			setInterval("showMsg()",15000); 
 		}
 	});
 	
@@ -339,13 +339,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		var homeName = jsonObj[i].attrs.home_name; 
 		var awayName = jsonObj[i].attrs.away_name; 
 		var predictionDesc = jsonObj[i].attrs.prediction_desc; 
+		var predictionAll = jsonObj[i].attrs.prediction_all;
 		Lobibox.notify(
 				  'success',
 				  {
 					  title: false,   
-					  msg: leagueName+' '+homeName+" vs "+awayName+'<br>'+predictionDesc,  
+					  msg: leagueName+' '+homeName+" vs "+awayName+'<br><span title="'+predictionAll+'">'+predictionDesc+'</span>',  
 					  icon: false, 
-					  delay: 10000, 
+					  delay: 12000, 
 					  position: "bottom right"
 				  }
 		); 

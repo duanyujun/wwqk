@@ -47,16 +47,21 @@ public class IndexController extends Controller {
 	private void getMatchNews(){
 		Date nowDate = DateTimeUtils.addHours(new Date(), -2);
 		List<TipsMatch> lstMatch = TipsMatch.dao.find("select * from tips_match where match_time > ? order by match_time asc limit 0, 50", nowDate);
-		formatLeagueName(lstMatch);
+		formatMsg(lstMatch);
 		String jsonStr = JSON.toJSONString(lstMatch);
 		setAttr("jsonStr", jsonStr);
 	}
 	
-	private void formatLeagueName(List<TipsMatch> lstMatch){
+	private void formatMsg(List<TipsMatch> lstMatch){
 		for(TipsMatch match:lstMatch){
 			String leagueName = match.getStr("league_name");
 			leagueName = CommonUtils.leagueNameIdMap.get(leagueName);
 			match.set("league_name", leagueName==null?match.getStr("league_name"):leagueName);
+			int descLength = match.getStr("prediction_desc").length();
+			if(descLength>75){
+				match.getAttrs().put("prediction_all", match.getStr("prediction_desc"));
+				match.set("prediction_desc", match.getStr("prediction_desc").substring(0,75)+"...");
+			}
 		}
 	}
 	
