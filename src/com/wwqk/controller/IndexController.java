@@ -3,18 +3,23 @@ package com.wwqk.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.alibaba.fastjson.JSON;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 import com.wwqk.constants.LeagueEnum;
 import com.wwqk.model.Fun;
 import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeaguePosition;
+import com.wwqk.model.TipsMatch;
+import com.wwqk.utils.CommonUtils;
+import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.PageUtils;
 
 public class IndexController extends Controller {
@@ -29,12 +34,30 @@ public class IndexController extends Controller {
 		setAttr("pageUI", PageUtils.calcStartEnd(funPage));
 		setAttr("initCount", funPage.getList().size());
 		getRecomMatches();
+		CommonUtils.initLeagueNameMap();
+		getMatchNews();
 		render("index.jsp");
 	}
 	
 	public void listMore(){
 		Page<Fun> funPage = Fun.dao.paginate(getParaToInt("pageNo", 1), 10, 0);
 		renderJson(funPage.getList());
+	}
+	
+	private void getMatchNews(){
+		Date nowDate = DateTimeUtils.addHours(new Date(), -2);
+		List<TipsMatch> lstMatch = TipsMatch.dao.find("select * from tips_match where match_time > ? order by match_time asc limit 0, 50", nowDate);
+		formatLeagueName(lstMatch);
+		String jsonStr = JSON.toJSONString(lstMatch);
+		setAttr("jsonStr", jsonStr);
+	}
+	
+	private void formatLeagueName(List<TipsMatch> lstMatch){
+		for(TipsMatch match:lstMatch){
+			String leagueName = match.getStr("league_name");
+			leagueName = CommonUtils.leagueNameIdMap.get(leagueName);
+			match.set("league_name", leagueName==null?match.getStr("league_name"):leagueName);
+		}
 	}
 	
 	/**

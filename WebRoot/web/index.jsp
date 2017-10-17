@@ -20,6 +20,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/dropload/dropload.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/lobibox/css/lobibox.min.css" rel="stylesheet" type="text/css" />
+    
     
     <title>趣点足球网 - 一个有意思的足球网站|足球说说|足球趣闻|足球数据|球星生活|免费直播</title>
 </head>
@@ -280,6 +282,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	<script src="assets/global/plugins/dropload/dropload.min.js" type="text/javascript"></script>
 	<script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
+	<script src="assets/global/plugins/lobibox/js/notifications.min.js" type="text/javascript"></script>
 	
 	<script>
 	(function(){
@@ -317,12 +320,40 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	  } 
 	}
 	
+	var jsonObj;
 	$(document).ready(function(){
 		$(window).resize(function() {
 			resizeBackground();
 		});
-
+		jsonObj = JSON.parse('${jsonStr}');
+		if(jsonObj.length!=0){
+			//消息提示
+			showMsg();
+			setInterval("showMsg()",12000); 
+		}
 	});
+	
+	var i = 0;
+	function showMsg(){
+		var leagueName = jsonObj[i].attrs.league_name; 
+		var homeName = jsonObj[i].attrs.home_name; 
+		var awayName = jsonObj[i].attrs.away_name; 
+		var predictionDesc = jsonObj[i].attrs.prediction_desc; 
+		Lobibox.notify(
+				  'success',
+				  {
+					  title: false,   
+					  msg: leagueName+' '+homeName+" vs "+awayName+'<br>'+predictionDesc,  
+					  icon: false, 
+					  delay: 10000, 
+					  position: "bottom right"
+				  }
+		); 
+		i++;
+		if(i==jsonObj.length){
+			i=0;
+		}
+	}
 	
 	$(function(){
 		resizeBackground();

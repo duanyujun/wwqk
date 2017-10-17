@@ -14,7 +14,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.wwqk.constants.InjuryTypeEnum;
-import com.wwqk.constants.LeagueENEnum;
 import com.wwqk.model.Team;
 
 /**
@@ -445,6 +444,93 @@ public class CommonUtils {
 			nameIdMap.put(specialNameArray[i], specialIdArray[i]);
 			nameENNameMap.put(specialNameArray[i], idENNameMap.get(specialIdArray[i]));
 		}
+	}
+	
+	//联赛名称map
+	public static Map<String, String> leagueNameIdMap = new HashMap<String, String>();
+	public static void initLeagueNameMap(){
+		leagueNameIdMap.put("亚洲联赛冠军杯", "亚冠");
+		leagueNameIdMap.put("欧洲联赛冠军杯", "欧冠");
+		leagueNameIdMap.put("中国超级联赛", "中超");
+		leagueNameIdMap.put("中国甲级联赛", "中甲");
+		leagueNameIdMap.put("中国乙级联赛", "中乙");
+		leagueNameIdMap.put("俄罗斯超级联赛", "俄超");
+		leagueNameIdMap.put("俄罗斯甲组联赛", "俄甲");
+		leagueNameIdMap.put("巴西甲组联赛", "巴甲");
+		leagueNameIdMap.put("德国甲级联赛", "德甲");
+		leagueNameIdMap.put("德国乙级联赛", "德乙");
+		leagueNameIdMap.put("德国丙级联赛", "德丙");
+		leagueNameIdMap.put("德国足协杯", "德国杯");
+		leagueNameIdMap.put("德国超级杯", "德超杯");
+		leagueNameIdMap.put("意大利甲级联赛", "意甲");
+		leagueNameIdMap.put("意大利乙级联赛", "意乙");
+		leagueNameIdMap.put("意大利超级杯", "意超杯");
+		leagueNameIdMap.put("挪威超级联赛", "挪超");
+		leagueNameIdMap.put("日本职业联赛", "J联赛");
+		leagueNameIdMap.put("日本乙级联赛", "J2联赛");
+		leagueNameIdMap.put("智利甲组联赛", "智利甲");
+		leagueNameIdMap.put("智利乙组联赛", "智利乙");
+		leagueNameIdMap.put("法国甲级联赛", "法甲");
+		leagueNameIdMap.put("法国乙级联赛", "法乙");
+		leagueNameIdMap.put("法国丙级联赛", "法丙");
+		leagueNameIdMap.put("法国联赛杯", "法联杯");
+		leagueNameIdMap.put("法国超级杯", "法超杯");
+		leagueNameIdMap.put("澳大利亚甲级联赛", "澳甲");
+		leagueNameIdMap.put("瑞典超级联赛", "瑞典超");
+		leagueNameIdMap.put("瑞典甲组联赛", "瑞典甲");
+		leagueNameIdMap.put("美国职业大联盟联赛", "美职联");
+		leagueNameIdMap.put("苏格兰超级联赛", "苏超");
+		leagueNameIdMap.put("苏格兰冠军联赛", "苏冠");
+		leagueNameIdMap.put("英格兰超级联赛", "英超");
+		leagueNameIdMap.put("英格兰冠军联赛", "英冠");
+		leagueNameIdMap.put("英格兰甲级联赛", "英甲");
+		leagueNameIdMap.put("英格兰乙级联赛", "英乙");
+		leagueNameIdMap.put("英格兰足总杯", "英足总");
+		leagueNameIdMap.put("英格兰联赛杯", "英联杯");
+		leagueNameIdMap.put("荷兰甲级联赛", "荷甲");
+		leagueNameIdMap.put("荷兰乙级联赛", "荷乙");
+		leagueNameIdMap.put("荷兰超级杯", "荷超杯");
+		leagueNameIdMap.put("西班牙甲级联赛", "西甲");
+		leagueNameIdMap.put("西班牙乙级联赛", "西乙");
+		leagueNameIdMap.put("西班牙国王杯", "西班牙杯");
+		leagueNameIdMap.put("西班牙超级杯", "西超杯");
+		leagueNameIdMap.put("阿根廷超级联赛", "阿甲");
+		leagueNameIdMap.put("韩国职业联赛", "K联赛");
+		leagueNameIdMap.put("墨西哥联赛", "墨联");
+		leagueNameIdMap.put("罗马尼亚甲组联赛", "罗甲");
+		leagueNameIdMap.put("罗马尼亚乙组联赛", "罗乙");
+		leagueNameIdMap.put("土耳其超级联赛", "土超");
+		leagueNameIdMap.put("土耳其甲级联赛", "土甲");
+		leagueNameIdMap.put("乌克兰超级联赛", "乌克超");
+		leagueNameIdMap.put("乌克兰甲级联赛", "乌克甲");
+		leagueNameIdMap.put("芬兰超级联赛", "芬超");
+		leagueNameIdMap.put("芬兰甲组联赛", "芬甲");
+		leagueNameIdMap.put("挪威甲级联赛", "挪甲");
+		leagueNameIdMap.put("波兰甲级联赛", "波甲");
+		leagueNameIdMap.put("波兰乙级联赛", "波乙");
+		leagueNameIdMap.put("葡萄牙超级联赛", "葡超");
+		leagueNameIdMap.put("葡萄牙甲级联赛", "葡甲");
+		leagueNameIdMap.put("克罗地亚甲组联赛", "克罗甲");
+		leagueNameIdMap.put("丹麦超级联赛", "丹超");
+		leagueNameIdMap.put("丹麦甲组联赛", "丹甲");
+		
+		leagueNameIdMap.put("比利时甲级联赛", "比甲");
+		leagueNameIdMap.put("比利时乙级联赛", "比乙");
+		leagueNameIdMap.put("以色列超级联赛", "以超");
+		leagueNameIdMap.put("以色列甲级联赛", "以甲");
+		leagueNameIdMap.put("威尔士超级联赛", "威超");
+		leagueNameIdMap.put("乌拉圭甲组联赛", "乌拉甲");
+		leagueNameIdMap.put("秘鲁甲组联赛", "秘鲁甲");
+		leagueNameIdMap.put("哥伦比亚甲组联赛", "哥伦甲");
+		leagueNameIdMap.put("哥伦比亚甲组联赛", "哥伦乙");
+		leagueNameIdMap.put("玻利维亚甲组联赛", "玻利甲");
+		leagueNameIdMap.put("巴拉圭甲级联赛", "巴拉甲");
+		leagueNameIdMap.put("厄瓜多尔甲级联赛", "厄瓜甲");
+		leagueNameIdMap.put("沙特阿拉伯职业联赛", "沙特联");
+		leagueNameIdMap.put("沙特阿拉伯甲级联赛", "沙特甲");
+		leagueNameIdMap.put("伊朗超级联赛", "伊朗超");
+		leagueNameIdMap.put("泰国超级联赛", "泰超");
+		leagueNameIdMap.put("乌兹别克斯坦超级联赛", "乌兹超");
 	}
 	
 }
