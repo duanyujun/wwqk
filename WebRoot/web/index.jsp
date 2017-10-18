@@ -54,7 +54,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	       		<a href="/fun.html" target="_self"><span class="wwqk_menu">趣点</span></a>
 	       	</div>
 	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
-	       		<a href="/say.html" target="_self"><span class="wwqk_menu">说说</span></a>
+	       		<a href="/live.html" target="_self"><span class="wwqk_menu">直播</span></a>
 	       	</div>
 	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
 	       		<a href="/bifen.html" target="_self"><span class="wwqk_menu">比分</span></a>
