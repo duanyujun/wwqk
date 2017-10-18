@@ -17,13 +17,18 @@ public class TranslateUtils {
 	public static void translate(){
 		Date nowDate = DateTimeUtils.addHours(new Date(), -2);
 		List<AllLiveMatch> lstLiveMatch = AllLiveMatch.dao.find("select * from all_live_match where match_datetime > ?", nowDate);
-		Map<String, AllLiveMatch> liveMap = new HashMap<String, AllLiveMatch>();
+		Map<String, AllLiveMatch> liveHomeMap = new HashMap<String, AllLiveMatch>();
+		Map<String, AllLiveMatch> liveAwayMap = new HashMap<String, AllLiveMatch>();
 		for(AllLiveMatch liveMatch:lstLiveMatch){
-			liveMap.put(liveMatch.getStr("home_team_name")+"vs"+liveMatch.getStr("away_team_name"), liveMatch);
+			liveHomeMap.put(DateTimeUtils.formatDate(liveMatch.getDate("match_datetime"))+liveMatch.getStr("home_team_name"), liveMatch);
+			liveAwayMap.put(DateTimeUtils.formatDate(liveMatch.getDate("match_datetime"))+liveMatch.getStr("away_team_name"), liveMatch);
 		}
 		List<TipsMatch> lstMatch = TipsMatch.dao.find("select * from tips_match where match_time > ?", nowDate);
 		for(TipsMatch match:lstMatch){
-			AllLiveMatch existLiveMatch = liveMap.get(match.getStr("home_name")+"vs"+match.getStr("away_name"));
+			AllLiveMatch existLiveMatch = liveHomeMap.get(DateTimeUtils.formatDate(match.getDate("match_time"))+match.getStr("home_name"));
+			if(existLiveMatch==null){
+				existLiveMatch = liveAwayMap.get(DateTimeUtils.formatDate(match.getDate("match_time"))+match.getStr("away_name"));
+			}
 			handleOneMatch(existLiveMatch, match);
 		}
 	}
