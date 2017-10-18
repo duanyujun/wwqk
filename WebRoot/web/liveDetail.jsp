@@ -73,36 +73,58 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 		<div class="row visible-sm visible-xs" style="color:grey;">
 			<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;">
-				【所属联赛】：${match.league_name}
-			</div>
-			<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;">
-				【对阵球队】：${match.home_team_name} vs ${match.away_team_name}
-			</div>
-			<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;">
-				【赛事时间】：<fmt:formatDate value="${match.match_datetime}" pattern="yyyy年MM月dd日  HH:mm"/>
-			</div>
-			
-			<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;">
-					【直播地址】：
-					<c:if test="${empty lstMatchLive}">
-						暂无
-					</c:if>
-					<c:if test="${!empty lstMatchLive}">
-							<span class="a-title" >
-								<c:forEach items="${lstMatchLive}" var="live">
-									<i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;	
+				<table style="text-indent:0;">
+					<tr>
+						<td style="width:120px;">【所属赛事】：</td>
+						<td>${match.league_name}</td>
+					</tr>
+					<tr>
+						<td>【对阵球队】：</td>
+						<td>${match.home_team_name} vs ${match.away_team_name}</td>
+					</tr>
+					<tr>
+						<td>【赛事时间】：</td>
+						<td><fmt:formatDate value="${match.match_datetime}" pattern="yyyy年MM月dd日"/> ${match.weekday} <fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></td>
+					</tr>
+					<tr>
+						<td>【直播地址】：</td>
+						<td>
+							<c:if test="${empty lstMatchLive}">
+								<span class="a-title" ><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_blank" style="color:red;">比分直播</a></span>
+							</c:if>
+							<c:if test="${!empty lstMatchLive}">
+									<span class="a-title" >
+										<c:forEach items="${lstMatchLive}" var="live">
+											<nobr><img src="assets/pages/img/tv.png" style="margin-top:-5px;"/> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;</nobr>
+										</c:forEach>
+										<nobr><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_blank" style="color:red;">比分直播</a></nobr>
+									</span>
+							</c:if>
+						</td>
+					</tr>
+					<c:if test="${!empty lstTips}">
+						<tr>
+							<td>【赛事情报】：</td>
+							<td>
+								<c:forEach items="${lstTips}" var="tips">
+									<c:if test="${tips.is_good_bad=='0'}">
+										<div class="alert alert-success" title="有利情报"><c:if test="${tips.is_home_away==0}"><span class="label label-danger">主</span></c:if><c:if test="${tips.is_home_away==1}"><span class="label label-primary">客</span></c:if> ${tips.news}</div>
+									</c:if>
+									<c:if test="${tips.is_good_bad=='1'}">
+										<div class="alert alert-danger" title="不利情报"><c:if test="${tips.is_home_away==0}"><span class="label label-danger">主</span></c:if><c:if test="${tips.is_home_away==1}"><span class="label label-primary">客</span></c:if> ${tips.news}</div>
+									</c:if>
+									<c:if test="${tips.is_good_bad!='0' && tips.is_good_bad!='1'}">
+										<div class="alert alert-warning" title="中立情报"><c:if test="${tips.is_home_away==0}"><span class="label label-danger">主</span></c:if><c:if test="${tips.is_home_away==1}"><span class="label label-primary">客</span></c:if> ${tips.news}</div>
+									</c:if>
+									
 								</c:forEach>
-							</span>
+							</td>
+						</tr>
 					</c:if>
+					
+					
+				</table>
 			</div>
-			<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;" title="<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/> ${match.home_team_name} vs ${match.away_team_name} 统计">
-				【比分】：<span class="a-title"><a href="/bifen.html" target="_self">比分直播</a></span>
-			</div>
-			<c:if test="${!empty match.info and match.info!=''}">
-				   <div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;" title="<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/> ${match.home_team_name} vs ${match.away_team_name} 情报">
-						【情报】：${match.info}
-					</div>
-			</c:if>
 			
 		</div>
 	    
@@ -118,17 +140,17 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 	</div>
 	
-	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:5px;padding-bottom: 130px;">
+	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:5px;padding-bottom: 130px;margin-bottom:20px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-12 col-md-12">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 " style="margin-top:10px;font-size:14px;">
 						<div class="well well-lg" style="line-height:2;text-indent:20px;">
 							<div class="row">
-								<div class="col-lg-12 col-md-12 ">
+								<div class="col-lg-12 col-md-12" >
 									<table style="text-indent:0;">
 										<tr>
-											<td style="width:120px;">【所属联赛】：</td>
+											<td style="width:120px;">【所属赛事】：</td>
 											<td>${match.league_name}</td>
 										</tr>
 										<tr>
@@ -143,7 +165,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 											<td>【直播地址】：</td>
 											<td>
 												<c:if test="${empty lstMatchLive}">
-													暂无
+													<span class="a-title" ><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_blank" style="color:red;">比分直播</a></span>
 												</c:if>
 												<c:if test="${!empty lstMatchLive}">
 														<span class="a-title" >
