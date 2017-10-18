@@ -65,17 +65,17 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    <!-- 移动端内容开始 -->
 	    <div class="row visible-sm visible-xs" style="margin-top:34px;padding-bottom: 130px;">
 	    	<div class="col-xs-12 col-sm-12" style="padding:0;">
-						<table class="table small-table">
+						<table class="table small-table" style="text-indent:0;">
 						  	<tbody>
 							<c:forEach items="${lstMatch}" var="match">
 								<c:if test="${empty match.home_team_name}">
 									<tr>
-										<td colspan="2" style="padding:0;"><span style="display:block;background:#CD2626;height:35px;line-height:35px;font-size:16px;color:white;">&nbsp;${match.match_date_week}</span></td>
+										<td colspan="2" style="padding:0;"><span style="display:block;background:#5cb85c;height:35px;line-height:35px;font-size:16px;color:white;">&nbsp;${match.match_date_week}</span></td>
 									</tr>
 								</c:if>
 								<c:if test="${!empty match.home_team_name}">
-									<tr style="background:#ffe4e4;">
-								      <td style="width:130px;height:35px;line-height:35px;"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/>&nbsp;&nbsp;<span class="league_${match.league_id}">${match.league_name}</span></td>
+									<tr >
+								      <td style="width:130px;height:35px;line-height:35px;"><span class="label label-default"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></span>&nbsp;&nbsp;<span class="league_${match.league_id}">${match.league_name}</span></td>
 								      <td style="width:210px;height:35px;line-height:35px;" class="a-title">
 								      	<c:if test="${empty match.league_id}">
 								      		<a title="${match.game_id!='0'?'有情报':''}" href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_self">${match.home_team_name} VS ${match.away_team_name}
@@ -95,11 +95,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								      </td>
 								    </tr>
 								    <tr>
-								    	<td colspan="2" class="a-title" style="height:35px;line-height:35px;">
+								    	<td colspan="2" class="a-title" style="height:35px;line-height:35px;border-top:none;">
 								      	  	<c:forEach items="${match.liveList}" var="live">
-								      	  		 &nbsp;<i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>
+								      	  		 &nbsp;<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a></nobr>
 								      	   </c:forEach>
-								      	   &nbsp;<nobr><span class="a-title"><a href="/bifen.html" target="_self">比分直播</a></span></nobr>
+								      	   &nbsp;<nobr><span class="a-title"><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_self" style="color:red;">比分直播</a></span></nobr>
 								       </td>
 								    </tr>
 								</c:if>
@@ -123,7 +123,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:8px;padding-bottom: 130px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2">		
 			<div class="col-lg-10 col-md-10" style="padding-left:0px;padding-right:0px;">
-					<table class="table table-condensed table-hover table-striped" >
+					<table class="table table-condensed table-hover " >
 						  <tbody>
 							<c:forEach items="${lstMatch}" var="match">
 								<c:if test="${empty match.home_team_name}">
@@ -155,7 +155,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								      	  <c:forEach items="${match.liveList}" var="live">
 								      	  		 &nbsp;<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a></nobr>
 								      	  </c:forEach>
-								      	  &nbsp;<nobr><a href="/bifen.html" target="_blank">比分直播</a></nobr>
+								      	  &nbsp;<nobr><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_blank">比分直播</a></nobr>
 								      </td>
 								      
 								    </tr>
