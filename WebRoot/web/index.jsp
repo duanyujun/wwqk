@@ -329,7 +329,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		if(jsonObj.length!=0){
 			//消息提示
 			showMsg();
-			setInterval("showMsg()",15000); 
+			setInterval("showMsg()",20000); 
 		}
 	});
 	
@@ -340,11 +340,30 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		var awayName = jsonObj[i].attrs.away_name; 
 		var predictionDesc = jsonObj[i].attrs.prediction_desc; 
 		var predictionAll = jsonObj[i].attrs.prediction_all;
+		var live_match_id = jsonObj[i].attrs.live_match_id;
+		var match_key = jsonObj[i].attrs.match_key;
+		var match_time = jsonObj[i].attrs.match_time;
+		match_time = match_time.substring(0,10);
+		var home_team_enname = jsonObj[i].attrs.home_team_enname;
+		var away_team_enname = jsonObj[i].attrs.away_team_enname;
+		var home_team_id = jsonObj[i].attrs.home_team_id;
+		var away_team_id = jsonObj[i].attrs.away_team_id;
+		var year_show = jsonObj[i].attrs.year_show;
+		
+		var urlLink = '';
+		if(live_match_id!=0){
+			if(home_team_id==undefined || home_team_id==''){
+				urlLink = '&nbsp;<a style="color:#ddd;" target="_blank" href="live-'+match_time+'-'+home_team_enname+'-vs-'+away_team_enname+'-'+live_match_id+'.html">详情...</a>';
+			}else{
+				urlLink = '&nbsp;<a style="color:#ddd;" target="_blank" href="match-'+home_team_enname+'-vs-'+away_team_enname+'_'+match_key+'.html">详情...</a>';
+			}
+		}
+		
 		Lobibox.notify(
 				  'success',
 				  {
 					  title: false,   
-					  msg: leagueName+' '+homeName+" vs "+awayName+'<br><span title="'+predictionAll+'">'+predictionDesc+'</span>',  
+					  msg: leagueName+' '+homeName+' vs '+awayName+urlLink+'<br><span title="'+predictionAll+'">'+predictionDesc+'</span>',  
 					  icon: false, 
 					  delay: 12000, 
 					  position: "bottom right"

@@ -48,7 +48,7 @@ public class IndexController extends Controller {
 		Date nowDate = DateTimeUtils.addHours(new Date(), -2);
 		List<TipsMatch> lstMatch = TipsMatch.dao.find("select * from tips_match where match_time > ? order by match_time asc limit 0, 50", nowDate);
 		formatMsg(lstMatch);
-		String jsonStr = JSON.toJSONString(lstMatch);
+		String jsonStr = JSON.toJSONStringWithDateFormat(lstMatch, "yyyy-MM-dd HH:mm:ss");
 		setAttr("jsonStr", jsonStr);
 	}
 	
