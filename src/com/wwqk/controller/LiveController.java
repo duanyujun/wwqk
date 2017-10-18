@@ -16,6 +16,7 @@ import com.wwqk.model.AllLiveMatch;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.MatchLive;
 import com.wwqk.model.Team;
+import com.wwqk.model.TipsAll;
 import com.wwqk.plugin.OddsUtils;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.DateTimeUtils;
@@ -85,6 +86,10 @@ public class LiveController extends Controller {
 		}
 		
 		if(StringUtils.isBlank(match.getStr("league_id"))){
+			List<TipsAll> lstTips =TipsAll.dao.find("select * from tips_all where live_match_id = ? order by is_home_away asc", id);
+			if(lstTips.size()!=0){
+				setAttr("lstTips", lstTips);
+			}
 			setAttr("match", match);
 			render("liveDetail.jsp");
 		}else{

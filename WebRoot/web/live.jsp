@@ -76,15 +76,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								      <td style="width:130px;height:35px;line-height:35px;"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/>&nbsp;&nbsp;<span class="league_${match.league_id}">${match.league_name}</span></td>
 								      <td style="width:210px;height:35px;line-height:35px;" class="a-title">
 								      	<c:if test="${empty match.league_id}">
-								      		<a title="${!empty match.info?'有情报':''}" href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_self">${match.home_team_name} VS ${match.away_team_name}
-								      		<c:if test="${!empty match.info}">
+								      		<a title="${match.game_id!='0'?'有情报':''}" href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_self">${match.home_team_name} VS ${match.away_team_name}
+								      		<c:if test="${match.game_id!='0'}">
 								      		 	<img src="assets/image/page/spy.png" style="width:13px;margin-top:-3px;"  title="有情报"/>
 								      		 </c:if>
 								      		</a>
 								      	</c:if>
 								      	<c:if test="${!empty match.league_id}">
-								      		<b class="a-title" ><a title="${!empty match.info?'有情报':''}" href="match-${match.home_team_enname}-vs-${match.away_team_enname}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_self">${match.home_team_name} VS ${match.away_team_name}
-								      		<c:if test="${!empty match.info}">
+								      		<b class="a-title" ><a title="${match.game_id!='0'?'有情报':''}" href="match-${match.home_team_enname}-vs-${match.away_team_enname}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_self">${match.home_team_name} VS ${match.away_team_name}
+								      		<c:if test="${match.game_id!='0'}">
 								      		 	<img src="assets/image/page/spy.png" style="width:13px;margin-top:-3px;"  title="有情报"/>
 								      		 </c:if>
 								      		</a></b>
@@ -134,15 +134,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								      <td style="width:160px;height:35px;line-height:35px;"><b><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></b>&nbsp;&nbsp;<span class="league_${match.league_id}" title="${match.league_name}">${match.league_name}</span></td>
 								      <td style="width:210px;height:35px;line-height:35px;" class="a-title">
 								      	<c:if test="${empty match.league_id}">
-								      		<a  title="${!empty match.info?'有情报':''}"href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_blank">${match.home_team_name} VS ${match.away_team_name}
-								      		<c:if test="${!empty match.info}">
+								      		<a  title="${match.game_id!='0'?'有情报':''}"href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_blank">${match.home_team_name} VS ${match.away_team_name}
+								      		<c:if test="${match.game_id!='0'}">
 								      		 	<img src="assets/image/page/spy.png" style="width:13px;margin-top:-2px;"  title="有情报"/>
 								      		 </c:if>
 								      		</a>
 								      	</c:if>
 								      	<c:if test="${!empty match.league_id}">
-								      		<b class="a-title" ><a title="${!empty match.info?'有情报':''}" href="match-${match.home_team_enname}-vs-${match.away_team_enname}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">${match.home_team_name} VS ${match.away_team_name}
-								      		<c:if test="${!empty match.info}">
+								      		<b class="a-title" ><a title="${match.game_id!='0'?'有情报':''}" href="match-${match.home_team_enname}-vs-${match.away_team_enname}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">${match.home_team_name} VS ${match.away_team_name}
+								      		<c:if test="${match.game_id!='0'}">
 								      		 	<img src="assets/image/page/spy.png" style="width:13px;margin-top:-2px;"  title="有情报"/>
 								      		 </c:if>
 								      		</a></b>

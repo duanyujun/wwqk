@@ -21,7 +21,7 @@ public class TranslateUtils {
 		for(AllLiveMatch liveMatch:lstLiveMatch){
 			liveMap.put(liveMatch.getStr("home_team_name")+"vs"+liveMatch.getStr("away_team_name"), liveMatch);
 		}
-		List<TipsMatch> lstMatch = TipsMatch.dao.find("select * from tips_match where match_time > ? and live_match_id = 0", nowDate);
+		List<TipsMatch> lstMatch = TipsMatch.dao.find("select * from tips_match where match_time > ?", nowDate);
 		for(TipsMatch match:lstMatch){
 			AllLiveMatch existLiveMatch = liveMap.get(match.getStr("home_name")+"vs"+match.getStr("away_name"));
 			handleOneMatch(existLiveMatch, match);
@@ -53,6 +53,8 @@ public class TranslateUtils {
 				tipsAll.set("away_team_img", existLiveMatch.get("away_team_img"));
 			}
 			match.update();
+			existLiveMatch.set("game_id", match.getStr("game_id"));
+			existLiveMatch.update();
 			Db.batchUpdate(lstTipsAll, lstTipsAll.size());
 		}
 		
