@@ -22,6 +22,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<style type="text/css">
 		.label{font-size:14px;}
 		.label-default{background:#ddd;color:#333;}
+		.line-cut{width:100px; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow: hidden;}
 	</style>    
 </head>
 
@@ -128,13 +129,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<c:forEach items="${lstMatch}" var="match">
 								<c:if test="${empty match.home_team_name}">
 									<tr>
-										<td colspan="3" style="padding:0;"><span style="display:block;background:#00A50D;height:35px;line-height:35px;font-size:16px;color:white;font-weight:bold;">&nbsp;${match.match_date_week}</span></td>
+										<td colspan="4" style="padding:0;"><span style="display:block;background:#00A50D;height:35px;line-height:35px;font-size:16px;color:white;font-weight:bold;">&nbsp;${match.match_date_week}</span></td>
 									</tr>
 								</c:if>
 								<c:if test="${!empty match.home_team_name}">
 									<tr >
-								      <td style="width:160px;height:35px;line-height:35px;"><span class="label label-default"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></span>&nbsp;&nbsp;<span class="league_${match.league_id}" title="${match.league_name}">${match.league_name}</span></td>
-								      <td style="width:210px;height:35px;line-height:35px;" class="a-title">
+									  <td style="width:60px;height:35px;line-height:35px;"><span class="label label-default"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></span></td>
+								      <td style="width:100px;height:35px;line-height:35px;"><span class="league_${match.league_id}" title="${match.league_name}"><div class="line-cut" >${match.league_name}</div></span></td>
+								      <td style="width:250px;height:35px;line-height:35px;" class="a-title">
 								      	<c:if test="${empty match.league_id}">
 								      		<a  title="${match.game_id!='0'?'有情报':''}"href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_blank">${match.home_team_name} VS ${match.away_team_name}
 								      		<c:if test="${match.game_id!='0'}">
