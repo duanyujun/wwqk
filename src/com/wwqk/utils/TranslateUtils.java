@@ -34,7 +34,7 @@ public class TranslateUtils {
 	}
 	
 	@Before(Tx.class)
-	private static void handleOneMatch(AllLiveMatch existLiveMatch, TipsMatch match){
+	public static void handleOneMatch(AllLiveMatch existLiveMatch, TipsMatch match){
 		if(existLiveMatch!=null){
 			match.set("live_match_id", existLiveMatch.get("id"));
 			match.set("match_key", existLiveMatch.get("match_key"));

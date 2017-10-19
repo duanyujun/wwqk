@@ -33,6 +33,7 @@ import com.wwqk.model.MatchLive;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
 import com.wwqk.model.Team;
+import com.wwqk.model.TipsMatch;
 import com.wwqk.plugin.AnalyzeZgzcw;
 import com.wwqk.plugin.Live24zbw;
 import com.wwqk.plugin.Live5chajian;
@@ -54,6 +55,7 @@ import com.wwqk.service.PlayerService;
 import com.wwqk.service.SayService;
 import com.wwqk.service.Shooter163Service;
 import com.wwqk.service.TeamService;
+import com.wwqk.service.TipsMatchService;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.GeneratorUtils;
@@ -592,6 +594,39 @@ public class AdminController extends Controller {
 		render("admin/allMatchList.jsp");
 	}
 	
+	public void listTipsMatch(){
+		render("admin/tipsMatchList.jsp");
+	}
+	
+	public void tipsMatchData(){
+		Map<Object, Object> map = TipsMatchService.tipsMatchData(this);
+		renderJson(map);
+	}
+	
+	public void editTipsMatch(){
+		String id = getPara("id");
+		if(id!=null){
+			TipsMatch tipsMatch = TipsMatch.dao.findById(id);
+			tipsMatch.set("match_time", DateTimeUtils.formatDateTime(tipsMatch.getTimestamp("match_time")));
+			setAttr("tipsMatch", tipsMatch);
+		}
+		Date nowDate = DateTimeUtils.addHours(new Date(), -20);
+		List<AllLiveMatch> lstAllLiveMatch = AllLiveMatch.dao.find("select id,league_name,match_datetime,home_team_name,away_team_name from all_live_match where match_datetime > ?", nowDate);
+		for(AllLiveMatch liveMatch:lstAllLiveMatch){
+			liveMatch.set("match_datetime", DateTimeUtils.formatDateTime(liveMatch.getTimestamp("match_datetime")));
+		}
+		setAttr("lstLiveMatch", lstAllLiveMatch);
+		render("admin/tipsMatchForm.jsp");
+	}
+	
+	public void saveTipsMatch(){
+		TipsMatchService.saveTipsMatch(this);
+		renderJson(1);
+	}
+	
+	public void deleteTipsMatch(){
+		renderJson(1);
+	}
 	
 	//日常管理：手动更新比赛信息； 手动更新一只球队球员情况
 	public void dailyManage(){
