@@ -22,7 +22,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<style type="text/css">
 		.label{font-size:14px;}
 		.label-default{background:#ddd;color:#333;}
-		.line-cut{width:100px; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow: hidden;}
+		.text_cut{text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
 	</style>    
 </head>
 
@@ -135,7 +135,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								<c:if test="${!empty match.home_team_name}">
 									<tr >
 									  <td style="width:60px;height:35px;line-height:35px;"><span class="label label-default"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></span></td>
-								      <td style="width:100px;height:35px;line-height:35px;"><span class="league_${match.league_id}" title="${match.league_name}"><div class="line-cut" >${match.league_name}</div></span></td>
+								      <td style="width:100px;height:35px;line-height:35px;"><span class="league_${match.league_id}" title="${match.league_name}"><div class="text_cut" style="width:100px;line-height:35px;">${match.league_name}</div></span></td>
 								      <td style="width:250px;height:35px;line-height:35px;" class="a-title">
 								      	<c:if test="${empty match.league_id}">
 								      		<a  title="${match.game_id!='0'?'有情报':''}"href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_blank">${match.home_team_name} VS ${match.away_team_name}
