@@ -80,7 +80,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<td style="font-size:14px;font-weight:bold;color:black;">${match.league_name} / ${match.home_team_name} vs ${match.away_team_name}</td>
 					</tr>
 					<tr>
-						<td style="padding-top:5px;"><fmt:formatDate value="${match.match_datetime}" pattern="yyyy年MM月dd日"/> ${match.weekday} <span class="label label-default"><img src="assets/pages/img/time.png" style="width:16px;margin-top:-5px;"/><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></span></td>
+						<td style="padding-top:5px;"><fmt:formatDate value="${match.match_datetime}" pattern="yyyy年MM月dd日"/> ${match.weekday} <span class="label label-success"><img src="assets/pages/img/time.png" style="width:18px;margin-top:-5px;"/><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></span></td>
 					</tr>
 					<tr>
 						<td style="padding-top:5px;">

@@ -79,7 +79,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									  <td style="width:60px;height:35px;line-height:35px;">
 									  		<span class="label label-default"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></span>
 									  </td>
-								      <td style="width:100px;height:35px;line-height:35px;"><span class="league_${match.league_id}"><div class="text_cut" style="width:100px;line-height:35px;">${match.league_name}</div></span></td>
+								      <td style="width:80px;height:35px;line-height:35px;"><span class="league_${match.league_id}"><div class="text_cut" style="width:80px;line-height:35px;">${match.league_name}</div></span></td>
 								      <td style="height:35px;line-height:35px;" class="a-title">
 								      	<c:if test="${empty match.league_id}">
 								      		<a title="${match.game_id!='0'?'有情报':''}" href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_self">${match.home_team_name} VS ${match.away_team_name}
@@ -99,9 +99,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								      </td>
 								    </tr>
 								    <tr>
-								    	<td colspan="3" class="a-title" style="height:35px;line-height:35px;border-top:none;">
+								    	<td colspan="3" class="a-title" style="height:35px;line-height:35px;border-top:none;padding-left:5px;">
 								      	  	<c:forEach items="${match.liveList}" var="live">
-								      	  		 &nbsp;<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a></nobr>
+								      	  		<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a></nobr>
 								      	   </c:forEach>
 								      	   &nbsp;<nobr><span class="a-title"><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_self" style="color:red;">比分直播</a></span></nobr>
 								       </td>
