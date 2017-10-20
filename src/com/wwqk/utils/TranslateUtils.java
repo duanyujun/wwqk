@@ -64,9 +64,9 @@ public class TranslateUtils {
 			existLiveMatch.update();
 			Db.batchUpdate(lstTipsAll, lstTipsAll.size());
 			
-			if(StringUtils.isNotBlank(existLiveMatch.get("home_team_id")) 
-					&& StringUtils.isNotBlank(existLiveMatch.get("away_team_id"))
-					&& StringUtils.isNotBlank(existLiveMatch.get("year_show"))){
+			if(StringUtils.isNotBlank(existLiveMatch.getStr("home_team_id")) 
+					&& StringUtils.isNotBlank(existLiveMatch.getStr("away_team_id"))
+					&& StringUtils.isNotBlank(existLiveMatch.getStr("year_show"))){
 				LeagueMatch leagueMatch = LeagueMatch.dao.findFirst("select * from league_match where home_team_id = ? and away_team_id = ? and year_show = ?", 
 						existLiveMatch.get("home_team_id"), existLiveMatch.get("away_team_id"), existLiveMatch.get("year_show"));
 				if(leagueMatch!=null){
