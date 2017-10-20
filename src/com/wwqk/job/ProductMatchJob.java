@@ -7,7 +7,9 @@ import com.wwqk.plugin.Live24zbw;
 import com.wwqk.plugin.Live5chajian;
 import com.wwqk.plugin.LiveZuqiula;
 import com.wwqk.plugin.MatchSina;
+import com.wwqk.plugin.News7M;
 import com.wwqk.utils.CommonUtils;
+import com.wwqk.utils.TranslateUtils;
 
 /**
  * 
@@ -28,6 +30,9 @@ public class ProductMatchJob implements Job {
 		Live24zbw.getLiveSource();
 		//5chajian直播源
 		Live5chajian.getLiveSource();
+		//情报
+		News7M.crawl();
+		TranslateUtils.translate();
 		
 		System.err.println("ProductMatchJob end");
 	}
