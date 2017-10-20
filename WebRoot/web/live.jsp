@@ -71,13 +71,16 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<c:forEach items="${lstMatch}" var="match">
 								<c:if test="${empty match.home_team_name}">
 									<tr>
-										<td colspan="2" style="padding:0;"><span style="display:block;background:#5cb85c;height:35px;line-height:35px;font-size:16px;color:white;">&nbsp;${match.match_date_week}</span></td>
+										<td colspan="3" style="padding:0;"><span style="display:block;background:#5cb85c;height:35px;line-height:35px;font-size:16px;color:white;">&nbsp;${match.match_date_week}</span></td>
 									</tr>
 								</c:if>
 								<c:if test="${!empty match.home_team_name}">
 									<tr >
-								      <td style="width:130px;height:35px;line-height:35px;"><span class="label label-default"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></span>&nbsp;&nbsp;<span class="league_${match.league_id}">${match.league_name}</span></td>
-								      <td style="width:210px;height:35px;line-height:35px;" class="a-title">
+									  <td style="width:60px;height:35px;line-height:35px;">
+									  		<span class="label label-default"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></span>
+									  </td>
+								      <td style="width:100px;height:35px;line-height:35px;"><span class="league_${match.league_id}"><div class="text_cut" style="width:100px;line-height:35px;">${match.league_name}</div></span></td>
+								      <td style="height:35px;line-height:35px;" class="a-title">
 								      	<c:if test="${empty match.league_id}">
 								      		<a title="${match.game_id!='0'?'有情报':''}" href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_self">${match.home_team_name} VS ${match.away_team_name}
 								      		<c:if test="${match.game_id!='0'}">
@@ -96,7 +99,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								      </td>
 								    </tr>
 								    <tr>
-								    	<td colspan="2" class="a-title" style="height:35px;line-height:35px;border-top:none;">
+								    	<td colspan="3" class="a-title" style="height:35px;line-height:35px;border-top:none;">
 								      	  	<c:forEach items="${match.liveList}" var="live">
 								      	  		 &nbsp;<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a></nobr>
 								      	   </c:forEach>

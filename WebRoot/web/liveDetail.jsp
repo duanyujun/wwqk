@@ -21,6 +21,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <style type="text/css">
     	.nav>li>a{padding:5px; 10px;}
     	.alert{padding-top:5px;padding-bottom:5px;margin-bottom:5px;}
+    	.label{font-size:14px;padding:.1em .4em .1em;}
+	
     </style>
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
@@ -67,28 +69,21 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    </div>
 	    <!-- 移动端内容开始 -->
 	    <div class="row visible-sm visible-xs" style="margin-top:45px;">
-			<div class="col-sm-12 col-xs-12 bread">
+			<div class="col-sm-12 col-xs-12 bread" style="padding-left:10px;">
 				当前位置：<a href="/" target="_self">首页</a>&nbsp;&gt;&nbsp;<a href="/live" target="_self">直播</a>&nbsp;&gt;&nbsp;${match.home_team_name}vs${match.away_team_name}
 			</div>
 		</div>
-		<div class="row visible-sm visible-xs" style="color:grey;">
+		<div class="row visible-sm visible-xs" style="color:grey;padding-bottom: 130px;">
 			<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;">
 				<table style="text-indent:0;">
 					<tr>
-						<td style="width:120px;">【所属赛事】：</td>
-						<td>${match.league_name}</td>
+						<td style="font-size:14px;font-weight:bold;color:black;">${match.league_name} / ${match.home_team_name} vs ${match.away_team_name}</td>
 					</tr>
 					<tr>
-						<td>【对阵球队】：</td>
-						<td>${match.home_team_name} vs ${match.away_team_name}</td>
+						<td style="padding-top:5px;"><fmt:formatDate value="${match.match_datetime}" pattern="yyyy年MM月dd日"/> ${match.weekday} <span class="label label-default"><img src="assets/pages/img/time.png" style="width:16px;margin-top:-5px;"/><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></span></td>
 					</tr>
 					<tr>
-						<td>【赛事时间】：</td>
-						<td><fmt:formatDate value="${match.match_datetime}" pattern="yyyy年MM月dd日"/> ${match.weekday} <fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></td>
-					</tr>
-					<tr>
-						<td>【直播地址】：</td>
-						<td>
+						<td style="padding-top:5px;">
 							<c:if test="${empty lstMatchLive}">
 								<span class="a-title" ><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_blank" style="color:red;">比分直播</a></span>
 							</c:if>
@@ -104,8 +99,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</tr>
 					<c:if test="${!empty lstTips}">
 						<tr>
-							<td>【赛事情报】：</td>
-							<td>
+							<td style="padding-top:10px;">
 								<c:forEach items="${lstTips}" var="tips">
 									<c:if test="${tips.is_good_bad=='0'}">
 										<div class="alert alert-success" title="有利情报"><c:if test="${tips.is_home_away==0}"><span class="label label-danger">主</span></c:if><c:if test="${tips.is_home_away==1}"><span class="label label-primary">客</span></c:if> ${tips.news}</div>
