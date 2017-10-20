@@ -74,7 +74,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			</div>
 		</div>
 		<div class="row visible-sm visible-xs" style="color:grey;padding-bottom: 130px;">
-			<div class="col-sm-12 col-xs-12" style="margin-top:10px;padding-left:10px;">
+			<div class="col-sm-12 col-xs-12" style="margin-top:5px;padding-left:10px;">
 				<table style="text-indent:0;">
 					<tr>
 						<td style="font-size:14px;font-weight:bold;color:black;">${match.league_name} / ${match.home_team_name} vs ${match.away_team_name}</td>
