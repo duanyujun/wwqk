@@ -14,6 +14,7 @@ import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.MatchLive;
 import com.wwqk.model.Team;
+import com.wwqk.model.TipsAll;
 import com.wwqk.plugin.OddsUtils;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.EnumUtils;
@@ -94,6 +95,14 @@ public class MatchController extends Controller {
 		setAttr("history", history);
 		setAttr("leagueName", EnumUtils.getValue(LeagueEnum.values(), homeTeam.getStr("league_id")));
 		setAttr("leagueENName", EnumUtils.getValue(LeagueENEnum.values(), homeTeam.getStr("league_id")));
+		
+		if(!"0".equals(history.getStr("game_id"))){
+			List<TipsAll> lstTips =TipsAll.dao.find("select * from tips_all where game_id = ? order by is_home_away asc", history.getStr("game_id"));
+			if(lstTips.size()!=0){
+				setAttr("lstTips", lstTips);
+			}
+		}
+		
 		render("matchDetail.jsp");
 	}
 	

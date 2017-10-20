@@ -9,6 +9,8 @@ import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wwqk.model.AllLiveMatch;
+import com.wwqk.model.LeagueMatch;
+import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.TipsAll;
 import com.wwqk.model.TipsMatch;
 
@@ -61,6 +63,24 @@ public class TranslateUtils {
 			existLiveMatch.set("game_id", match.getStr("game_id"));
 			existLiveMatch.update();
 			Db.batchUpdate(lstTipsAll, lstTipsAll.size());
+			
+			if(StringUtils.isNotBlank(existLiveMatch.get("home_team_id")) 
+					&& StringUtils.isNotBlank(existLiveMatch.get("away_team_id"))
+					&& StringUtils.isNotBlank(existLiveMatch.get("year_show"))){
+				LeagueMatch leagueMatch = LeagueMatch.dao.findFirst("select * from league_match where home_team_id = ? and away_team_id = ? and year_show = ?", 
+						existLiveMatch.get("home_team_id"), existLiveMatch.get("away_team_id"), existLiveMatch.get("year_show"));
+				if(leagueMatch!=null){
+					leagueMatch.set("game_id", match.getStr("game_id"));
+					leagueMatch.update();
+				}
+				
+				LeagueMatchHistory matchHistory = LeagueMatchHistory.dao.findFirst("select * from league_match_history where home_team_id = ? and away_team_id = ? and year_show = ?", 
+						existLiveMatch.get("home_team_id"), existLiveMatch.get("away_team_id"), existLiveMatch.get("year_show"));
+				if(matchHistory!=null){
+					matchHistory.set("game_id", match.getStr("game_id"));
+					matchHistory.update();
+				}
+			}
 		}
 		
 	}
