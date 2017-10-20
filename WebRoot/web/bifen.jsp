@@ -73,7 +73,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    </div>
 	</div>
 	<!-- 移动端内容开始 -->
-    <div id="mobile_div" class="row visible-sm visible-xs" style="padding-left:15px;padding-right:15px;margin-top:35px;padding-bottom: 130px;">
+    <div id="mobile_div" style="width:100%; margin-top:35px;padding-bottom: 130px;">
     	
     </div>
     <!-- 移动端内容结束 -->

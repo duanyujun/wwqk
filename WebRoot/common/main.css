@@ -68,7 +68,7 @@ html,body {margin: 0;padding:0;height: 100%;}
 .green_result{color:green;}
 .lose_result{color:#36F;}
 .dline{ padding-bottom:3px; border-bottom:2px solid #FFFFFF;color:#FFFFFF;} 
-.wwqk_menu{font-size:13px;font-weight:bold;}
+.wwqk_menu{font-size:14px;font-weight:bold;}
 .wwqk_menu_wh{min-height:35px;line-height:35px;padding-left:0px;padding-right:0px;text-align:center}
 .menu_link a{color:white;text-decoration:none;}
 .navbar-fixed-top, .navbar-fixed-bottom{left:15px;}
