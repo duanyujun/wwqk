@@ -15,6 +15,7 @@ import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.MatchLive;
 import com.wwqk.model.Team;
 import com.wwqk.model.TipsAll;
+import com.wwqk.model.TipsMatch;
 import com.wwqk.plugin.OddsUtils;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.EnumUtils;
@@ -99,6 +100,23 @@ public class MatchController extends Controller {
 		if(!"0".equals(history.getStr("game_id"))){
 			List<TipsAll> lstTips =TipsAll.dao.find("select * from tips_all where game_id = ? order by is_home_away asc", history.getStr("game_id"));
 			if(lstTips.size()!=0){
+				TipsMatch tipsMatch = TipsMatch.dao.findFirst("select * from tips_match where game_id = ?", history.getStr("game_id"));
+				if(tipsMatch!=null){
+					if(StringUtils.isNotBlank(tipsMatch.getStr("home_absence"))){
+						TipsAll tipsAllHome = new TipsAll();
+						tipsAllHome.set("is_home_away", "0");
+						tipsAllHome.set("is_good_bad", "1");
+						tipsAllHome.set("news", "伤停情况："+tipsMatch.getStr("home_absence"));
+						lstTips.add(0, tipsAllHome);
+					}
+					if(StringUtils.isNotBlank(tipsMatch.getStr("away_absence"))){
+						TipsAll tipsAllAway = new TipsAll();
+						tipsAllAway.set("is_home_away", "1");
+						tipsAllAway.set("is_good_bad", "1");
+						tipsAllAway.set("news", "伤停情况："+tipsMatch.getStr("away_absence"));
+						lstTips.add(tipsAllAway);
+					}
+				}
 				setAttr("lstTips", lstTips);
 			}
 		}
