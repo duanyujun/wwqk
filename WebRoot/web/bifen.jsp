@@ -81,7 +81,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin hidden-sm hidden-xs" >
 		<div id="main_content" style="min-height:10px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">		
 			<div class="bread">
-				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;比赛
+				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;比分
 			</div>
 		</div>
 	</div>

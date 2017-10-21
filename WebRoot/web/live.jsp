@@ -82,17 +82,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								      <td style="width:80px;height:35px;line-height:35px;"><span class="league_${match.league_id}"><div class="text_cut" style="width:80px;line-height:35px;">${match.league_name}</div></span></td>
 								      <td style="height:35px;line-height:35px;" class="a-title">
 								      	<c:if test="${empty match.league_id}">
-								      		<a title="${match.game_id!='0'?'有情报':''}" href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_self">${match.home_team_name} VS ${match.away_team_name}
-								      		<c:if test="${match.game_id!='0'}">
-								      		 	<span class="label label-success">情报</span>
-								      		 </c:if>
+								      		<a title="${match.game_id!='0'?'有情报':''}" href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_self">
+								      		<c:if test="${match.game_id!='0'}"><span class="label label-success">情报</span></c:if> ${match.home_team_name} VS ${match.away_team_name}
 								      		</a>
 								      	</c:if>
 								      	<c:if test="${!empty match.league_id}">
-								      		<b class="a-title" ><a title="${match.game_id!='0'?'有情报':''}" href="match-${match.home_team_enname}-vs-${match.away_team_enname}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_self">${match.home_team_name} VS ${match.away_team_name}
-								      		<c:if test="${match.game_id!='0'}">
-								      		 	<span class="label label-success">情报</span>
-								      		 </c:if>
+								      		<b class="a-title" ><a title="${match.game_id!='0'?'有情报':''}" href="match-${match.home_team_enname}-vs-${match.away_team_enname}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_self">
+								      			<c:if test="${match.game_id!='0'}"><span class="label label-success">情报</span></c:if> ${match.home_team_name} VS ${match.away_team_name}
 								      		</a></b>
 								      	</c:if>
 								      	
@@ -132,7 +128,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<c:forEach items="${lstMatch}" var="match">
 								<c:if test="${empty match.home_team_name}">
 									<tr>
-										<td colspan="4" style="padding:0;"><span style="display:block;background:#00A50D;height:35px;line-height:35px;font-size:16px;color:white;font-weight:bold;">&nbsp;${match.match_date_week}</span></td>
+										<td colspan="4" style="padding:0;"><span style="display:block;background:#5cb85c;height:35px;line-height:35px;font-size:16px;color:white;font-weight:bold;">&nbsp;${match.match_date_week}</span></td>
 									</tr>
 								</c:if>
 								<c:if test="${!empty match.home_team_name}">
@@ -141,17 +137,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								      <td style="width:100px;height:35px;line-height:35px;"><span class="league_${match.league_id}" title="${match.league_name}"><div class="text_cut" style="width:100px;line-height:35px;">${match.league_name}</div></span></td>
 								      <td style="width:250px;height:35px;line-height:35px;" class="a-title">
 								      	<c:if test="${empty match.league_id}">
-								      		<a  title="${match.game_id!='0'?'有情报':''}"href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_blank">${match.home_team_name} VS ${match.away_team_name}
-								      		<c:if test="${match.game_id!='0'}">
-								      		 	<span class="label label-success">情报</span>
-								      		 </c:if>
+								      		<a  title="${match.game_id!='0'?'有情报':''}"href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_blank">
+								      		<c:if test="${match.game_id!='0'}"><span class="label label-success">情报</span></c:if> ${match.home_team_name} VS ${match.away_team_name}
 								      		</a>
 								      	</c:if>
 								      	<c:if test="${!empty match.league_id}">
-								      		<b class="a-title" ><a title="${match.game_id!='0'?'有情报':''}" href="match-${match.home_team_enname}-vs-${match.away_team_enname}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">${match.home_team_name} VS ${match.away_team_name}
-								      		<c:if test="${match.game_id!='0'}">
-								      		 	<span class="label label-success">情报</span>
-								      		 </c:if>
+								      		<b class="a-title" ><a title="${match.game_id!='0'?'有情报':''}" href="match-${match.home_team_enname}-vs-${match.away_team_enname}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">
+								      		<c:if test="${match.game_id!='0'}"><span class="label label-success">情报</span></c:if> ${match.home_team_name} VS ${match.away_team_name}
 								      		</a></b>
 								      	</c:if>
 								      	
