@@ -82,19 +82,19 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 		<div class="row visible-sm visible-xs">
 			<div class="col-sm-2 col-xs-2  team-title" style="font-size:14px;">
-				<a href="data-premier-league-1.html" target="_self"><div class="${leagueId==1?'select-league':'common-league'}">英超</div></a>
+				<a href="data-premier-league-1.html" target="_self"><div class="${leagueId==1?'select-league':'common-league'} xxs-font">英超</div></a>
 			</div>
 			<div class="col-sm-2 col-xs-2 team-title" style="font-size:14px;">
-				<a href="data-primera-division-2.html" target="_self"><div class="${leagueId==2?'select-league':'common-league'}">西甲</div></a>
+				<a href="data-primera-division-2.html" target="_self"><div class="${leagueId==2?'select-league':'common-league'} xxs-font">西甲</div></a>
 			</div>
 			<div class="col-sm-2 col-xs-2 team-title" style="font-size:14px;">
-				<a href="data-bundesliga-3.html" target="_self"><div class="${leagueId==3?'select-league':'common-league'}">德甲</div></a>
+				<a href="data-bundesliga-3.html" target="_self"><div class="${leagueId==3?'select-league':'common-league'} xxs-font">德甲</div></a>
 			</div>
 			<div class="col-sm-2 col-xs-2 team-title" style="font-size:14px;">
-				<a href="data-sesie-a-4.html" target="_self"><div class="${leagueId==4?'select-league':'common-league'}">意甲</div></a>
+				<a href="data-sesie-a-4.html" target="_self"><div class="${leagueId==4?'select-league':'common-league'} xxs-font">意甲</div></a>
 			</div>
 			<div class="col-sm-2 col-xs-2 team-title" style="font-size:14px;">
-				<a href="data-ligue-1-5.html" target="_self" ><div class="${leagueId==5?'select-league':'common-league'}">法甲</div></a>
+				<a href="data-ligue-1-5.html" target="_self" ><div class="${leagueId==5?'select-league':'common-league'} xxs-font">法甲</div></a>
 			</div>
 		</div>
 	    
@@ -219,20 +219,20 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</table>
 						</div>
 						<div class="tab-pane fade" id="m_soccer_rank">
-											<table class="table" style="float:left;border:1px solid #dddddd;border-top:none;">
+											<table class="table " style="float:left;border:1px solid #dddddd;border-top:none;font-size:12px;">
 											  <thead>
 											      <th style="width:8px;"></th>
 											      <th>球员</th>
 											      <th>球队</th>
-											      <th><center>进球数</center></th>
-											      <th ><center>点球数</center></th>
+											      <th><center><nobr>进球</nobr></center></th>
+											      <th ><center><nobr>点球</nobr></center></th>
 											  </thead>
 											  <tbody>
 											  	<c:forEach items="${shooterList}"  var="shooter" varStatus="status">
 												    <tr>
 												      <td style="text-align:right;">${status.count}</td>
 												      <td class="team-title" ><a href="player-${shooter.player_name_en}-${shooter.player_id}.html" target="_blank"><img src="${shooter.player_img}" style="width:25px;height:25px;" alt="${shooter.player_name}" title="${shooter.player_name}"/>&nbsp;${shooter.player_name}</a></td>
-												      <td class="team-title" ><a href="team-${shooter.team_name_en}-${shooter.team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${shooter.team_id}.png" style="width:25px;height:25px;" alt="${shooter.team_name}" title="${shooter.team_name}"/>&nbsp;${shooter.team_name}</a></td>
+												      <td class="team-title" ><a href="team-${shooter.team_name_en}-${shooter.team_id}.html" target="_blank">${shooter.team_name}</a></td>
 												      <td ><center>${shooter.goal_count}</center></td>
 												      <td style="border-right:1px solid #dddddd;"><center>${shooter.penalty_count}</center></td>
 												    </tr>
@@ -242,9 +242,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						</div>
 						
 						<div class="tab-pane fade" id="m_assist_rank">
-											<table class="table" style="float:left;border:1px solid #dddddd;border-top:none;">
+											<table class="table" style="float:left;border:1px solid #dddddd;border-top:none;font-size:12px;">
 											  <thead>
-											  	  <th></th>
+											  	  <th style="width:8px;"></th>
 											      <th>球员</th>
 											      <th>球队</th>
 											      <th align="center">助攻数</th>
@@ -252,9 +252,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 											  <tbody>
 											  	<c:forEach items="${assistsList}"  var="assists" varStatus="status">
 												    <tr>
-												      <td style="border-left:1px solid #dddddd;">${status.count}</td>
+												      <td style="border-left:1px solid #dddddd;text-align:right;">${status.count}</td>
 												      <td class="team-title" ><a href="player-${assists.player_name_en}-${assists.player_id}.html" target="_blank"><nobr><img src="${assists.player_img}" style="width:25px;height:25px;" alt="${assists.player_name}" title="${assists.player_name}" />&nbsp;${assists.player_name}</nobr></a></td>
-												      <td class="team-title" ><a href="team-${assists.team_name_en}-${assists.team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${assists.team_id}.png" style="width:25px;height:25px;" alt="${assists.team_name}" title="${assists.team_name}"/>&nbsp;${assists.team_name}</nobr></a></td>
+												      <td class="team-title" ><a href="team-${assists.team_name_en}-${assists.team_id}.html" target="_blank"><nobr>${assists.team_name}</nobr></a></td>
 												      <td ><center>${assists.assists_count}</center></td>
 												    </tr>
 											    </c:forEach>
