@@ -63,6 +63,7 @@ html,body {margin: 0;padding:0;height: 100%;}
 }
 @media all and (max-width:1300px){.content_pleft{padding-left:30px;}}
 @media all and (min-width:1300px){.content_pleft{padding-left:20px;}}
+@media (max-width: 322px) {.xxs-no-show {display:none;} .xxs-font{font-size:12px;} }
 
 .red_result{color:red;}
 .green_result{color:green;}
