@@ -35,7 +35,7 @@ public class AllMatchService {
 		
 		String search = controller.getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
-			search = search.trim();
+			search =search.replaceAll("'", "").trim();
 			whereSql = " and ( home_team_name like '%"+search+"%'"+" OR away_team_name like '%"+search+"%') ";
 		}
 		

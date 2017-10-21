@@ -20,6 +20,7 @@ public class LeagueService {
 		
 		String search = controller.getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
+			search =search.replaceAll("'", "").trim();
 			whereSql = " where name like '%"+search+"%'"+" OR name_en like '%"+search+"%'";
 		}
 		

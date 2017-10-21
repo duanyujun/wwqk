@@ -26,7 +26,7 @@ public class TipsMatchService {
 		
 		String search = controller.getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
-			search = search.replaceAll("'", "");
+			search =search.replaceAll("'", "").trim();
 			whereSql = " and (home_name like '%"+search+"%'"+" OR away_name like '%"+search+"%'"+" )";
 		}
 		

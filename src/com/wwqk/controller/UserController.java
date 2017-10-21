@@ -30,6 +30,7 @@ public class UserController extends Controller {
 		
 		String search = getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
+			search =search.replaceAll("'", "").trim();
 			whereSql = " where username like '%"+search+"%'"+" OR name like '%"+search+"%'"+" OR mobile_no like '%"+search+"%'"+" OR qq like '%"+search+"%'"+" OR email like '%"+search+"%'";
 		}
 		

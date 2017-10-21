@@ -26,6 +26,7 @@ public class PermissionController extends Controller {
 		
 		String search = getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
+			search =search.replaceAll("'", "").trim();
 			whereSql = " where name like '%"+search+"%'"+" OR pvalue like '%"+search+"%'"+" OR description like '%"+search+"%'";
 		}
 		

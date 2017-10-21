@@ -33,6 +33,7 @@ public class FunService {
 		
 		String search = controller.getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
+			search =search.replaceAll("'", "").trim();
 			whereSql = " and (title like '%"+search+"%'"+" OR player_name like '%"+search+"%'"+" )";
 		}
 		
