@@ -58,10 +58,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
 	       		<a href="/" target="_self"><span class="wwqk_menu">Ê×Ò³</span></a>
 	       	</div>
-	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
+	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
 	       		<a href="/fun.html" target="_self"><span class="wwqk_menu">È¤µã</span></a>
 	       	</div>
-	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
+	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
 	       		<a href="/live.html" target="_self"><span class="wwqk_menu">Ö±²¥</span></a>
 	       	</div>
 	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
