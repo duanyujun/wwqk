@@ -57,6 +57,7 @@ public class IndexController extends Controller {
 			String leagueName = match.getStr("league_name");
 			leagueName = CommonUtils.leagueNameIdMap.get(leagueName);
 			match.set("league_name", leagueName==null?match.getStr("league_name"):leagueName);
+			match.set("prediction_desc", match.getStr("prediction_desc").replaceAll("\\s+", "").replaceAll("\n", ""));
 			int descLength = match.getStr("prediction_desc").length();
 			if(descLength>75){
 				match.getAttrs().put("prediction_all", match.getStr("prediction_desc"));
