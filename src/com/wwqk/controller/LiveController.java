@@ -33,7 +33,7 @@ public class LiveController extends Controller {
 		List<AllLiveMatch> lstResult = new ArrayList<AllLiveMatch>();
 		List<AllLiveMatch> lstAllLiveMatch = AllLiveMatch.dao.find("select * from all_live_match where match_datetime > ? order by match_datetime asc", nowDate);
 		//过滤相同比赛
-		filterSameMatch(lstAllLiveMatch);
+		//filterSameMatch(lstAllLiveMatch);
 		
 		for(AllLiveMatch match:lstAllLiveMatch){
 			sb.append("'").append(match.getStr("match_key")).append("',");

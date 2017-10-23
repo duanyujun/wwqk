@@ -66,13 +66,13 @@ public class TeamController extends Controller {
 		
 		//联赛排名
 		List<LeaguePosition> positionList = LeaguePosition.dao.find("select * from league_position where league_id = ? ORDER BY rank ASC ", team.getStr("league_id"));
-//		int count = 0;
-//		for(LeaguePosition position:positionList){
-//			++count;
-//			if(position.getStr("team_id").equals(teamId)){
-//				setAttr("postion", count);
-//			}
-//		}
+		int count = 0;
+		for(LeaguePosition position:positionList){
+			++count;
+			if(position.getStr("team_id").equals(teamId)){
+				setAttr("postion", count);
+			}
+		}
 		setAttr("positionList", positionList);	
 		
 		render("team.jsp");
