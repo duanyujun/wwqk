@@ -329,7 +329,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		if(jsonObj.length!=0){
 			//消息提示
 			showMsg();
-			setInterval("showMsg()",30000); 
+			setInterval("showMsg()",35000); 
 		}
 	});
 	
