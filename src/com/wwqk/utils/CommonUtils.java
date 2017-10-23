@@ -544,8 +544,8 @@ public class CommonUtils {
 			homeMap.put(DateTimeUtils.formatDate(liveMatch.getDate("match_datetime"))+liveMatch.getStr("home_team_name"), liveMatch);
 			awayMap.put(DateTimeUtils.formatDate(liveMatch.getDate("match_datetime"))+liveMatch.getStr("away_team_name"), liveMatch);
 		}
-		resultMap.put("home", resultMap);
-		resultMap.put("away", resultMap);
+		resultMap.put("home", homeMap);
+		resultMap.put("away", awayMap);
 		return resultMap;
 	}
 }
