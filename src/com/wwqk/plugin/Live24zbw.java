@@ -35,6 +35,11 @@ public class Live24zbw {
 	
 
 	public static void getLiveSource() {
+		//初始化已经存在的直播
+		Map<String, Object> mapAll = CommonUtils.getHALiveMatchMap();
+		Map<String, AllLiveMatch> homeMap = (Map<String, AllLiveMatch>) mapAll.get("home");
+		Map<String, AllLiveMatch> awayMap = (Map<String, AllLiveMatch>) mapAll.get("away");
+		
 		Map<String, String> leagueMap = new HashMap<String, String>();
 		leagueMap.put("英超", "1");
 		leagueMap.put("西甲", "2");
@@ -90,10 +95,10 @@ public class Live24zbw {
 							String awayTeamName = StringUtils.trim(homeAwayNames.get(1).text());
 							String homeTeamId = CommonUtils.nameIdMap.get(homeTeamName);
 							String awayTeamId = CommonUtils.nameIdMap.get(awayTeamName);
-							//Date dateVilidate = DateTimeUtils.addDays(new Date(), -2);
-							AllLiveMatch allLiveMatch = AllLiveMatch.dao.findFirst(
-									"select * from all_live_match where home_team_name = ? and away_team_name = ? and year_show = ? and match_datetime > ? ",
-									homeTeamName, awayTeamName, yearShow, nowDate);
+							AllLiveMatch allLiveMatch = homeMap.get(DateTimeUtils.formatDate(matchDateTime)+homeTeamName);
+							if(allLiveMatch==null){
+								allLiveMatch = awayMap.get(DateTimeUtils.formatDate(matchDateTime)+awayTeamName);
+							}
 							boolean isNeedInsert = false;
 							if(allLiveMatch==null){
 								if(StringUtils.isNotBlank(homeTeamId) && StringUtils.isNotBlank(awayTeamId)){

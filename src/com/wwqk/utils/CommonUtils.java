@@ -14,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.wwqk.constants.InjuryTypeEnum;
+import com.wwqk.model.AllLiveMatch;
 import com.wwqk.model.Team;
 
 /**
@@ -533,4 +534,18 @@ public class CommonUtils {
 		leagueNameIdMap.put("乌兹别克斯坦超级联赛", "乌兹超");
 	}
 	
+	public static Map<String, Object> getHALiveMatchMap(){
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Map<String, AllLiveMatch> homeMap = new HashMap<String, AllLiveMatch>();
+		Map<String, AllLiveMatch> awayMap = new HashMap<String, AllLiveMatch>();
+		Date nowDate = DateTimeUtils.addHours(new Date(), -2);
+		List<AllLiveMatch> lstAllLiveMatch = AllLiveMatch.dao.find("select * from all_live_match where match_datetime > ? order by match_datetime asc", nowDate);
+		for(AllLiveMatch liveMatch : lstAllLiveMatch){
+			homeMap.put(DateTimeUtils.formatDate(liveMatch.getDate("match_datetime"))+liveMatch.getStr("home_team_name"), liveMatch);
+			awayMap.put(DateTimeUtils.formatDate(liveMatch.getDate("match_datetime"))+liveMatch.getStr("away_team_name"), liveMatch);
+		}
+		resultMap.put("home", resultMap);
+		resultMap.put("away", resultMap);
+		return resultMap;
+	}
 }
