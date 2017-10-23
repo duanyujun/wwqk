@@ -26,8 +26,8 @@ public class ProductMatchJob implements Job {
 		MatchSina.archiveMatch(CommonUtils.nameIdMap, CommonUtils.nameENNameMap);
 		//足球啦直播源
 		LiveZuqiula.getLiveSource();
-		//24zbw直播源
-		Live24zbw.getLiveSource();
+		//24zbw直播源  暂时停掉
+		//Live24zbw.getLiveSource();
 		//5chajian直播源
 		Live5chajian.getLiveSource();
 		//情报

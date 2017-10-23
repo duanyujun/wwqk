@@ -674,7 +674,7 @@ public class AdminController extends Controller {
 	//更新直播源
 	public void updateLives(){
 		LiveZuqiula.getLiveSource();
-		Live24zbw.getLiveSource();
+		//Live24zbw.getLiveSource();
 		Live5chajian.getLiveSource();
 		renderJson(1);
 	}
