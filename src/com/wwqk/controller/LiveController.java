@@ -55,6 +55,13 @@ public class LiveController extends Controller {
 		
 		Set<String> set = new HashSet<String>();
 		for(AllLiveMatch match : lstAllLiveMatch){
+			if(!"英超".equals(match.getStr("league_name"))
+					&& !"西甲".equals(match.getStr("league_name"))
+					&& !"德甲".equals(match.getStr("league_name")) 
+					&& !"意甲".equals(match.getStr("league_name")) 
+					&& !"法甲".equals(match.getStr("league_name"))){
+				match.set("league_id", "");
+			}
 			String dateWeek = match.getStr("match_date_week").replaceAll("\\s+", " ");
 			dateWeek = StringUtils.trim(dateWeek.replace("星期", "周").replace("天", "日"));
 			if(!set.contains(dateWeek)){
