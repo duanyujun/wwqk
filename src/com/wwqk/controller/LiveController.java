@@ -86,8 +86,17 @@ public class LiveController extends Controller {
 			setAttr("lstMatchLive", lstMatchLive);
 		}
 		
+		//处理杯赛中两联赛中的队伍问题
+		if(!"英超".equals(match.getStr("league_name"))
+				&& !"西甲".equals(match.getStr("league_name"))
+				&& !"德甲".equals(match.getStr("league_name")) 
+				&& !"意甲".equals(match.getStr("league_name")) 
+				&& !"法甲".equals(match.getStr("league_name"))){
+			match.set("league_id", "");
+		}
+		
 		if(StringUtils.isBlank(match.getStr("league_id"))){
-			List<TipsAll> lstTips =TipsAll.dao.find("select * from tips_all where live_match_id = ? order by is_home_away asc", id);
+			List<TipsAll> lstTips =TipsAll.dao.find("select * from tips_all where game_id = ? order by is_home_away asc", match.getStr("game_id"));
 			if(lstTips.size()!=0){
 				TipsMatch tipsMatch = TipsMatch.dao.findFirst("select * from tips_match where live_match_id = ?", id);
 				if(tipsMatch!=null){
