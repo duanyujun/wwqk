@@ -290,7 +290,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					
 					<c:if test="${!empty NO_SAY}">
 						<div class="pull-right say-info" style="margin-top:10px;">
-							<a href="/say.html" target="_blank" title="更多说说">查看更多&gt;&gt;</a>
+							<a href="/" target="_blank" title="去首页看看">去首页看看&gt;&gt;</a>
 						</div>
 					</c:if>
 				</div>

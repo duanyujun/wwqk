@@ -6,7 +6,7 @@
 			<div class="col-lg-9 col-md-9">
 				<div class="row">
 					<div class="col-lg-12 col-md-12" style="margin-top:15px;">
-						趣点足球网 - 做有意思的足球网站&nbsp;<a href="http://www.yutet.com/sitemap.html" target="_blank" style="color:white;">网站地图</a>
+						趣点足球网 - 做有意思的足球网站&nbsp;<a href="http://www.yutet.com/sitemap.html" target="_blank" style="color:white;" >网站地图</a>
 						<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261131271'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1261131271%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
 					</div>
 					<div class="col-lg-12 col-md-12" style="margin-top:7px;">
