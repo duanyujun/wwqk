@@ -1,0 +1,45 @@
+package #path.controller;
+
+import java.util.Map;
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import #path.model.#Clazz;
+import #path.service.#ClazzService;
+import com.wwqk.utils.StringUtils;
+
+public class Admin#ClazzController extends Controller {
+
+	public void list#Clazz(){
+		render("admin/#clazzList.jsp");
+	}
+	
+	public void #clazzData(){
+		Map<Object, Object> map = #ClazzService.#clazzData(this);
+		renderJson(map);
+	}
+	
+	public void edit#Clazz(){
+		String id = getPara("id");
+		if(id!=null){
+			#Clazz #clazz = #Clazz.dao.findById(id);
+			setAttr("#clazz", #clazz);
+		}
+		render("admin/#clazzForm.jsp");
+	}
+	
+	public void save#Clazz(){
+		#ClazzService.save#Clazz(this);
+		renderJson(1);
+	}
+	
+	public void delete#Clazz(){
+		String ids = getPara("ids");
+		if(StringUtils.isNotBlank(ids)){
+			String whereSql = " where id in (" + ids +")";
+			Db.update("delete from #table_name "+whereSql);
+			renderJson(1);
+		}else{
+			renderJson(0);
+		}
+	}
+}

@@ -1,5 +1,6 @@
 package com.wwqk.utils;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Calendar;
@@ -547,5 +548,69 @@ public class CommonUtils {
 		resultMap.put("home", homeMap);
 		resultMap.put("away", awayMap);
 		return resultMap;
+	}
+	
+	private static String toUppercase4FirstLetter(String... words){
+        StringBuffer buffer = new StringBuffer();
+        if(words != null && words.length > 0){
+            for(int i=0;i<words.length;i++){
+                String word = words[i];
+                String firstLetter = word.substring(0, 1);
+                String others = word.substring(1);
+                String upperLetter = null;
+                if(i != 0){
+                    upperLetter = firstLetter.toUpperCase();
+                } else {
+                    upperLetter = firstLetter;
+                }
+                buffer.append(upperLetter).append(others);
+            }
+            return buffer.toString();
+        }
+        return "";
+    }
+	
+	/**
+	 * 表名转驼峰命名
+	 * @param tableName
+	 * @return
+	 */
+	public static String field2CamelString(String tableName){
+		if(StringUtils.isBlank(tableName)){
+			return "";
+		}
+		String[] words = tableName.split("_");
+		String result = toUppercase4FirstLetter(words);
+		return result;
+	}
+	
+	public static String firstLetter2UpperCase(String upperLetter){
+		if(StringUtils.isBlank(upperLetter)){
+			return "";
+		}
+		String firstLetter = upperLetter.substring(0, 1);
+		return firstLetter.toUpperCase()+upperLetter.substring(1);
+	}
+	
+	public static String getTemplatePath(String templateName){
+		StringBuilder sb = new StringBuilder(FileUtils.getWebDiskPath());
+		sb.append(File.separator).append("common").append(File.separator).append("template")
+		.append(File.separator).append(templateName);
+		
+		return sb.toString();
+	}
+	
+	public static String getTargetPath(String packageName, String moduleName, String targetName){
+		StringBuilder sb = new StringBuilder(System.getProperty("user.dir"));
+		sb.append(File.separator).append("src").append(File.separator).append(packageName.replaceAll("\\.", "/"))
+		.append(File.separator).append(moduleName).append(File.separator).append(targetName);
+		
+		return sb.toString();
+	}
+	
+	public static String getAdminPath(){
+		StringBuilder sb = new StringBuilder();
+		sb.append(FileUtils.getWebDiskPath()).append(File.separator).append("web").append(File.separator).append("admin").append(File.separator);
+		return sb.toString();
 	}
 }

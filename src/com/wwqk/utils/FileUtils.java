@@ -5,10 +5,13 @@
  */
 package com.wwqk.utils;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -660,4 +663,46 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 		
 		return path;
 	}
+	
+	public static String readByBufferedReader(String fileName) {  
+		StringBuilder sb = new StringBuilder();
+        try {  
+            File file = new File(fileName);  
+            // 读取文件，并且以utf-8的形式写出去  
+            BufferedReader bufread;  
+            String read;  
+            bufread = new BufferedReader(new FileReader(file));  
+            while ((read = bufread.readLine()) != null) {  
+            	sb.append(read);  
+            }  
+            bufread.close();  
+        } catch (FileNotFoundException ex) {  
+            ex.printStackTrace();  
+        } catch (IOException ex) {  
+            ex.printStackTrace();  
+        }  
+        
+        return sb.toString();
+    }  
+	
+	public static String readByBufferedReaderWithReturn(String fileName) {  
+		StringBuilder sb = new StringBuilder();
+        try {  
+            File file = new File(fileName);  
+            // 读取文件，并且以utf-8的形式写出去  
+            BufferedReader bufread;  
+            String read;  
+            bufread = new BufferedReader(new FileReader(file));  
+            while ((read = bufread.readLine()) != null) {  
+            	sb.append(read).append("\r\n");
+            }  
+            bufread.close();  
+        } catch (FileNotFoundException ex) {  
+            ex.printStackTrace();  
+        } catch (IOException ex) {  
+            ex.printStackTrace();  
+        }  
+        
+        return sb.toString();
+    }  
 }

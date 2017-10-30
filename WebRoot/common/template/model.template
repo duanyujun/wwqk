@@ -1,0 +1,17 @@
+package #path.model;
+
+import java.util.Map;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class #Clazz extends Model<#Clazz> {
+	
+	private static final long serialVersionUID = 1L;
+	
+	public static final #Clazz dao = new #Clazz();
+	
+	public Map<String, Object> getAttrs(){
+	    return super.getAttrs();
+	}
+		
+}

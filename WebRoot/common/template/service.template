@@ -1,0 +1,93 @@
+package #path.service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import #path.model.#Clazz;
+import com.wwqk.utils.ImageUtils;
+import com.wwqk.utils.StringUtils;
+import com.jfinal.upload.UploadFile;
+import java.util.UUID;
+
+public class #ClazzService {
+
+	public static Map<Object, Object> #clazzData(Controller controller){
+		String sumSql = "select count(*) from #table_name where type = 1  ";
+		String sql = "select * from #table_name where type = 1 ";
+		String orderSql = "";
+		String whereSql = "";
+		String limitSql = "";
+		
+		String search = controller.getPara("search[value]");
+		if(StringUtils.isNotBlank(search)){
+			search =search.replaceAll("'", "").trim();
+			whereSql = #whereSql
+		}
+		
+		int sortColumn = controller.getParaToInt("order[0][column]");
+		String sortType = controller.getPara("order[0][dir]");
+		switch (sortColumn) {
+			#orderSql
+		default:
+			break;
+		}
+		
+		int start = controller.getParaToInt("start");
+		int length = controller.getParaToInt("length");
+		if(length!=-1){
+			limitSql = " limit "+start+","+length;
+		}
+		Long recordsTotal = Db.queryLong(sumSql+whereSql);
+		List<#Clazz> lst#Clazz = new ArrayList<#Clazz>();
+		Object[] data = null;
+		if(recordsTotal!=0){
+			lst#Clazz = #Clazz.dao.find(sql+whereSql+orderSql+limitSql);
+			data = new Object[lst#Clazz.size()];
+			for(int i=0; i<lst#Clazz.size(); i++){
+				Object[] obj = new Object[#showSize];
+				#Clazz #clazz = lst#Clazz.get(i);
+				obj[0] = #clazz.get("id");
+				
+				#dataObjectCode
+				data[i] = obj;
+			}
+		}
+		if(data==null){
+			data = new Object[0];
+		}
+		
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("draw", controller.getParaToInt("draw"));
+		map.put("recordsTotal", recordsTotal);
+		map.put("recordsFiltered", recordsTotal);
+		map.put("data", data);
+		
+		return map;
+	}
+	
+	public static void save#Clazz(Controller controller){
+	
+		String id = controller.getPara("id");
+		#Clazz #clazz = null;
+		if(StringUtils.isBlank(id)){
+			#clazz = new #Clazz();
+		}else{
+			#clazz = #Clazz.dao.findById(id);
+		}
+		
+		#saveCode
+		save(#clazz);
+	}
+	
+	public static void save(#Clazz #clazz){
+		if(#clazz.get("id")==null){
+			#clazz.save();
+		}else{
+			#clazz.update();
+		}
+	}
+	
+}
