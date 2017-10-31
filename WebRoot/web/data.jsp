@@ -116,8 +116,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								            <c:forEach items="${lstRound}" var="round">
 								            	<li title="第${round}轮" ><a href="data-${leagueENName}-r${round}-${leagueId}.html" target="_self" class="${round==currentRound?'current':''}">${round}</a></li>
 								            </c:forEach>
-								            
-								            <li title="更多比赛"><a href="history-${leagueENName}-${leagueId}.html" target="_blank">...</a></li>
 								        </ul>
 								    </div>
 								</div>
