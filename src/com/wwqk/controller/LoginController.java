@@ -19,6 +19,7 @@ public class LoginController extends Controller {
 	public void enter() throws InterruptedException {
 		if(!login(getPara("username"), getPara("password1"))){
 			redirect("/login");
+			return;
 		}
 		Thread.sleep(1000);
 		redirect("/home");

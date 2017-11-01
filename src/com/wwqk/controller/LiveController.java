@@ -83,10 +83,12 @@ public class LiveController extends Controller {
 		id = CommonUtils.getRewriteId(id);
 		if(StringUtils.isBlank(id)){
 			redirect("/live");
+			return;
 		}
 		AllLiveMatch match = AllLiveMatch.dao.findById(id);
-		if(match==null){
+		if(match==null ){
 			redirect("/live");
+			return;
 		}
 		List<MatchLive> lstMatchLive = MatchLive.dao.find("select * from match_live where match_key = ?", match.getStr("match_key"));
 		if(lstMatchLive.size()>0){

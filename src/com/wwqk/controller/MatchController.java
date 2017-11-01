@@ -61,7 +61,8 @@ public class MatchController extends Controller {
 		String matchKey = getPara("matchKey");
 		matchKey = CommonUtils.getRewriteMatchKey(matchKey);
 		if(StringUtils.isBlank(matchKey)){
-			redirect("/match");
+			redirect("/live");
+			return;
 		}
 		//处理以前的样式2017-08-12-679vs726
 		if(matchKey.indexOf("-") != matchKey.lastIndexOf("-")){
@@ -85,6 +86,9 @@ public class MatchController extends Controller {
 			setAttr("lstOddsML", OddsUtils.findOdds(history, OddsProviderEnum.ML.getKey(),this));
 			setAttr("lstOddsBwin", OddsUtils.findOdds(history, OddsProviderEnum.BWIN.getKey(),this));
 			OddsUtils.setStartEndOdds(history,this);
+		}else{
+			redirect("/live");
+			return;
 		}
 		
 		Team homeTeam = Team.dao.findById(history.getStr("home_team_id"));

@@ -28,6 +28,7 @@ public class FunController extends Controller {
 		id = CommonUtils.getRewriteId(id);
 		if(StringUtils.isBlank(id)){
 			redirect("/fun");
+			return;
 		}
 		
 		Fun fun = Fun.dao.findById(id);

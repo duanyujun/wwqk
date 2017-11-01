@@ -38,6 +38,7 @@ public class SayController extends Controller {
 		playerId = CommonUtils.getRewriteId(playerId);
 		if(StringUtils.isBlank(playerId)){
 			redirect("/say");
+			return;
 		}
 		
 		Player player = Player.dao.findByIdWithTeamName(playerId);
@@ -90,6 +91,7 @@ public class SayController extends Controller {
 		id = CommonUtils.getRewriteId(id);
 		if(StringUtils.isBlank(id)){
 			redirect("/say");
+			return;
 		}
 		Say say = Say.dao.findById(id);
 		setAttr("say", say);

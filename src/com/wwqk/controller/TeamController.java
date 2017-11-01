@@ -24,6 +24,7 @@ public class TeamController extends Controller {
 		teamId = CommonUtils.getRewriteId(teamId);
 		if(StringUtils.isBlank(teamId)){
 			redirect("/match");
+			return;
 		}
 		
 		List<Player> lstPlayer = Player.dao.find("select * from player where team_id = ? ", teamId);
