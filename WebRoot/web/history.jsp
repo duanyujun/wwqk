@@ -57,7 +57,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin" style="margin-top:70px;">
 		<div id="main_content" style="min-height:10px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="bread">
-				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/match.html" target="_blank">数据</a>&gt;&nbsp;${area}
+				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/data.html" target="_blank">数据</a>&gt;&nbsp;${area}
 			</div>
 		</div>
 	</div>
@@ -101,7 +101,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						      <td class="a-title"><a href="team-${match.home_team_en_name}-${match.home_team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${match.home_team_id}.png" style="width:25px;height:25px;" alt="${match.home_team_name}" title="${match.home_team_name}"/>&nbsp;${match.home_team_name}</a></td>
 						      <td>
 						      	<c:if test="${fn:contains(match.result, '-')}">
-						      		<b>${match.result}</b>
+						      		<span style="color:red;">${match.result}</span>
 						      	</c:if>
 						      	<c:if test="${!fn:contains(match.result, '-')}">
 						      		${match.result}
@@ -139,7 +139,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						      	<span style="display:block;min-width:106px;float:left;"><a href="team?id=${match.home_team_id}" ><img src="assets/image/soccer/teams/25x25/${match.home_team_id}.png" style="width:25px;height:25px;"/>&nbsp;${match.home_team_name}</a></span>
 						      	<span style="display:block;min-width:40px;float:left;">
 						      	<c:if test="${fn:contains(match.result, '-')}">
-						      		<b>${match.result}</b>
+						      		<span style="color:red;">${match.result}</span>
 						      	</c:if>
 						      	<c:if test="${!fn:contains(match.result, '-')}">
 						      		${match.result}
