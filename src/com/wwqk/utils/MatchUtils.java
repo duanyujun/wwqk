@@ -11,6 +11,7 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -332,29 +333,38 @@ public class MatchUtils {
 		return result.toString();
 	}
 	
+	public static Map<String, String> getMobileBifenHeader(){
+		   Map<String, String> header = new HashMap<String, String>();  
+	       header.put("Accept", "*/*");
+	       header.put("Accept-Encoding", "gzip, deflate");  
+	       header.put("Accept-Language", "zh-CN,zh;q=0.8");
+	       header.put("Connection", "keep-alive"); 
+	       header.put("Host", "m.188bifen.com");
+	       header.put("Referer", "http://m.188bifen.com/");  
+	       header.put("X-Requested-With", "XMLHttpRequest");
+	       header.put("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1");
+	       
+	       return header;
+	}
+	
 	
 	public static void main(String[] args) throws IOException {
-		String SIET_URL = "http://fenxi.zgzcw.com/2247970/bjop";
-		String refererUrl = "http://saishi.zgzcw.com/soccer/league/36/2017-2018/";
-		Connection connect = Jsoup.connect(SIET_URL).ignoreContentType(true);
-		Connection data = connect.data(MatchUtils.getZgzcwHeader(refererUrl));
-		Document document = data.get();
-		System.err.println(document.html());
-		
-		//赛事
-//		String refererURL = "http://saishi.zgzcw.com/soccer/league/11/2017-2018/";
-//		String matchURL = "http://saishi.zgzcw.com/summary/liansaiAjax.action";
-//		Connection con = Jsoup.connect(matchURL);
-//		con.data("source_league_id", "11");
-//		con.data("currentRound", "1");
-//		con.data("season", "2017-2018");
-//		con.data("seasonType", "");
-//		//con.data(postZgzcwHeader(refererURL));
-//		for(Map.Entry<String, String> entry:postZgzcwHeader(refererURL).entrySet()){
-//			con.header(entry.getKey(), entry.getValue());
+		String SIET_URL = "http://m.188bifen.com/json/zuqiu.htm?k=0.61970021480676236";
+//		HttpClient httpclient = new DefaultHttpClient();
+//		String content = getMobileBifenContent(httpclient, SIET_URL);
+//		Connection connect = Jsoup.connect(SIET_URL).ignoreContentType(true);
+//		Connection data = connect.data(getMobileBifenHeader());
+//	    String injureStr = null;
+//		try {
+//			Document injureDoc = data.get();
+//			if(injureDoc!=null){
+//				injureStr = injureDoc.text();
+//				System.err.println(injureStr);
+//			}
+//		} catch (IOException e) {
+//			
 //		}
-//		Document document = con.post();
-//		System.err.println(document.html());
+		
 	}
 	
 }
