@@ -137,7 +137,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		isAll = false;
 		var winWidth = $(window).width();
 		if (winWidth<992) {
-			window.location.href = "/bifen/mobile";
+			window.location.href = "/bfmobile.html";
 			  /**
 			  $("#pc_div").html("");
 			  $("#chat_div").html("");
@@ -160,7 +160,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			  $("#cp").html(cp_url);
 			  $("#mobile_div").html("");
 		  }else{
-			  window.location.href = "/bifen/mobile";
+			  window.location.href = "/bfmobile.html";
 			  /**
 			  $("#pc_div").html("");
 			  $("#chat_div").html("");

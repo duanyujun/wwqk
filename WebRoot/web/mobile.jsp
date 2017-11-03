@@ -26,70 +26,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="description" content="趣点足球网为球迷们提供足球比分、即时比分和比赛结果，在线聊天室侃球" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="common/main.css" rel="stylesheet" type="text/css" />
+    <link href="common/main.css?v=2.0" rel="stylesheet" type="text/css" />
     <link href="${ctx}/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - 足球比分直播|球探比分|bet007足球比分|聊天侃球</title>
     <style type="text/css">
     	.title2{line-height:30px;background:#F1F6FB;padding-left:5px;font-weight:bold;font-size:12px;text-indent:5px;border-bottom:1px dotted #CCC;}
-    	.main{
-		    width: 100%; margin: 0 auto 10px; padding: 0;
-		}
-		.match_box{
-		    margin: 0 auto 10px auto; padding: 0; width: 100%; /*background: #EBF5FA; */ background:#f3faff; border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color: #CAD9E6;
-		}
-		.match_box_left{
-		    margin: 0 auto; padding: 0;  text-align: right;
-		}
-		.match_box_right{
-		    margin: 0 auto; padding: 0;  text-align: left;
-		}
-		.match_box_middle{
-		    margin: 0 auto; padding: 0;  width: 60px;  text-align:center;
-		}
-		
-		.team_up{
-		    line-height: 20px; font-size: 12px;
-		}
-		.team_down{
-		    line-height: 26px; font-weight: bold;
-		}
-		.match_league{
-		    color:#FCA92D;
-		}
-		.match_start_time{
-		    color:#666;
-		}
-		.match_odds{
-		    color:#666;
-		}
-		.match_half_bifen{
-		    color:#666;
-		}
-		.match_mins{
-		    line-height: 20px; font-size: 12px;
-		}
-		.match_bifen{
-		    color:red; font-size: 16px; font-weight: bolder;
-		}
-		.red{
-		    background: red; color: #fff; font-size: 12px; padding: 3px; margin: 0 2px; font-weight: normal;
-		}
-		.yellow{
-		    background: yellow; color: #222; font-size: 12px; padding: 3px; margin: 0 2px; font-weight: normal;
-		}
-		
-		.top_bar{
-		    width: 100%; height: 30px; color:#fff; background:rgb(64, 178, 241); display:block; position: fixed; top:0; z-index: 9; padding: 0 10px;
-		}
-		
-		
-		.match_box td{
-		    border-bottom: white solid 10px;
-		}
-		
-		.a_info_box td{
-		    padding: 0;
-		}
     </style>
 </head>
 
@@ -116,31 +57,33 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	</div>
 
 			<table class="main" cellspacing="0" style="margin-top:45px;">
-				<tbody>
-					<c:forEach items="${lstBifen}" var="bifen">
-						<tr class="match_box ng-scope">
-					        <td class="match_box_left">
-					            <div class="team_up"><span class="match_league" >${bifen.leagueName}</span> <span class="match_start_time">${bifen.startTimeStr}</span></div>
-					            <div class="team_down">
-					            	<c:if test="${!empty bifen.homeYellow}"><span class="yellow">${bifen.homeYellow}</span></c:if><c:if test="${!empty bifen.homeRed}"><span class="red">${bifen.homeRed}</span></c:if><span >${bifen.homeName}</span>
-					            </div>
-					        </td>
-					        <td class="match_box_middle">
-					        	<div class="match_mins" style="color:red;">${bifen.liveTimeStr}</div>
-		                        <div class="match_bifen"><span>${bifen.homeBifen}:${bifen.awayBifen}</span></div>
-		                    </td>
-					        <td class="match_box_right">
-					            <div class="team_up"><span class="match_odds" >${bifen.handicapStr}</span><span class="match_half_bifen" >${bifen.halfBifen}</span></div>
-					            <div class="team_down">
-					            	<span>${bifen.awayName}</span><c:if test="${!empty bifen.awayRed}"><span class="red">${bifen.awayRed}</span></c:if><c:if test="${!empty bifen.awayYellow}"><span class="yellow">${bifen.awayYellow}</span></c:if>
-					            </div>
-					        </td>
-					    </tr>
-					</c:forEach>
+				<tbody id="bifenBody">
+					
 			   </tbody>
 		 </table>
 	
 </div>
+
+<table id="template" style="display:none;">
+	<tr class="match_box">
+	      <td class="match_box_left">
+	          <div class="team_up"><span class="match_league" >#league</span> <span class="match_start_time">#start_time</span></div>
+	          <div class="team_down">
+	          	#homeNameAndCards
+	          </div>
+	      </td>
+	      <td class="match_box_middle">
+	      	<div class="match_mins" style="color:#red;">#match_mins</div>
+	                   <div class="match_bifen"><span>#bifen_a:#bifen_b</span></div>
+	               </td>
+	      <td class="match_box_right">
+	          <div class="team_up"><span class="match_odds" >#odds</span><span class="match_half_bifen" >#half_bifen</span></div>
+	          <div class="team_down">
+	          	#awayNameAndCards
+	          </div>
+	      </td>
+	</tr>
+</table>
 
 <div class="scroll-to-top">
     <i class="icon-arrow-up"></i>
@@ -180,12 +123,15 @@ var handleGoTop = function() {
 
 $(function(){
 	  handleGoTop();	
+	  updateBifen();
+	  setInterval("updateBifen()",20000);
 });
 
 $(function(){
+	var winWidth = $(window).width();
 	if(!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
 		if(winWidth>=992){
-			window.location.href = "/bifen";
+			window.location.href = "/bifen.html";
 		}
 	 }
 });
@@ -193,9 +139,54 @@ $(function(){
 window.onresize = function(){
 	var winWidth = $(window).width();
 	if(winWidth>=992){
-		window.location.href = "/bifen";
+		window.location.href = "/bifen.html";
 	}
 };
+
+function updateBifen(){
+	var newHtml='';
+	var updateUrl = "/bifen/mobileJson?t="+Date.parse(new Date());
+	
+	$.ajax({url:updateUrl,success: function(data){
+        for(var i=0; i<data.length; i++){
+        	var oneMatch = $("#template").html();
+        	oneMatch = oneMatch.replace("#league",data[i].league);
+        	oneMatch = oneMatch.replace("#start_time",data[i].start_time);
+        	oneMatch = oneMatch.replace("#match_mins",data[i].match_mins);
+        	if('未开'==data[i].match_mins){
+        		oneMatch = oneMatch.replace("#red","#ccc");
+        	}else{
+        		oneMatch = oneMatch.replace("#red","red");
+        	}
+        	oneMatch = oneMatch.replace("#bifen_a",data[i].bifen_a);
+        	oneMatch = oneMatch.replace("#bifen_b",data[i].bifen_b);
+        	oneMatch = oneMatch.replace("#odds",data[i].odds);
+        	oneMatch = oneMatch.replace("#half_bifen",data[i].half_bifen);
+        	var homeNameAndCards = '';
+        	if(data[i].yellow_a!=''){
+        		homeNameAndCards+='<span class="yellow">'+data[i].yellow_a+'</span>';
+        	}
+        	if(data[i].red_a!=''){
+        		homeNameAndCards+='<span class="red">'+data[i].red_a+'</span>';
+        	}
+        	homeNameAndCards +='<span >'+data[i].team_a+'</span>';
+        	oneMatch = oneMatch.replace("#homeNameAndCards",homeNameAndCards);
+        	
+        	var awayNameAndCards = '';
+        	if(data[i].yellow_b!=''){
+        		awayNameAndCards+='<span class="yellow">'+data[i].yellow_b+'</span>';
+        	}
+        	if(data[i].red_b!=''){
+        		awayNameAndCards+='<span class="red">'+data[i].red_b+'</span>';
+        	}
+        	awayNameAndCards +='<span >'+data[i].team_b+'</span>';
+        	oneMatch = oneMatch.replace("#awayNameAndCards",awayNameAndCards);
+        	newHtml += oneMatch;
+        }
+        $("#bifenBody").html(newHtml);
+    }});
+	
+}
 
 
 
