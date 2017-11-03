@@ -347,6 +347,21 @@ public class MatchUtils {
 	       return header;
 	}
 	
+	public static String getMobileBifenStr(){
+		String url = "http://m.188bifen.com/json/zuqiu.htm?k=0."+String.valueOf((int)(Math.random()*200))+System.currentTimeMillis();
+		Connection connect = Jsoup.connect(url).ignoreContentType(true);
+		Connection data = connect.data(getMobileBifenHeader());
+	    String resultStr = "";
+		try {
+			Document resultDoc = data.get();
+			if(resultDoc!=null){
+				resultStr = resultDoc.text();
+			}
+		} catch (IOException e) {}
+		
+		return resultStr;
+	}
+	
 	
 	public static void main(String[] args) throws IOException {
 		String SIET_URL = "http://m.188bifen.com/json/zuqiu.htm?k=0.61970021480676236";

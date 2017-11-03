@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=GB2312"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
@@ -7,7 +7,7 @@
 <%
 	response.setHeader("Pragma","No-cache");//HTTP     1.1
 	response.setHeader("Cache-Control","no-cache");//HTTP     1.0
-	response.setHeader("Expires","0");//·ÀÖ¹±»proxy!
+	response.setHeader("Expires","0");//é˜²æ­¢è¢«proxy!
 %>
 <%
 String path = request.getContextPath();
@@ -18,86 +18,189 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <head>
 	<base href="<%=basePath%>">
-	
+	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta content="telephone=no" name="format-detection">
-	<meta name="keywords" content="×ãÇò±È·Ö,ÇòÌ½±È·Ö,×ãÇò±È·ÖÖ±²¥,¼´Ê±±È·Ö,ÁÄÌìÊÒ" />
-	<meta name="description" content="È¤µã×ãÇòÍøÎªÇòÃÔÃÇÌá¹©×ãÇò±È·Ö¡¢¼´Ê±±È·ÖºÍ±ÈÈü½á¹û£¬ÔÚÏßÁÄÌìÊÒÙ©Çò" />
+	<meta name="keywords" content="è¶³çƒæ¯”åˆ†,çƒæ¢æ¯”åˆ†,è¶³çƒæ¯”åˆ†ç›´æ’­,å³æ—¶æ¯”åˆ†,èŠå¤©å®¤" />
+	<meta name="description" content="è¶£ç‚¹è¶³çƒç½‘ä¸ºçƒè¿·ä»¬æä¾›è¶³çƒæ¯”åˆ†ã€å³æ—¶æ¯”åˆ†å’Œæ¯”èµ›ç»“æœï¼Œåœ¨çº¿èŠå¤©å®¤ä¾ƒçƒ" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="${ctx}/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <title>È¤µã×ãÇòÍø - ×ãÇò±È·ÖÖ±²¥|ÇòÌ½±È·Ö|bet007×ãÇò±È·Ö|ÁÄÌìÙ©Çò</title>
+    <title>è¶£ç‚¹è¶³çƒç½‘ - è¶³çƒæ¯”åˆ†ç›´æ’­|çƒæ¢æ¯”åˆ†|bet007è¶³çƒæ¯”åˆ†|èŠå¤©ä¾ƒçƒ</title>
     <style type="text/css">
     	.title2{line-height:30px;background:#F1F6FB;padding-left:5px;font-weight:bold;font-size:12px;text-indent:5px;border-bottom:1px dotted #CCC;}
+    	.main{
+		    width: 100%; margin: 0 auto 10px; padding: 0;
+		}
+		.match_box{
+		    margin: 0 auto 10px auto; padding: 0; width: 100%; /*background: #EBF5FA; */ background:#f3faff; border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color: #CAD9E6;
+		}
+		.match_box_left{
+		    margin: 0 auto; padding: 0;  text-align: right;
+		}
+		.match_box_right{
+		    margin: 0 auto; padding: 0;  text-align: left;
+		}
+		.match_box_middle{
+		    margin: 0 auto; padding: 0;  width: 60px;  text-align:center;
+		}
+		
+		.team_up{
+		    line-height: 20px; font-size: 12px;
+		}
+		.team_down{
+		    line-height: 26px; font-weight: bold;
+		}
+		.match_league{
+		    color:#FCA92D;
+		}
+		.match_start_time{
+		    color:#666;
+		}
+		.match_odds{
+		    color:#666;
+		}
+		.match_half_bifen{
+		    color:#666;
+		}
+		.match_mins{
+		    line-height: 20px; font-size: 12px;
+		}
+		.match_bifen{
+		    color:red; font-size: 16px; font-weight: bolder;
+		}
+		.red{
+		    background: red; color: #fff; font-size: 12px; padding: 3px; margin: 0 2px; font-weight: normal;
+		}
+		.yellow{
+		    background: yellow; color: #222; font-size: 12px; padding: 3px; margin: 0 2px; font-weight: normal;
+		}
+		
+		.top_bar{
+		    width: 100%; height: 30px; color:#fff; background:rgb(64, 178, 241); display:block; position: fixed; top:0; z-index: 9; padding: 0 10px;
+		}
+		
+		
+		.match_box td{
+		    border-bottom: white solid 10px;
+		}
+		
+		.a_info_box td{
+		    padding: 0;
+		}
     </style>
 </head>
 
 <body>
-	<div class="container">	
-		<div class="row">
-			<div class="col-sm-5 col-xs-5">
-				<div class="col-sm-12 col-xs-12 pull-right">
-					ÑÇÇàU19 18:00
-				</div>
-				<div class="col-sm-12 col-xs-12 pull-right">
-					Âí¶û´ú·òU19(ÖĞ)
-				</div>
-			</div>
-			<div class="col-sm-2 col-xs-2">
-				<div class="col-sm-12 col-xs-12">
-					13'
-				</div>
-				<div class="col-sm-12 col-xs-12">
-					0:0
-				</div>
-			</div>
-			<div class="col-sm-5 col-xs-5">
-				<div class="col-sm-12 col-xs-12 pull-right">
-					ÊÜÆ½ÊÖ
-				</div>
-				<div class="col-sm-12 col-xs-12 pull-right">
-					Âí¶û´ú·òU19(ÖĞ)
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-5 col-xs-5">
-				<div class="col-sm-12 col-xs-12 pull-right">
-					ÑÇÇàU19 18:00
-				</div>
-				<div class="col-sm-12 col-xs-12 pull-right">
-					Âí¶û´ú·òU19(ÖĞ)
-				</div>
-			</div>
-			<div class="col-sm-2 col-xs-2">
-				<div class="col-sm-12 col-xs-12">
-					13'
-				</div>
-				<div class="col-sm-12 col-xs-12">
-					0:0
-				</div>
-			</div>
-			<div class="col-sm-5 col-xs-5">
-				<div class="col-sm-12 col-xs-12 pull-right">
-					ÊÜÆ½ÊÖ
-				</div>
-				<div class="col-sm-12 col-xs-12 pull-right">
-					Âí¶û´ú·òU19(ÖĞ)
-				</div>
-			</div>
-		</div>
-	
-	<%@ include file="/common/footer-bifen.jsp"%>		
-	
+<div id="all_content">	
+	<div class="container">
+		<div class="row menu_link navbar-fixed-top  visible-sm visible-xs" style="background:#00A50D;min-height:35px;color:white;">
+	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
+	       		<a href="/" target="_self"><span class="wwqk_menu">é¦–é¡µ</span></a>
+	       	</div>
+	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
+	       		<a href="/fun.html" target="_self"><span class="wwqk_menu">è¶£ç‚¹</span></a>
+	       	</div>
+	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
+	       		<a href="/live.html" target="_self"><span class="wwqk_menu">ç›´æ’­</span></a>
+	       	</div>
+	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
+	       		<a href="/bifen.html" target="_self"><span class="wwqk_menu dline">æ¯”åˆ†</span></a>
+	       	</div>
+	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
+	       		<a href="/data.html" target="_self"><span class="wwqk_menu">æ•°æ®</span></a>
+	       	</div>
+	    </div>
 	</div>
+
+			<table class="main" cellspacing="0" style="margin-top:45px;">
+				<tbody>
+					<c:forEach items="${lstBifen}" var="bifen">
+						<tr class="match_box ng-scope">
+					        <td class="match_box_left">
+					            <div class="team_up"><span class="match_league" >${bifen.leagueName}</span> <span class="match_start_time">${bifen.startTimeStr}</span></div>
+					            <div class="team_down">
+					            	<c:if test="${!empty bifen.homeYellow}"><span class="yellow">${bifen.homeYellow}</span></c:if><c:if test="${!empty bifen.homeRed}"><span class="red">${bifen.homeRed}</span></c:if><span >${bifen.homeName}</span>
+					            </div>
+					        </td>
+					        <td class="match_box_middle">
+					        	<div class="match_mins" style="color:red;">${bifen.liveTimeStr}</div>
+		                        <div class="match_bifen"><span>${bifen.homeBifen}:${bifen.awayBifen}</span></div>
+		                    </td>
+					        <td class="match_box_right">
+					            <div class="team_up"><span class="match_odds" >${bifen.handicapStr}</span><span class="match_half_bifen" >${bifen.halfBifen}</span></div>
+					            <div class="team_down">
+					            	<span>${bifen.awayName}</span><c:if test="${!empty bifen.awayRed}"><span class="red">${bifen.awayRed}</span></c:if><c:if test="${!empty bifen.awayYellow}"><span class="yellow">${bifen.awayYellow}</span></c:if>
+					            </div>
+					        </td>
+					    </tr>
+					</c:forEach>
+			   </tbody>
+		 </table>
 	
-	<script>
-	
-	
-	
-	</script>
+</div>
+
+<div class="scroll-to-top">
+    <i class="icon-arrow-up"></i>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+//Handles the go to top button at the footer
+var handleGoTop = function() {
+    var offset = 300;
+    var duration = 300;
+    if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) { // ios supported
+        $(window).bind("touchend touchcancel touchleave", function(e) {
+            if ($(this).scrollTop() > offset) {
+                $('.scroll-to-top').fadeIn(duration);
+            } else {
+                $('.scroll-to-top').fadeOut(duration);
+            }
+        });
+    } else { // general 
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > offset) {
+                $('.scroll-to-top').fadeIn(duration);
+            } else {
+                $('.scroll-to-top').fadeOut(duration);
+            }
+        });
+    }
+
+    $('.scroll-to-top').click(function(e) {
+        e.preventDefault();
+        $('html, body').animate({
+            scrollTop: 0
+        }, duration);
+        return false;
+    });
+};
+
+$(function(){
+	  handleGoTop();	
+});
+
+$(function(){
+	if(!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+		if(winWidth>=992){
+			window.location.href = "/bifen";
+		}
+	 }
+});
+
+window.onresize = function(){
+	var winWidth = $(window).width();
+	if(winWidth>=992){
+		window.location.href = "/bifen";
+	}
+};
+
+
+
+</script>
+
 		
 </body>	
 

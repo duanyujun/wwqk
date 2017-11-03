@@ -137,10 +137,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		isAll = false;
 		var winWidth = $(window).width();
 		if (winWidth<992) {
+			window.location.href = "/bifen/mobile";
+			  /**
 			  $("#pc_div").html("");
 			  $("#chat_div").html("");
 			  $("#cp").html("");
 			  $("#mobile_div").html(m_bifen_url);
+			  */
 		}else{
 			 $("#pc_div").html(pc_frame_url);
 		     $("#chat_div").html(chat_frame_url);
@@ -157,10 +160,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			  $("#cp").html(cp_url);
 			  $("#mobile_div").html("");
 		  }else{
+			  window.location.href = "/bifen/mobile";
+			  /**
 			  $("#pc_div").html("");
 			  $("#chat_div").html("");
 			  $("#cp").html("");
 			  $("#mobile_div").html(m_bifen_url);
+			  */
 		  }
 	}
 	
