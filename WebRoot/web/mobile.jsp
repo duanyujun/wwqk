@@ -173,13 +173,15 @@ function updateBifen(){
         	oneMatch = oneMatch.replace("#homeNameAndCards",homeNameAndCards);
         	
         	var awayNameAndCards = '';
-        	if(data[i].yellow_b!=''){
-        		awayNameAndCards+='<span class="yellow">'+data[i].yellow_b+'</span>';
-        	}
+        	awayNameAndCards +='<span >'+data[i].team_b+'</span>';
         	if(data[i].red_b!=''){
         		awayNameAndCards+='<span class="red">'+data[i].red_b+'</span>';
         	}
-        	awayNameAndCards +='<span >'+data[i].team_b+'</span>';
+        	if(data[i].yellow_b!=''){
+        		awayNameAndCards+='<span class="yellow">'+data[i].yellow_b+'</span>';
+        	}
+        	
+        	
         	oneMatch = oneMatch.replace("#awayNameAndCards",awayNameAndCards);
         	newHtml += oneMatch;
         }
