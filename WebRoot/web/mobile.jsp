@@ -56,11 +56,27 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    </div>
 	</div>
 
-			<table class="main" cellspacing="0" style="margin-top:46px;">
-				<tbody id="bifenBody">
-					
-			   </tbody>
-		 </table>
+		 <ul id="myTab" class="nav nav-tabs bread" style="margin-top:40px;">
+					<li class="active"><a href="#m_bifen" data-toggle="tab" >比分</a></li>
+					<li ><a href="#m_chatroom" data-toggle="tab" >侃球室</a></li>
+				</ul>
+		 <div id="myTabContent" class="tab-content">
+				<div class="tab-pane fade in active" id="m_bifen" >
+					 <table class="main" cellspacing="0" >
+							<tbody id="bifenBody">
+								
+						   </tbody>
+					 </table>
+				</div>
+				<div class="tab-pane fade" id="m_chatroom" >
+						
+						<div id="chat_div" style="float:left;height:455px;width:100%;">
+							
+						</div>
+						
+				</div>
+		</div>
+		 
 	
 </div>
 
@@ -89,6 +105,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <i class="icon-arrow-up"></i>
 </div>
 <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="common/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 //Handles the go to top button at the footer
 var handleGoTop = function() {
@@ -129,18 +146,28 @@ $(function(){
 
 $(function(){
 	var winWidth = $(window).width();
+	var winHeight = $(window).height();
 	if(!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
 		if(winWidth>=992){
 			window.location.href = "/bifen.html";
 		}
 	 }
+	$("#chat_div").css("height", winHeight-90);
+	chat_url = chat_url.replace("src_height", winHeight-90);
+	chat_url = chat_url.replace("frame_height", winHeight-90);
+	$("#chat_div").html(chat_url);
 });
 
 window.onresize = function(){
 	var winWidth = $(window).width();
+	var winHeight = $(window).height();
 	if(winWidth>=992){
 		window.location.href = "/bifen.html";
 	}
+	$("#chat_div").css("height", winHeight-90);
+	chat_url = chat_url.replace("src_height", winHeight-90);
+	chat_url = chat_url.replace("frame_height", winHeight-90);
+	$("#chat_div").html(chat_url);
 };
 
 function updateBifen(){
@@ -190,7 +217,21 @@ function updateBifen(){
 	
 }
 
-
+var chat_url = '<iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://chat.jcbao.org/bo360/chat?h=src_height" marginheight="0" marginwidth="0" frameborder="0" width="100%" height="frame_height" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>';
+var cp_url = '<iframe frameBorder="0" scrolling="no" align="center" width="297" height="65" rel="nofollow" src="http://www.360zhibo.com/kjgd2013.html"></iframe>';
+var cp_more_url = '<iframe frameBorder="0" scrolling="no" align="center" width="297" height="670" rel="nofollow" src="http://www.360zhibo.com/kjgd3013.html"></iframe>';
+var isAll = false;
+function toggleCp(){
+	if(isAll){
+		isAll = false;
+		document.getElementById('cp').innerHTML = cp_url;
+		$("#toggleA").html("更多信息...");
+	}else{
+		isAll = true;
+		document.getElementById('cp').innerHTML = cp_more_url;
+		$("#toggleA").html("折叠...");
+	}
+}
 
 </script>
 
