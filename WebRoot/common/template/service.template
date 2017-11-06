@@ -15,8 +15,8 @@ import java.util.UUID;
 public class #ClazzService {
 
 	public static Map<Object, Object> #clazzData(Controller controller){
-		String sumSql = "select count(*) from #table_name where type = 1  ";
-		String sql = "select * from #table_name where type = 1 ";
+		String sumSql = "select count(*) from #table_name where 1 = 1  ";
+		String sql = "select * from #table_name where 1 = 1 ";
 		String orderSql = "";
 		String whereSql = "";
 		String limitSql = "";
