@@ -3,8 +3,6 @@ package com.wwqk.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jfinal.plugin.activerecord.Db;
-import com.jfinal.plugin.activerecord.Record;
 import com.wwqk.model.ColumnVO;
 
 /**
@@ -33,7 +31,7 @@ public class CodeGenerator {
 	//是否有上传图片（文件）
 	private static boolean isNeedGetFiles = false;
 
-	public static void build(String tableName, String packageName, List<ColumnVO> lstColomnVO){
+	public static void build(String tableName, String tableNameCN, String packageName, List<ColumnVO> lstColomnVO){
 		//生成java代码
 		//1、生成AdminXXXController
 		String adminTemplate = FileUtils.readByBufferedReaderWithReturn(CommonUtils.getTemplatePath("admin.template")); 
@@ -75,7 +73,7 @@ public class CodeGenerator {
 		String listTemplate = FileUtils.readByBufferedReaderWithReturn(CommonUtils.getTemplatePath("list.template")); 
 		//TODO 
 		//Record tableCommentRecord = Db.findFirst("select `TABLE_COMMENT` from information_schema.`TABLES`  where `TABLE_NAME` = ? and `TABLE_SCHEMA` = ?", tableName, DATABASE_NAME);
-		String tableComment = "产品";//tableCommentRecord.getStr("TABLE_COMMENT");
+		String tableComment = tableNameCN;//tableCommentRecord.getStr("TABLE_COMMENT");
 		listTemplate = listTemplate.replaceAll("#tableName", tableComment);
 		listTemplate = listTemplate.replaceAll("#ThHeader", buildThHeaderString(lstShow));
 		listTemplate = listTemplate.replaceAll("#ColDetail", buildColDetailString(lstShow));
@@ -282,42 +280,45 @@ public class CodeGenerator {
 	}
 	
 	public static void main(String[] args) {
+		//getColumnVO(colomnName, colomnType, colomnComment, isInForm, isInList, isOrderable, isSearchable, 
+		//            finalType, isRequired)
 		
 		List<ColumnVO> lstColumnVO = new ArrayList<ColumnVO>();
-		ColumnVO c1 = new ColumnVO();
-		c1.setColomnName("total_unit");
-		c1.setColomnComment("净值");
-		c1.setIsSearchable(1);
-		c1.setIsOrderable(1);
-		c1.setIsInList(1);
-		c1.setIsInForm(1);
+		ColumnVO c1 = getColumnVO("league_id", null, "联赛id", 1, 1, 1, 0, 0, 0);
+		ColumnVO c2 = getColumnVO("match_date", null, "比赛时间", 1,1,1,0,0,0);
+		ColumnVO c3 = getColumnVO("home_team", null, "主队", 1,1,1,1,0,1);
+		ColumnVO c4 = getColumnVO("away_team", null, "客队", 1,1,1,1,0,1);
+		ColumnVO c5 = getColumnVO("title", null, "标题", 1,1,0,1,0,0);
+		ColumnVO c6 = getColumnVO("source_url", null, "源地址", 1,0,0,0,0,0);
+		ColumnVO c7 = getColumnVO("real_url", null, "真实地址", 1,0,0,0,0,0);
+		ColumnVO c8 = getColumnVO("from_site", null, "来源", 1,0,0,0,0,0);
+		ColumnVO c9 = getColumnVO("match_history_id", null, "比赛id", 1,1,0,0,0,0);
 		lstColumnVO.add(c1);
-		
-		ColumnVO c2 = new ColumnVO();
-		c2.setColomnName("net_time");
-		c2.setColomnComment("净值时间");
-		c2.setIsSearchable(1);
-		c2.setIsInList(1);
-		c2.setIsInForm(1);
 		lstColumnVO.add(c2);
-		
-		ColumnVO c3 = new ColumnVO();
-		c3.setColomnName("product_img");
-		c3.setColomnComment("产品图片");
-		c3.setIsInForm(1);
-		c3.setFinalType(2);
 		lstColumnVO.add(c3);
-		
-		ColumnVO c4 = new ColumnVO();
-		c4.setColomnName("content");
-		c4.setColomnComment("产品描述");
-		c4.setFinalType(1);
-		c4.setIsInForm(1);
 		lstColumnVO.add(c4);
+		lstColumnVO.add(c5);
+		lstColumnVO.add(c6);
+		lstColumnVO.add(c7);
+		lstColumnVO.add(c8);
+		lstColumnVO.add(c9);
 		
-		
-		
-		build("pe_product", "com.wwqk", lstColumnVO);
-		
+		build("videos", "集锦", "com.wwqk", lstColumnVO);
+	}
+	
+	//getColumnVO(colomnName, colomnType, colomnComment, isInForm, isInList, isOrderable, isSearchable, finalType, isRequired)
+	public static ColumnVO getColumnVO(String colomnName, String colomnType, String colomnComment, int isInForm, 
+			int isInList, int isOrderable, int isSearchable, int finalType, int isRequired){
+		ColumnVO c = new ColumnVO();
+		c.setColomnName(colomnName);
+		c.setColomnType(colomnType);
+		c.setColomnComment(colomnComment);
+		c.setIsInForm(isInForm);
+		c.setIsInList(isInList);
+		c.setIsOrderable(isOrderable);
+		c.setIsSearchable(isSearchable);
+		c.setFinalType(finalType);
+		c.setIsRequired(isRequired);
+		return c;
 	}
 }
