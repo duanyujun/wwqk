@@ -2,6 +2,8 @@ package com.wwqk.controller;
 
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
+import com.wwqk.constants.CommonConstants;
+import com.wwqk.constants.MenuEnum;
 import com.wwqk.model.Article;
 import com.wwqk.model.Fun;
 import com.wwqk.utils.CommonUtils;
@@ -15,6 +17,8 @@ public class FunController extends Controller {
 		setAttr("funPage", funPage);
 		setAttr("pageUI", PageUtils.calcStartEnd(funPage));
 		setAttr("initCount", funPage.getList().size());
+		
+		setAttr(CommonConstants.MENU_INDEX, MenuEnum.FUN.getKey());
 		render("fun.jsp");
 	}
 	
@@ -38,6 +42,7 @@ public class FunController extends Controller {
 		}
 		setAttr("fun", fun);
 		
+		setAttr(CommonConstants.MENU_INDEX, MenuEnum.FUN.getKey());
 		render("funDetail.jsp");
 	}
 	

@@ -13,7 +13,9 @@ import java.util.Set;
 import com.alibaba.fastjson.JSON;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
+import com.wwqk.constants.CommonConstants;
 import com.wwqk.constants.LeagueEnum;
+import com.wwqk.constants.MenuEnum;
 import com.wwqk.model.Fun;
 import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeaguePosition;
@@ -36,6 +38,8 @@ public class IndexController extends Controller {
 		getRecomMatches();
 		CommonUtils.initLeagueNameMap();
 		getMatchNews();
+		
+		setAttr(CommonConstants.MENU_INDEX, MenuEnum.INDEX.getKey());
 		render("index.jsp");
 	}
 	

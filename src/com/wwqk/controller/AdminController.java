@@ -34,8 +34,8 @@ import com.wwqk.model.Player;
 import com.wwqk.model.Say;
 import com.wwqk.model.Team;
 import com.wwqk.model.TipsMatch;
+import com.wwqk.model.Videos;
 import com.wwqk.plugin.AnalyzeZgzcw;
-import com.wwqk.plugin.Live24zbw;
 import com.wwqk.plugin.Live5chajian;
 import com.wwqk.plugin.LiveZuqiula;
 import com.wwqk.plugin.MatchSina;
@@ -56,6 +56,7 @@ import com.wwqk.service.SayService;
 import com.wwqk.service.Shooter163Service;
 import com.wwqk.service.TeamService;
 import com.wwqk.service.TipsMatchService;
+import com.wwqk.service.VideosService;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.GeneratorUtils;
@@ -626,6 +627,40 @@ public class AdminController extends Controller {
 	
 	public void deleteTipsMatch(){
 		renderJson(1);
+	}
+	
+	public void listVideos(){
+		render("admin/videosList.jsp");
+	}
+	
+	public void videosData(){
+		Map<Object, Object> map = VideosService.videosData(this);
+		renderJson(map);
+	}
+	
+	public void editVideos(){
+		String id = getPara("id");
+		if(id!=null){
+			Videos videos = Videos.dao.findById(id);
+			setAttr("videos", videos);
+		}
+		render("admin/videosForm.jsp");
+	}
+	
+	public void saveVideos(){
+		VideosService.saveVideos(this);
+		renderJson(1);
+	}
+	
+	public void deleteVideos(){
+		String ids = getPara("ids");
+		if(StringUtils.isNotBlank(ids)){
+			String whereSql = " where id in (" + ids +")";
+			Db.update("delete from videos "+whereSql);
+			renderJson(1);
+		}else{
+			renderJson(0);
+		}
 	}
 	
 	//日常管理：手动更新比赛信息； 手动更新一只球队球员情况

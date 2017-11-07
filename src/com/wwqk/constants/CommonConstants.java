@@ -22,6 +22,9 @@ public class CommonConstants {
 	/** 默认头像（大）路径 */
 	public static final String HEAD_BIG_PATH = "assets/pages/img/head-d-big.png";
 	
+	/** 菜单位置 */
+	public static final String MENU_INDEX = "menuIndex";
+	
 	public static Map<String, String> DIFF_MAP = new HashMap<String, String>();
 	static{
 		DIFF_MAP.put("热刺", "托特纳姆热刺");

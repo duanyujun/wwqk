@@ -5,8 +5,10 @@ import java.util.List;
 
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
+import com.wwqk.constants.CommonConstants;
 import com.wwqk.constants.LeagueENEnum;
 import com.wwqk.constants.LeagueEnum;
+import com.wwqk.constants.MenuEnum;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.Team;
 import com.wwqk.utils.CommonUtils;
@@ -128,6 +130,7 @@ public class MatchHistoryController extends Controller {
 		setAttr("lstRound", lstRound);
 		setAttr("lstYear", lstYear);
 		
+		setAttr(CommonConstants.MENU_INDEX, MenuEnum.DATA.getKey());
 		render("history.jsp");
 	}
 

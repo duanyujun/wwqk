@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.jfinal.core.Controller;
+import com.wwqk.constants.CommonConstants;
 import com.wwqk.constants.LeagueENEnum;
 import com.wwqk.constants.LeagueEnum;
+import com.wwqk.constants.MenuEnum;
 import com.wwqk.model.LeagueAssists;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.LeaguePosition;
@@ -78,6 +80,8 @@ public class DataController extends Controller {
 		setAttr("currentRound", currentRound);
 		setAttr("lstRound", lstRound);
 		setAttr("lstMatch", lstMatch);
+		
+		setAttr(CommonConstants.MENU_INDEX, MenuEnum.DATA.getKey());
 		render("data.jsp");
 	}
 	

@@ -288,9 +288,9 @@ public class CodeGenerator {
 		ColumnVO c2 = getColumnVO("match_date", null, "比赛时间", 1,1,1,0,0,0);
 		ColumnVO c3 = getColumnVO("home_team", null, "主队", 1,1,1,1,0,1);
 		ColumnVO c4 = getColumnVO("away_team", null, "客队", 1,1,1,1,0,1);
-		ColumnVO c5 = getColumnVO("title", null, "标题", 1,1,0,1,0,0);
+		ColumnVO c5 = getColumnVO("match_title", null, "标题", 1,1,0,1,0,0);
 		ColumnVO c6 = getColumnVO("source_url", null, "源地址", 1,0,0,0,0,0);
-		ColumnVO c7 = getColumnVO("real_url", null, "真实地址", 1,0,0,0,0,0);
+		//ColumnVO c7 = getColumnVO("real_url", null, "真实地址", 1,0,0,0,0,0);
 		ColumnVO c8 = getColumnVO("from_site", null, "来源", 1,0,0,0,0,0);
 		ColumnVO c9 = getColumnVO("match_history_id", null, "比赛id", 1,1,0,0,0,0);
 		lstColumnVO.add(c1);
@@ -299,7 +299,7 @@ public class CodeGenerator {
 		lstColumnVO.add(c4);
 		lstColumnVO.add(c5);
 		lstColumnVO.add(c6);
-		lstColumnVO.add(c7);
+		//lstColumnVO.add(c7);
 		lstColumnVO.add(c8);
 		lstColumnVO.add(c9);
 		

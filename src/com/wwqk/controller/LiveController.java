@@ -9,8 +9,10 @@ import java.util.Map;
 import java.util.Set;
 
 import com.jfinal.core.Controller;
+import com.wwqk.constants.CommonConstants;
 import com.wwqk.constants.LeagueENEnum;
 import com.wwqk.constants.LeagueEnum;
+import com.wwqk.constants.MenuEnum;
 import com.wwqk.constants.OddsProviderEnum;
 import com.wwqk.model.AllLiveMatch;
 import com.wwqk.model.LeagueMatchHistory;
@@ -75,6 +77,7 @@ public class LiveController extends Controller {
 		}
 		setAttr("lstMatch", lstResult);
 		
+		setAttr(CommonConstants.MENU_INDEX, MenuEnum.LIVE.getKey());
 		render("live.jsp");
 	}
 	
@@ -127,6 +130,8 @@ public class LiveController extends Controller {
 				setAttr("lstTips", lstTips);
 			}
 			setAttr("match", match);
+			
+			setAttr(CommonConstants.MENU_INDEX, MenuEnum.LIVE.getKey());
 			render("liveDetail.jsp");
 		}else{
 			LeagueMatchHistory history = LeagueMatchHistory.dao.findFirst(
@@ -149,6 +154,8 @@ public class LiveController extends Controller {
 			setAttr("history", history);
 			setAttr("leagueName", EnumUtils.getValue(LeagueEnum.values(), homeTeam.getStr("league_id")));
 			setAttr("leagueENName", EnumUtils.getValue(LeagueENEnum.values(), homeTeam.getStr("league_id")));
+			
+			setAttr(CommonConstants.MENU_INDEX, MenuEnum.LIVE.getKey());
 			render("matchDetail.jsp");
 		}
 		

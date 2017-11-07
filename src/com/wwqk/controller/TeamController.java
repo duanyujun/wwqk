@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.jfinal.core.Controller;
+import com.wwqk.constants.CommonConstants;
 import com.wwqk.constants.LeagueENEnum;
 import com.wwqk.constants.LeagueEnum;
+import com.wwqk.constants.MenuEnum;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.LeaguePosition;
 import com.wwqk.model.MatchSourceSina;
@@ -76,6 +78,7 @@ public class TeamController extends Controller {
 		}
 		setAttr("positionList", positionList);	
 		
+		setAttr(CommonConstants.MENU_INDEX, MenuEnum.DATA.getKey());
 		render("team.jsp");
 	}
 	
