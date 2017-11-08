@@ -22,9 +22,10 @@ import com.wwqk.model.VideosRealLinks;
 public class VideosZuqiulaUtils {
 	
 	private static final String MAIN_SITE = "http://www.zuqiu.la";
+	private static final Pattern ALL_COUNT_PATTERN = Pattern.compile("总共(\\d+)个");
 	
 	public static void collect(boolean isInit){
-		for(int i=2; i<3; i++){
+		for(int i=2; i<10; i++){
 			String url = "http://www.zuqiu.la/video/index.php?p=1&type="+i;
 			Connection connect = Jsoup.connect(url).ignoreContentType(true);
 			for(Map.Entry<String, String> entry:MatchUtils.getZuqiulaHeader().entrySet()){
@@ -34,9 +35,33 @@ public class VideosZuqiulaUtils {
 		    String resultStr = "";
 			try {
 				Document document = data.get();
+				resultStr = document.html();
 				handleOneUrl(i, url, document);
 			} catch (IOException e) {
-				System.err.println();
+				e.printStackTrace();
+			}
+			
+			if(isInit){
+				String allCountStr = CommonUtils.matcherString(ALL_COUNT_PATTERN, resultStr);
+				if(StringUtils.isNotBlank(allCountStr)){
+					int allCount = Integer.valueOf(allCountStr);
+					int pageCount = allCount/50+(allCount%50==0?0:1);
+					for(int j=2;j<=pageCount;j++){
+						url = "http://www.zuqiu.la/video/index.php?p="+j+"&type="+i;
+						connect = Jsoup.connect(url).ignoreContentType(true);
+						for(Map.Entry<String, String> entry:MatchUtils.getZuqiulaHeader().entrySet()){
+							connect.header(entry.getKey(), entry.getValue());
+						}
+						data = connect.data();
+						try {
+							Document document = data.get();
+							resultStr = document.html();
+							handleOneUrl(i, url, document);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
 			}
 		}
 	}
