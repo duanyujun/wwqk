@@ -302,6 +302,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	var i = 0;
 	function showMsg(){
+		if($(".lobibox-notify").size()>0){
+			$(".lobibox-notify").remove();
+		}
+		
 		var leagueName = jsonObj[i].attrs.league_name; 
 		var homeName = jsonObj[i].attrs.home_name; 
 		var awayName = jsonObj[i].attrs.away_name; 
