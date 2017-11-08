@@ -63,6 +63,7 @@ import com.wwqk.utils.GeneratorUtils;
 import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.StringUtils;
 import com.wwqk.utils.TranslateUtils;
+import com.wwqk.utils.VideosZuqiulaUtils;
 
 public class AdminController extends Controller {
 	
@@ -762,6 +763,11 @@ public class AdminController extends Controller {
 	public void updateMatchNews(){
 		News7M.crawl();
 		TranslateUtils.translate();
+		renderJson(1);
+	}
+	
+	public void updateVideos(){
+		VideosZuqiulaUtils.collect(false);
 		renderJson(1);
 	}
 }

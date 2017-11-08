@@ -43,7 +43,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
             <!-- BEGIN LOGIN FORM -->
             <form class="login-form" id="login-form" action="${ctx}/login/enter" method="post">
                 <h3 class="form-title">登 录 系 统</h3>
-                <div class="alert alert-danger display-hide">
+                <div id="needInputMsg" class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
                     <span> 请输入用户名和密码  </span>
                 </div>
@@ -52,46 +52,23 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                     <label class="control-label visible-ie8 visible-ie9">Username</label>
                     <div class="input-icon">
                         <i class="fa fa-user"></i>
-                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="用户名" name="username" /> </div>
+                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="用户名" required name="username" id="username" /> </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">Password</label>
                     <div class="input-icon">
                     	<input type="hidden" name="password1" id="password1"/>
                         <i class="fa fa-lock"></i>
-                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" id="password" name="password"  /> </div>
+                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" required id="password" name="password"  /> </div>
                 </div>
                 <div class="form-actions">
                     <label class="checkbox">
-                        <input type="checkbox" name="remember" value="1" /> 记住我 </label>
+                    <input type="checkbox" name="remember" value="1" /> 记住我 </label>
                     <button type="submit" class="btn green pull-right"> 登 录 </button>
                 </div>
-                <div class="forget-password">
-                    <h4>忘记了你的密码?</h4>
-                    <p> 别担心, 点击这里重新设置密码. </p>
-                    <p style="display:none"> 别担心, 点击
-                        <a href="/login" id="forget-password">这里</a>重新设置密码. </p>
-                </div>
+                
             </form>
-            <!-- END LOGIN FORM -->
-            <!-- BEGIN FORGOT PASSWORD FORM -->
-            <form class="forget-form" action="index.html" method="post">
-                <h3>Forget Password ?</h3>
-                <p> Enter your e-mail address below to reset your password. </p>
-                <div class="form-group">
-                    <div class="input-icon">
-                        <i class="fa fa-envelope"></i>
-                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Email" name="email" /> </div>
-                </div>
-                <div class="form-actions">
-                    <button type="button" id="back-btn" class="btn red btn-outline">Back </button>
-                    <button type="submit" class="btn green pull-right"> Submit </button>
-                </div>
-            </form>
-            <!-- END FORGOT PASSWORD FORM -->
-            <!-- BEGIN REGISTRATION FORM -->
             
-            <!-- END REGISTRATION FORM -->
         </div>
         <!-- END LOGIN -->
         <!-- BEGIN COPYRIGHT -->
@@ -115,7 +92,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <script src="${ctx}/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
         <script src="${ctx}/assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
-        <script src="${ctx}/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
         <script src="${ctx}/assets/global/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
@@ -160,7 +136,6 @@ function showToast(type, title, content){
 }
 
 $(function(){  
-
 	var loginError = '${sessionScope.loginError}';
 	if(loginError!=''){
 		$("#password").val("");
@@ -176,6 +151,7 @@ $(function(){
 		if($("#password").val()=='' || $("#username").val()==''){
 			return false;
 		}
+		
 		if($("#password").val()!=''){
 			var password = md5($("#password").val());
 			$("#password1").val(password);
@@ -184,9 +160,7 @@ $(function(){
         $(this).ajaxSubmit(options);
         return true;
     });
-	
 
-	
 	
 });
 	

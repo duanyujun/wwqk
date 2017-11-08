@@ -101,6 +101,14 @@
             </div>
             
             <div class="row" style="margin-top:20px;">
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <button onclick="updateVideos();" class="btn sbold green" style="margin-left:10px;"> 更新视频
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="row" style="margin-top:20px;">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <select id="matches">
                 		<option value="">--请选择比赛--</option>
@@ -294,6 +302,17 @@ function updateMatchNews(){
 	$("body").showLoading();
 	showToast(1, "更新中...", "温馨提示");
 	$.post("/admin/updateMatchNews",
+				function(result){
+					$("body").hideLoading();
+					showToast(1, "更新成功！", "温馨提示");
+				}
+	);
+}
+
+function updateVideos(){
+	$("body").showLoading();
+	showToast(1, "更新中...", "温馨提示");
+	$.post("/admin/updateVideos",
 				function(result){
 					$("body").hideLoading();
 					showToast(1, "更新成功！", "温馨提示");

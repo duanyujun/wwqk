@@ -53,9 +53,10 @@ public class HomeController extends Controller {
 			
 			//setAttr("groupMenuList", groupMenuList);
 			getSession().setAttribute("groupMenuList", groupMenuList);
+			render("home.jsp");
+		}else{
+			redirect("/login");
 		}
-		
-		render("home.jsp");
 	}
 	
 }

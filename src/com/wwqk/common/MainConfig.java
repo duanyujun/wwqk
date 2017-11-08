@@ -73,6 +73,7 @@ import com.wwqk.model.Trophy;
 import com.wwqk.model.Users;
 import com.wwqk.model.UsersRoles;
 import com.wwqk.model.Videos;
+import com.wwqk.model.VideosRealLinks;
 import com.wwqk.plugin.QuartzPlugin;
 
 public class MainConfig extends JFinalConfig {
@@ -166,6 +167,7 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("tips_all", TipsAll.class);
 
 		arp.addMapping("videos", Videos.class);
+		arp.addMapping("videos_real_links", VideosRealLinks.class);
 		
 		me.add(c3p0Plugin);
 		me.add(arp);
