@@ -27,6 +27,7 @@ public class VideosZuqiulaUtils {
 	public static void collect(boolean isInit){
 		for(int i=2; i<10; i++){
 			String url = "http://www.zuqiu.la/video/index.php?p=1&type="+i;
+			System.err.println("page："+url);
 			Connection connect = Jsoup.connect(url).ignoreContentType(true);
 			for(Map.Entry<String, String> entry:MatchUtils.getZuqiulaHeader().entrySet()){
 				connect.header(entry.getKey(), entry.getValue());
@@ -48,6 +49,7 @@ public class VideosZuqiulaUtils {
 					int pageCount = allCount/50+(allCount%50==0?0:1);
 					for(int j=2;j<=pageCount;j++){
 						url = "http://www.zuqiu.la/video/index.php?p="+j+"&type="+i;
+						System.err.println("page："+url);
 						connect = Jsoup.connect(url).ignoreContentType(true);
 						for(Map.Entry<String, String> entry:MatchUtils.getZuqiulaHeader().entrySet()){
 							connect.header(entry.getKey(), entry.getValue());
@@ -93,18 +95,20 @@ public class VideosZuqiulaUtils {
 				videos.set("match_title", StringUtils.trim(matchTitle));
 				if(matchTitle.contains("vs")){
 					matchTitle = StringUtils.trim(matchTitle);
-					matchTitle = matchTitle.substring(matchTitle.indexOf(" ")+1);
-					matchTitle = matchTitle.substring(0,matchTitle.indexOf(" "));
-					String[] homeAndAway = matchTitle.split("vs");
-					videos.set("home_team", homeAndAway[0]);
-					videos.set("away_team", homeAndAway[1]);
+					matchTitle = matchTitle.replace("日 ", "日");
+					matchTitle = matchTitle.replace("录像集锦", "");
+					matchTitle = matchTitle.replace("录像 集锦", "");
+					if(matchTitle.contains(" ")){
+						matchTitle = matchTitle.substring(matchTitle.indexOf(" ")+1);
+						if(matchTitle.contains(" ")){
+							matchTitle = matchTitle.substring(0,matchTitle.indexOf(" "));
+						}
+						String[] homeAndAway = matchTitle.split("vs");
+						videos.set("home_team", homeAndAway[0]);
+						videos.set("away_team", homeAndAway[1]);
+					}
 				}
 				videos.set("source_url", videoUrl);
-				if (videos.get("id")!=null) {
-					videos.update();
-				}else{
-					videos.save();
-				}
 				
 				List<VideosRealLinks> lstAllLinks = new ArrayList<VideosRealLinks>();
 				
@@ -116,8 +120,16 @@ public class VideosZuqiulaUtils {
 				Connection data = connect.data();
 				try {
 					Document videoDoc = data.get();
+					String summary = CommonUtils.matcherString(SUMMARY_PATTERN, videoDoc.html());
+					videos.set("summary", summary);
+					if (videos.get("id")!=null) {
+						videos.update();
+					}else{
+						videos.save();
+					}
 					Elements luxiangElements = videoDoc.select("#r_luxiang");
 					Elements jijingElements = videoDoc.select("#r_jijing");
+					int videoType = 1;
 					Elements[] allLinks = {luxiangElements, jijingElements};
 					for(Elements links:allLinks){
 						if(links.size()>0){
@@ -159,9 +171,11 @@ public class VideosZuqiulaUtils {
 								realLink.set("real_url", realUrl);
 								realLink.set("title", title);
 								realLink.set("player_type",playerType);
+								realLink.set("video_type", String.valueOf(videoType));
 								lstAllLinks.add(realLink);
 							}
 						}
+						videoType++;
 					}
 					
 				} catch (IOException e) {
@@ -174,6 +188,7 @@ public class VideosZuqiulaUtils {
 		
 	}
 	
+	private static final Pattern SUMMARY_PATTERN = Pattern.compile("<div class=\"content\">(.*?)</div>");
 	private static final Pattern URL_PATTERN = Pattern.compile("src=\"(.*?)\"");
 	private static final Pattern SS_PATTERN = Pattern.compile("flashvars.*?=\"(.*?)\">");
 	private static String getPPTVSrc(String html){

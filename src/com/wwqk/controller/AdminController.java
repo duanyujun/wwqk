@@ -767,7 +767,7 @@ public class AdminController extends Controller {
 	}
 	
 	public void updateVideos(){
-		VideosZuqiulaUtils.collect(false);
+		VideosZuqiulaUtils.collect(true);
 		renderJson(1);
 	}
 }
