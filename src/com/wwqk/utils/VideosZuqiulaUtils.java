@@ -25,7 +25,8 @@ public class VideosZuqiulaUtils {
 	private static final Pattern ALL_COUNT_PATTERN = Pattern.compile("总共(\\d+)个");
 	
 	public static void collect(boolean isInit){
-		for(int i=2; i<10; i++){
+		//for(int i=2; i<10; i++){
+		for(int i=9; i>1; i--){
 			String url = "http://www.zuqiu.la/video/index.php?p=1&type="+i;
 			System.err.println("page："+url);
 			Connection connect = Jsoup.connect(url).ignoreContentType(true);
@@ -98,10 +99,19 @@ public class VideosZuqiulaUtils {
 					matchTitle = matchTitle.replace("日 ", "日");
 					matchTitle = matchTitle.replace("录像集锦", "");
 					matchTitle = matchTitle.replace("录像 集锦", "");
+					matchTitle = matchTitle.replace("英超亚洲杯决赛", "").replace("英超亚洲杯", "").replace("英超", " ").replace("西甲", " ").replace("德甲", " ")
+							.replace("意甲", " ").replace("意甲", " ").replace("欧冠资格赛", " ").replace("欧冠", "");
+					
 					if(matchTitle.contains(" ")){
-						matchTitle = matchTitle.substring(matchTitle.indexOf(" ")+1);
+						if(matchTitle.contains("皇马vs拜仁欧冠最新宣传片") || matchTitle.contains("皇马vs马竞欧冠决赛劲爆预告片")){
+							continue;
+						}
+						matchTitle = matchTitle.replaceAll("\\s+", " ");
+						matchTitle =StringUtils.trim(matchTitle);
+						
+						matchTitle = StringUtils.trim(matchTitle.substring(matchTitle.indexOf(" ")+1));
 						if(matchTitle.contains(" ")){
-							matchTitle = matchTitle.substring(0,matchTitle.indexOf(" "));
+							matchTitle = StringUtils.trim(matchTitle.substring(0,matchTitle.indexOf(" ")));
 						}
 						String[] homeAndAway = matchTitle.split("vs");
 						videos.set("home_team", homeAndAway[0]);
