@@ -25,8 +25,8 @@ public class VideosZuqiulaUtils {
 	private static final Pattern ALL_COUNT_PATTERN = Pattern.compile("总共(\\d+)个");
 	
 	public static void collect(boolean isInit){
-		//for(int i=9; i>1; i--){
-		for(int i=2; i<10; i++){
+		//for(int i=2; i<10; i++){
+		for(int i=9; i>1; i--){
 			String url = "http://www.zuqiu.la/video/index.php?p=1&type="+i;
 			System.err.println("page："+url);
 			Connection connect = Jsoup.connect(url).ignoreContentType(true);
@@ -78,10 +78,49 @@ public class VideosZuqiulaUtils {
 				String matchTitle = aElements.get(0).text();
 				String videoUrl = MAIN_SITE+aElements.get(0).attr("href");
 				System.err.println(">>>> handle："+matchTitle+" url："+videoUrl);
-				Videos videos = Videos.dao.findFirst("select * from videos where source_url = ?", videoUrl);
-				if(videos==null){
+				Videos videos = null;
+				//查询数据库中是否存在
+				VideosRealLinks existLinks = VideosRealLinks.dao.findFirst("select * from videos_real_links where source_url = ? ", videoUrl);
+				if(existLinks!=null){
 					continue;
+				}else{
+					//查询该场比赛是否存在
+					Videos videosDb = Videos.dao.findFirst("select * from videos where source_url = ?", videoUrl);
+					if(videosDb!=null){
+						videos = videosDb;
+					}else{
+						videos = new Videos();
+					}
 				}
+				videos.set("league_id", EnumUtils.getValue(VideosLeagueEnum.values(), String.valueOf(sourceLeagueId)));
+				videos.set("match_title", StringUtils.trim(matchTitle));
+				if(matchTitle.contains("vs")){
+					matchTitle = StringUtils.trim(matchTitle);
+					matchTitle = matchTitle.replace("日 ", "日");
+					matchTitle = matchTitle.replace("录像集锦", "");
+					matchTitle = matchTitle.replace("录像 集锦", "");
+					matchTitle = matchTitle.replace("英超亚洲杯决赛", "").replace("英超亚洲杯", "").replace("英超", " ").replace("西甲", " ").replace("德甲", " ")
+							.replace("意甲", " ").replace("意甲", " ").replace("欧冠资格赛", " ").replace("欧冠", "");
+					
+					if(matchTitle.contains(" ")){
+						if(matchTitle.contains("皇马vs拜仁欧冠最新宣传片") || matchTitle.contains("皇马vs马竞欧冠决赛劲爆预告片")){
+							continue;
+						}
+						matchTitle = matchTitle.replaceAll("\\s+", " ");
+						matchTitle =StringUtils.trim(matchTitle);
+						
+						matchTitle = StringUtils.trim(matchTitle.substring(matchTitle.indexOf(" ")+1));
+						if(matchTitle.contains(" ")){
+							matchTitle = StringUtils.trim(matchTitle.substring(0,matchTitle.indexOf(" ")));
+						}
+						String[] homeAndAway = matchTitle.split("vs");
+						videos.set("home_team", homeAndAway[0]);
+						videos.set("away_team", homeAndAway[1]);
+					}
+				}
+				videos.set("source_url", videoUrl);
+				
+				List<VideosRealLinks> lstAllLinks = new ArrayList<VideosRealLinks>();
 				
 				Connection connect = Jsoup.connect(videoUrl).ignoreContentType(true);
 				for(Map.Entry<String, String> entry:MatchUtils.getZuqiulaHeader().entrySet()){
@@ -91,12 +130,69 @@ public class VideosZuqiulaUtils {
 				Connection data = connect.data();
 				try {
 					Document videoDoc = data.get();
-					Elements contentElements = videoDoc.select(".content[id!='tab_content']");
-					videos.set("summary", contentElements.get(0).html());
-					videos.update();
-				}catch(Exception e){
+					String summary = CommonUtils.matcherString(SUMMARY_PATTERN, videoDoc.html());
+					videos.set("summary", summary);
+					if (videos.get("id")!=null) {
+						videos.update();
+					}else{
+						videos.save();
+					}
+					Elements luxiangElements = videoDoc.select("#r_luxiang");
+					Elements jijingElements = videoDoc.select("#r_jijing");
+					int videoType = 1;
+					Elements[] allLinks = {luxiangElements, jijingElements};
+					for(Elements links:allLinks){
+						if(links.size()>0){
+							Elements aLxElements = links.get(0).select("a");
+							for(Element aLx:aLxElements){
+								//  www.zuqiu.la/play_video.php?cid=80874&preview=1
+								String playUrl = MAIN_SITE + aLx.attr("href");
+								//  [PPTV全场集锦] 英超-莫拉塔头球制胜 切尔西1-0击败曼联
+								String title = aLx.attr("title");
+								
+								Connection videoConnect = Jsoup.connect(playUrl).ignoreContentType(true);
+								for(Map.Entry<String, String> entry:MatchUtils.getZuqiulaHeader().entrySet()){
+									videoConnect.header(entry.getKey(), entry.getValue());
+								}
+								videoConnect.header("Referer", videoUrl);
+								Connection playerData = videoConnect.data();
+								Document playDoc = playerData.get();
+								String playDocHtml = playDoc.html();
+								String realUrl = null;
+								String playerType = "";
+								if(playDocHtml.contains("type=qq")){
+									playerType = PlayerEnum.QQ.getKey();
+									realUrl = getQQSrc(playDocHtml);
+								}else if(playDocHtml.contains("pptv")){
+									playerType = PlayerEnum.PPTV.getKey();
+									realUrl = getPPTVSrc(playDocHtml);
+								}else if(playDocHtml.contains("ssports")){
+									playerType = PlayerEnum.SSPORTS.getKey();
+									realUrl = getSsportsSrc(playDocHtml);
+								}else{
+									continue;
+								}
+								
+								System.err.println("---- realTitle："+title+" playLink："+playUrl+" realLink："+realUrl);
+								
+								VideosRealLinks realLink = new VideosRealLinks();
+								realLink.set("videos_id", videos.get("id"));
+								realLink.set("source_url", videoUrl);
+								realLink.set("real_url", realUrl);
+								realLink.set("title", title);
+								realLink.set("player_type",playerType);
+								realLink.set("video_type", String.valueOf(videoType));
+								lstAllLinks.add(realLink);
+							}
+						}
+						videoType++;
+					}
 					
+				} catch (IOException e) {
+					System.err.println();
 				}
+				
+				Db.batchSave(lstAllLinks, lstAllLinks.size());
 			}
 		}
 		
