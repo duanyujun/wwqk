@@ -31,6 +31,7 @@ import com.wwqk.controller.SayController;
 import com.wwqk.controller.TeamController;
 import com.wwqk.controller.UploadController;
 import com.wwqk.controller.UserController;
+import com.wwqk.controller.VideosController;
 import com.wwqk.model.AllLiveMatch;
 import com.wwqk.model.Article;
 import com.wwqk.model.Career;
@@ -113,6 +114,8 @@ public class MainConfig extends JFinalConfig {
 		me.add("/upload", UploadController.class, "web");
 		me.add("/live", LiveController.class, "web");
 		me.add("/bifen",BifenController.class, "web");
+		me.add("/videos",VideosController.class, "web");
+		
 	}
 
 	@Override

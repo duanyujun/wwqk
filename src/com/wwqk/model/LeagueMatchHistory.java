@@ -16,6 +16,6 @@ public class LeagueMatchHistory extends Model<LeagueMatchHistory> {
 	}
 	
 	public Page<LeagueMatchHistory> paginate(int pageNumber, int pageSize, String whereSql) {
-		return paginate(pageNumber, pageSize, "select *", "from league_match_history where 1=1 " + whereSql +" order by match_round asc, match_date asc");
+		return paginate(pageNumber, pageSize, "select * ", "from league_match_history where 1=1 " + whereSql +" order by match_round asc, match_date asc");
 	}
 }

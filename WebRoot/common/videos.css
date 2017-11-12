@@ -1,0 +1,35 @@
+.yt_play{height:auto; margin:0px auto 6px auto;border:1px #ddd solid; background:#FFF; border-radius:5px;}
+.yt_play{ width:948px; padding:5px; border:1px #5cb85c solid; box-shadow: 0 0 4px 4px #ccc; margin:2px auto 8px auto;}
+.yt_play .player{ width:650px; height:auto; float:left;}
+.yt_play .player h4{height:26px; margin-top:0px;padding:0px 5px; margin-bottom:2px; background:#eeeeee; line-height:26px; font-weight:normal; font-size:14px;font-family:"微软雅黑";text-shadow: #fff 0 1px 0;}
+.yt_play .player .play{ height:460px; background:#000; overflow:hidden;}
+.yt_play .player .tags{ height:26px;margin-top:4px; line-height:26px;}
+.yt_play .player .tags span{ float:right;}
+.yt_play .right{ width:284px; height:auto; float:right;}
+.yt_play .right .title{height:25px;background:#aaa; line-height:25px;font-family:"微软雅黑";font-size:14px; overflow:hidden;}
+.yt_play .right .title a{height:25px;text-align:center;float:left;display:block;color:#FFF;font-size:14px;}
+.yt_play .right .title a:hover{ background:#0088c0; text-decoration:none;}
+.yt_play .right .title a.f{background:#F30;}
+.yt_play .right .title a.w{width:74px;}
+.yt_play .right .content{height:488px; border:1px solid #aaa;  margin-bottom:2px; overflow:hidden;}
+.yt_play .right .content .list{height:352px;overflow-y:auto;overflow-x:hidden}
+.yt_play .right .content .list ul{padding:2px 1px;font-size:12px;}
+.yt_play .right .content .list ul li{height:24px; line-height:24px; overflow:hidden;border-bottom:1px dotted #ccc;}
+.yt_play .right .content .list ul li.f{ background:#f0f0f0;}
+.yt_play .right .content .list ul li.f a{color:#f30; font-weight:bold;}
+.yt_play .right .content .show{ width:292px; height:340px;overflow:hidden}
+.yt_play .right .content .show p{ padding:5px; text-align:center}
+.yt_play .right .content .show .tv{ padding:10px; line-height:24px;}
+.yt_play .right .content .show .tvs{width:292px; height:408px; padding:10px 0px;overflow-y:auto;overflow-x:hidden;font-size:14px;font-family:"微软雅黑";}
+.yt_play .right .content .show .tvs a, .yt_play .right .content .show .tv a{ margin-right:8px;}
+.yt_play .right .content .show .tvs h4{ padding:0px 10px;}
+.yt_play .right .content .show .tvs p{ text-align:left; line-height:22px;}
+.yt_play .right .tip{ width:294px; height:50px; background:#ddd;font-family:"微软雅黑";font-size:22px; line-height:50px; text-align:center; color:#bbb;text-shadow: #fff 0 1px 0;}
+
+.m_yt_play{height:auto; margin:0px auto 6px auto;border:1px #ddd solid; background:#FFF; border-radius:5px;}
+.m_yt_play{ width:100%; padding:5px; border:1px #5cb85c solid; box-shadow: 0 0 4px 4px #ccc; margin:2px auto 8px auto;}
+.m_yt_play .player{ width:100%; height:200; float:left;}
+.m_yt_play .player h4{height:26px; margin-top:0px;padding:0px 5px; margin-bottom:2px; background:#eeeeee; line-height:26px; font-weight:normal; font-size:14px;font-family:"微软雅黑";text-shadow: #fff 0 1px 0;}
+.m_yt_play .player .play{ height:230px; background:#000; overflow:hidden;}
+.m_yt_play .player .tags{ height:26px;margin-top:4px; line-height:26px;}
+.m_yt_play .player .tags span{ float:right;}
