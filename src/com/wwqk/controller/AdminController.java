@@ -1,6 +1,7 @@
 package com.wwqk.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -766,8 +767,12 @@ public class AdminController extends Controller {
 		renderJson(1);
 	}
 	
-	public void updateVideos(){
-		VideosZuqiulaUtils.collect(true);
+	//TODO
+	public void updateVideos() throws ParseException{
+		//VideosZuqiulaUtils.collect(false);
+		VideosZuqiulaUtils.formatVideo();
 		renderJson(1);
 	}
+	
+	
 }

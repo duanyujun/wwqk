@@ -1,7 +1,10 @@
 package com.wwqk.utils;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -16,6 +19,7 @@ import org.jsoup.select.Elements;
 import com.jfinal.plugin.activerecord.Db;
 import com.wwqk.constants.PlayerEnum;
 import com.wwqk.constants.VideosLeagueEnum;
+import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.Videos;
 import com.wwqk.model.VideosRealLinks;
 
@@ -23,10 +27,64 @@ public class VideosZuqiulaUtils {
 	
 	private static final String MAIN_SITE = "http://www.zuqiu.la";
 	private static final Pattern ALL_COUNT_PATTERN = Pattern.compile("总共(\\d+)个");
+	private static final Pattern DATE_PATTERN = Pattern.compile("(\\d+月\\d+日)");
+	
+	public static void formatVideo() throws ParseException{
+		CommonUtils.initNameIdMap();
+		
+		List<LeagueMatchHistory> lstHistory = LeagueMatchHistory.dao.find("select id, match_date, home_team_name, away_team_name from league_match_history");
+		Map<String, LeagueMatchHistory> homeMap = new HashMap<String, LeagueMatchHistory>();
+		Map<String, LeagueMatchHistory> awayMap = new HashMap<String, LeagueMatchHistory>();
+		for(LeagueMatchHistory history : lstHistory){
+			String dateStr = DateTimeUtils.formatDate(history.getDate("match_date"));
+			homeMap.put(dateStr+"-"+history.getStr("home_team_id"), history);
+			awayMap.put(dateStr+"-"+history.getStr("away_team_id"), history);
+		}
+		
+		List<Videos> lstVideos = Videos.dao.find("select * from videos");
+		for(Videos videos : lstVideos){
+			if(StringUtils.isNotBlank(videos.getStr("home_team")) 
+					&& StringUtils.isNotBlank(videos.getStr("away_team"))
+					&& videos.get("match_date")==null){
+				String title = videos.getStr("match_title");
+				System.err.println("title："+title+"  url："+videos.getStr("source_url"));
+				String dateStr = CommonUtils.matcherString(DATE_PATTERN, title);
+				if(StringUtils.isNotBlank(dateStr) && !"0".equals(dateStr)){
+					String[] yearPatterns = {"yyyy年M月d日"};
+					Date lastYearDate = DateTimeUtils.parseDate("2016年"+dateStr, yearPatterns);
+					Date thisYearDate = DateTimeUtils.parseDate("2017年"+dateStr, yearPatterns);
+					
+					String lastYearDateStr = DateTimeUtils.formatDate(lastYearDate);
+					String thisYearDateStr = DateTimeUtils.formatDate(thisYearDate);
+					
+					LeagueMatchHistory oneHistory = homeMap.get(thisYearDateStr+"-"+CommonUtils.nameIdMap.get(videos.getStr("home_team")));
+					if(oneHistory==null){
+						oneHistory = awayMap.get(thisYearDateStr+"-"+CommonUtils.nameIdMap.get(videos.getStr("away_team")));
+						if(oneHistory==null){
+							oneHistory = homeMap.get(lastYearDateStr+"-"+CommonUtils.nameIdMap.get(videos.getStr("home_team")));
+							if(oneHistory==null){
+								oneHistory = awayMap.get(lastYearDateStr+"-"+CommonUtils.nameIdMap.get(videos.getStr("away_team")));
+							}
+						}
+					}
+					if(oneHistory!=null){
+						videos.set("match_date", oneHistory.get("match_date"));
+						videos.set("match_history_id", oneHistory.get("id"));
+						title = title.replace(dateStr, DateTimeUtils.formatDate(oneHistory.get("match_date"), "yyyy年MM月dd日"));
+						videos.set("match_title", title);
+					}
+				}
+			}
+			
+			videos.set("match_title", videos.getStr("match_title").replace(" 录像 集锦", " 视频"));
+		}
+		
+		Db.batchUpdate(lstVideos, lstVideos.size());
+	}
 	
 	public static void collect(boolean isInit){
-		//for(int i=2; i<10; i++){
-		for(int i=9; i>1; i--){
+		for(int i=2; i<10; i++){
+		//for(int i=9; i>1; i--){
 			String url = "http://www.zuqiu.la/video/index.php?p=1&type="+i;
 			System.err.println("page："+url);
 			Connection connect = Jsoup.connect(url).ignoreContentType(true);
