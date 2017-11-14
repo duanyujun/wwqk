@@ -39,16 +39,16 @@
                       <div class="col-md-3"><label for="name"></label></div>
                  </div>
                  <div class="form-group">
-                      <label class="col-md-3 control-label"><font color="red">*</font>主队：</label>
+                      <label class="col-md-3 control-label">主队：</label>
                       <div class="col-md-6">
-                           <input type="text" class="form-control" id="home_team" name="home_team" required value="${videos.home_team}" placeholder="请输入主队">
+                           <input type="text" class="form-control" id="home_team" name="home_team"  value="${videos.home_team}" placeholder="请输入主队">
                       </div>
                       <div class="col-md-3"><label for="name"></label></div>
                  </div>
                  <div class="form-group">
-                      <label class="col-md-3 control-label"><font color="red">*</font>客队：</label>
+                      <label class="col-md-3 control-label">客队：</label>
                       <div class="col-md-6">
-                           <input type="text" class="form-control" id="away_team" name="away_team" required value="${videos.away_team}" placeholder="请输入客队">
+                           <input type="text" class="form-control" id="away_team" name="away_team"  value="${videos.away_team}" placeholder="请输入客队">
                       </div>
                       <div class="col-md-3"><label for="name"></label></div>
                  </div>
