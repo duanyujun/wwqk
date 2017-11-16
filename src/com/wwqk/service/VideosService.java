@@ -24,7 +24,7 @@ public class VideosService {
 		String search = controller.getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
 			search =search.replaceAll("'", "").trim();
-			whereSql = " and (home_team like '%"+search+"%'" +" OR away_team like '%"+search+"%'" +" OR match_title like '%"+search+"%')"; 
+			whereSql = " and (home_team like '%"+search+"%'" +" OR away_team like '%"+search+"%'" +" OR match_title like '%"+search+"%'" +" OR keywords like '%"+search+"%')"; 
 		}
 		
 		int sortColumn = controller.getParaToInt("order[0][column]");
@@ -55,7 +55,7 @@ public class VideosService {
 			lstVideos = Videos.dao.find(sql+whereSql+orderSql+limitSql);
 			data = new Object[lstVideos.size()];
 			for(int i=0; i<lstVideos.size(); i++){
-				Object[] obj = new Object[7];
+				Object[] obj = new Object[8];
 				Videos videos = lstVideos.get(i);
 				obj[0] = videos.get("id");
 				
@@ -65,6 +65,7 @@ public class VideosService {
 				obj[4] = videos.get("away_team");
 				obj[5] = videos.get("match_title");
 				obj[6] = videos.get("match_history_id");
+				obj[7] = videos.get("keywords");
 
 				data[i] = obj;
 			}
@@ -100,6 +101,7 @@ public class VideosService {
         videos.set("source_url", controller.getPara("source_url"));
         videos.set("from_site", controller.getPara("from_site"));
         videos.set("match_history_id", controller.getPara("match_history_id"));
+        videos.set("keywords", controller.getPara("keywords"));
 
 		save(videos);
 	}

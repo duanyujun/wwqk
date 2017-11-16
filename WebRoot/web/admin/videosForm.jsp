@@ -80,6 +80,13 @@
                       </div>
                       <div class="col-md-3"><label for="name"></label></div>
                  </div>
+                 <div class="form-group">
+                      <label class="col-md-3 control-label">关键字：</label>
+                      <div class="col-md-6">
+                           <input type="text" class="form-control" id="keywords" name="keywords"  value="${videos.keywords}" placeholder="请输入关键字">
+                      </div>
+                      <div class="col-md-3"><label for="name"></label></div>
+                 </div>
 
 			  		<div class="form-group">
 			          <div class="col-md-offset-3 col-md-9">

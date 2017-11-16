@@ -286,13 +286,14 @@ public class CodeGenerator {
 		List<ColumnVO> lstColumnVO = new ArrayList<ColumnVO>();
 		ColumnVO c1 = getColumnVO("league_id", null, "联赛id", 1, 1, 1, 0, 0, 0);
 		ColumnVO c2 = getColumnVO("match_date", null, "比赛时间", 1,1,1,0,0,0);
-		ColumnVO c3 = getColumnVO("home_team", null, "主队", 1,1,1,1,0,1);
-		ColumnVO c4 = getColumnVO("away_team", null, "客队", 1,1,1,1,0,1);
+		ColumnVO c3 = getColumnVO("home_team", null, "主队", 1,1,1,1,0,0);
+		ColumnVO c4 = getColumnVO("away_team", null, "客队", 1,1,1,1,0,0);
 		ColumnVO c5 = getColumnVO("match_title", null, "标题", 1,1,0,1,0,0);
 		ColumnVO c6 = getColumnVO("source_url", null, "源地址", 1,0,0,0,0,0);
 		//ColumnVO c7 = getColumnVO("real_url", null, "真实地址", 1,0,0,0,0,0);
 		ColumnVO c8 = getColumnVO("from_site", null, "来源", 1,0,0,0,0,0);
 		ColumnVO c9 = getColumnVO("match_history_id", null, "比赛id", 1,1,0,0,0,0);
+		ColumnVO c10 = getColumnVO("keywords", null, "关键字", 1,1,0,1,0,0);
 		lstColumnVO.add(c1);
 		lstColumnVO.add(c2);
 		lstColumnVO.add(c3);
@@ -302,6 +303,7 @@ public class CodeGenerator {
 		//lstColumnVO.add(c7);
 		lstColumnVO.add(c8);
 		lstColumnVO.add(c9);
+		lstColumnVO.add(c10);
 		
 		build("videos", "集锦", "com.wwqk", lstColumnVO);
 	}

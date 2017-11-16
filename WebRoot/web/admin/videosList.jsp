@@ -61,6 +61,7 @@
                     <th>客队</th>
                     <th>标题</th>
                     <th>比赛id</th>
+                    <th>关键字</th>
 
                 </tr>
             </thead>
@@ -90,7 +91,7 @@ $(document).ready(function() {
                   "render": function ( data, type, full, meta ) {
                       return '<a href="" class="editClass" >'+data+'</a>';
               }}
-              ,{"targets":2,"orderable": true,"searchable": false},{"targets":3,"orderable": true,"searchable": true},{"targets":4,"orderable": true,"searchable": true},{"targets":5,"orderable": false,"searchable": true},{"targets":6,"orderable": false,"searchable": false}     
+              ,{"targets":2,"orderable": true,"searchable": false},{"targets":3,"orderable": true,"searchable": true},{"targets":4,"orderable": true,"searchable": true},{"targets":5,"orderable": false,"searchable": true},{"targets":6,"orderable": false,"searchable": false},{"targets":7,"orderable": false,"searchable": true}     
         
         ],
         "order": [[1, 'asc']],
