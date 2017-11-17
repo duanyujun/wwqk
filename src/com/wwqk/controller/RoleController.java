@@ -32,7 +32,6 @@ public class RoleController extends Controller {
 		
 		String search = getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
-			search =search.replaceAll("'", "").trim();
 			whereSql = " where role_name like '%"+search+"%'"+" OR role_name_cn like '%"+search+"%'"+" OR description like '%"+search+"%'";
 		}
 		

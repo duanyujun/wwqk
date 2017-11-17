@@ -26,7 +26,6 @@ public class PermissionController extends Controller {
 		
 		String search = getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
-			search =search.replaceAll("'", "").trim();
 			whereSql = " where name like '%"+search+"%'"+" OR pvalue like '%"+search+"%'"+" OR description like '%"+search+"%'";
 		}
 		
@@ -91,6 +90,9 @@ public class PermissionController extends Controller {
 			setAttr("permission", permission);
 		}
 		
+		List<Permissions> parents = Permissions.dao.find("select * from permissions where pid=0 ");
+		setAttr("parents", parents);
+		
 		render("permission/pmForm.jsp");
 	}
 	
@@ -119,7 +121,7 @@ public class PermissionController extends Controller {
 		String ids = getPara("ids");
 		if(StringUtils.isNotBlank(ids)){
 			String whereSql = " where id in (" + ids +")";
-			Db.update("delete from users "+whereSql);
+			Db.update("delete from permission "+whereSql);
 			renderJson(1);
 		}else{
 			renderJson(0);

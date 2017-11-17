@@ -59,7 +59,6 @@
                     <th> 电话 </th>
                     <th> QQ </th>
                     <th> 邮件 </th>
-                    <th> 状态 </th>
                 </tr>
             </thead>
         </table>
@@ -160,7 +159,7 @@ function goDelete(){
                	if(o==true){
                		ids = ids.substring(0, ids.length-1);
            			$.post( "/user/del",
-           					{ids, ids},
+           					{ids:ids},
            					function(result){
            						$('#main-content').load($('#urlHidden').val());
            						showToast(1, "删除成功！", "温馨提示");

@@ -12,7 +12,7 @@
     <div class="portlet-title">
         <div class="caption font-dark">
             <i class="icon-settings font-dark"></i>
-            <span class="caption-subject bold uppercase"> Managed Table</span>
+            <span class="caption-subject bold uppercase"> 权限管理</span>
         </div>
         
     </div>
@@ -30,11 +30,26 @@
 		          <div class="form-group">
 		              <label class="col-md-3 control-label"><font color="red">*</font>权限类型：</label>
 		              <div class="col-md-6">
-		                  <input type="text" class="form-control" id="ptype" name="ptype" required value="${permission.ptype}"  placeholder="请输入权限类型">
+		              	  <select class="form-control" id="ptype" name="ptype" required onchange="changeType(this);">
+		              	  		<option value="1" ${permission.ptype==1?'selected':''}>菜单</option>
+		              	  		<option value="0" ${permission.ptype==0?'selected':''}>模块</option>
+		              	  		<option value="2" ${permission.ptype==2?'selected':''}>其他</option>
+		              	  </select>
 		              </div>
 		              <div class="col-md-3"><label for="ptype"></label></div>
 		          </div>
-		          <div class="form-group">
+		          <div class="form-group" id="menuGroup">
+		              <label class="col-md-3 control-label"><font color="red">*</font>所属模块：</label>
+		              <div class="col-md-6">
+		              	  <select class="form-control" id="pid" name="pid">
+		              	  		<c:forEach items="${parents}" var="parent">
+		              	  			<option value="${parent.id}" ${permission.pid==1?'selected':''}>${parent.name}</option>
+		              	  		</c:forEach>
+		              	  </select>
+		              </div>
+		              <div class="col-md-3"><label for="ptype"></label></div>
+		          </div>
+		          <div class="form-group" id="menuValue">
 		              <label class="col-md-3 control-label"><font color="red">*</font>权限值：</label>
 		              <div class="col-md-6">
 		                  <input type="text" class="form-control" id="pvalue" name="pvalue" maxlength="150" required value="${permission.pvalue}"  placeholder="请输入权限值">
@@ -89,6 +104,20 @@ function save(){
 				
 			}
 		);
+	}
+}
+
+function changeType(o){
+	if(o.value==1){
+		$("#menuValue").show();
+		$("#menuGroup").show();
+	}else{
+		$("#menuGroup").hide();
+		if(o.value==0){
+			$("#menuValue").hide();
+		}else{
+			$("#menuValue").show();
+		}
 	}
 }
 

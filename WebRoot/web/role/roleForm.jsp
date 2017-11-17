@@ -18,7 +18,7 @@
     <div class="portlet-title">
         <div class="caption font-dark">
             <i class="icon-settings font-dark"></i>
-            <span class="caption-subject bold uppercase"> Managed Table</span>
+            <span class="caption-subject bold uppercase"> 角色管理</span>
         </div>
         
     </div>

@@ -22,15 +22,14 @@ public class UserController extends Controller {
 	}
 	
 	public void list(){
-		String sumSql = "select count(*) from users";
-		String sql = "select * from users";
+		String sumSql = "select count(*) from users where username!='SuperAdmin'";
+		String sql = "select * from users where username!='SuperAdmin'";
 		String orderSql = "";
 		String whereSql = "";
 		String limitSql = "";
 		
 		String search = getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
-			search =search.replaceAll("'", "").trim();
 			whereSql = " where username like '%"+search+"%'"+" OR name like '%"+search+"%'"+" OR mobile_no like '%"+search+"%'"+" OR qq like '%"+search+"%'"+" OR email like '%"+search+"%'";
 		}
 		
@@ -52,9 +51,6 @@ public class UserController extends Controller {
 		case 5:
 			orderSql = " order by email "+sortType;
 			break;
-		case 6:
-			orderSql = " order by ustatus "+sortType;
-			break;
 		default:
 			break;
 		}
@@ -71,7 +67,7 @@ public class UserController extends Controller {
 			lstUsers = Users.dao.find(sql+whereSql+orderSql+limitSql);
 			data = new Object[lstUsers.size()];
 			for(int i=0; i<lstUsers.size(); i++){
-				Object[] obj = new Object[7];
+				Object[] obj = new Object[6];
 				Users users = lstUsers.get(i);
 				obj[0] = users.get("id");
 				obj[1] = users.get("username");
@@ -79,13 +75,6 @@ public class UserController extends Controller {
 				obj[3] = users.get("mobile_no");
 				obj[4] = users.get("qq");
 				obj[5] = users.get("email");
-				if(users.getInt("ustatus")==0){
-					obj[6] = "未激活";
-				}else if(users.getInt("ustatus")==1){
-					obj[6] = "已激活";
-				}else if(users.getInt("ustatus")==2){
-					obj[6] = "已注销";
-				}
 					
 				data[i] = obj;
 			}
