@@ -8,6 +8,7 @@ import com.wwqk.constants.LeagueEnum;
 import com.wwqk.model.Fun;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
+import com.wwqk.model.Team;
 import com.wwqk.model.Transfer;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.EnumUtils;
@@ -74,6 +75,11 @@ public class SayController extends Controller {
 		//最近的新闻
 		List<Fun> lstNews = Fun.dao.find("select id, title, create_time, title_en from fun where type = 1 and player_id = ? order by create_time desc", playerId);
 		setAttr("lstNews", lstNews);
+		
+		if(player.get("team_id")!=null && player.get("team_name_en")==null){
+			Team team = Team.dao.findById(player.get("team_id"));
+			setAttr("team_name_en", team.get("team_name_en"));
+		}
 		
 		render("sayList.jsp");
 	}

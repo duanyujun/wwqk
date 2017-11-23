@@ -54,29 +54,29 @@ public class TeamController extends Controller {
 		}
 		setAttr("team", team);
 		
-		MatchSourceSina source = MatchSourceSina.dao.findFirst("select * from match_source_sina where league_id = ?",team.get("league_id"));
-		//最近五场比赛
-		List<LeagueMatchHistory> lstMatchHistory = LeagueMatchHistory.dao.find("select * from league_match_history where year = ? and match_round <=? and (home_team_id = ? or away_team_id = ?) order by match_round desc limit 0,5 ",source.get("year"),source.get("current_round"), teamId, teamId);
-		setAttr("lstMatchHistory", lstMatchHistory);
+		if(StringUtils.isNotBlank(team.get("league_id"))){
+			MatchSourceSina source = MatchSourceSina.dao.findFirst("select * from match_source_sina where league_id = ?",team.get("league_id"));
+			//最近五场比赛
+			List<LeagueMatchHistory> lstMatchHistory = LeagueMatchHistory.dao.find("select * from league_match_history where year = ? and match_round <=? and (home_team_id = ? or away_team_id = ?) order by match_round desc limit 0,5 ",source.get("year"),source.get("current_round"), teamId, teamId);
+			setAttr("lstMatchHistory", lstMatchHistory);
+			setAttr("leagueName", EnumUtils.getValue(LeagueEnum.values(), team.getStr("league_id")));
+			setAttr("leagueENName", EnumUtils.getValue(LeagueENEnum.values(), team.getStr("league_id")));
+			//联赛排名
+			List<LeaguePosition> positionList = LeaguePosition.dao.find("select * from league_position where league_id = ? ORDER BY rank ASC ", team.getStr("league_id"));
+			int count = 0;
+			for(LeaguePosition position:positionList){
+				++count;
+				if(position.getStr("team_id").equals(teamId)){
+					setAttr("postion", count);
+				}
+			}
+			setAttr("positionList", positionList);	
+		}
 		
 		//衣服是否需要背景色
 		if(CommonUtils.clothNeedBgColor(teamId)){
 			setAttr("clothBg", 1);
 		}
-		
-		setAttr("leagueName", EnumUtils.getValue(LeagueEnum.values(), team.getStr("league_id")));
-		setAttr("leagueENName", EnumUtils.getValue(LeagueENEnum.values(), team.getStr("league_id")));
-		
-		//联赛排名
-		List<LeaguePosition> positionList = LeaguePosition.dao.find("select * from league_position where league_id = ? ORDER BY rank ASC ", team.getStr("league_id"));
-		int count = 0;
-		for(LeaguePosition position:positionList){
-			++count;
-			if(position.getStr("team_id").equals(teamId)){
-				setAttr("postion", count);
-			}
-		}
-		setAttr("positionList", positionList);	
 		
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.DATA.getKey());
 		render("team.jsp");

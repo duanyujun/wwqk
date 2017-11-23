@@ -176,7 +176,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="col-lg-6 col-md-6" style="margin-top:10px;">惯用脚：<c:if test="${!(player.foot=='0' && empty player.foot)}">${player.foot}</c:if></div>
 						<c:if test="${!empty player.team_id}">
 							<div class="col-lg-12 col-md-12 team-title" style="margin-top:10px;font-size:14px;">效力球队：
-								<a href="team-${player.team_name_en}-${player.team_id}.html" target="_blank" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a>
+								<c:if test="${!empty player.team_name_en}">
+									<a href="team-${player.team_name_en}-${player.team_id}.html" target="_blank" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a>
+								</c:if>
+								<c:if test="${empty player.team_name_en}">
+									<a href="team-${team_name_en}-${player.team_id}.html" target="_blank" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a>
+								</c:if>
 								&nbsp;
 								<c:if test="${player.goal_count!=0}">
 					      			<span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span>
