@@ -17,6 +17,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.jfinal.plugin.activerecord.Db;
+import com.wwqk.constants.LeagueEnum;
 import com.wwqk.constants.PlayerEnum;
 import com.wwqk.constants.VideosLeagueEnum;
 import com.wwqk.model.LeagueMatchHistory;
@@ -28,6 +29,66 @@ public class VideosZuqiulaUtils {
 	private static final String MAIN_SITE = "http://www.zuqiu.la";
 	private static final Pattern ALL_COUNT_PATTERN = Pattern.compile("总共(\\d+)个");
 	private static final Pattern DATE_PATTERN = Pattern.compile("(\\d+月\\d+日)");
+	
+	public static void translate(){
+		CommonUtils.initNameIdMap();
+		
+		List<LeagueMatchHistory> lstHistory = LeagueMatchHistory.dao.find("select * from league_match_history");
+		Map<String, LeagueMatchHistory> homeMap = new HashMap<String, LeagueMatchHistory>();
+		Map<String, LeagueMatchHistory> awayMap = new HashMap<String, LeagueMatchHistory>();
+		for(LeagueMatchHistory history : lstHistory){
+			String dateStr = DateTimeUtils.formatDate(history.getDate("match_date"));
+			homeMap.put(dateStr+"-"+history.getStr("home_team_id"), history);
+			awayMap.put(dateStr+"-"+history.getStr("away_team_id"), history);
+		}
+		List<Videos> lstVideos = Videos.dao.find("select * from videos where keywords IS NULL AND league_id <=5 AND home_team IS NOT NULL AND home_team!='' ");
+		for(Videos videos : lstVideos){
+			if(StringUtils.isNotBlank(videos.getStr("home_team")) 
+					&& StringUtils.isNotBlank(videos.getStr("away_team"))
+					&& videos.get("match_date")!=null){
+				
+				String dateStr = DateTimeUtils.formatDate(videos.getTimestamp("match_date"));
+				String homeKeyStr = dateStr+"-"+CommonUtils.nameIdMap.get(videos.getStr("home_team"));
+				String awayKeyStr = dateStr+"-"+CommonUtils.nameIdMap.get(videos.getStr("away_team"));
+				LeagueMatchHistory oneHistory = homeMap.get(homeKeyStr);
+				if(oneHistory==null){
+					oneHistory = awayMap.get(awayKeyStr);
+				}
+				
+				if(oneHistory!=null){
+					videos.set("match_history_id", oneHistory.get("id"));
+					String title = videos.getStr("match_title");
+					String leagueRound = "";
+					if(LeagueEnum.YC.getKey().equals(oneHistory.getStr("league_id"))){
+						leagueRound = "英超第"+oneHistory.get("match_round")+"轮";
+						title = title.replace("英超", " "+leagueRound+" ");
+					}else if(LeagueEnum.XJ.getKey().equals(oneHistory.getStr("league_id"))){
+						leagueRound = "西甲第"+oneHistory.get("match_round")+"轮";
+						title = title.replace("西甲", " "+leagueRound+" ");
+					}else if(LeagueEnum.DJ.getKey().equals(oneHistory.getStr("league_id"))){
+						leagueRound = "德甲第"+oneHistory.get("match_round")+"轮";
+						title = title.replace("德甲", " "+leagueRound+" ");
+					}else if(LeagueEnum.YJ.getKey().equals(oneHistory.getStr("league_id"))){
+						leagueRound = "意甲第"+oneHistory.get("match_round")+"轮";
+						title = title.replace("意甲", " "+leagueRound+" ");
+					}else if(LeagueEnum.FJ.getKey().equals(oneHistory.getStr("league_id"))){
+						leagueRound = "法甲第"+oneHistory.get("match_round")+"轮";
+						title = title.replace("法甲", " "+leagueRound+" ");
+					}
+					title = title.replace("视频", "视频录像");
+					title = title.replaceAll("\\s+", " ");
+					videos.set("match_title", title);
+					String keywords = DateTimeUtils.formatDate(oneHistory.getDate("match_date"))+","+leagueRound+","
+							+oneHistory.getStr("home_team_name")+"vs"+oneHistory.getStr("away_team_name")+","
+							+oneHistory.getStr("home_team_name")+"录像,"+oneHistory.getStr("away_team_name")+"集锦";
+					videos.set("keywords", keywords);
+					videos.update();
+				}
+			}
+		}
+		
+		
+	}
 	
 	public static void formatVideo() throws ParseException{
 		CommonUtils.initNameIdMap();
@@ -41,7 +102,7 @@ public class VideosZuqiulaUtils {
 			awayMap.put(dateStr+"-"+history.getStr("away_team_id"), history);
 		}
 		
-		List<Videos> lstVideos = Videos.dao.find("select * from videos");
+		List<Videos> lstVideos = Videos.dao.find("select * from videos where keywords IS NULL AND league_id <=5 AND home_team IS NOT NULL AND home_team!='' ");
 		for(Videos videos : lstVideos){
 			if(StringUtils.isNotBlank(videos.getStr("home_team")) 
 					&& StringUtils.isNotBlank(videos.getStr("away_team"))
