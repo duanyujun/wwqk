@@ -644,6 +644,7 @@ public class AdminController extends Controller {
 		String id = getPara("id");
 		if(id!=null){
 			Videos videos = Videos.dao.findById(id);
+			videos.set("match_date", DateTimeUtils.formatDateTime(videos.getTimestamp("match_date")));
 			setAttr("videos", videos);
 		}
 		render("admin/videosForm.jsp");

@@ -34,7 +34,7 @@
                  <div class="form-group">
                       <label class="col-md-3 control-label">比赛时间：</label>
                       <div class="col-md-6">
-                           <input type="text" class="form-control" id="match_date" name="match_date"  value="${videos.match_date}" placeholder="请输入比赛时间">
+                           <input type="text" class="form-control" id="match_date" name="match_date" maxlength="19"  value="${videos.match_date}" placeholder="请输入比赛时间">
                       </div>
                       <div class="col-md-3"><label for="name"></label></div>
                  </div>
