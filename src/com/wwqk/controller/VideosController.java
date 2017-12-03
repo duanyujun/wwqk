@@ -10,6 +10,7 @@ import com.wwqk.constants.MenuEnum;
 import com.wwqk.constants.PlayerEnum;
 import com.wwqk.model.Videos;
 import com.wwqk.model.VideosRealLinks;
+import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.PageUtils;
 import com.wwqk.utils.StringUtils;
 
@@ -22,10 +23,22 @@ public class VideosController extends Controller {
 			leagueId = LeagueEnum.YC.getKey();
 		}
 		int pageNumber = getParaToInt("pageNumber", 1);
+		
+		String id = getPara("id");
+		if(StringUtils.isNotBlank(id)){
+			if(id.contains("-page-")){
+				pageNumber = CommonUtils.getPageNo(id);
+				//去掉pageNo段
+				id = id.replaceAll("-page-\\d+", "");
+			}
+			leagueId = CommonUtils.getRewriteId(id);
+		}
+		
 		String whereSql = " and league_id = "+leagueId;
 		Page<Videos> videosPage = Videos.dao.paginate(pageNumber, 50, whereSql);
 		setAttr("videosPage", videosPage);
 		setAttr("pageUI", PageUtils.calcStartEnd(videosPage));
+		setAttr("leagueId", leagueId);
 		
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.VIDEO.getKey());
 		render("videos.jsp");
@@ -33,6 +46,7 @@ public class VideosController extends Controller {
 	
 	public void detail(){
 		String id = getPara("id");
+		id = CommonUtils.getRewriteId("id");
 		Videos videos = Videos.dao.findById(id);
 		setAttr("videos", videos);
 		

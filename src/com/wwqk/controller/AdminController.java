@@ -770,9 +770,9 @@ public class AdminController extends Controller {
 	
 	//TODO
 	public void updateVideos() throws ParseException{
-		//VideosZuqiulaUtils.collect(false);
+		VideosZuqiulaUtils.collect(false);
 		//VideosZuqiulaUtils.formatVideo();
-		VideosZuqiulaUtils.translate();
+		//VideosZuqiulaUtils.translate();
 		renderJson(1);
 	}
 	

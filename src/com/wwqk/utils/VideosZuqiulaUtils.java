@@ -41,7 +41,7 @@ public class VideosZuqiulaUtils {
 			homeMap.put(dateStr+"-"+history.getStr("home_team_id"), history);
 			awayMap.put(dateStr+"-"+history.getStr("away_team_id"), history);
 		}
-		List<Videos> lstVideos = Videos.dao.find("select * from videos where keywords IS NULL AND league_id <=5 AND home_team IS NOT NULL AND home_team!='' ");
+		List<Videos> lstVideos = Videos.dao.find("select * from videos where keywords IS NULL AND league_id <=6 AND home_team IS NOT NULL AND home_team!='' ");
 		for(Videos videos : lstVideos){
 			if(StringUtils.isNotBlank(videos.getStr("home_team")) 
 					&& StringUtils.isNotBlank(videos.getStr("away_team"))
@@ -131,7 +131,7 @@ public class VideosZuqiulaUtils {
 					if(oneHistory!=null){
 						videos.set("match_date", oneHistory.get("match_date"));
 						videos.set("match_history_id", oneHistory.get("id"));
-						title = title.replace(dateStr, DateTimeUtils.formatDate(oneHistory.get("match_date"), "yyyy年MM月dd日"));
+						title = title.replace(dateStr, DateTimeUtils.formatDate(oneHistory.getDate("match_date"), "yyyy年MM月dd日"));
 						videos.set("match_title", title);
 					}
 				}

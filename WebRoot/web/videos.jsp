@@ -37,7 +37,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<table class="table small-table" style="text-indent:0;">
 						  	<tbody>
 							<c:forEach items="${videosPage.list}" var="videos">
-								<td></td>
+								<tr>
+							      <td class="a-title" style="line-height:30px;"><a href="${videos.id}" target="_blank">${videos.match_title}</a></td>
+							    </tr>
 						    </c:forEach>
 						   </tbody>
 						</table>
@@ -57,45 +59,50 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	<div class="row clear_row_margin" style="margin-top:1px;padding-bottom: 130px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2 col-sm-12 col-xs-12">		
-			<div class="col-lg-9 col-md-9" style="padding-left:0px;padding-right:0px;">
-				<div class="table-responsive hidden-sm hidden-xs" style="margin-top:10px;">
-						<table class="table table-condensed table-hover" style="border-bottom:1px solid #dddddd;">
-						  <tbody>
-						  	<c:forEach items="${videosPage.list}" var="videos">
-						    <tr>
-						      <td class="a-title" style="line-height:30px;"><a href="${videos.id}" target="_blank">${videos.match_title}</a></td>
-						    </tr>
-						    </c:forEach>
-						  </tbody>
-						</table>
+			<div class="col-lg-9 col-md-9" style="padding-left:0px;padding-right:0px;">  
+				 <div class="row" style="margin-top:8px;">
+					<div class="col-lg-1 col-md-1 team-title" style="font-size:14px;">
+						<a href="videos-league-1.html" ><div class="${leagueId==1?'select-league':'common-league'}">英超</div></a>
 					</div>
-					
-					<div class="table-responsive visible-sm visible-xs" style="margin-top:10px;">
+					<div class="col-lg-1 col-md-1 team-title" style="font-size:14px;">
+						<a href="videos-league-2.html" ><div class="${leagueId==2?'select-league':'common-league'}">西甲</div></a>
+					</div>
+					<div class="col-lg-1 col-md-1 team-title" style="font-size:14px;">
+						<a href="videos-league-3.html" ><div class="${leagueId==3?'select-league':'common-league'}">德甲</div></a>
+					</div>
+					<div class="col-lg-1 col-md-1 team-title" style="font-size:14px;">
+						<a href="videos-league-4.html" ><div class="${leagueId==4?'select-league':'common-league'}">意甲</div></a>
+					</div>
+					<div class="col-lg-1 col-md-1 team-title" style="font-size:14px;">
+						<a href="videos-league-5.html" ><div class="${leagueId==5?'select-league':'common-league'}">法甲</div></a>
+					</div>
+				</div>
+			
+				   <div class="table-responsive hidden-sm hidden-xs" style="margin-top:10px;">
 						<table class="table table-condensed table-hover" style="border-bottom:1px solid #dddddd;">
 						  <tbody>
 						  	<c:forEach items="${videosPage.list}" var="videos">
 						    <tr>
-						      <td>${videos.match_title}</td>
+						      <td class="a-title" style="line-height:30px;"><a href="/vdetail-<fmt:formatDate value="${videos.match_date}" pattern="yyyy-MM-dd"/>-${videos.id}.html" target="_blank">${videos.match_title}</a></td>
 						    </tr>
 						    </c:forEach>
-						    
 						  </tbody>
 						</table>
 					</div>
 					
 					<div class="col-lg-9 col-md-9" style="margin-top:20px;padding-right:0px;">
 						<div class="scott pull-right" >
-							<a href="/videos-page-1.html" title="首页"> &lt;&lt; </a>
+							<a href="/videos-league-${leagueId}-page-1.html" title="首页"> &lt;&lt; </a>
 							
 							<c:if test="${videosPage.pageNumber == 1}">
 								<span class="disabled"> &lt; </span>
 							</c:if>
 							<c:if test="${videosPage.pageNumber != 1}">
-								<a href="/videos-page-${videosPage.pageNumber - 1}.html" > &lt; </a>
+								<a href="/videos-league-${leagueId}-page-${videosPage.pageNumber - 1}.html" > &lt; </a>
 							</c:if>
 							<c:if test="${videosPage.pageNumber > 8}">
-								<a href="/videos-page-1.html">1</a>
-								<a href="/videos-page-2.html">2</a>
+								<a href="/videos-league-${leagueId}-page-1.html">1</a>
+								<a href="/videos-league-${leagueId}-page-2.html">2</a>
 								...
 							</c:if>
 							<c:if test="${!empty pageUI.list}">
@@ -104,24 +111,24 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										<span class="current">${pageNo}</span>
 									</c:if>
 									<c:if test="${videosPage.pageNumber != pageNo }">
-										<a href="/videos-page-${pageNo}.html">${pageNo}</a>
+										<a href="/videos-league-${leagueId}-page-${pageNo}.html">${pageNo}</a>
 									</c:if>
 								</c:forEach>
 							</c:if>
 							<c:if test="${(videosPage.totalPage - videosPage.pageNumber) >= 8 }">
 								...
-								<a href="/videos-page-${videosPage.totalPage - 1}.html">${videosPage.totalPage - 1}</a>
-								<a href="/videos-page-${videosPage.totalPage}.html">${videosPage.totalPage}</a>
+								<a href="/videos-league-${leagueId}-page-${videosPage.totalPage - 1}.html">${videosPage.totalPage - 1}</a>
+								<a href="/videos-league-${leagueId}-page-${videosPage.totalPage}.html">${videosPage.totalPage}</a>
 							</c:if>
 							
 							<c:if test="${videosPage.pageNumber == videosPage.totalPage}">
 								<span class="disabled"> &gt; </span>
 							</c:if>
 							<c:if test="${videosPage.pageNumber != videosPage.totalPage}">
-								<a href="/videos-page-${videosPage.pageNumber + 1}.html"> &gt; </a>
+								<a href="/videos-league-${leagueId}-page-${videosPage.pageNumber + 1}.html"> &gt; </a>
 							</c:if>
 							
-							<a href="/videos-page-${videosPage.totalPage}.html" title="尾页" > &gt;&gt; </a>
+							<a href="/videos-league-${leagueId}-page-${videosPage.totalPage}.html" title="尾页" > &gt;&gt; </a>
 						</div>
 					</div>
 					
