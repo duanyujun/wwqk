@@ -37,7 +37,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 <body>
 <div id="all_content">	
 	<div class="container">
-		
+		<%@ include file="/common/menu-bifen.jsp"%>
 	</div>
 	<!-- 移动端内容开始 -->
     <div id="mobile_div" style="width:100%; margin-top:35px;padding-bottom:30px;">

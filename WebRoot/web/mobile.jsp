@@ -37,23 +37,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 <body>
 <div id="all_content">	
 	<div class="container">
-		<div class="row menu_link navbar-fixed-top  visible-sm visible-xs" style="background:#00A50D;min-height:35px;color:white;">
-	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
-	       		<a href="/" target="_self"><span class="wwqk_menu">首页</span></a>
-	       	</div>
-	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
-	       		<a href="/fun.html" target="_self"><span class="wwqk_menu">趣点</span></a>
-	       	</div>
-	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
-	       		<a href="/live.html" target="_self"><span class="wwqk_menu">直播</span></a>
-	       	</div>
-	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
-	       		<a href="/bifen.html" target="_self"><span class="wwqk_menu dline">比分</span></a>
-	       	</div>
-	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
-	       		<a href="/data.html" target="_self"><span class="wwqk_menu">数据</span></a>
-	       	</div>
-	    </div>
+		<%@ include file="/common/menu.jsp"%>
 	</div>
 
 		 <ul id="myTab" class="nav nav-tabs bread" style="margin-top:40px;">

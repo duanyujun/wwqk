@@ -4,9 +4,9 @@ import com.wwqk.utils.IEnum;
 
 public enum MenuEnum implements IEnum{
 	INDEX("1", "首页"), 
-	FUN("2", "趣点"),
+	BIFEN("2", "比分"),
 	LIVE("3", "直播"),
-	VIDEO("4", "集锦"),
+	VIDEO("4", "视频"),
 	DATA("5", "数据");
 	
 	/** 键 */

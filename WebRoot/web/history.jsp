@@ -35,17 +35,17 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</div>
 				<ul style="float:left;" class="hidden-sm hidden-xs">
 					<li class="menu_width"><a href="">首页</a></li>
-					<li class="menu_width"><a href="fun.html">趣点</a></li>
-					<li class="menu_width"><a href="live.html">直播</a></li>
 					<li class="menu_width"><a href="bifen.html">比分</a></li>
+					<li class="menu_width"><a href="live.html">直播</a></li>
+					<li class="menu_width"><a href="videos.html">视频</a></li>
 					<li class="menu_width menu_sel"><a href="data.html">数据</a></li>
 				</ul>
 				<div class="visible-sm visible-xs small-menu">
 					<select id="menuSelect" class="form-control small-select">
 						<option value="">首页</option>
-						<option value="fun.html">趣点</option>
-						<option value="live.html">直播</option>
 						<option value="bifen.html">比分</option>
+						<option value="live.html">直播</option>
+						<option value="videos.html">视频</option>
 						<option selected value="data.html">数据</option>
 					</select>	
 				</div>

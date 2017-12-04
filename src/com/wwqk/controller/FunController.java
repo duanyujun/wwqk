@@ -18,7 +18,7 @@ public class FunController extends Controller {
 		setAttr("pageUI", PageUtils.calcStartEnd(funPage));
 		setAttr("initCount", funPage.getList().size());
 		
-		setAttr(CommonConstants.MENU_INDEX, MenuEnum.FUN.getKey());
+		setAttr(CommonConstants.MENU_INDEX, MenuEnum.INDEX.getKey());
 		render("fun.jsp");
 	}
 	
@@ -42,7 +42,7 @@ public class FunController extends Controller {
 		}
 		setAttr("fun", fun);
 		
-		setAttr(CommonConstants.MENU_INDEX, MenuEnum.FUN.getKey());
+		setAttr(CommonConstants.MENU_INDEX, MenuEnum.INDEX.getKey());
 		render("funDetail.jsp");
 	}
 	
