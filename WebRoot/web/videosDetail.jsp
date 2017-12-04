@@ -99,25 +99,33 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	});
 	
 	
-	
+	var flagCount = 0;
 	window.onresize = function(){
+		if(isFullscreen()){
+			flagCount = 1;
+		}
+		
 		var winWidth = $(window).width();
 		if (winWidth<992) {
-			  if(!isFullscreen()){
+			  if(!isFullscreen() && flagCount==0){
 				  $("#ytplayer").attr("src","");
 				  $("#mytplayer").attr("src",mvideoUrl);
 			  }
 		}else{
-			if(!isFullscreen()){
+			if(!isFullscreen() && flagCount==0){
 				$("#mytplayer").attr("src","");
 			    $("#ytplayer").attr("src",videoUrl);
 			}
+		}
+		
+		if(!isFullscreen() && flagCount==1){
+			flagCount = 0;
 		}
 	};
 	
 	
 	function isFullscreen(){
-		boolean isFullscreen = false;
+		var isFullscreen = false;
 		if(document.body.scrollHeight==window.screen.height&&document.body.scrollWidth==window.screen.width){ 
 			isFullscreen = true;
 		} 
