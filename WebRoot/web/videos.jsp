@@ -76,6 +76,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<div class="col-lg-1 col-md-1 team-title" style="font-size:14px;">
 						<a href="videos-league-5.html" ><div class="${leagueId==5?'select-league':'common-league'}">法甲</div></a>
 					</div>
+					<div class="col-lg-1 col-md-1 team-title" style="font-size:14px;">
+						<a href="videos-league-6.html" ><div class="${leagueId==6?'select-league':'common-league'}">欧冠</div></a>
+					</div>
+					<div class="col-lg-1 col-md-1 team-title" style="font-size:14px;">
+						<a href="videos-league-7.html" ><div class="${leagueId==7?'select-league':'common-league'}">中超</div></a>
+					</div>
+					<div class="col-lg-1 col-md-1 team-title" style="font-size:14px;">
+						<a href="videos-league-8.html" ><div class="${leagueId==8?'select-league':'common-league'}">其他</div></a>
+					</div>
 				</div>
 			
 				   <div class="table-responsive hidden-sm hidden-xs" style="margin-top:10px;">

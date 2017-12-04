@@ -46,7 +46,7 @@ public class VideosController extends Controller {
 	
 	public void detail(){
 		String id = getPara("id");
-		id = CommonUtils.getRewriteId("id");
+		id = CommonUtils.getRewriteId(id);
 		Videos videos = Videos.dao.findById(id);
 		setAttr("videos", videos);
 		

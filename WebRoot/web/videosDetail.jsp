@@ -52,46 +52,38 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<div class="bread">
 				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;视频&nbsp;&gt;&nbsp;${videos.match_title}
 			</div>
-		</div>
-	</div>
-	
-	<div class="row clear_row_margin" style="margin-top:1px;padding-bottom: 130px;">
-		<div id="main_content" style="min-height:20px;" class="col-lg-11 col-lg-offset-1 col-md-11 col-md-offset-1 col-sm-12 col-xs-12">		
-			<div class="col-lg-12 col-md-12" style="padding-left:0px;padding-right:0px;">
-				    <div class="hidden-sm hidden-xs" style="margin-top:10px;">
-							<div class="yt_play clearfix">
-							  <div class="player">
-							    <h4><b>正在播放：</b><span id="playingSpan">${lstLinks[0].title}</span></h4> 
+			
+			<div class="yt_play clearfix" style="margin-top:10px;margin-left:0px;">
+			  <div class="player">
+			    <h4><b>正在播放：</b><span id="playingSpan">${lstLinks[0].title}</span></h4> 
 							    <div class="play"><iframe name="ytplayer" id="ytplayer" frameborder="0" width="650" height="488" marginheight="0" marginwidth="0" scrolling="no" src=""></iframe></div>
 							    <div class="tags">
 							    	<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧">百度贴吧</a><a href="#" class="bds_ty" data-cmd="ty" title="分享到天涯社区">天涯社区</a></div>
 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-							    </div>
-							  </div>
-							  <div class="right">
-							    <div></div>
-							    
-							    <div class="content" id="tab_content">
-							      <div class="list" >
-							      	<ul>
-							      		<c:forEach items="${lstLinks}" var="link" varStatus="status">
-							      			<li onclick="chooseVideo(this);" class="${status.index==0?'f':''}"><a href="/videos/play?id=${link.id}" title="${link.title}" target="ytplayer">${link.title}</a></li>
-							      		</c:forEach>
-							      	</ul>
-							      </div>
-							    </div>
-							    <div></div>
-							  </div>
-							  <div class="clear"></div>
-							</div>
-					</div>
-					
-					<div class="visible-sm visible-xs" style="margin-top:10px;">
-						
-					</div>
+			    </div>
+			  </div>
+			  <div class="right">
+			    <div></div>
+			    
+			    <div class="content" id="tab_content">
+			      <div class="list" >
+			      	<ul>
+			      		<c:forEach items="${lstLinks}" var="link" varStatus="status">
+			      			<li onclick="chooseVideo(this);" class="${status.index==0?'f':''}"><a href="/videos/play?id=${link.id}" title="${link.title}" target="ytplayer">${link.title}</a></li>
+			      		</c:forEach>
+			      	</ul>
+			      </div>
+			    </div>
+			    <div></div>
+			  </div>
+			  <div class="clear"></div>
 			</div>
+			
+			
 		</div>
 	</div>
+	
+	
 	
 	<%@ include file="/common/footer.jsp"%>		
 	</div>
@@ -107,16 +99,30 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	});
 	
 	
+	
 	window.onresize = function(){
 		var winWidth = $(window).width();
 		if (winWidth<992) {
-			  $("#ytplayer").attr("src","");
-			  $("#mytplayer").attr("src",mvideoUrl);
+			  if(!isFullscreen()){
+				  $("#ytplayer").attr("src","");
+				  $("#mytplayer").attr("src",mvideoUrl);
+			  }
 		}else{
-			$("#mytplayer").attr("src","");
-		    $("#ytplayer").attr("src",videoUrl);
+			if(!isFullscreen()){
+				$("#mytplayer").attr("src","");
+			    $("#ytplayer").attr("src",videoUrl);
+			}
 		}
 	};
+	
+	
+	function isFullscreen(){
+		boolean isFullscreen = false;
+		if(document.body.scrollHeight==window.screen.height&&document.body.scrollWidth==window.screen.width){ 
+			isFullscreen = true;
+		} 
+		return isFullscreen;
+	}
 	
 	function setIframeContent(){
 		  if(!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
