@@ -90,7 +90,7 @@
                  <div class="form-group">
                       <label class="col-md-3 control-label">简述：</label>
                       <div class="col-md-6">
-                           <input type="text" class="form-control" id="description" name="description"  value="${videos.description}" placeholder="请输入关键字">
+                           <input type="text" class="form-control" id="description" name="description"  value="${videos.description}" placeholder="请输入简述">
                       </div>
                       <div class="col-md-3"><label for="name"></label></div>
                  </div>
