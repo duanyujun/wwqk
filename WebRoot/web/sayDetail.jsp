@@ -96,19 +96,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</div>
 							</c:if>
 						</div>
-						<div class="col-lg-12 col-md-12">
-							<!-- JiaThis Button BEGIN -->
-							<div class="jiathis_style" style="margin-top:10px;">
-								<span class="jiathis_txt">分享到：</span>
-								<a class="jiathis_button_qzone">QQ空间</a>
-								<a class="jiathis_button_tsina">新浪微博</a>
-								<a class="jiathis_button_tqq">腾讯微博</a>
-								<a class="jiathis_button_weixin">微信</a>
-								<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-								<a class="jiathis_counter_style"></a>
-							</div>
-							<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-							<!-- JiaThis Button END -->
+						<div class="col-lg-11 col-md-11 col-md-offset-1 col-lg-offset-1" style="margin-top:10px;">
+							<div class="bdsharebuttonbox" style="margin-left:15px;"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧">百度贴吧</a><a href="#" class="bds_ty" data-cmd="ty" title="分享到天涯社区">天涯社区</a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 						</div>
 					</div>
 		</div>

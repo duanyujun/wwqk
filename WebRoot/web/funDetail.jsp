@@ -82,51 +82,39 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin hidden-sm hidden-xs" style="padding-bottom: 130px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-9 col-lg-offset-2 col-md-9 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="col-lg-10 col-md-10 col-lg-12 col-md-12">
-				<div class="col-lg-12 col-md-12"><h2 style="font-weight:bold;">${fun.title}</h2></div>
-				<div class="col-lg-12 col-md-12">
-					<div class="mob-author">
-                            <div class="author-face">
-	                           <img src="assets/image/page/logo-small.png">
-                            </div>
-                            <span class="mob-author-a">
-                            	<span class="author-name">趣点足球网</span>
-                            </span>
-                            <span class="author-name">
-                            	<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>
-                            </span>
-                            <!-- JiaThis Button BEGIN -->
-							<div class="jiathis_style" style="margin-top:3px;">
-								<span class="jiathis_txt">分享到：</span>
-								<a class="jiathis_button_qzone">QQ空间</a>
-								<a class="jiathis_button_tsina">新浪微博</a>
-								<a class="jiathis_button_tqq">腾讯微博</a>
-								<a class="jiathis_button_weixin">微信</a>
-								<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-								<a class="jiathis_counter_style"></a>
-							</div>
-							<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-							<!-- JiaThis Button END -->
-                    </div>
-				</div>
-				
-				<div class="col-lg-12 col-md-12" style="margin-top:20px;">
-					<blockquote style="background-color:#f3f7f0;font-size:16px;">
-						<img src="assets/image/page/quote.png">${fun.summary}
-					</blockquote>
-				</div>
-				
-				<div class="col-lg-12 col-md-12" style="margin-top:10px;font-size:14px;">
-					<div class="well well-lg" style="line-height:2;text-indent:20px;">
-						${fun.content}
+				<div class="row">
+					<div class="col-lg-12 col-md-12"><h3 style="font-weight:bold;">${fun.title}</h3></div>
+					<div class="col-lg-12 col-md-12">
+						<div class="mob-author">
+	                            <span class="mob-author-a" style="margin-left:0px;">
+	                            	<span class="author-name">趣点足球网</span>
+	                            </span>
+	                            <span class="author-name">
+	                            	<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>
+	                            </span>
+	                            <div class="bdsharebuttonbox" style="margin-top:6px;"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧">百度贴吧</a><a href="#" class="bds_ty" data-cmd="ty" title="分享到天涯社区">天涯社区</a></div>
+	<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+	                    </div>
 					</div>
-				</div>
 				
-				<c:if test="${!empty fun.source_name}">
-					<div class="col-lg-12 col-md-12 bread" style="font-size:14px;">
-						来源：<a href="${fun.source_url}" target="_blank">${fun.source_name}</a>
+					<div class="col-lg-12 col-md-12" style="margin-top:20px;">
+						<blockquote style="background-color:#f3f7f0;font-size:16px;">
+							<img src="assets/image/page/quote.png">${fun.summary}
+						</blockquote>
 					</div>
-				</c:if>
+					
+					<div class="col-lg-12 col-md-12" style="margin-top:10px;font-size:14px;">
+						<div class="well well-lg" style="line-height:2;text-indent:20px;">
+							${fun.content}
+						</div>
+					</div>
 				
+					<c:if test="${!empty fun.source_name}">
+						<div class="col-lg-12 col-md-12 bread" style="font-size:14px;">
+							来源：<a href="${fun.source_url}" target="_blank">${fun.source_name}</a>
+						</div>
+					</c:if>
+				</div>
 			</div>
 		</div>
 	</div>
