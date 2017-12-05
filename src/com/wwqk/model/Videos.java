@@ -16,7 +16,7 @@ public class Videos extends Model<Videos> {
 	}
 	
 	public Page<Videos> paginate(int pageNumber, int pageSize, String whereSql) {
-		return paginate(pageNumber, pageSize, "select * ", "from videos where 1=1 " + whereSql +" order by id asc");
+		return paginate(pageNumber, pageSize, "select * ", "from videos where 1=1 " + whereSql +" order by match_date desc");
 	}
 		
 }
