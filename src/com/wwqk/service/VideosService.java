@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.wwqk.model.Videos;
-import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.StringUtils;
-import com.jfinal.upload.UploadFile;
-import java.util.UUID;
 
 public class VideosService {
 
@@ -102,7 +100,11 @@ public class VideosService {
         videos.set("from_site", controller.getPara("from_site"));
         videos.set("match_history_id", controller.getPara("match_history_id"));
         videos.set("keywords", controller.getPara("keywords"));
-        videos.set("description", controller.getPara("description"));
+        if(StringUtils.isNotBlank(controller.getPara("description"))){
+        	videos.set("description", controller.getPara("description"));
+        }else{
+        	videos.set("description", null);
+        }
 
 		save(videos);
 	}
