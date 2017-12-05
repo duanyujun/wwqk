@@ -355,7 +355,7 @@ public class VideosZuqiulaUtils {
 			Team homeTeam = Team.dao.findById(history.get("home_team_id"));
 			String yearShow = history.getStr("year_show");
 			yearShow = yearShow.substring(0, 2)+"/"+yearShow.substring(2);
-			sb.append("北京时间 - ").append(DateTimeUtils.formatDate(history.getDate("match_date"), "yyyy年M月d日H点m分，"))
+			sb.append("北京时间 - ").append(DateTimeUtils.formatDate(history.getDate("match_date"), "yyyy年M月d日 H点m分，"))
 			.append(EnumUtils.getValue(LeagueEnum.values(), history.getStr("league_id"))).append(yearShow)
 			.append("赛季第").append(history.get("match_round")).append("轮，").append(history.getStr("home_team_name"))
 			.append("坐镇主场").append(homeTeam.getStr("venue_name")).append("迎战").append(history.getStr("away_team_name")).append("。")
@@ -378,7 +378,7 @@ public class VideosZuqiulaUtils {
 						Team homeTeam = Team.dao.findById(history.get("home_team_id"));
 						String yearShow = history.getStr("year_show");
 						yearShow = yearShow.substring(0, 2)+"/"+yearShow.substring(2);
-						sb.append("北京时间 - ").append(DateTimeUtils.formatDate(history.getDate("match_date"), "yyyy年M月d日H点m分，"))
+						sb.append("北京时间 - ").append(DateTimeUtils.formatDate(history.getDate("match_date"), "yyyy年M月d日 H点m分，"))
 						.append(EnumUtils.getValue(LeagueEnum.values(), videos.getStr("league_id"))).append(yearShow)
 						.append("赛季第").append(history.get("match_round")).append("轮，").append(videos.getStr("home_team"))
 						.append("坐镇主场").append(homeTeam.getStr("venue_name")).append("迎战").append(videos.getStr("away_team")).append("。");
@@ -388,7 +388,7 @@ public class VideosZuqiulaUtils {
 			}
 			if(StringUtils.isBlank(desc)){
 				if(videos.getDate("match_date")!=null){
-					sb.append("北京时间 - ").append(DateTimeUtils.formatDate(videos.getDate("match_date"), "yyyy年M月d日H点m分，"))
+					sb.append("北京时间 - ").append(DateTimeUtils.formatDate(videos.getDate("match_date"), "yyyy年M月d日 H点m分，"))
 					.append(videos.getStr("match_title").replaceAll("\\d+年\\d+月\\d+日", ""));
 					desc = sb.toString();
 				}

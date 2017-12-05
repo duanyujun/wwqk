@@ -13,7 +13,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta content="telephone=no" name="format-detection">
 	<meta name="keywords" content="${homeTeam.name}vs${history.away_team_name}直播,${history.away_team_name}vs${homeTeam.name}免费直播,${history.away_team_name}vs${homeTeam.name}在线直播,${history.away_team_name}vs${homeTeam.name}视频直播,${homeTeam.name}直播,${history.away_team_name}直播,<fmt:formatDate value="${history.match_date}" pattern="yyyy-MM-dd"/> ${homeTeam.name} vs ${history.away_team_name} 阵容 " />
-	<meta name="description" content='${history.description}趣点足球网还为您提供赛事分析，比赛结果，更有${leagueName}录像集锦等着您！' />
+	<meta name="description" content='${history.description}趣点足球网还为您提供赛事分析，比赛结果，更有精彩${leagueName}录像集锦等着您！' />
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     
