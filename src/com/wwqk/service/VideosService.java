@@ -93,7 +93,7 @@ public class VideosService {
 			videos = Videos.dao.findById(id);
 		}
 		
-		        videos.set("league_id", controller.getPara("league_id"));
+		videos.set("league_id", controller.getPara("league_id"));
         videos.set("match_date", controller.getPara("match_date"));
         videos.set("home_team", controller.getPara("home_team"));
         videos.set("away_team", controller.getPara("away_team"));
@@ -102,6 +102,7 @@ public class VideosService {
         videos.set("from_site", controller.getPara("from_site"));
         videos.set("match_history_id", controller.getPara("match_history_id"));
         videos.set("keywords", controller.getPara("keywords"));
+        videos.set("description", controller.getPara("description"));
 
 		save(videos);
 	}

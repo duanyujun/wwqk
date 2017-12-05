@@ -8,9 +8,13 @@ import com.wwqk.constants.CommonConstants;
 import com.wwqk.constants.LeagueEnum;
 import com.wwqk.constants.MenuEnum;
 import com.wwqk.constants.PlayerEnum;
+import com.wwqk.model.LeagueMatchHistory;
+import com.wwqk.model.Team;
 import com.wwqk.model.Videos;
 import com.wwqk.model.VideosRealLinks;
 import com.wwqk.utils.CommonUtils;
+import com.wwqk.utils.DateTimeUtils;
+import com.wwqk.utils.EnumUtils;
 import com.wwqk.utils.PageUtils;
 import com.wwqk.utils.StringUtils;
 
@@ -52,7 +56,6 @@ public class VideosController extends Controller {
 		
 		List<VideosRealLinks> lstLinks = VideosRealLinks.dao.find("select * from videos_real_links where videos_id = ? ", id);
 		setAttr("lstLinks", lstLinks);
-		
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.VIDEO.getKey());
 		render("videosDetail.jsp");
 	}

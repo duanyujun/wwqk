@@ -13,12 +13,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta content="telephone=no" name="format-detection">
 	<meta name="keywords" content="${videos.keywords}" />
-	<meta name="description" content="${videos.summary}" />
+	<meta name="description" content="${videos.description}" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="common/videos.css" rel="stylesheet" type="text/css" />
-    <title>趣点足球网 - ${videos.title}</title>
+    <title>趣点足球网 - ${videos.match_title}</title>
  	<style type="text/css">
  		
  	</style>
@@ -47,7 +47,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    <!-- 移动端内容结束 -->
 	</div>
 	
-	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:70px;">
+	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:70px;padding-bottom: 130px;">
 		<div id="main_content" style="min-height:10px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">		
 			<div class="bread">
 				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;视频&nbsp;&gt;&nbsp;${videos.match_title}
@@ -78,7 +78,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			  </div>
 			  <div class="clear"></div>
 			</div>
-			
+			<div style="max-width:948px;">
+				${videos.description}
+				<c:if test="${(!empty videos.summary) && videos.summary!='0'}">
+					<br>
+					${videos.summary}
+				</c:if>
+			</div>
 			
 		</div>
 	</div>

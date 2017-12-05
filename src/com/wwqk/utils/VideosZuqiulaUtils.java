@@ -21,6 +21,7 @@ import com.wwqk.constants.LeagueEnum;
 import com.wwqk.constants.PlayerEnum;
 import com.wwqk.constants.VideosLeagueEnum;
 import com.wwqk.model.LeagueMatchHistory;
+import com.wwqk.model.Team;
 import com.wwqk.model.Videos;
 import com.wwqk.model.VideosRealLinks;
 
@@ -147,7 +148,7 @@ public class VideosZuqiulaUtils {
 		for(int i=2; i<10; i++){
 		//for(int i=9; i>1; i--){
 			String url = "http://www.zuqiu.la/video/index.php?p=1&type="+i;
-			System.err.println("page："+url);
+			//System.err.println("page："+url);
 			Connection connect = Jsoup.connect(url).ignoreContentType(true);
 			for(Map.Entry<String, String> entry:MatchUtils.getZuqiulaHeader().entrySet()){
 				connect.header(entry.getKey(), entry.getValue());
@@ -169,7 +170,7 @@ public class VideosZuqiulaUtils {
 					int pageCount = allCount/50+(allCount%50==0?0:1);
 					for(int j=2;j<=pageCount;j++){
 						url = "http://www.zuqiu.la/video/index.php?p="+j+"&type="+i;
-						System.err.println("page："+url);
+						//System.err.println("page："+url);
 						connect = Jsoup.connect(url).ignoreContentType(true);
 						for(Map.Entry<String, String> entry:MatchUtils.getZuqiulaHeader().entrySet()){
 							connect.header(entry.getKey(), entry.getValue());
@@ -196,7 +197,7 @@ public class VideosZuqiulaUtils {
 				Elements aElements = element.select("a");
 				String matchTitle = aElements.get(0).text();
 				String videoUrl = MAIN_SITE+aElements.get(0).attr("href");
-				System.err.println(">>>> handle："+matchTitle+" url："+videoUrl);
+				//System.err.println(">>>> handle："+matchTitle+" url："+videoUrl);
 				Videos videos = null;
 				//查询数据库中是否存在
 				VideosRealLinks existLinks = VideosRealLinks.dao.findFirst("select * from videos_real_links where source_url = ? ", videoUrl);
@@ -292,7 +293,7 @@ public class VideosZuqiulaUtils {
 									continue;
 								}
 								
-								System.err.println("---- realTitle："+title+" playLink："+playUrl+" realLink："+realUrl);
+								//System.err.println("---- realTitle："+title+" playLink："+playUrl+" realLink："+realUrl);
 								
 								VideosRealLinks realLink = new VideosRealLinks();
 								realLink.set("videos_id", videos.get("id"));
@@ -345,6 +346,58 @@ public class VideosZuqiulaUtils {
 		}
 		
 		return result;
+	}
+	
+	public static void updateDesc(){
+		List<LeagueMatchHistory> lstMatches = LeagueMatchHistory.dao.find("select * from league_match_history where description is null");
+		for(LeagueMatchHistory history : lstMatches){
+			StringBuilder sb = new StringBuilder();
+			Team homeTeam = Team.dao.findById(history.get("home_team_id"));
+			String yearShow = history.getStr("year_show");
+			yearShow = yearShow.substring(0, 2)+"/"+yearShow.substring(2);
+			sb.append("北京时间 - ").append(DateTimeUtils.formatDate(history.getDate("match_date"), "yyyy年M月d日H点m分，"))
+			.append(EnumUtils.getValue(LeagueEnum.values(), history.getStr("league_id"))).append(yearShow)
+			.append("赛季第").append(history.get("match_round")).append("轮，").append(history.getStr("home_team_name"))
+			.append("坐镇主场").append(homeTeam.getStr("venue_name")).append("迎战").append(history.getStr("away_team_name")).append("。")
+			.append("趣点足球网将为您提供直播信号导航，欢迎准时收看！");
+			history.set("description", sb.toString());
+		}
+		if(lstMatches.size()>0){
+			Db.batchUpdate(lstMatches, lstMatches.size());
+		}
+		
+		List<Videos> lstVideos = Videos.dao.find("select * from videos where description is null");
+		for(Videos videos : lstVideos){
+			StringBuilder sb = new StringBuilder();
+			String desc = null;
+			if(Integer.valueOf(videos.getStr("league_id"))<6){
+				if(StringUtils.isNotBlank(videos.getStr("match_history_id"))){
+					LeagueMatchHistory history = LeagueMatchHistory.dao.findById(videos.getStr("match_history_id"));
+					//2017年11月17日 - 北京时间11月19日0点,法甲联赛战火重燃,巴黎圣日耳曼将坐镇主场王子公园球场迎战南特。
+					if(history!=null){
+						Team homeTeam = Team.dao.findById(history.get("home_team_id"));
+						String yearShow = history.getStr("year_show");
+						yearShow = yearShow.substring(0, 2)+"/"+yearShow.substring(2);
+						sb.append("北京时间 - ").append(DateTimeUtils.formatDate(history.getDate("match_date"), "yyyy年M月d日H点m分，"))
+						.append(EnumUtils.getValue(LeagueEnum.values(), videos.getStr("league_id"))).append(yearShow)
+						.append("赛季第").append(history.get("match_round")).append("轮，").append(videos.getStr("home_team"))
+						.append("坐镇主场").append(homeTeam.getStr("venue_name")).append("迎战").append(videos.getStr("away_team")).append("。");
+						desc = sb.toString();
+					}
+				}
+			}
+			if(StringUtils.isBlank(desc)){
+				if(videos.getDate("match_date")!=null){
+					sb.append("北京时间 - ").append(DateTimeUtils.formatDate(videos.getDate("match_date"), "yyyy年M月d日H点m分，"))
+					.append(videos.getStr("match_title").replaceAll("\\d+年\\d+月\\d+日", ""));
+					desc = sb.toString();
+				}
+			}
+			videos.set("description", desc);
+		}
+		if(lstVideos.size()>0){
+			Db.batchUpdate(lstVideos, lstVideos.size());
+		}
 	}
 	
 	public static void main(String[] args) {

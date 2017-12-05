@@ -776,5 +776,12 @@ public class AdminController extends Controller {
 		renderJson(1);
 	}
 	
+	/**
+	 * 更新videos和league_match_history两个表中的desc字段
+	 */
+	public void updateDesc(){
+		VideosZuqiulaUtils.updateDesc();
+		renderJson(1);
+	}
 	
 }

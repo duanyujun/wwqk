@@ -105,6 +105,9 @@
                     <button onclick="updateVideos();" class="btn sbold green" style="margin-left:10px;"> 更新视频
                         <i class="fa fa-refresh"></i>
                     </button>
+                    <button onclick="updateDesc();" class="btn sbold green" style="margin-left:10px;"> 更新简述
+                        <i class="fa fa-refresh"></i>
+                    </button>
                 </div>
             </div>
             
@@ -313,6 +316,17 @@ function updateVideos(){
 	$("body").showLoading();
 	showToast(1, "更新中...", "温馨提示");
 	$.post("/admin/updateVideos",
+				function(result){
+					$("body").hideLoading();
+					showToast(1, "更新成功！", "温馨提示");
+				}
+	);
+}
+
+function updateDesc(){
+	$("body").showLoading();
+	showToast(1, "更新中...", "温馨提示");
+	$.post("/admin/updateDesc",
 				function(result){
 					$("body").hideLoading();
 					showToast(1, "更新成功！", "温馨提示");
