@@ -632,6 +632,8 @@ public class AdminController extends Controller {
 	}
 	
 	public void listVideos(){
+		String leagueId = getPara("leagueId");
+		setAttr("leagueId", leagueId);
 		render("admin/videosList.jsp");
 	}
 	
@@ -646,6 +648,7 @@ public class AdminController extends Controller {
 			Videos videos = Videos.dao.findById(id);
 			videos.set("match_date", DateTimeUtils.formatDateTime(videos.getTimestamp("match_date")));
 			setAttr("videos", videos);
+			setAttr("leagueId", getPara("leagueId"));
 		}
 		render("admin/videosForm.jsp");
 	}

@@ -25,6 +25,11 @@ public class VideosService {
 			whereSql = " and (home_team like '%"+search+"%'" +" OR away_team like '%"+search+"%'" +" OR match_title like '%"+search+"%'" +" OR keywords like '%"+search+"%')"; 
 		}
 		
+		String leagueId = controller.getPara("leagueId");
+		if(StringUtils.isNotBlank(leagueId)){
+			whereSql += " and league_id = "+leagueId;
+		}
+		
 		int sortColumn = controller.getParaToInt("order[0][column]");
 		String sortType = controller.getPara("order[0][dir]");
 		switch (sortColumn) {

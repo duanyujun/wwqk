@@ -27,25 +27,17 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="btn-group pull-right" style="display:none;">
-                        <button class="btn green  btn-outline dropdown-toggle" data-toggle="dropdown">Tools
-                            <i class="fa fa-angle-down"></i>
-                        </button>
-                        <ul class="dropdown-menu pull-right">
-                            <li>
-                                <a href="javascript:;">
-                                    <i class="fa fa-print"></i> Print </a>
-                            </li>
-                            <li>
-                                <a href="javascript:;">
-                                    <i class="fa fa-file-pdf-o"></i> Save as PDF </a>
-                            </li>
-                            <li>
-                                <a href="javascript:;">
-                                    <i class="fa fa-file-excel-o"></i> Export to Excel </a>
-                            </li>
-                        </ul>
-                    </div>
+                    <select class="form-control pull-right" id="leagueIdSel" onchange="reloadTable();" style="width:155px;">
+                            <option value="" >-过滤赛事-</option>
+                        	<option value="1" ${leagueId==1?'selected':''}>英超</option>
+                        	<option value="2" ${leagueId==2?'selected':''}>西甲</option>
+                        	<option value="3" ${leagueId==3?'selected':''}>德甲</option>
+                        	<option value="4" ${leagueId==4?'selected':''}>意甲</option>
+                        	<option value="5" ${leagueId==5?'selected':''}>法甲</option>
+                        	<option value="6" ${leagueId==6?'selected':''}>欧冠</option>
+                        	<option value="7" ${leagueId==7?'selected':''}>中超</option>
+                        	<option value="8" ${leagueId==8?'selected':''}>其他</option>
+                     </select>
                 </div>
             </div>
         </div>
@@ -70,8 +62,9 @@
 </div>
 
 <script type="text/javascript">
+var mainTable;
 $(document).ready(function() {
-    $('#main_table').dataTable( {
+   mainTable = $('#main_table').dataTable( {
         "processing": true,
         "serverSide": true,
         "orderClasses": false,
@@ -111,7 +104,16 @@ $(document).ready(function() {
             }
         },
         "bStateSave": !0,
-        "ajax": "/admin/videosData"
+       	"ajax" : {
+       	        "url" : "/admin/videosData",
+       	        "data" : function(d){
+    	        	var leagueId = $("#leagueIdSel").val();
+    	        	if(leagueId==''){
+    	        		leagueId = '${leagueId}';﻿
+    	        	}
+    	        	d.leagueId=leagueId;
+    	       	﻿}
+       	}
     } );
     
     $('#main_table').find(".group-checkable").change(function() {
@@ -135,13 +137,19 @@ $(document).ready(function() {
     	 });
     } );
     
+    
+    
 } );
+
+function reloadTable(){
+	mainTable.fnDraw();
+}
 
 function goInsert(id){
 	var url = "/admin/editVideos";
 	if(id){
 		var timestamp=new Date().getTime();
-		url = url + "?id="+id+"&t="+timestamp;
+		url = url + "?id="+id+"&t="+timestamp+"&leagueId="+$("#leagueIdSel").val();
 	}
 	$('#main-content').load(url);
 }

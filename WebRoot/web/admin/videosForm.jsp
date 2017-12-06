@@ -122,7 +122,7 @@ $(document).ready(function() {
 
 
 function cancel(){
-	$('#main-content').load($('#urlHidden').val());
+	$('#main-content').load($('#urlHidden').val()+"?leagueId=${leagueId}");
 }
 
 function save(){
