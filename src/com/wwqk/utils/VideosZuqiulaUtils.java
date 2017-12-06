@@ -92,8 +92,7 @@ public class VideosZuqiulaUtils {
 					sb.append("北京时间 - ").append(DateTimeUtils.formatDate(oneHistory.getDate("match_date"), "yyyy年M月d日 H点m分，"))
 					.append(EnumUtils.getValue(LeagueEnum.values(), oneHistory.getStr("league_id"))).append(yearShow)
 					.append("赛季第").append(oneHistory.get("match_round")).append("轮，").append(oneHistory.getStr("home_team_name"))
-					.append("坐镇主场").append(homeTeam.getStr("venue_name")).append("迎战").append(oneHistory.getStr("away_team_name")).append("。")
-					.append("趣点足球网将为您提供直播信号导航，欢迎准时收看！");
+					.append("坐镇主场").append(homeTeam.getStr("venue_name")).append("迎战").append(oneHistory.getStr("away_team_name")).append("。");
 					videos.set("description", sb.toString());
 					videos.update();
 				}
