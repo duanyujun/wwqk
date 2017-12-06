@@ -60,9 +60,11 @@ public class MatchHistoryController extends Controller {
 			int lastIdx = sourceParam.lastIndexOf("-");
 			sourceParam = sourceParam.substring(0, lastIdx);
 			if(currentRound!=0){
+				sourceParam = sourceParam.replaceAll("-r\\d+", "");
 				sourceParam+="-r"+currentRound;
 			}
 			if(year!=0){
+				sourceParam = sourceParam.replaceAll("-y\\d+", "");
 				sourceParam+="-y"+year;
 			}
 		}

@@ -77,7 +77,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							  	 		</c:forEach>
 							  	 </select>
 							  	 <select id="round" name="round" onchange="setRound(this);">
-							  	 		<option value="">&nbsp;选择轮次&nbsp;</option>
+							  	 		<option value="0">&nbsp;选择轮次&nbsp;</option>
 							  	 		<c:forEach items="${lstRound}" var="round">
 								  	 		<option value="${round}" ${round==currentRound?'selected':''}>&nbsp;第${round}轮&nbsp;</option>
 							  	 		</c:forEach>
@@ -220,10 +220,22 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	function goWithParam(year, round){
 		var roundStr = '';
-		if(round!=''){
+		if(round!='0'){
 			roundStr = "-r"+round;
 		}
-		var filter = '${filter}'+'-y'+year+roundStr+'-${id}';
+		var yearStr = '';
+		if(year!=''){
+			yearStr = "-y"+year;
+		}
+		
+		var filter = '${filter}';
+		filter = filter.replace(/-r\d+/,"");
+		
+		if(yearStr!=''){
+			filter = filter.replace(/-y\d+/,"");
+		}
+		
+		filter = filter+yearStr+roundStr+'-${id}';
 		window.location.href = "/history-"+filter+".html";
 	}
 	
