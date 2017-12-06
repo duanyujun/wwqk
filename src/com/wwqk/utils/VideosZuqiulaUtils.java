@@ -42,7 +42,7 @@ public class VideosZuqiulaUtils {
 			homeMap.put(dateStr+"-"+history.getStr("home_team_id"), history);
 			awayMap.put(dateStr+"-"+history.getStr("away_team_id"), history);
 		}
-		List<Videos> lstVideos = Videos.dao.find("select * from videos where keywords IS NULL AND league_id <=6 AND home_team IS NOT NULL AND home_team!='' ");
+		List<Videos> lstVideos = Videos.dao.find("select * from videos where match_history_id='0' AND league_id <6 AND home_team IS NOT NULL AND home_team!='' ");
 		for(Videos videos : lstVideos){
 			if(StringUtils.isNotBlank(videos.getStr("home_team")) 
 					&& StringUtils.isNotBlank(videos.getStr("away_team"))
@@ -83,6 +83,18 @@ public class VideosZuqiulaUtils {
 							+oneHistory.getStr("home_team_name")+"vs"+oneHistory.getStr("away_team_name")+","
 							+oneHistory.getStr("home_team_name")+"录像,"+oneHistory.getStr("away_team_name")+"集锦";
 					videos.set("keywords", keywords);
+					
+					
+					StringBuilder sb = new StringBuilder();
+					Team homeTeam = Team.dao.findById(oneHistory.get("home_team_id"));
+					String yearShow = oneHistory.getStr("year_show");
+					yearShow = yearShow.substring(0, 2)+"/"+yearShow.substring(2);
+					sb.append("北京时间 - ").append(DateTimeUtils.formatDate(oneHistory.getDate("match_date"), "yyyy年M月d日 H点m分，"))
+					.append(EnumUtils.getValue(LeagueEnum.values(), oneHistory.getStr("league_id"))).append(yearShow)
+					.append("赛季第").append(oneHistory.get("match_round")).append("轮，").append(oneHistory.getStr("home_team_name"))
+					.append("坐镇主场").append(homeTeam.getStr("venue_name")).append("迎战").append(oneHistory.getStr("away_team_name")).append("。")
+					.append("趣点足球网将为您提供直播信号导航，欢迎准时收看！");
+					videos.set("description", sb.toString());
 					videos.update();
 				}
 			}
