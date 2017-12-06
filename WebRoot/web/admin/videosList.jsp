@@ -91,7 +91,7 @@ $(document).ready(function() {
                   "render": function ( data, type, full, meta ) {
                       return '<a href="" class="editClass" >'+data+'</a>';
               }}
-              ,{"targets":2,"orderable": true,"searchable": false},{"targets":3,"orderable": true,"searchable": true},{"targets":4,"orderable": true,"searchable": true},{"targets":5,"orderable": false,"searchable": true},{"targets":6,"orderable": false,"searchable": false},{"targets":7,"orderable": false,"searchable": true}     
+              ,{"targets":2,"orderable": true,"searchable": false},{"targets":3,"orderable": true,"searchable": true},{"targets":4,"orderable": true,"searchable": true},{"targets":5,"orderable": false,"searchable": true},{"targets":6,"orderable": true,"searchable": false},{"targets":7,"orderable": true,"searchable": true}     
         
         ],
         "order": [[1, 'asc']],

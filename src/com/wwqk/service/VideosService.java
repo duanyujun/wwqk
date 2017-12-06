@@ -30,12 +30,21 @@ public class VideosService {
 		switch (sortColumn) {
 			case 1:
               orderSql = " order by league_id "+sortType;
-              break;case 2:
+              break;
+            case 2:
               orderSql = " order by match_date "+sortType;
-              break;case 3:
+              break;
+            case 3:
               orderSql = " order by home_team "+sortType;
-              break;case 4:
+              break;
+            case 4:
               orderSql = " order by away_team "+sortType;
+              break;
+            case 6:
+                  orderSql = " order by match_history_id "+sortType;
+              break;
+            case 7:
+                  orderSql = " order by keywords "+sortType;
               break;
 		default:
 			break;
@@ -98,7 +107,11 @@ public class VideosService {
         videos.set("match_title", controller.getPara("match_title"));
         videos.set("source_url", controller.getPara("source_url"));
         videos.set("from_site", controller.getPara("from_site"));
-        videos.set("match_history_id", controller.getPara("match_history_id"));
+        if(StringUtils.isNotBlank(controller.getPara("match_history_id"))){
+        	videos.set("match_history_id", controller.getPara("match_history_id"));
+        }else{
+        	videos.set("match_history_id", "0");
+        }
         videos.set("keywords", controller.getPara("keywords"));
         if(StringUtils.isNotBlank(controller.getPara("description"))){
         	videos.set("description", controller.getPara("description"));
