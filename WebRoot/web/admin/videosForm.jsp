@@ -145,7 +145,7 @@ $(function(){
 });
 
 function showSuccess(data){
-	$('#main-content').load($('#urlHidden').val());
+	$('#main-content').load($('#urlHidden').val()+"?leagueId=${leagueId}");
 	showToast(1, "保存成功！", "温馨提示");
 }
 
