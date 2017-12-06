@@ -59,6 +59,12 @@ public class MatchHistoryController extends Controller {
 		}else{
 			int lastIdx = sourceParam.lastIndexOf("-");
 			sourceParam = sourceParam.substring(0, lastIdx);
+			if(currentRound!=0){
+				sourceParam+="-r"+currentRound;
+			}
+			if(year!=0){
+				sourceParam+="-y"+year;
+			}
 		}
 		setAttr("filter", sourceParam);
 		
