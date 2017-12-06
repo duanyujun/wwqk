@@ -38,7 +38,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  	<tbody>
 							<c:forEach items="${videosPage.list}" var="videos">
 								<tr>
-							      <td class="a-title" style="line-height:30px;"><a href="${videos.id}" target="_blank">${videos.match_title}</a></td>
+							      <td class="a-title" style="line-height:30px;"><a href="/vdetail-<fmt:formatDate value="${videos.match_date}" pattern="yyyy-MM-dd"/>-${videos.id}.html" target="_blank">${videos.match_title}</a></td>
 							    </tr>
 						    </c:forEach>
 						   </tbody>

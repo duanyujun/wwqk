@@ -19,7 +19,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - ${leagueName}足球数据|${leagueName}射手榜|${leagueName}助攻榜|${leagueName}积分榜|${leagueName}联赛排名</title>
 	<style type="text/css">
-		ul{-webkit-padding-start:1%;}
+		.sn-list>ul{-webkit-padding-start:1%;}
 		.table>thead>tr>th{border-bottom:none;}
 		.label{font-size:14px;}
 	</style>
