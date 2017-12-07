@@ -70,8 +70,7 @@ public class VideosService {
 				Object[] obj = new Object[8];
 				Videos videos = lstVideos.get(i);
 				obj[0] = videos.get("id");
-				
-				obj[1] = videos.get("league_id");
+				obj[1] = videos.get("league_id")+"-"+videos.get("id");
 				obj[2] = videos.get("match_date");
 				obj[3] = videos.get("home_team");
 				obj[4] = videos.get("away_team");

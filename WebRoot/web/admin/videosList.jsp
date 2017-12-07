@@ -21,7 +21,7 @@
                         <button id="sample_editable_1_new" onclick="goInsert();" class="btn sbold green"> 添加集锦
                             <i class="fa fa-plus"></i>
                         </button>
-                        <button id="deleteBtn" onclick="goDelete();" class="btn sbold red" style="margin-left:10px;display:none;"> 删除集锦
+                        <button id="deleteBtn" onclick="goDelete();" class="btn sbold red" style="margin-left:10px;"> 删除集锦
                             <i class="fa fa-trash"></i>
                         </button>
                     </div>
@@ -171,7 +171,7 @@ function goDelete(){
            			$.post( "/admin/deleteVideos",
            					{ids:ids},
            					function(result){
-           						$('#main-content').load($('#urlHidden').val());
+           						$('#main-content').load($('#urlHidden').val()+"?leagueId="+$("#leagueIdSel").val());
            						showToast(1, "删除成功！", "温馨提示");
            					}
            			);
