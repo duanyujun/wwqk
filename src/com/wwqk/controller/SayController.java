@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
+import com.wwqk.constants.CommonConstants;
 import com.wwqk.constants.LeagueEnum;
+import com.wwqk.constants.MenuEnum;
 import com.wwqk.model.Fun;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
@@ -75,6 +77,7 @@ public class SayController extends Controller {
 		List<Fun> lstNews = Fun.dao.find("select id, title, create_time, title_en from fun where type = 1 and player_id = ? order by create_time desc", playerId);
 		setAttr("lstNews", lstNews);
 		
+		setAttr(CommonConstants.MENU_INDEX, MenuEnum.DATA.getKey());
 		render("sayList.jsp");
 	}
 	
@@ -95,7 +98,7 @@ public class SayController extends Controller {
 		}
 		Say say = Say.dao.findById(id);
 		setAttr("say", say);
-		
+		setAttr(CommonConstants.MENU_INDEX, MenuEnum.INDEX.getKey());
 		render("sayDetail.jsp");
 	}
 }

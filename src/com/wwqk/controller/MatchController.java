@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.jfinal.core.Controller;
+import com.wwqk.constants.CommonConstants;
 import com.wwqk.constants.LeagueENEnum;
 import com.wwqk.constants.LeagueEnum;
+import com.wwqk.constants.MenuEnum;
 import com.wwqk.constants.OddsProviderEnum;
 import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeagueMatchHistory;
@@ -58,6 +60,7 @@ public class MatchController extends Controller {
 	}
 	
 	public void detail(){
+		
 		String matchKey = getPara("matchKey");
 		matchKey = CommonUtils.getRewriteMatchKey(matchKey);
 		if(StringUtils.isBlank(matchKey)){
@@ -124,7 +127,7 @@ public class MatchController extends Controller {
 				setAttr("lstTips", lstTips);
 			}
 		}
-		
+		setAttr(CommonConstants.MENU_INDEX, MenuEnum.LIVE.getKey());
 		render("matchDetail.jsp");
 	}
 	
