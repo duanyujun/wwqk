@@ -192,6 +192,7 @@ function updateTeamPlayer(){
 	$.post("/admin/updateTeamPlayer",
 				{teamId: $("#teamId").val()},
 				function(result){
+					$("#teamId").val("")
 					$("body").hideLoading();
 					showToast(1, "更新成功！", "温馨提示");
 				}
@@ -294,6 +295,7 @@ function updatePlayerTransfer(){
 	$.post("/admin/updatePlayerTransfer",
 				{playerId: $("#playerId").val()},
 				function(result){
+					$("#playerId").val("");
 					$("body").hideLoading();
 					showToast(1, "更新成功！", "温馨提示");
 				}
