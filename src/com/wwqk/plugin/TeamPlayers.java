@@ -78,6 +78,9 @@ public class TeamPlayers {
 				player.set("player_url", SITE_PROFIX+url);
 				player.set("team_id", teamId);
 				player.set("update_time", new Date());
+				String nationalFlag = matcher.group().replaceAll("class=\"", "");
+				nationalFlag = nationalFlag.substring(0, nationalFlag.indexOf("\""));
+				player.set("national_flag", nationalFlag);
 				lstNeedInsert.add(player);
 			}else{
 				playerDB.set("player_url", SITE_PROFIX+url);
