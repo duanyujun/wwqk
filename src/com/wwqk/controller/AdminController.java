@@ -756,11 +756,17 @@ public class AdminController extends Controller {
 	public void updatePlayerTransfer(){
 		String playerId = getPara("playerId");
 		Player player = Player.dao.findById(playerId);
+		HttpClient httpClient = new DefaultHttpClient();
 		if(player!=null){
-			HttpClient httpClient = new DefaultHttpClient();
 			PlayerInfoPlugin.updateTransfer(httpClient, player);
-			httpClient.getConnectionManager().shutdown();
 		}
+		//查询球队
+		List<Player> lstPlayer = Player.dao.find("select * from player where team_id = ?", playerId);
+		for(Player teamPlayer : lstPlayer){
+			PlayerInfoPlugin.updateTransfer(httpClient, teamPlayer);
+		}
+		httpClient.getConnectionManager().shutdown();
+		
 		renderJson(1);
 	}
 	
