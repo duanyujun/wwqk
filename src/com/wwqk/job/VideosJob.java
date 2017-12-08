@@ -12,6 +12,7 @@ public class VideosJob implements Job {
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		VideosZuqiulaUtils.collect(false);
 		VideosZuqiulaUtils.updateDesc();
+		VideosZuqiulaUtils.updateRed();
 	}
 	
 }

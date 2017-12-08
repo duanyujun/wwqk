@@ -782,6 +782,7 @@ public class AdminController extends Controller {
 		VideosZuqiulaUtils.collect(false);
 		//VideosZuqiulaUtils.formatVideo();
 		//VideosZuqiulaUtils.translate();
+		VideosZuqiulaUtils.updateRed();
 		renderJson(1);
 	}
 	

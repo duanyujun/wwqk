@@ -5,8 +5,10 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -411,7 +413,41 @@ public class VideosZuqiulaUtils {
 		}
 	}
 	
+	/**
+	 * 标红视频
+	 */
+	public static void updateRed(){
+		CommonUtils.initNameIdMap();
+		Set<String> redSet = new HashSet<String>();
+		String[] redArray = {"676","662","661","663","660","675","2017","2020","2016","2015","2021","961","13410",
+				"966","964","1001","971","1244","1270","1242","1241","1245","1240","886","884","885","890"};
+		for(String redId:redArray){
+			redSet.add(redId);
+		}
+		List<Videos> lstNeedUpdate = new ArrayList<Videos>();
+		List<Videos> lstVideos = Videos.dao.find("select * from videos where is_red = '0' and match_history_id!='0'  ");
+		for(Videos videos : lstVideos){
+			String homeId = CommonUtils.nameIdMap.get(videos.getStr("home_team"));
+			if(redSet.contains(homeId)){
+				videos.set("is_red", "1");
+			}else{
+				String awayId = CommonUtils.nameIdMap.get(videos.getStr("away_team"));
+				if(redSet.contains(awayId)){
+					videos.set("is_red", "1");
+				}
+			}
+			if("1".equals(videos.getStr("is_red"))){
+				lstNeedUpdate.add(videos);
+			}
+		}
+		if(lstNeedUpdate.size()>0){
+			Db.batchUpdate(lstNeedUpdate, lstNeedUpdate.size());
+		}
+		
+	}
+	
 	public static void main(String[] args) {
+		
 		Connection connect = Jsoup.connect("http://www.zuqiu.la/video/17526.html").ignoreContentType(true);
 		for(Map.Entry<String, String> entry:MatchUtils.getZuqiulaHeader().entrySet()){
 			connect.header(entry.getKey(), entry.getValue());
