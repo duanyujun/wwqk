@@ -223,12 +223,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										  	<c:set var="i" value="1"/>
 										  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
 											<c:forEach items="${group}" var="player">
-												<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}" style="width:50px;"/></td>
+												<td style="width:50px;border:none;"><a href="player-${player.en_url}-${player.id}.html" target="_blank" title="${player.name}更多信息"><img src="${player.img_small_local}" alt="${player.name}" style="width:50px;"/></a></td>
 										      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:13px;color:grey;">
 										      		<div>
 											      				<div style="height:17px;width:17px;margin-top:2px;float:left;" class="${player.national_flag}" title="${player.nationality}" >&nbsp;</div> 
 											      				<div style="height:20px;float:left;">
-												      				&nbsp;<a href="player-${player.en_url}-${player.id}.html" target="_blank" >${player.name}</a>
+												      				&nbsp;<a href="player-${player.en_url}-${player.id}.html" target="_blank" title="${player.name}更多信息">${player.name}</a>
 													      			<c:if test="${!empty player.number}">
 														      			<span title="球衣：${player.number}号">[${player.number}号]</span>
 														      		</c:if>
