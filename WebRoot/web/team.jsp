@@ -17,6 +17,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/map/map.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - ${team.name}|${leagueName}${team.name}球员|${team.name}直播|${team.name}数据|${team.name}比赛|${team.name}排名</title>
 </head>
 
@@ -224,29 +225,27 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 											<c:forEach items="${group}" var="player">
 												<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}" style="width:50px;"/></td>
 										      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:13px;color:grey;">
-										      		<p>
-										      		<a href="player-${player.en_url}-${player.id}.html" target="_blank">${player.name}</a>&nbsp;&nbsp;
-										      		<c:if test="${!empty player.number}">
-										      			<c:if test="${!empty team.cloth}">
-										      				<nobr><span title="球衣：${player.number}号"><span style="<c:if test="${!empty clothBg }">display:line-block;background:#ddd;</c:if>"><img src="${team.cloth}" style="margin-top:-3px;" /></span> ${player.number}号</span></nobr>
-										      			</c:if>
-										      			<c:if test="${empty team.cloth}">
-												      		<nobr><span title="球衣：${player.number}号"><img src="assets/pages/img/cloth.png" style="margin-top:-3px;" /> ${player.number}号</span></nobr>
-										      			</c:if>
-										      		</c:if>
-										      		</p>
-										      		<p style="line-height:20px;height:20px;">
-										      		${player.age}岁 &nbsp;
-										      		<c:if test="${player.goal_count!=0}">
-										      			<nobr><span title="进球数：${player.goal_count}" style="color:black;"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span></nobr>
-										      		</c:if>
-										      		<c:if test="${player.goal_count!=0 && player.assists_count!=0}">
-										      		&nbsp;
-										      		</c:if>
-										      		<c:if test="${player.assists_count!=0}">
-										      			<nobr><span title="助攻数：${player.assists_count}" style="color:black;"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span></nobr>
-										      		</c:if>
-										      		</p>
+										      		<div>
+											      				<div style="height:17px;width:17px;margin-top:2px;float:left;" class="${player.national_flag}" title="${player.nationality}" >&nbsp;</div> 
+											      				<div style="height:20px;float:left;">
+												      				&nbsp;<a href="player-${player.en_url}-${player.id}.html" target="_blank" >${player.name}</a>
+													      			<c:if test="${!empty player.number}">
+														      			<span title="球衣：${player.number}号">[${player.number}号]</span>
+														      		</c:if>
+													      		</div>
+											      	</div>
+											      	<div style="line-height:20px;height:20px;clear:both;">
+											      		${player.age}岁 &nbsp;
+											      		<c:if test="${player.goal_count!=0}">
+											      			<nobr><span title="进球数：${player.goal_count}" style="color:black;"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span></nobr>
+											      		</c:if>
+											      		<c:if test="${player.goal_count!=0 && player.assists_count!=0}">
+											      		&nbsp;
+											      		</c:if>
+											      		<c:if test="${player.assists_count!=0}">
+											      			<nobr><span title="助攻数：${player.assists_count}" style="color:black;"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span></nobr>
+											      		</c:if>
+											      	</div>
 										      	</td>
 										      	<c:if test="${i%2==0}">
 												</tr>
