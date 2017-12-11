@@ -52,6 +52,10 @@ public class SayController extends Controller {
 			}
 		}
 		setAttr("enname", player.getStr("en_url").replaceAll("-", " "));
+		if(player.getStr("nationality").contains("波斯尼亚和黑塞哥维那")){
+			player.set("nationality", "波黑");
+		}
+		
 		setAttr("player", player);
 		
 		//说说
