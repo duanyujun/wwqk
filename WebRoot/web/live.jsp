@@ -45,10 +45,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</c:if>
 								<c:if test="${!empty match.home_team_name}">
 									<tr >
-									  <td style="width:60px;height:35px;line-height:35px;">
+									  <td style="width:60px;height:35px;line-height:35px;padding-left:5px;">
 									  		<span class="label label-default"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></span>
 									  </td>
-								      <td style="width:80px;height:35px;line-height:35px;"><span class="league_${match.league_id}"><div class="text_cut" style="width:80px;line-height:35px;">${match.league_name}</div></span></td>
+								      <td style="width:60px;height:35px;line-height:35px;"><span class="league_${match.league_id}"><div class="text_cut" style="width:60px;line-height:35px;">${match.league_name}</div></span></td>
 								      <td style="height:35px;line-height:35px;" class="a-title">
 								      	<c:if test="${empty match.league_id}">
 								      		<a title="${match.game_id!='0'?'有情报':''}" href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_self">
@@ -103,8 +103,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								<c:if test="${!empty match.home_team_name}">
 									<tr >
 									  <td style="width:60px;height:35px;line-height:35px;"><span class="label label-default"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></span></td>
-								      <td style="width:100px;height:35px;line-height:35px;"><span class="league_${match.league_id}" title="${match.league_name}"><div class="text_cut" style="width:100px;line-height:35px;">${match.league_name}</div></span></td>
-								      <td style="width:250px;height:35px;line-height:35px;" class="a-title">
+								      <td style="width:70px;height:35px;line-height:35px;"><span class="league_${match.league_id}" title="${match.league_name}"><div class="text_cut" style="width:70px;line-height:35px;">${match.league_name}</div></span></td>
+								      <td style="width:270px;height:35px;line-height:35px;" class="a-title">
 								      	<c:if test="${empty match.league_id}">
 								      		<a  title="${match.game_id!='0'?'有情报':''}"href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_blank">
 								      		<c:if test="${match.game_id!='0'}"><span class="label label-success">情报</span></c:if> ${match.home_team_name} VS ${match.away_team_name}

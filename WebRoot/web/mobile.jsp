@@ -166,7 +166,7 @@ function updateBifen(){
         	oneMatch = oneMatch.replace("#start_time",data[i].start_time);
         	var mins = data[i].match_mins;
         	if(mins.indexOf("'")!=-1){
-        		mins = mins.replace("'","<img src='assets/global/img/ticks.gif' />");
+        		mins = "&nbsp;&nbsp;"+mins.replace("'","<img src='assets/global/img/ticks.gif' />");
         	}
         	oneMatch = oneMatch.replace("#match_mins",mins);
         	if('未开'==data[i].match_mins){
