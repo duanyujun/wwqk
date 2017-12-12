@@ -95,38 +95,39 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</c:forEach>
 			</div>
 			<!-- 移动端内容开始 -->
-			<div class="row visible-sm visible-xs" style="margin-top:10px;color:grey;padding-bottom: 130px;">
-				<div class="col-lg-12 col-md-12">
-					<table class="table small-table" >
-						  <caption style="min-height:30px;text-align:left;"><b style="margin-left:15px;">最近五场比赛</b></caption>
-						  <tbody>
-						  		<c:forEach items="${lstMatchHistory}" var="history">
-						  			<tr >
-						  				<td class="a-title" style="font-size:13px;"><a href="team-${history.home_team_en_name}-${history.home_team_id}.html" target="_self"><img src="assets/image/soccer/teams/25x25/${history.home_team_id}.png" style="width:25px;height:25px;" alt="${history.home_team_name}" title="${history.home_team_name}"/>&nbsp;${history.home_team_name}</a></td>
-						  				<td class="a-title" style="text-align:center;font-size:13px;">
-						  					<c:if test="${fn:contains(history.result, '-')}">
-									      		<b>${history.result}</b>
-									      	</c:if>
-									      	<c:if test="${!fn:contains(history.result, '-')}">
-									      		<fmt:formatDate value="${history.match_date}" pattern="yy/MM/dd"/><br><fmt:formatDate value="${history.match_date}" pattern="HH:mm"/>
-									      	</c:if>
-						  				</td>
-						  				<td class="a-title" style="font-size:13px;"><a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_self"><img src="assets/image/soccer/teams/25x25/${history.away_team_id}.png" style="width:25px;height:25px;" alt="${history.away_team_name}" title="${history.away_team_name}"/>&nbsp;${history.away_team_name}</a></td>
-						  				<td class="a-title" style="text-align:center;font-size:13px;">
-						  					<c:if test="${fn:contains(history.result, '-')}">
-									      		<a title="观看集锦" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_${history.year_show}-${history.home_team_id}vs${history.away_team_id}.html" target="_self" style="color:grey;">集锦</a>
-									      	</c:if>
-									      	<c:if test="${!fn:contains(history.result, '-')}">
-									      		<b><a title="直播地址" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_${history.year_show}-${history.home_team_id}vs${history.away_team_id}.html" target="_self">直播</a></b>
-									      	</c:if>
-						  				</td>
-						  			</tr>
-						  		</c:forEach>
-						  </tbody>
-					</table>
+			<c:if test="${!empty lstMatchHistory}">
+				<div class="row visible-sm visible-xs" style="margin-top:10px;color:grey;padding-bottom: 130px;">
+					<div class="col-lg-12 col-md-12">
+						<table class="table small-table" >
+							  <caption style="min-height:30px;text-align:left;"><b style="margin-left:15px;">最近五场比赛</b></caption>
+							  <tbody>
+							  		<c:forEach items="${lstMatchHistory}" var="history">
+							  			<tr >
+							  				<td class="a-title" style="font-size:13px;"><a href="team-${history.home_team_en_name}-${history.home_team_id}.html" target="_self"><img src="assets/image/soccer/teams/25x25/${history.home_team_id}.png" style="width:25px;height:25px;" alt="${history.home_team_name}" title="${history.home_team_name}"/>&nbsp;${history.home_team_name}</a></td>
+							  				<td class="a-title" style="text-align:center;font-size:13px;">
+							  					<c:if test="${fn:contains(history.result, '-')}">
+										      		<b>${history.result}</b>
+										      	</c:if>
+										      	<c:if test="${!fn:contains(history.result, '-')}">
+										      		<fmt:formatDate value="${history.match_date}" pattern="yy/MM/dd"/><br><fmt:formatDate value="${history.match_date}" pattern="HH:mm"/>
+										      	</c:if>
+							  				</td>
+							  				<td class="a-title" style="font-size:13px;"><a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_self"><img src="assets/image/soccer/teams/25x25/${history.away_team_id}.png" style="width:25px;height:25px;" alt="${history.away_team_name}" title="${history.away_team_name}"/>&nbsp;${history.away_team_name}</a></td>
+							  				<td class="a-title" style="text-align:center;font-size:13px;">
+							  					<c:if test="${fn:contains(history.result, '-')}">
+										      		<a title="观看集锦" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_${history.year_show}-${history.home_team_id}vs${history.away_team_id}.html" target="_self" style="color:grey;">集锦</a>
+										      	</c:if>
+										      	<c:if test="${!fn:contains(history.result, '-')}">
+										      		<b><a title="直播地址" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_${history.year_show}-${history.home_team_id}vs${history.away_team_id}.html" target="_self">直播</a></b>
+										      	</c:if>
+							  				</td>
+							  			</tr>
+							  		</c:forEach>
+							  </tbody>
+						</table>
+					</div>
 				</div>
-				
-			</div>
+			</c:if>
 			
 			<!-- 移动端内容结束 -->
 		</div>
@@ -183,30 +184,33 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 					
 					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
-						<div class="row" style="margin-top:10px;">
-							<div class="col-lg-12 col-md-12">
-								<table class="table small-table" >
-									  <caption style="min-height:30px;text-align:left;"><b style="margin-left:10px;">最近五场比赛</b><span class="say-info pull-right"><a href="/history-${team.name_en}-${team.id}.html" target="_blank" title="更多${team.name}的比赛">更多&gt;&gt;</a></span></caption>
-									  <tbody>
-									  		<c:forEach items="${lstMatchHistory}" var="history">
-									  			<tr>
-									  				<td class="a-title"><a href="team-${history.home_team_en_name}-${history.home_team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${history.home_team_id}.png" style="width:25px;height:25px;" alt="${history.home_team_name}" title="${history.home_team_name}"/>&nbsp;<span style="font-size:12px;">${history.home_team_name}</span></nobr></a></td>
-									  				<td class="a-title" style="text-align:center;min-width:100px;">
-									  					<c:if test="${fn:contains(history.result, '-')}">
-												      		<b><a title="观看集锦" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_${history.year_show}-${history.home_team_id}vs${history.away_team_id}.html" target="_blank">${history.result}</a></b>
-												      	</c:if>
-												      	<c:if test="${!fn:contains(history.result, '-')}">
-												      		<a title="直播地址" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_${history.year_show}-${history.home_team_id}vs${history.away_team_id}.html" target="_blank"><fmt:formatDate value="${history.match_date}" pattern="yy/MM/dd HH:mm"/></a>
-												      	</c:if>
-									  				</td>
-									  				<td class="a-title"><a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${history.away_team_id}.png" style="width:25px;height:25px;" alt="${history.away_team_name}" title="${history.away_team_name}"/>&nbsp;<span style="font-size:12px;">${history.away_team_name}</span></nobr></a></td>
-									  				
-									  			</tr>
-									  		</c:forEach>
-									  </tbody>
-								</table>
+					
+						<c:if test="${!empty lstMatchHistory}">
+							<div class="row" style="margin-top:10px;">
+								<div class="col-lg-12 col-md-12">
+									<table class="table small-table" >
+										  <caption style="min-height:30px;text-align:left;"><b style="margin-left:10px;">最近五场比赛</b><span class="say-info pull-right"><a href="/history-${team.name_en}-${team.id}.html" target="_blank" title="更多${team.name}的比赛">更多&gt;&gt;</a></span></caption>
+										  <tbody>
+										  		<c:forEach items="${lstMatchHistory}" var="history">
+										  			<tr>
+										  				<td class="a-title"><a href="team-${history.home_team_en_name}-${history.home_team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${history.home_team_id}.png" style="width:25px;height:25px;" alt="${history.home_team_name}" title="${history.home_team_name}"/>&nbsp;<span style="font-size:12px;">${history.home_team_name}</span></nobr></a></td>
+										  				<td class="a-title" style="text-align:center;min-width:100px;">
+										  					<c:if test="${fn:contains(history.result, '-')}">
+													      		<b><a title="观看集锦" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_${history.year_show}-${history.home_team_id}vs${history.away_team_id}.html" target="_blank">${history.result}</a></b>
+													      	</c:if>
+													      	<c:if test="${!fn:contains(history.result, '-')}">
+													      		<a title="直播地址" href="match-${history.home_team_en_name}-vs-${history.away_team_en_name}_${history.year_show}-${history.home_team_id}vs${history.away_team_id}.html" target="_blank"><fmt:formatDate value="${history.match_date}" pattern="yy/MM/dd HH:mm"/></a>
+													      	</c:if>
+										  				</td>
+										  				<td class="a-title"><a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${history.away_team_id}.png" style="width:25px;height:25px;" alt="${history.away_team_name}" title="${history.away_team_name}"/>&nbsp;<span style="font-size:12px;">${history.away_team_name}</span></nobr></a></td>
+										  				
+										  			</tr>
+										  		</c:forEach>
+										  </tbody>
+									</table>
+								</div>
 							</div>
-						</div>
+						</c:if>
 						
 					</div>
 					
@@ -303,44 +307,48 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							</c:forEach>
 					</div>
 					<div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
-						<div class="row " style="margin-top:10px;">
-								<div class="col-lg-12 col-md-12">
-									<table class="table" style="border:1px solid #dddddd;">
-									  <caption style="min-height:30px;text-align:left;"><b style="margin-left:10px;">联赛排名</b></caption>
-									  <thead>
-									    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;font-size:12px;">
-									      <th><nobr>排名</nobr></th>
-									      <th><nobr>球队</nobr></th>
-									      <th><nobr>场次</nobr></th>
-									      <th><nobr>净胜球</nobr></th>
-									      <th><nobr>积分</nobr></th>
-									    </tr>
-									  </thead>
-									  <tbody>
-									  <c:forEach items="${positionList}"  var="position" varStatus="status">
-									  	<c:if test="${position.team_id!=team.id}">
-									  		<tr>
-											  <td>${status.count}</td>
-										      <td class="team-title" ><a href="team-${position.team_name_en}-${position.team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${position.team_id}.png" style="width:25px;height:25px;" alt="${position.team_name}" title="${position.team_name}"/>&nbsp;${position.team_name}</nobr></a></td>
-										      <td>${position.round_count}</td>
-										      <td>${position.goal_count}</td>
-										      <td>${position.points}</td>
+						<c:if test="${!empty lstMatchHistory}">
+							<div class="row " style="margin-top:10px;">
+									<div class="col-lg-12 col-md-12">
+										<table class="table" style="border:1px solid #dddddd;">
+										  <caption style="min-height:30px;text-align:left;"><b style="margin-left:10px;">联赛排名</b></caption>
+										  <thead>
+										    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;font-size:12px;">
+										      <th><nobr>排名</nobr></th>
+										      <th><nobr>球队</nobr></th>
+										      <th><nobr>场次</nobr></th>
+										      <th><nobr>净胜球</nobr></th>
+										      <th><nobr>积分</nobr></th>
 										    </tr>
-									  	</c:if>
-									  	<c:if test="${position.team_id==team.id}">
-									  		<tr>
-											  <td style="border:1px solid #00A50D;border-right:0;">${status.count}</td>
-										      <td class="team-title" style="border:1px solid #00A50D;border-right:0;border-left:0;"><a href="team-${position.team_name_en}-${position.team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${position.team_id}.png" style="width:25px;height:25px;" alt="${position.team_name}" title="${position.team_name}"/>&nbsp;${position.team_name}</nobr></a></td>
-										      <td style="border:1px solid #00A50D;border-right:0;border-left:0;">${position.round_count}</td>
-										      <td style="border:1px solid #00A50D;border-right:0;border-left:0;">${position.goal_count}</td>
-										      <td style="border:1px solid #00A50D;border-left:0;">${position.points}</td>
-										    </tr>
-									  	</c:if>
-									   </c:forEach>
-									  </tbody>
-									</table>
-								</div>
-						</div>
+										  </thead>
+										  <tbody>
+										  <c:forEach items="${positionList}"  var="position" varStatus="status">
+										  	<c:if test="${position.team_id!=team.id}">
+										  		<tr>
+												  <td>${status.count}</td>
+											      <td class="team-title" ><a href="team-${position.team_name_en}-${position.team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${position.team_id}.png" style="width:25px;height:25px;" alt="${position.team_name}" title="${position.team_name}"/>&nbsp;${position.team_name}</nobr></a></td>
+											      <td>${position.round_count}</td>
+											      <td>${position.goal_count}</td>
+											      <td>${position.points}</td>
+											    </tr>
+										  	</c:if>
+										  	<c:if test="${position.team_id==team.id}">
+										  		<tr>
+												  <td style="border:1px solid #00A50D;border-right:0;">${status.count}</td>
+											      <td class="team-title" style="border:1px solid #00A50D;border-right:0;border-left:0;"><a href="team-${position.team_name_en}-${position.team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${position.team_id}.png" style="width:25px;height:25px;" alt="${position.team_name}" title="${position.team_name}"/>&nbsp;${position.team_name}</nobr></a></td>
+											      <td style="border:1px solid #00A50D;border-right:0;border-left:0;">${position.round_count}</td>
+											      <td style="border:1px solid #00A50D;border-right:0;border-left:0;">${position.goal_count}</td>
+											      <td style="border:1px solid #00A50D;border-left:0;">${position.points}</td>
+											    </tr>
+										  	</c:if>
+										   </c:forEach>
+										  </tbody>
+										</table>
+									</div>
+							</div>
+						</c:if>
+						
+						
 					</div>
 				</div>
 				
