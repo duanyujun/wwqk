@@ -18,8 +18,10 @@ import com.wwqk.model.MatchLive;
 import com.wwqk.model.Team;
 import com.wwqk.model.TipsAll;
 import com.wwqk.model.TipsMatch;
+import com.wwqk.model.Videos;
 import com.wwqk.plugin.OddsUtils;
 import com.wwqk.utils.CommonUtils;
+import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.EnumUtils;
 import com.wwqk.utils.StringUtils;
 
@@ -127,6 +129,14 @@ public class MatchController extends Controller {
 				setAttr("lstTips", lstTips);
 			}
 		}
+		//视频
+		Videos videos = Videos.dao.findFirst("select * from videos where match_history_id = ? ", matchKey);
+		if(videos!=null){
+			//vdetail-2017-12-11-6716.html
+			String videosUrl = "vdetail-"+DateTimeUtils.formatDate(videos.getDate("match_date"))+"-"+videos.get("id")+".html";
+			setAttr("videosUrl", videosUrl);
+		}
+		
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.LIVE.getKey());
 		render("matchDetail.jsp");
 	}

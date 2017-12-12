@@ -62,20 +62,25 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<td style="padding-top:5px;">
 							<c:if test="${history.status=='完场'}">
 										<span class="a-title" >
-											<c:if test="${history.league_id==1}">
-												<a href="http://www.zuqiu.la/video/?type=2" target="_blank">集锦</a>
+											<c:if test="${!empty videosUrl}">
+												<u><a href="${videosUrl}" target="_blank">集锦</a></u>
 											</c:if>
-											<c:if test="${history.league_id==2}">
-												<a href="http://www.zuqiu.la/video/?type=3" target="_blank">集锦</a>
-											</c:if>
-											<c:if test="${history.league_id==3}">
-												<a href="http://www.zuqiu.la/video/?type=5" target="_blank">集锦</a>
-											</c:if>
-											<c:if test="${history.league_id==4}">
-												<a href="http://www.zuqiu.la/video/?type=4" target="_blank">集锦</a>
-											</c:if>
-											<c:if test="${history.league_id==5}">
-												<a href="http://www.52waha.com/mixtape/soccer/fajia" target="_blank">集锦</a>
+											<c:if test="${empty videosUrl}">
+												<c:if test="${history.league_id==1}">
+													<u><a href="videos.html" target="_blank">集锦</a></u>
+												</c:if>
+												<c:if test="${history.league_id==2}">
+													<u><a href="videos-league-2.html" target="_blank">集锦</a></u>
+												</c:if>
+												<c:if test="${history.league_id==3}">
+													<u><a href="videos-league-3.html" target="_blank">集锦</a></u>
+												</c:if>
+												<c:if test="${history.league_id==4}">
+													<u><a href="videos-league-4.html" target="_blank">集锦</a></u>
+												</c:if>
+												<c:if test="${history.league_id==5}">
+													<u><a href="videos-league-5.html" target="_blank">集锦</a></u>
+												</c:if>
 											</c:if>
 										</span>
 							</c:if>
@@ -448,20 +453,25 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 											<td>
 												<c:if test="${history.status=='完场'}">
 															<span class="a-title" >
-																<c:if test="${history.league_id==1}">
-																	<a href="http://www.zuqiu.la/video/?type=2" target="_blank">集锦</a>
+																<c:if test="${!empty videosUrl}">
+																	<u><a href="${videosUrl}" target="_blank">集锦</a></u>
 																</c:if>
-																<c:if test="${history.league_id==2}">
-																	<a href="http://www.zuqiu.la/video/?type=3" target="_blank">集锦</a>
-																</c:if>
-																<c:if test="${history.league_id==3}">
-																	<a href="http://www.zuqiu.la/video/?type=5" target="_blank">集锦</a>
-																</c:if>
-																<c:if test="${history.league_id==4}">
-																	<a href="http://www.zuqiu.la/video/?type=4" target="_blank">集锦</a>
-																</c:if>
-																<c:if test="${history.league_id==5}">
-																	<a href="http://www.52waha.com/mixtape/soccer/fajia" target="_blank">集锦</a>
+																<c:if test="${empty videosUrl}">
+																	<c:if test="${history.league_id==1}">
+																		<u><a href="videos.html" target="_blank">集锦</a></u>
+																	</c:if>
+																	<c:if test="${history.league_id==2}">
+																		<u><a href="videos-league-2.html" target="_blank">集锦</a></u>
+																	</c:if>
+																	<c:if test="${history.league_id==3}">
+																		<u><a href="videos-league-3.html" target="_blank">集锦</a></u>
+																	</c:if>
+																	<c:if test="${history.league_id==4}">
+																		<u><a href="videos-league-4.html" target="_blank">集锦</a></u>
+																	</c:if>
+																	<c:if test="${history.league_id==5}">
+																		<u><a href="videos-league-5.html" target="_blank">集锦</a></u>
+																	</c:if>
 																</c:if>
 															</span>
 												</c:if>
