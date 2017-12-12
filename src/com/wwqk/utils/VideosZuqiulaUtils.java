@@ -263,7 +263,7 @@ public class VideosZuqiulaUtils {
 				Connection data = connect.data();
 				try {
 					Document videoDoc = data.get();
-					String summary = CommonUtils.matcherString(SUMMARY_PATTERN, videoDoc.html());
+					String summary = videoDoc.select(".left_box").get(0).child(1).html();
 					videos.set("summary", summary);
 					if (videos.get("id")!=null) {
 						videos.update();
