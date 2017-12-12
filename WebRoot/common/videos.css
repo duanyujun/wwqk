@@ -12,7 +12,7 @@
 .yt_play .right .title a.f{background:#F30;}
 .yt_play .right .title a.w{width:74px;}
 .yt_play .right .content{height:488px; border:1px solid #aaa;  margin-bottom:2px; overflow:hidden;}
-.yt_play .right .content .list{height:352px;overflow-y:auto;overflow-x:hidden}
+.yt_play .right .content .list{height:460px;overflow-y:auto;overflow-x:hidden}
 .yt_play .right .content .list ul{padding:2px 1px;font-size:12px;}
 .yt_play .right .content .list ul li{height:24px; line-height:24px; overflow:hidden;border-bottom:1px dotted #ccc;}
 .yt_play .right .content .list ul li.f{ background:#f0f0f0;}
