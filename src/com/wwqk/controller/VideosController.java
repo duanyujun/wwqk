@@ -65,11 +65,11 @@ public class VideosController extends Controller {
 		VideosRealLinks link = VideosRealLinks.dao.findById(linkId);
 		setAttr("link", link);
 		if(PlayerEnum.PPTV.getKey().equals(link.getStr("player_type"))){
-			render("pptvPlayer.jsp");
+			render("player/pptvPlayer.jsp");
 		}else if(PlayerEnum.QQ.getKey().equals(link.getStr("player_type"))){
-			render("qqPlayer.jsp");
+			render("player/qqPlayer.jsp");
 		}else if(PlayerEnum.SSPORTS.getKey().equals(link.getStr("player_type"))){
-			render("ssportsPlayer.jsp");
+			render("player/ssportsPlayer.jsp");
 		}
 	}
 	
@@ -83,11 +83,11 @@ public class VideosController extends Controller {
 			String code = link.getStr("real_url").substring(link.getStr("real_url").lastIndexOf("/")+1);
 			code = code.replace(".swf", "");
 			link.set("real_url", "http://m.pptv.com/show/"+code+".html?rcc_src=vodplayer_qrcode&rcc_starttime=0");
-			playerPage = "mpptvPlayer.jsp";
+			playerPage = "player/mpptvPlayer.jsp";
 		}else if(PlayerEnum.QQ.getKey().equals(link.getStr("player_type"))){
-			playerPage = "mqqPlayer.jsp";
+			playerPage = "player/mqqPlayer.jsp";
 		}else if(PlayerEnum.SSPORTS.getKey().equals(link.getStr("player_type"))){
-			playerPage =  "mssportsPlayer.jsp";
+			playerPage =  "player/mssportsPlayer.jsp";
 		}
 		
 		setAttr("link", link);
