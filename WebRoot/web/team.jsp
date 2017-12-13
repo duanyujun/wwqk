@@ -19,6 +19,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/map/map.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - ${team.name}|${leagueName}${team.name}球员|${team.name}直播|${team.name}数据|${team.name}比赛|${team.name}排名</title>
+	<style type="text/css">
+		.text_cut{text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
+	</style>
 </head>
 
 <body>
@@ -44,9 +47,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<div class="col-sm-7 col-xs-7" style="margin-top:10px;color:grey;">	
 					${team.telphone}
 				</div>
-				<div class="col-sm-7 col-xs-7" style="margin-top:10px;color:grey;">	
-					联赛排名：第<span style="color:black;"> ${postion} </span>名
-				</div>
+				<c:if test="${!empty postion}">
+					<div class="col-sm-7 col-xs-7" style="margin-top:10px;color:grey;">	
+						联赛排名：第<span style="color:black;"> ${postion} </span>名
+					</div>
+				</c:if>
 				<div class="col-sm-12 col-xs-12" style="margin-top:10px;color:grey;">
 					${team.venue_address}&nbsp;·&nbsp;${team.venue_name}&nbsp;·&nbsp;容量：${team.venue_capacity}人
 				</div>
@@ -64,22 +69,30 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
 							<c:forEach items="${group}" var="player">
 								<td style="width:50px;border:none;"><a href="player-${player.en_url}-${player.id}.html" target="_self"><img src="${player.img_small_local}" alt="${player.name}" title="${player.name}" style="width:50px;"/></a></td>
-						      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:12px;">
-						      		<p style="margin-top:2px;">
-						      		<a href="player-${player.en_url}-${player.id}.html" target="_self">${player.name}</a>
-						      		<c:if test="${!empty player.number}">
-							      		<nobr><span title="球衣：${player.number}号" style="color:grey;"><img src="assets/pages/img/cloth.png" style="margin-top:-3px;" /> ${player.number}号</span></nobr>
-						      		</c:if>
-						      		</p>
-						      		<p style="line-height:20px;height:20px;margin-top:-9px;color:grey;">
-						      		${player.age}岁 
-						      		<c:if test="${player.goal_count!=0}">
-						      			<nobr><span title="进球数：${player.goal_count}" style="color:black;"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span></nobr>
-						      		</c:if>
-						      		<c:if test="${player.assists_count!=0}">
-						      			<nobr><span title="助攻数：${player.assists_count}" style="color:black;"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span></nobr>
-						      		</c:if>
-						      		</p>
+						      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:12px;color:grey;">
+						      		<div>
+												<div style="height:17px;width:17px;margin-top:2px;float:left;" class="${player.national_flag}" title="${player.nationality}" >&nbsp;</div> 
+												<div style="height:17px;float:left;">
+													&nbsp;<div class="text_cut" style="width:55px;line-height:17px;float:left;"><a href="player-${player.en_url}-${player.id}.html" target="_blank" title="${player.name}更多信息">${player.name}</a></div>
+														<div style="height:17px;float:left;">
+																<c:if test="${!empty player.number}">
+																	<span title="球衣：${player.number}号">[${player.number}号]</span>
+																</c:if>
+														</div>
+												</div>
+									</div>
+									<div style="line-height:20px;height:20px;clear:both;">
+										${player.age}岁 &nbsp;
+										<c:if test="${player.goal_count!=0}">
+											<nobr><span title="进球数：${player.goal_count}" style="color:black;"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span></nobr>
+										</c:if>
+										<c:if test="${player.goal_count!=0 && player.assists_count!=0}">
+										&nbsp;
+										</c:if>
+										<c:if test="${player.assists_count!=0}">
+											<nobr><span title="助攻数：${player.assists_count}" style="color:black;"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span></nobr>
+										</c:if>
+									</div>
 						      	</td>
 						      	<c:if test="${i%2==0}">
 								</tr>
@@ -95,8 +108,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</c:forEach>
 			</div>
 			<!-- 移动端内容开始 -->
-			<c:if test="${!empty lstMatchHistory}">
+			
 				<div class="row visible-sm visible-xs" style="margin-top:10px;color:grey;padding-bottom: 130px;">
+					<c:if test="${!empty lstMatchHistory}">
 					<div class="col-lg-12 col-md-12">
 						<table class="table small-table" >
 							  <caption style="min-height:30px;text-align:left;"><b style="margin-left:15px;">最近五场比赛</b></caption>
@@ -126,8 +140,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							  </tbody>
 						</table>
 					</div>
+					</c:if>
 				</div>
-			</c:if>
+			
 			
 			<!-- 移动端内容结束 -->
 		</div>
