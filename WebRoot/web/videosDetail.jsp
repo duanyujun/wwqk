@@ -33,16 +33,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		
 	    <!-- 移动端内容开始 -->
 	    <div class="row visible-sm visible-xs" style="margin-top:34px;padding-bottom: 130px;">
-	       <div class="col-xs-12 col-sm-12" style="padding-left:0px;padding-right:0px;">
-				<select >
-				<c:forEach items="${lstLinks}" var="link">
-					<option>${link.title}</option>
-				</c:forEach>
-				</select>
-			</div>
-	    	<div class="col-xs-12 col-sm-12" style="padding:0;">
+	    	<div class="col-xs-12 col-sm-12" style="padding:0;padding-bottom:10px;">
 				 <iframe name="mytplayer" id="mytplayer" frameborder="0" width="100%" height="" marginheight="0" marginwidth="0" scrolling="no" src=""></iframe>
 	    	</div>
+	    	
+	    	<c:forEach items="${lstLinks}" var="link" varStatus="status">
+		    	<div class="col-xs-12 col-sm-12" >
+					<a href="/videos/mplay?id=${link.id}" title="${link.title}" target="mytplayer">${link.title}</a>
+				</div>
+			</c:forEach>
 	    </div>
 	    <!-- 移动端内容结束 -->
 	</div>

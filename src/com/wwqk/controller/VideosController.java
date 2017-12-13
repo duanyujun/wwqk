@@ -85,8 +85,8 @@ public class VideosController extends Controller {
 		}else {
 			playerPage =  "player/mplayer.jsp";
 		}
-		
-		setAttr("link", link);
+		setAttr("type", link.getStr("player_type"));
+		setAttr("link", link.getStr("real_url"));
 		render(playerPage);
 	}
 	
