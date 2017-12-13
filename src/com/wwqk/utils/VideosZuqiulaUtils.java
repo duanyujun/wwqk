@@ -293,15 +293,45 @@ public class VideosZuqiulaUtils {
 								String playDocHtml = playDoc.html();
 								String realUrl = null;
 								String playerType = "";
-								if(playDocHtml.contains("type=qq")){
+								if(playDocHtml.contains("type=qqnba")){
+									playerType = PlayerEnum.QQNBA.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=qq")){
 									playerType = PlayerEnum.QQ.getKey();
-									realUrl = getQQSrc(playDocHtml);
+									realUrl = getCommonSrc(playDocHtml);
 								}else if(playDocHtml.contains("pptv")){
 									playerType = PlayerEnum.PPTV.getKey();
 									realUrl = getPPTVSrc(playDocHtml);
 								}else if(playDocHtml.contains("ssports")){
 									playerType = PlayerEnum.SSPORTS.getKey();
 									realUrl = getSsportsSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=letv")){
+									playerType = PlayerEnum.LETV.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=cntv")){
+									playerType = PlayerEnum.CNTV.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=sina2")){
+									playerType = PlayerEnum.SINA2.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=sina")){
+									playerType = PlayerEnum.SINA.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("youku")){
+									playerType = PlayerEnum.YOUKU.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("tudou")){
+									playerType = PlayerEnum.TUDOU.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=56")){
+									playerType = PlayerEnum.V56.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=sohu")){
+									playerType = PlayerEnum.SOHU.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=kandian")){
+									playerType = PlayerEnum.KANDIAN.getKey();
+									realUrl = getCommonSrc(playDocHtml);
 								}else{
 									continue;
 								}
@@ -344,7 +374,7 @@ public class VideosZuqiulaUtils {
 		return result;
 	}
 	
-	private static String getQQSrc(String html){
+	private static String getCommonSrc(String html){
 		String result = getPPTVSrc(html);
 		int lastEqualIdx = result.lastIndexOf("=");
 		result = result.substring(lastEqualIdx+1);
