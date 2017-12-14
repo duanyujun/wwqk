@@ -41,11 +41,11 @@ if(type=='1'){
 	var url = 'https://v.qq.com/x/page/'+id+'.html'; 
 }else if(type=='2'){
 	id = link.indexOf('cid')>-1?getParam('cid', link):link;
-	if(id.indexOf('ttp://')>-1){
+	if(id.indexOf('http://')>-1){
 		dw('<embed src="'+id+'" quality="high" width="650" height="450" align="middle" allowScriptAccess="always" allownetworking="all" allowfullscreen="true" type="application/x-shockwave-flash" wmode="window"></embed>'); 
 		var url = id;
 	}else{
-		dw('<embed width="100%" height="260" wmode="transparent" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" allownetworking="all" allowscriptaccess="always" allowfullscreen="true" quality="high" src="http://player.pptv.com/v/'+id+'.swf">');
+		//dw('<embed width="100%" height="260" wmode="transparent" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" allownetworking="all" allowscriptaccess="always" allowfullscreen="true" quality="high" src="http://player.pptv.com/v/'+id+'.swf">');
 		var url = 'http://player.pptv.com/v/'+id+'.swf';
 	}
 }else if(type=='4'){
@@ -93,9 +93,13 @@ if(type=='1'){
 	id = link.indexOf('http://')>-1?getParam('epgId', link):link;
 	dw('<embed id="null" width="100%" height="260" type="application/x-shockwave-flash" src="http://img3.t.sinajs.cn/t4/apps/tv/static/flash/mainPlayer20130201_V5_0_1_12.swf?epgId='+id+'" allowfullscreeninteractive="true" allowfullscreen="true" allowscriptaccess="always" quality="high" cachebusting="true" wmode="window" bgcolor="#000000" />'); 
 	var url = 'http://img3.t.sinajs.cn/t4/apps/tv/static/flash/mainPlayer20130201_V5_0_1_12.swf?epgId='+id; 
-}else{
+}
+/*
+else{
 	location.href = link;
 }
+*/
+
 if(top==self){
 	top.location= url;
 }   

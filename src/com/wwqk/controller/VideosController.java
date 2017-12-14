@@ -72,18 +72,16 @@ public class VideosController extends Controller {
 	public void mplay() {
 		String linkId = getPara("id");
 		VideosRealLinks link = VideosRealLinks.dao.findById(linkId);
-		String playerPage = "";
+		String playerPage = "player/mplayer.jsp";
 		if(PlayerEnum.PPTV.getKey().equals(link.getStr("player_type"))){
 			//http://player.pptv.com/v/4YeAic2fNPXveXMQ.swf
 			//http://m.pptv.com/show/ib5Fu7VW7K2nMSrI.html?rcc_src=vodplayer_qrcode&rcc_starttime=0
 			String code = link.getStr("real_url").substring(link.getStr("real_url").lastIndexOf("/")+1);
 			code = code.replace(".swf", "");
 			link.set("real_url", "http://m.pptv.com/show/"+code+".html?rcc_src=vodplayer_qrcode&rcc_starttime=0");
-			playerPage = "player/mpptvPlayer.jsp";
+			//playerPage = "player/mpptvPlayer.jsp";
 		}else if(PlayerEnum.SSPORTS.getKey().equals(link.getStr("player_type"))){
 			playerPage =  "player/mssportsPlayer.jsp";
-		}else {
-			playerPage =  "player/mplayer.jsp";
 		}
 		setAttr("type", link.getStr("player_type"));
 		setAttr("link", link.getStr("real_url"));
