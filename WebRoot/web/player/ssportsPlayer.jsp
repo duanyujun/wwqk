@@ -10,6 +10,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 <title>视频播放</title>
 </HEAD>
 <BODY topmargin='0' leftmargin='0' oncontextmenu='return false' ondragstart='return false' onselectstart ='return false' onselect='document.selection.empty()' oncopy='document.selection.empty()' onbeforecopy='return false' onmouseup='document.selection.empty()'>
-<object type="application/x-shockwave-flash" id="SSportsPlayer" name="SSportsPlayer" align="middle" data="http://image.ssports.com/images/resources/web/live/swf/SSportsPlayer20170825.swf" width="650" height="460"><param name="quality" value="high"><param name="bgcolor" value="#000000"><param name="allowscriptaccess" value="always"><param name="allowfullscreen" value="true"><param name="wmode" value="opaque"><param name="flashvars" value="${link.real_url}"></object>		
+<object type="application/x-shockwave-flash" id="SSportsPlayer" name="SSportsPlayer" align="middle" data="http://image.ssports.com/images/resources/web/live/swf/SSportsPlayer20170825.swf" width="650" height="460"><param name="quality" value="high"><param name="bgcolor" value="#000000"><param name="allowscriptaccess" value="always"><param name="allowfullscreen" value="true"><param name="wmode" value="opaque"><param name="flashvars" value="${link}"></object>		
 </BODY>
 </HTML>

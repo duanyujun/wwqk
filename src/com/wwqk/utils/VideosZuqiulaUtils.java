@@ -302,6 +302,9 @@ public class VideosZuqiulaUtils {
 								}else if(playDocHtml.contains("pptv")){
 									playerType = PlayerEnum.PPTV.getKey();
 									realUrl = getPPTVSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=sina2")){
+									playerType = PlayerEnum.SINA2.getKey();
+									realUrl = getCommonSrc(playDocHtml);
 								}else if(playDocHtml.contains("ssports")){
 									playerType = PlayerEnum.SSPORTS.getKey();
 									realUrl = getSsportsSrc(playDocHtml);
@@ -310,9 +313,6 @@ public class VideosZuqiulaUtils {
 									realUrl = getCommonSrc(playDocHtml);
 								}else if(playDocHtml.contains("type=cntv")){
 									playerType = PlayerEnum.CNTV.getKey();
-									realUrl = getCommonSrc(playDocHtml);
-								}else if(playDocHtml.contains("type=sina2")){
-									playerType = PlayerEnum.SINA2.getKey();
 									realUrl = getCommonSrc(playDocHtml);
 								}else if(playDocHtml.contains("type=sina")){
 									playerType = PlayerEnum.SINA.getKey();
