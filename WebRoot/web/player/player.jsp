@@ -65,7 +65,7 @@ if(type=='1'){
 	var url = 'http://video.sina.com.cn/share/video/'+id+'.swf';
 }else if(type=='8'){
 	id = link;
-	dw('<div style="width:650px;height:430px;background-color:#FFF;"><div style="padding-top:80px;text-align:center;font-size:18px;color:red;">请点击链接进入【官方网站】播放视频，<a href="'+id+'" target="_blank" style="font-size:18px;color:blue;">点此打开播放器观看</a> <br><br><br>或者到首页选择其他视频 <a href="http://www.yutet.com" style="font-size:18px;color:blue;" target="_blank">点此进入首页</a><br><br><br></div></div>');
+	dw('<div style="width:650px;height:460px;background-color:#FFF;"><div style="padding-top:80px;text-align:center;font-size:18px;color:red;">请点击链接进入【官方网站】播放视频，<a href="'+id+'" target="_blank" style="font-size:18px;color:blue;">点此打开播放器观看</a> <br><br><br>或者到首页选择其他视频 <a href="http://www.yutet.com" style="font-size:18px;color:blue;" target="_blank">点此进入首页</a><br><br><br></div></div>');
 	var url = id;
 }else if(type=='9'){
 	id = link.indexOf('http://')>-1?getParam('iid', link):link;
