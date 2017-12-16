@@ -8,6 +8,7 @@ import java.util.Map;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.wwqk.model.Videos;
+import com.wwqk.utils.PinyinUtils;
 import com.wwqk.utils.StringUtils;
 
 public class VideosService {
@@ -109,6 +110,9 @@ public class VideosService {
         videos.set("home_team", controller.getPara("home_team"));
         videos.set("away_team", controller.getPara("away_team"));
         videos.set("match_title", controller.getPara("match_title"));
+        if(StringUtils.isBlank(videos.getStr("match_en_title"))){
+        	videos.set("match_en_title", PinyinUtils.getPingYin(videos.getStr("match_title")));
+        }
         videos.set("source_url", controller.getPara("source_url"));
         videos.set("from_site", controller.getPara("from_site"));
         if(StringUtils.isNotBlank(controller.getPara("match_history_id"))){
