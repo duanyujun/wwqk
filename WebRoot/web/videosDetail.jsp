@@ -104,28 +104,17 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	});
 	
 	
-	var flagCount = 0;
 	window.onresize = function(){
-		if(isFullscreen()){
-			flagCount = 1;
-		}
-		
+		/**
 		var winWidth = $(window).width();
 		if (winWidth<992) {
-			  if(!isFullscreen() && flagCount==0){
-				  $("#ytplayer").attr("src","");
-				  $("#mytplayer").attr("src",mvideoUrl);
-			  }
+			$("#ytplayer").attr("src","");
+			$("#mytplayer").attr("src",mvideoUrl);
 		}else{
-			if(!isFullscreen() && flagCount==0){
-				$("#mytplayer").attr("src","");
-			    $("#ytplayer").attr("src",videoUrl);
-			}
+			$("#mytplayer").attr("src","");
+		    $("#ytplayer").attr("src",videoUrl);
 		}
-		
-		if(!isFullscreen() && flagCount==1){
-			flagCount = 0;
-		}
+		*/
 	};
 	
 	
