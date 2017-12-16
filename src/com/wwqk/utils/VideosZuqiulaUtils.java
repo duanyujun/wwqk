@@ -227,6 +227,9 @@ public class VideosZuqiulaUtils {
 				}
 				videos.set("league_id", EnumUtils.getValue(VideosLeagueEnum.values(), String.valueOf(sourceLeagueId)));
 				videos.set("match_title", StringUtils.trim(matchTitle));
+				if(StringUtils.isBlank(videos.getStr("match_en_title"))){
+					videos.set("match_en_title", PinyinUtils.getPingYin(videos.getStr("match_title")));
+				}
 				if(matchTitle.contains("vs")){
 					matchTitle = StringUtils.trim(matchTitle);
 					matchTitle = matchTitle.replace("日 ", "日");

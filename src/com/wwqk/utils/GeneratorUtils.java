@@ -17,6 +17,7 @@ import com.wwqk.model.Fun;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.Say;
 import com.wwqk.model.Team;
+import com.wwqk.model.Videos;
 
 public class GeneratorUtils{
 
@@ -37,6 +38,17 @@ public class GeneratorUtils{
 //			}
 			
 			Date nowDate = DateTimeUtils.addDays(new Date(), -10);
+			
+			//视频
+			Elements videosTds = document.select("#videos_td");
+			if(videosTds.size()>0){
+				List<Videos> lstVideos = Videos.dao.find("select id,match_date,match_title from videos where match_date > '2016-10-05 00:00:00' order by match_date desc ");
+				StringBuilder sb = new StringBuilder();
+				for(Videos videos : lstVideos){
+					sb.append("<a href=\"http://www.yutet.com/vdetail-"+DateTimeUtils.formatDate(videos.getDate("match_date"))+"-"+videos.get("id")+".html\" target=\"_blank\">"+videos.getStr("match_title")+"</a>&nbsp;");
+				}
+				videosTds.get(0).html(sb.toString());
+			}
 			
 			//球队
 			Elements teamTds = document.select("#teams_td");
