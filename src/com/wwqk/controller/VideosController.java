@@ -51,6 +51,18 @@ public class VideosController extends Controller {
 		setAttr("videos", videos);
 		
 		List<VideosRealLinks> lstLinks = VideosRealLinks.dao.find("select * from videos_real_links where videos_id = ? ", id);
+		VideosRealLinks tempLinks = null;
+		for(VideosRealLinks links:lstLinks){
+			if(links.getStr("player_type").equals("3") && "1".equals(links.getStr("video_type"))){
+				tempLinks = links;
+				lstLinks.remove(links);
+				break;
+			}
+		}
+		if(tempLinks!=null){
+			lstLinks.add(0, tempLinks);
+		}
+		
 		setAttr("lstLinks", lstLinks);
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.VIDEO.getKey());
 		render("videosDetail.jsp");
