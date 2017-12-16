@@ -65,7 +65,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<c:forEach items="${videosPage.list}" var="videos">
 								<tr>
 							      <td class="a-title" style="line-height:30px;padding-left:5px;">
-							      	<div class="text_cut" style="width:350px;max-width:95%;line-height:30px;"><a style="${videos.is_red=='1'?'color:red;':''}" href="/vdetail-<fmt:formatDate value="${videos.match_date}" pattern="yyyy-MM-dd"/>-${videos.id}.html" target="_blank">${videos.match_title}</a></div>
+							      	<div class="text_cut" style="width:350px;max-width:95%;line-height:30px;"><a style="${videos.is_red=='1'?'color:red;':''}" href="/vdetail-<fmt:formatDate value="${videos.match_date}" pattern="yyyy-MM-dd"/>-${videos.match_en_title}-${videos.id}.html" target="_blank">${videos.match_title}</a></div>
 							      </td>
 							    </tr>
 						    </c:forEach>
@@ -160,7 +160,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  <tbody>
 						  	<c:forEach items="${videosPage.list}" var="videos">
 						    <tr>
-						      <td class="a-title" style="line-height:30px;"><a style="${videos.is_red=='1'?'color:red;':''}" href="/vdetail-<fmt:formatDate value="${videos.match_date}" pattern="yyyy-MM-dd"/>-${videos.id}.html" target="_blank">${videos.match_title}</a></td>
+						      <td class="a-title" style="line-height:30px;"><a style="${videos.is_red=='1'?'color:red;':''}" href="/vdetail-<fmt:formatDate value="${videos.match_date}" pattern="yyyy-MM-dd"/>-${videos.match_en_title}-${videos.id}.html" target="_blank">${videos.match_title}</a></td>
 						    </tr>
 						    </c:forEach>
 						  </tbody>

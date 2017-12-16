@@ -133,7 +133,7 @@ public class MatchController extends Controller {
 		Videos videos = Videos.dao.findFirst("select * from videos where match_history_id = ? ", matchKey);
 		if(videos!=null){
 			//vdetail-2017-12-11-6716.html
-			String videosUrl = "vdetail-"+DateTimeUtils.formatDate(videos.getDate("match_date"))+"-"+videos.get("id")+".html";
+			String videosUrl = "vdetail-"+DateTimeUtils.formatDate(videos.getDate("match_date"))+"-"+videos.get("match_en_title")+"-"+videos.get("id")+".html";
 			setAttr("videosUrl", videosUrl);
 		}
 		
