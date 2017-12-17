@@ -39,7 +39,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    	
 	    	<c:forEach items="${lstLinks}" var="link" varStatus="status">
 		    	<div class="col-xs-12 col-sm-12" >
-					<a href="/videos/mplay?id=${link.id}" title="${link.title}" target="mytplayer">${link.title}</a>
+		    		<c:if test="${link.player_type=='2'}">
+		    			<a href="${link.m_real_url}" title="${link.title}" target="mytplayer">${link.title}</a>
+		    		</c:if>
+		    		<c:if test="${link.player_type!='2'}">
+		    			<a href="/videos/mplay?id=${link.id}" title="${link.title}" target="mytplayer">${link.title}</a>
+		    		</c:if>
 				</div>
 			</c:forEach>
 	    </div>
@@ -95,7 +100,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<script>
 	
 	var videoUrl = "/videos/play?id=${lstLinks[0].id}";
-	var mvideoUrl = "http://m.pptv.com/show/ib5Fu7VW7K2nMSrI.html?rcc_src=vodplayer_qrcode&rcc_starttime=0";
+	var mvideoUrl = "/videos/mplay?id=${lstLinks[0].id}";
+	var mplayerType = '${lstLinks[0].player_type}';
+	var mpptvUrl = "${lstLinks[0].m_real_url}";
 	$(function(){
 		var winWidth = $(window).width();
 		var playerHeight = (winWidth * 2)/3;
@@ -132,7 +139,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			  $("#ytplayer").attr("src",videoUrl);
 		  }else{
 			  $("#ytplayer").attr("src","");
-			  $("#mytplayer").attr("src",mvideoUrl);
+			  if(mplayerType=='2'){
+				  $("#mytplayer").attr("src",mpptvUrl);
+			  }else{
+				  $("#mytplayer").attr("src",mvideoUrl);
+			  }
+			  
 		  }
 	}
 	

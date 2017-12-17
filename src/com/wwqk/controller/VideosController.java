@@ -62,6 +62,13 @@ public class VideosController extends Controller {
 		if(tempLinks!=null){
 			lstLinks.add(0, tempLinks);
 		}
+		for(VideosRealLinks links:lstLinks){
+			if(PlayerEnum.PPTV.getKey().equals(links.getStr("player_type"))){
+				String code = links.getStr("real_url").substring(links.getStr("real_url").lastIndexOf("/")+1);
+				code = code.replace(".swf", "");
+				links.getAttrs().put("m_real_url", "http://m.pptv.com/show/"+code+".html?rcc_src=vodplayer_qrcode&rcc_starttime=0");
+			}
+		}
 		
 		setAttr("lstLinks", lstLinks);
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.VIDEO.getKey());
