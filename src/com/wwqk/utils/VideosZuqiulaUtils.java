@@ -18,6 +18,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.wwqk.constants.LeagueEnum;
 import com.wwqk.constants.PlayerEnum;
@@ -478,6 +479,134 @@ public class VideosZuqiulaUtils {
 		}
 		
 	}
+	
+	public static void updateMatchVideos(Controller controller){
+		String videosId = controller.getPara("videosId");
+		if(StringUtils.isNotBlank(videosId)){
+			Videos videos = Videos.dao.findById(videosId);
+			if(videos!=null){
+				List<VideosRealLinks> lstAllLinks = new ArrayList<VideosRealLinks>();
+				Connection connect = Jsoup.connect(videos.getStr("source_url")).ignoreContentType(true);
+				for(Map.Entry<String, String> entry:MatchUtils.getZuqiulaHeader().entrySet()){
+					connect.header(entry.getKey(), entry.getValue());
+				}
+				int webLeagueId = 0;
+				if("4".equals(videos.getStr("league_id"))){
+					webLeagueId = 4;
+				}else if("3".equals(videos.getStr("league_id"))){
+					webLeagueId = 5;
+				}else{
+					webLeagueId = Integer.valueOf(videos.getStr("league_id"))+1;
+				}
+				
+				connect.header("Referer", "http://www.zuqiu.la/video/?type="+webLeagueId);
+				Connection data = connect.data();
+				try {
+					Document videoDoc = data.get();
+					String summary = videoDoc.select(".left_box").get(0).child(1).html();
+					if(StringUtils.isBlank(videos.getStr("summary"))){
+						videos.set("summary", summary);
+					}
+					if (videos.get("id")!=null) {
+						videos.update();
+					}else{
+						videos.save();
+					}
+					Elements luxiangElements = videoDoc.select("#r_luxiang");
+					Elements jijingElements = videoDoc.select("#r_jijing");
+					int videoType = 1;
+					Elements[] allLinks = {luxiangElements, jijingElements};
+					for(Elements links:allLinks){
+						if(links.size()>0){
+							Elements aLxElements = links.get(0).select("a");
+							for(Element aLx:aLxElements){
+								//  www.zuqiu.la/play_video.php?cid=80874&preview=1
+								String playUrl = MAIN_SITE + aLx.attr("href");
+								//  [PPTV全场集锦] 英超-莫拉塔头球制胜 切尔西1-0击败曼联
+								String title = aLx.attr("title");
+								
+								Connection videoConnect = Jsoup.connect(playUrl).ignoreContentType(true);
+								for(Map.Entry<String, String> entry:MatchUtils.getZuqiulaHeader().entrySet()){
+									videoConnect.header(entry.getKey(), entry.getValue());
+								}
+								videoConnect.header("Referer", videos.getStr("source_url"));
+								Connection playerData = videoConnect.data();
+								Document playDoc = playerData.get();
+								String playDocHtml = playDoc.html();
+								String realUrl = null;
+								String playerType = "";
+								if(playDocHtml.contains("type=qqnba")){
+									playerType = PlayerEnum.QQNBA.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=qq")){
+									playerType = PlayerEnum.QQ.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("pptv")){
+									playerType = PlayerEnum.PPTV.getKey();
+									realUrl = getPPTVSrc(playDocHtml);
+								}else if(playDocHtml.contains("ssports")){
+									playerType = PlayerEnum.SSPORTS.getKey();
+									realUrl = getSsportsSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=letv")){
+									playerType = PlayerEnum.LETV.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=cntv")){
+									playerType = PlayerEnum.CNTV.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=sina2")){
+									playerType = PlayerEnum.SINA2.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=sina")){
+									playerType = PlayerEnum.SINA.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("youku")){
+									playerType = PlayerEnum.YOUKU.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("tudou")){
+									playerType = PlayerEnum.TUDOU.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=56")){
+									playerType = PlayerEnum.V56.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=sohu")){
+									playerType = PlayerEnum.SOHU.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else if(playDocHtml.contains("type=kandian")){
+									playerType = PlayerEnum.KANDIAN.getKey();
+									realUrl = getCommonSrc(playDocHtml);
+								}else{
+									continue;
+								}
+								
+								//System.err.println("---- realTitle："+title+" playLink："+playUrl+" realLink："+realUrl);
+								
+								VideosRealLinks realLink = new VideosRealLinks();
+								realLink.set("videos_id", videos.get("id"));
+								realLink.set("source_url", videos.getStr("source_url"));
+								realLink.set("real_url", realUrl);
+								realLink.set("title", title);
+								realLink.set("player_type",playerType);
+								realLink.set("video_type", String.valueOf(videoType));
+								VideosRealLinks dbLink = VideosRealLinks.dao.
+										findFirst("select * from videos_real_links where player_type = ? and real_url = ?", playerType, realUrl);
+								if(dbLink==null){
+									lstAllLinks.add(realLink);
+								}
+							}
+						}
+						videoType++;
+					}
+					
+				} catch (IOException e) {
+					System.err.println();
+				}
+				
+				Db.batchSave(lstAllLinks, lstAllLinks.size());
+			}
+		}
+	}
+	
+	
 	
 	public static void main(String[] args) {
 		

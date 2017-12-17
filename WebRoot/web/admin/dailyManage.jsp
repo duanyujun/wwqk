@@ -109,6 +109,13 @@
                         <i class="fa fa-refresh"></i>
                     </button>
                 </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <input type="text" id="videosId" maxlength="20" placeholder="视频Id" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+                    <button onclick="updateMatchVideos();" class="btn sbold green" style="margin-left:10px;"> 完善视频
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+                
             </div>
             
             <div class="row" style="margin-top:20px;">
@@ -137,48 +144,19 @@
 <script type="text/javascript">
 
 function updateSiteMap(){
-	showToast(1, "更新中...", "温馨提示");
-	$("body").showLoading();
-	$.post("/admin/updateSiteMap",
-				function(result){
-					$("body").hideLoading();
-					showToast(1, "更新成功！", "温馨提示");
-				}
-	);
+	commonPost("/admin/updateSiteMap");
 }
 
-
 function updateMatches(){
-	showToast(1, "更新中...", "温馨提示");
-	$("body").showLoading();
-	$.post("/admin/handUpdateMatches",
-				function(result){
-					$("body").hideLoading();
-					showToast(1, "更新成功！", "温馨提示");
-				}
-	);
+	commonPost("/admin/handUpdateMatches");
 }
 
 function updateLives(){
-	showToast(1, "更新中...", "温馨提示");
-	$("body").showLoading();
-	$.post("/admin/updateLives",
-				function(result){
-					$("body").hideLoading();
-					showToast(1, "更新成功！", "温馨提示");
-				}
-	);
+	commonPost("/admin/updateLives");
 }
 
 function syncShooterAssister(){
-	showToast(1, "同步中...", "温馨提示");
-	$("body").showLoading();
-	$.post("/admin/syncShooterAssister",
-				function(result){
-					$("body").hideLoading();
-					showToast(1, "同步成功！", "温馨提示");
-				}
-	);
+	commonPost("/admin/syncShooterAssister");
 }
 
 function updateTeamPlayer(){
@@ -200,7 +178,6 @@ function updateTeamPlayer(){
 	
 }
 
-
 function updateLeaugePlayer(){
 
 	if($("#leagueId").val()==''){
@@ -216,52 +193,23 @@ function updateLeaugePlayer(){
 					showToast(1, "更新成功！", "温馨提示");
 				}
 	);
-	
 }
 
 
 function analyzeAll(){
-	$("body").showLoading();
-	showToast(1, "更新中...", "温馨提示");
-	$.post("/admin/analyzeAll",
-			function(result){
-				$("body").hideLoading();
-				showToast(1, "更新成功！", "温馨提示");
-			}
-	);
+	commonPost("/admin/analyzeAll");
 }
 
 function updateSameOdds(){
-	$("body").showLoading();
-	showToast(1, "更新中...", "温馨提示");
-	$.post("/admin/updateSameOdds",
-			function(result){
-				$("body").hideLoading();
-				showToast(1, "更新成功！", "温馨提示");
-			}
-	);
+	commonPost("/admin/updateSameOdds");
 }
 
 function updateTeamPosition(){
-	$("body").showLoading();
-	showToast(1, "更新中...", "温馨提示");
-	$.post("/admin/updateTeamPosition",
-			function(result){
-				$("body").hideLoading();
-				showToast(1, "更新成功！", "温馨提示");
-			}
-	);
+	commonPost("/admin/updateTeamPosition");
 }
 
 function updateOddsMatches(){
-	$("body").showLoading();
-	showToast(1, "更新中...", "温馨提示");
-	$.post("/admin/updateOddsMatches",
-			function(result){
-				$("body").hideLoading();
-				showToast(1, "更新成功！", "温馨提示");
-			}
-	);
+	commonPost("/admin/updateOddsMatches");
 }
 
 function generateMatchStatic(){
@@ -304,32 +252,40 @@ function updatePlayerTransfer(){
 }
 
 function updateMatchNews(){
-	$("body").showLoading();
-	showToast(1, "更新中...", "温馨提示");
-	$.post("/admin/updateMatchNews",
-				function(result){
-					$("body").hideLoading();
-					showToast(1, "更新成功！", "温馨提示");
-				}
-	);
+	commonPost("/admin/updateMatchNews");
 }
 
 function updateVideos(){
+	commonPost("/admin/updateVideos");
+}
+
+function updateDesc(){
+	commonPost("/admin/updateDesc");
+}
+
+function commonPost(url){
 	$("body").showLoading();
 	showToast(1, "更新中...", "温馨提示");
-	$.post("/admin/updateVideos",
-				function(result){
+	$.post(url,function(result){
 					$("body").hideLoading();
 					showToast(1, "更新成功！", "温馨提示");
 				}
 	);
 }
 
-function updateDesc(){
+
+function updateMatchVideos(){
+	
+	if($("#videosId").val()==''){
+		showToast(2, "请填写视频ID", "温馨提示");
+		return;
+	}
 	$("body").showLoading();
 	showToast(1, "更新中...", "温馨提示");
-	$.post("/admin/updateDesc",
+	$.post("/admin/updateMatchVideos",
+				{videosId: $("#videosId").val()},
 				function(result){
+					$("#videosId").val("");
 					$("body").hideLoading();
 					showToast(1, "更新成功！", "温馨提示");
 				}

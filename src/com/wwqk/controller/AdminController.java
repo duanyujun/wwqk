@@ -794,4 +794,10 @@ public class AdminController extends Controller {
 		renderJson(1);
 	}
 	
+	//完善一场比赛的视频
+	public void updateMatchVideos() throws ParseException{
+		VideosZuqiulaUtils.updateMatchVideos(this);
+		renderJson(1);
+	}
+	
 }
