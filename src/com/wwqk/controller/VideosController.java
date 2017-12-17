@@ -100,6 +100,10 @@ public class VideosController extends Controller {
 			link.set("real_url", "http://m.pptv.com/show/"+code+".html?rcc_src=vodplayer_qrcode&rcc_starttime=0");
 			//playerPage = "player/mpptvPlayer.jsp";
 		}else if(PlayerEnum.SSPORTS.getKey().equals(link.getStr("player_type"))){
+			String mlink = link.getStr("real_url").substring(0, link.getStr("real_url").indexOf("&"));
+			mlink = mlink.replace("bqurl=", "");
+			mlink = mlink.replaceAll("%3A", "").replaceAll("%2F", "");
+			link.set("real_url", mlink);
 			playerPage =  "player/mssportsPlayer.jsp";
 		}
 		setAttr("type", link.getStr("player_type"));
