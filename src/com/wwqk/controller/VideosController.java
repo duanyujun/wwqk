@@ -48,6 +48,11 @@ public class VideosController extends Controller {
 		String id = getPara("id");
 		id = CommonUtils.getRewriteId(id);
 		Videos videos = Videos.dao.findById(id);
+		if(StringUtils.isNotBlank(videos.getStr("summary"))){
+			videos.set("summary", videos.getStr("summary").replaceAll("。 ", "。<br>"));
+		}
+		
+		
 		setAttr("videos", videos);
 		
 		List<VideosRealLinks> lstLinks = VideosRealLinks.dao.find("select * from videos_real_links where videos_id = ? ", id);
