@@ -12,6 +12,7 @@ import com.wwqk.model.Videos;
 import com.wwqk.model.VideosRealLinks;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.PageUtils;
+import com.wwqk.utils.PassWordUtils;
 import com.wwqk.utils.StringUtils;
 
 public class VideosController extends Controller {
@@ -110,6 +111,9 @@ public class VideosController extends Controller {
 			mlink = mlink.replaceAll("%3A", ":").replaceAll("%2F", "/");
 			link.set("real_url", mlink);
 			playerPage =  "player/mssportsPlayer.jsp";
+		}else if(PlayerEnum.QQ.getKey().equals(link.getStr("player_type"))){
+			String mlink = "https://m.v.qq.com/play.html?cid="+PassWordUtils.createPassWord(16)+"&vid="+link.getStr("real_url")+"&ptag=v_qq_com%23v.play.adaptor%233";
+			link.set("real_url", mlink);
 		}
 		setAttr("type", link.getStr("player_type"));
 		setAttr("link", link.getStr("real_url"));

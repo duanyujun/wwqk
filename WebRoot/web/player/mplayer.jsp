@@ -36,9 +36,8 @@ var type = '${type}';
 var link = '${link}';
 
 if(type=='1'){
-	id = link.indexOf('http://')>-1?getParam('vid', link):link;
-	dw('<iframe width="650" height="260" frameborder="0" scrolling="no" src="http://player.duo.la/qqvideo.html?id='+id+'"></iframe>');
-	var url = 'https://v.qq.com/x/page/'+id+'.html'; 
+	dw('<iframe width="100%" height="270" frameborder="0" scrolling="no" src="'+link+'"></iframe>');
+	var url = link; 
 }else if(type=='2'){
 	id = link.indexOf('cid')>-1?getParam('cid', link):link;
 	if(id.indexOf('http://')>-1){
