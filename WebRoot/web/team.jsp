@@ -69,7 +69,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
 							<c:forEach items="${group}" var="player">
 								<td style="width:50px;border:none;"><a href="player-${player.en_url}-${player.id}.html" target="_self"><img src="${player.img_small_local}" alt="${player.name}" title="${player.name}" style="width:50px;"/></a></td>
-						      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:12px;color:grey;">
+						      	<td colspan="${i==group.size()?(group.size()==2?1:3):1}" class="team-title" style="border:none;width:250px;font-size:12px;color:grey;">
 						      		<div>
 												<div style="height:17px;width:17px;margin-top:2px;float:left;" class="${player.national_flag}" title="${player.nationality}" >&nbsp;</div> 
 												<div style="height:17px;float:left;">
@@ -243,7 +243,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
 											<c:forEach items="${group}" var="player">
 												<td style="width:50px;border:none;"><a href="player-${player.en_url}-${player.id}.html" target="_blank" title="${player.name}更多信息"><img src="${player.img_small_local}" alt="${player.name}" style="width:50px;"/></a></td>
-										      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:13px;color:grey;">
+										      	<td colspan="${i==group.size()?(group.size()==2?1:3):1}" class="team-title" style="border:none;width:250px;font-size:13px;color:grey;">
 										      		<div>
 											      				<div style="height:17px;width:17px;margin-top:2px;float:left;" class="${player.national_flag}" title="${player.nationality}" >&nbsp;</div> 
 											      				<div style="height:20px;float:left;">
@@ -280,45 +280,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									
 								</div>
 								
-								
-								<div class="row visible-sm visible-xs" style="margin-top:20px;">
-									<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-										<table class="table small-table" >
-										  <caption style="min-height:30px;text-align:left;"><b style="margin-left:15px;">${group[0].position}</b></caption>
-										  <tbody >
-										  	<c:set var="i" value="1"/>
-										  	<tr style="border-top:1px solid #dddddd; ${2==group.size()?'border-bottom:1px solid #dddddd;':''}">
-											<c:forEach items="${group}" var="player">
-												<td style="width:50px;border:none;"><img src="${player.img_small_local}" title="${player.name}" alt="${player.name}" title="${player.name}" style="width:50px;"/></td>
-										      	<td colspan="${i==group.size()?3:1}" class="team-title" style="border:none;width:250px;font-size:13px;">
-										      		<p>
-										      		<a href="say/list?id=${player.id}" target="_blank">${player.name}</a>
-										      		<c:if test="${!empty player.number}">
-											      		<nobr><span title="球衣：${player.number}号"><img src="assets/pages/img/cloth.png" style="margin-top:-3px;" /> ${player.number}号</span></nobr>
-										      		</c:if>
-										      		</p>
-										      		<p style="line-height:20px;height:20px;margin-top:-7px;">
-										      		${player.age}岁 
-										      		<c:if test="${player.goal_count!=0}">
-										      			<nobr><span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span></nobr>
-										      		</c:if>
-										      		<c:if test="${player.assists_count!=0}">
-										      			<nobr><span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span></nobr>
-										      		</c:if>
-										      		</p>
-										      	</td>
-										      	<c:if test="${i%2==0}">
-												</tr>
-												<tr style="${i+2 ge group.size()?'border-bottom:1px solid #dddddd;':''};width:250px;">
-												</c:if>
-												<c:set var="i" value="${i+1}"></c:set>
-											</c:forEach>
-											</tr>
-											
-										  </tbody>
-										</table>
-									</div>
-								</div>
 							</c:forEach>
 					</div>
 					<div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
