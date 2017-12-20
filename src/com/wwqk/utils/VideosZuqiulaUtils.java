@@ -323,7 +323,7 @@ public class VideosZuqiulaUtils {
 									realUrl = getCommonSrc(playDocHtml);
 								}else if(playDocHtml.contains("youku")){
 									playerType = PlayerEnum.YOUKU.getKey();
-									realUrl = getCommonSrc(playDocHtml);
+									realUrl = getPPTVSrc(playDocHtml);
 								}else if(playDocHtml.contains("tudou")){
 									playerType = PlayerEnum.TUDOU.getKey();
 									realUrl = getCommonSrc(playDocHtml);
@@ -561,7 +561,7 @@ public class VideosZuqiulaUtils {
 									realUrl = getCommonSrc(playDocHtml);
 								}else if(playDocHtml.contains("youku")){
 									playerType = PlayerEnum.YOUKU.getKey();
-									realUrl = getCommonSrc(playDocHtml);
+									realUrl = getPPTVSrc(playDocHtml);
 								}else if(playDocHtml.contains("tudou")){
 									playerType = PlayerEnum.TUDOU.getKey();
 									realUrl = getCommonSrc(playDocHtml);

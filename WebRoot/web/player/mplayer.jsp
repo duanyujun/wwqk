@@ -34,6 +34,7 @@ function getParam(name, url)
 
 var type = '${type}';
 var link = '${link}';
+var id;
 
 if(type=='1'){
 	dw('<iframe width="100%" height="270" frameborder="0" scrolling="no" src="'+link+'"></iframe>');
@@ -56,16 +57,15 @@ if(type=='1'){
 	dw('<iframe width="100%" height="260" frameborder="0" scrolling="no" src="http://player.cntv.cn/flashplayer/players/htmls/smallwindow.html?pid='+id+'&time=0"></iframe>');
 	var url = 'http://player.cntv.cn/flashplayer/players/htmls/smallwindow.html?pid='+id; 
 }else if(type=='6'){
-	id = link.indexOf('http://')>-1?getParam('VideoIDS', link):link;
-	dw('<embed src="http://static.youku.com/v1.0.0663/v/swf/loader.swf?VideoIDS='+id+'&isAutoPlay=true&winType=index&isShowRelatedVideo=false" quality="high" width="100%" height="260" align="middle" allowScriptAccess="always" allownetworking="all" type="application/x-shockwave-flash" wmode="window" allowFullScreen="true"></embed>');
-	var url = 'http://static.youku.com/v1.0.0663/v/swf/loader.swf?VideoIDS='+id+'&isAutoPlay=true&winType=index&isShowRelatedVideo=false';
+	dw('<embed src="'+link+'" quality="high" bgcolor="#ffffff" width="100%" height="260" quality="high" allowfullscreen="true" allowscriptaccess="always" allownetworking="all" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />');
+	var url = '<embed src="'+link+'" quality="high" bgcolor="#ffffff" width="100%" height="260" quality="high" allowfullscreen="true" allowscriptaccess="always" allownetworking="all" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />';
 }else if(type=='7'){
 	id = link.indexOf('http://')>-1?getParam('vid', link):link;
 	dw('<embed src="http://video.sina.com.cn/share/video/'+id+'.swf" quality="high" allowfullscreen="true" allowscriptaccess="always" allownetworking="all" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="260" wmode="transparent" ></embed>');
 	var url = 'http://video.sina.com.cn/share/video/'+id+'.swf';
 }else if(type=='8'){
 	id = link;
-	dw('<div style="width:650px;height:430px;background-color:#FFF;"><div style="padding-top:80px;text-align:center;font-size:18px;color:red;">请点击链接进入【官方网站】播放视频，<a href="'+id+'" target="_blank" style="font-size:18px;color:blue;">点此打开播放器观看</a> <br><br><br>或者到首页选择其他视频 <a href="http://www.yutet.com" style="font-size:18px;color:blue;" target="_blank">点此进入首页</a><br><br><br></div></div>');
+	dw('<div style="width:100%;height:260px;background-color:#FFF;"><div style="padding-top:80px;text-align:center;font-size:18px;color:red;">请点击链接进入【官方网站】播放视频，<a href="'+id+'" target="_blank" style="font-size:18px;color:blue;">点此打开播放器观看</a> <br><br><br>或者到首页选择其他视频 <a href="http://www.yutet.com" style="font-size:18px;color:blue;" target="_blank">点此进入首页</a><br><br><br></div></div>');
 	var url = id;
 }else if(type=='9'){
 	id = link.indexOf('http://')>-1?getParam('iid', link):link;
@@ -73,7 +73,7 @@ if(type=='1'){
 	var url = 'http://js.tudouui.com/bin/player2/olc_8.swf?iid='+id+'&swfPath=http://js.tudouui.com/bin/lingtong/SocialPlayer_54.swf&tvcCode=-1&autoPlay=true';  
 }else if(type=='10'){
 	id = link.indexOf('http://')>-1?getParam('vid', link):link;
-	dw('<iframe width="650" height="260" frameborder="0" scrolling="no" src="http://player.duo.la/qqvideo.html?id='+id+'"></iframe>');
+	dw('<iframe width="100%" height="260" frameborder="0" scrolling="no" src="http://player.duo.la/qqvideo.html?id='+id+'"></iframe>');
 	var url = 'https://v.qq.com/x/page/'+id+'.html';   
 }else if(type=='11'){
 	if(link.indexOf('http://')>-1){
