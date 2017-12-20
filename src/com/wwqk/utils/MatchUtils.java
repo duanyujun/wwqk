@@ -362,6 +362,18 @@ public class MatchUtils {
 		return resultStr;
 	}
 	
+	public static Map<String, String> getSofifaHeader(){
+		   Map<String, String> header = new HashMap<String, String>();  
+	       header.put("Accept", "*/*");
+	       header.put("Accept-Encoding", "gzip, deflate");  
+	       header.put("Accept-Language", "zh-CN,zh;q=0.9");
+	       header.put("Connection", "keep-alive"); 
+	       header.put("Host", "sofifa.com");
+	       header.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36");
+	       
+	       return header;
+	}
+	
 	
 	public static void main(String[] args) throws IOException {
 		String SIET_URL = "http://m.188bifen.com/json/zuqiu.htm?k=0.61970021480676236";
