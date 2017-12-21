@@ -19,6 +19,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/dropload/dropload.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/map/map.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - ${player.nationality} - ${player.name}|${enname}|${player.name}转会|${player.name}的近况|${player.name}职业生涯</title>
     <style>
     	#article_div ul{list-style:none;count-reset:count; }
@@ -125,42 +127,73 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:20px;padding-bottom: 130px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-6 col-lg-offset-2 col-md-6 col-md-offset-2">		
-			<div class="col-lg-12 col-md-12">
+			<div class="row">
 				<div class="col-lg-12 col-md-12" >
 					<div class="col-lg-3 col-md-3">
 						<img src="${player.img_big_local}" style="width:150px;height:150px;" alt="${player.name}" title="${player.name}"/>
 					</div>
 					<div class="col-lg-9 col-md-9">
-						<div class="col-lg-12 col-md-12" >姓名：${player.first_name}·${player.last_name}</div>
-						<div class="col-lg-6 col-md-6" style="margin-top:10px;"><nobr>生日：${player.birthday}（${player.age}岁）</nobr></div>
-						<div class="col-lg-6 col-md-6" style="margin-top:10px;">国籍：${player.nationality}</div>
-						<div class="col-lg-6 col-md-6" style="margin-top:10px;">身高：${player.height}</div>
-						<div class="col-lg-6 col-md-6" style="margin-top:10px;">体重：${player.weight}</div>
-						<div class="col-lg-6 col-md-6" style="margin-top:10px;">位置：${player.position}
-							<c:if test="${!empty player.number}">
-					      		&nbsp;<span title="球衣：${player.number}号"><img src="${player.cloth}" style="margin-top:-3px;" /> ${player.number}号</span>
-				      		</c:if>
-						</div>
-						<div class="col-lg-6 col-md-6" style="margin-top:10px;">惯用脚：<c:if test="${!(player.foot=='0' && empty player.foot)}">${player.foot}</c:if></div>
-						<c:if test="${!empty player.team_id}">
-							<div class="col-lg-12 col-md-12 team-title" style="margin-top:10px;font-size:14px;">效力球队：
-								<a href="team-${player.team_name_en}-${player.team_id}.html" target="_blank" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a>
-								&nbsp;
-								<c:if test="${player.goal_count!=0}">
-					      			<span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span>
-					      		</c:if>
-					      		<c:if test="${player.goal_count!=0 && player.assists_count!=0}">
-					      		&nbsp;
-					      		</c:if>
-					      		<c:if test="${player.assists_count!=0}">
-					      			<span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span>
-					      		</c:if>
+						<div class="row">
+							<div class="col-lg-6 col-md-6">
+								<div class="row">
+									<div class="col-lg-12 col-md-12" style="line-height:32px;">${player.first_name}·${player.last_name}</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12 col-md-12" style="line-height:32px;">
+										${player.nationality} ${player.birthday}（${player.age}岁）
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12 col-md-12" style="line-height:32px;">
+										${player.height}&nbsp;·&nbsp;${player.weight}&nbsp;<c:if test="${!empty player.foot}">·&nbsp;惯用${player.foot}脚</c:if>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12 col-md-12" style="line-height:32px;">
+										<c:if test="${!empty player.team_id}">
+											<a href="team-${player.team_name_en}-${player.team_id}.html" target="_blank" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a>
+										</c:if>
+										&nbsp;·&nbsp;${player.position}<c:if test="${!empty player.number}">&nbsp;·&nbsp;${player.number}号</c:if>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12 col-md-12" style="line-height:32px;">
+										周薪：${fifa.wage}
+										&nbsp;赛季数据：
+										<c:if test="${player.goal_count!=0}">
+							      			<span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span>
+							      		</c:if>
+							      		<c:if test="${player.goal_count!=0 && player.assists_count!=0}">
+							      		&nbsp;
+							      		</c:if>
+							      		<c:if test="${player.assists_count!=0}">
+							      			<span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span>
+							      		</c:if>
+									</div>
+								</div>
+								
 							</div>
-						</c:if>
-						
+							<div class="col-lg-6 col-md-6">
+								<div id="radardiv" style="width: 220px; height: 160px; -webkit-tap-highlight-color: transparent; user-select: none; background: transparent;"></div>
+							</div>
+						</div>
 					</div>
 				</div>
+				<div class="col-lg-12 col-md-12">
+						<div class="col-lg-4 col-md-4" style="margin-top:10px;">国际声誉： <c:forEach var="i" begin="1" end="${fifa.inter_rep}"><i class="fa fa-star gold"></i></c:forEach></div>
+						<div class="col-lg-4 col-md-4" style="margin-top:10px;">逆足能力：<c:forEach var="i" begin="1" end="${fifa.unuse_foot}"><i class="fa fa-star gold"></i></c:forEach></div>
+						<div class="col-lg-4 col-md-4" style="margin-top:10px;">花式技巧：<c:forEach var="i" begin="1" end="${fifa.trick}"><i class="fa fa-star gold"></i></c:forEach></div>
+						<div class="col-lg-4 col-md-4" style="margin-top:10px;">积极性：${fifa.work_rate}</div>
+						<div class="col-lg-4 col-md-4" style="margin-top:10px;">身价：${fifa.market_value}</div>
+						<div class="col-lg-4 col-md-4" style="margin-top:10px;">违约金：${fifa.release_clause}</div>
+						<div class="col-lg-4 col-md-4" style="margin-top:10px;">合同到期：${fifa.contract}</div>
+						<div class="col-lg-4 col-md-4" style="margin-top:10px;">综合能力：<span class="label label-success">${fifa.overall_rate}</span></div>
+						<div class="col-lg-4 col-md-4" style="margin-top:10px;">潜力：<span class="label label-success">${fifa.potential}</span></div>
+				</div>
+				
 			</div>
+			
+			
 			
 			<c:if test="${!empty NO_SAY}">
 			<div class="row">
@@ -306,9 +339,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<script src="assets/global/plugins/dropload/dropload.min.js" type="text/javascript"></script>
 	<script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
 	
+	//https://cdn.bootcss.com/echarts/3.8.5/echarts.common.min.js
+	<script src="assets/global/scripts/echarts.js"></script>
+	
 	<script>
 	
 	$(function(){
+		loadRadar();
+		
 		$('.image').viewer({toolbar:false,
 			zIndex:20000,
 			shown: function() {
@@ -415,6 +453,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	        },
 	        threshold : 50
 	    });
+	    
 	});
 
 
@@ -465,6 +504,73 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    var s = document.getElementsByTagName("script")[0];
 	    s.parentNode.insertBefore(bp, s);
 	})();
+	
+	var overallRating = '综合能力';
+	var potential = '潜力';
+	var labelPAC = '速度';
+	var labelSHO = '射门';
+	var labelPAS = '传球';
+	var labelDRI = '盘带';
+	var labelDEF = '防守';
+	var labelPHY = '力量';
+	var pointPAC = 53;
+	var pointSHO = 82;
+	var pointPAS = 70;
+	var pointDRI = 73;
+	var pointDEF = 38;
+	var pointPHY = 83;
+	function loadRadar(){
+		var myRadar = echarts.init(document.getElementById("radardiv"));
+		myRadar.setOption({
+		    radar: {
+		        indicator: [{
+		            name: labelSHO + '\n\r' + pointSHO,
+		            max: 99
+		        },
+		        {
+		            name: labelPAC + '\n\r' + pointPAC,
+		            max: 99
+		        },
+		        {
+		            name: labelPHY + '\n\r' + pointPHY,
+		            max: 99
+		        },
+		        {
+		            name: labelDEF + '\n\r' + pointDEF,
+		            max: 99
+		        },
+		        {
+		            name: labelDRI + '\n\r' + pointDRI,
+		            max: 99
+		        },
+		        {
+		            name: labelPAS + '\n\r' + pointPAS,
+		            max: 99
+		        }],
+		        startAngle: 60,
+		        nameGap: 10
+		    },
+		    series: [{
+		        type: 'radar',
+		        symbol: 'emptyCircle',
+		        symbolSize: 5,
+		        data: [[pointSHO, pointPAC, pointPHY, pointDEF, pointDRI, pointPAS]],
+		        itemStyle: {
+		            normal: {
+		                color: '#239454',
+		                borderWidth: 2
+		            }
+		        },
+		        areaStyle: {
+		            normal: {
+		                opacity: 0.1
+		            }
+		        }
+		    }]
+		},
+		true);
+	}
+	
 	</script>
 		
 	

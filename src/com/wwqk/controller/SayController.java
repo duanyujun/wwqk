@@ -10,6 +10,7 @@ import com.wwqk.constants.MenuEnum;
 import com.wwqk.model.Fun;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
+import com.wwqk.model.Sofifa;
 import com.wwqk.model.Transfer;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.EnumUtils;
@@ -80,6 +81,15 @@ public class SayController extends Controller {
 		//最近的新闻
 		List<Fun> lstNews = Fun.dao.find("select id, title, create_time, title_en from fun where type = 1 and player_id = ? order by create_time desc", playerId);
 		setAttr("lstNews", lstNews);
+		
+		//fifa内容
+		Sofifa fifa = Sofifa.dao.findFirst("select * from sofifa where player_id = ? ", playerId);
+		if(fifa!=null){
+			if(StringUtils.isNotBlank(fifa.getStr("contract")) && !fifa.getStr("contract").contains("年")){
+				fifa.set("contract", fifa.getStr("contract")+"年");
+			}
+			setAttr("fifa", fifa);
+		}
 		
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.DATA.getKey());
 		render("sayList.jsp");
