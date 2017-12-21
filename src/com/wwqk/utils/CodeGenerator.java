@@ -280,32 +280,39 @@ public class CodeGenerator {
 	}
 	
 	public static void main(String[] args) {
-		//getColumnVO(colomnName, colomnType, colomnComment, isInForm, isInList, isOrderable, isSearchable, 
-		//            finalType, isRequired)
+		//getColumnVO(colomnName, colomnType, colomnComment, 
+		//isInForm, isInList, isOrderable, isSearchable, finalType, isRequired)
 		
 		List<ColumnVO> lstColumnVO = new ArrayList<ColumnVO>();
-		ColumnVO c1 = getColumnVO("league_id", null, "联赛id", 1, 1, 1, 0, 0, 0);
-		ColumnVO c2 = getColumnVO("match_date", null, "比赛时间", 1,1,1,0,0,0);
-		ColumnVO c3 = getColumnVO("home_team", null, "主队", 1,1,1,1,0,0);
-		ColumnVO c4 = getColumnVO("away_team", null, "客队", 1,1,1,1,0,0);
-		ColumnVO c5 = getColumnVO("match_title", null, "标题", 1,1,0,1,0,0);
-		ColumnVO c6 = getColumnVO("source_url", null, "源地址", 1,0,0,0,0,0);
-		//ColumnVO c7 = getColumnVO("real_url", null, "真实地址", 1,0,0,0,0,0);
-		ColumnVO c8 = getColumnVO("from_site", null, "来源", 1,0,0,0,0,0);
-		ColumnVO c9 = getColumnVO("match_history_id", null, "比赛id", 1,1,0,0,0,0);
-		ColumnVO c10 = getColumnVO("keywords", null, "关键字", 1,1,0,1,0,0);
-		lstColumnVO.add(c1);
-		lstColumnVO.add(c2);
-		lstColumnVO.add(c3);
-		lstColumnVO.add(c4);
-		lstColumnVO.add(c5);
-		lstColumnVO.add(c6);
-		//lstColumnVO.add(c7);
-		lstColumnVO.add(c8);
-		lstColumnVO.add(c9);
-		lstColumnVO.add(c10);
+		ColumnVO c1 = getColumnVO("fifa_name", null, "fifa姓名", 1, 1, 1, 0, 0, 1);
+		ColumnVO c2 = getColumnVO("foot", null, "惯用脚", 1,1,0,0,0,0);
+		ColumnVO c3 = getColumnVO("inter_rep", null, "国际声誉", 1,0,0,0,0,0);
+		ColumnVO c4 = getColumnVO("unuse_foot", null, "逆足能力", 1,0,0,0,0,0);
+		ColumnVO c5 = getColumnVO("trick", null, "花式技巧", 1,0,0,0,0,0);
+		ColumnVO c6 = getColumnVO("work_rate", null, "积极性", 1,0,0,0,0,0);
+		ColumnVO c7 = getColumnVO("body_type", null, "身体条件", 1,0,0,0,0,0);
+		ColumnVO c8 = getColumnVO("release_clause", null, "违约金", 1,0,0,0,0,0);
+		ColumnVO c9 = getColumnVO("position", null, "位置", 1,1,0,0,0,0);
+		ColumnVO c10 = getColumnVO("number", null, "号码", 1,1,0,0,0,0);
+		ColumnVO c11 = getColumnVO("contract", null, "合同到期", 1,0,0,0,0,0);
+		ColumnVO c12 = getColumnVO("pac", null, "速度", 1,1,1,0,0,0);
+		ColumnVO c13 = getColumnVO("sho", null, "射门", 1,1,1,0,0,0);
+		ColumnVO c14 = getColumnVO("pas", null, "传球", 1,1,1,0,0,0);
+		ColumnVO c15 = getColumnVO("dri", null, "盘带", 1,1,1,0,0,0);
+		ColumnVO c16 = getColumnVO("def", null, "防守", 1,1,1,0,0,0);
+		ColumnVO c17 = getColumnVO("phy", null, "力量", 1,1,1,0,0,0);
+		ColumnVO c18 = getColumnVO("overall_rate", null, "综合能力", 1,1,1,0,0,0);
+		ColumnVO c19 = getColumnVO("potential", null, "潜力", 1,1,1,0,0,0);
+		ColumnVO c20 = getColumnVO("market_value", null, "身价", 1,1,1,0,0,0);
+		ColumnVO c21 = getColumnVO("wage", null, "周薪", 1,1,1,0,0,0);
+		ColumnVO c22 = getColumnVO("player_id", null, "系统球员id", 1,1,1,0,0,0);
 		
-		build("videos", "集锦", "com.wwqk", lstColumnVO);
+		ColumnVO[] allColumns = {c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22};
+		for(ColumnVO columnVO : allColumns){
+			lstColumnVO.add(columnVO);
+		}
+		
+		build("sofifa", "FIFA数据", "com.wwqk", lstColumnVO);
 	}
 	
 	//getColumnVO(colomnName, colomnType, colomnComment, isInForm, isInList, isOrderable, isSearchable, finalType, isRequired)
