@@ -101,9 +101,9 @@ public class SofifaUtils {
 			fifaDb.set("contract",clearData(CommonUtils.matcherString(CONTRACT_PATTERN, doc.html())));
 			Element statsInfo = doc.select(".stats").get(0);
 			Elements allElements = statsInfo.select("span");
-			fifaDb.set("overall-rate",clearData(allElements.get(0).text()));
+			fifaDb.set("overall_rate",clearData(allElements.get(0).text()));
 			fifaDb.set("potential",clearData(allElements.get(1).text()));
-			fifaDb.set("market-value",clearData(allElements.get(2).text()));
+			fifaDb.set("market_value",clearData(allElements.get(2).text()));
 			fifaDb.set("wage",clearData(allElements.get(3).text()));
 			fifaDb.set("pac", CommonUtils.matcherString(PAC_PATTERN, doc.html()));
 			fifaDb.set("sho", CommonUtils.matcherString(SHO_PATTERN, doc.html()));
