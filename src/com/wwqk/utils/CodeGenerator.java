@@ -284,7 +284,7 @@ public class CodeGenerator {
 		//isInForm, isInList, isOrderable, isSearchable, finalType, isRequired)
 		
 		List<ColumnVO> lstColumnVO = new ArrayList<ColumnVO>();
-		ColumnVO c1 = getColumnVO("fifa_name", null, "fifa姓名", 1, 1, 1, 0, 0, 1);
+		ColumnVO c1 = getColumnVO("fifa_name", null, "fifa姓名", 1, 1, 1, 1, 0, 1);
 		ColumnVO c2 = getColumnVO("foot", null, "惯用脚", 1,1,0,0,0,0);
 		ColumnVO c3 = getColumnVO("inter_rep", null, "国际声誉", 1,0,0,0,0,0);
 		ColumnVO c4 = getColumnVO("unuse_foot", null, "逆足能力", 1,0,0,0,0,0);

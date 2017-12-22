@@ -13,5 +13,5 @@ public class Sofifa extends Model<Sofifa> {
 	public Map<String, Object> getAttrs(){
 	    return super.getAttrs();
 	}
-	
+		
 }

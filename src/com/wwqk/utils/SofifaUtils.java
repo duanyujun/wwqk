@@ -1,6 +1,7 @@
 package com.wwqk.utils;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.jsoup.Connection;
@@ -68,6 +69,7 @@ public class SofifaUtils {
 	private static final Pattern REALEASE_PATTERN = Pattern.compile("clause</label>(.*?)</li>");
 	private static final Pattern NUMBER_PATTERN = Pattern.compile("球衣号码</label>(.*?)</li>");
 	private static final Pattern CONTRACT_PATTERN = Pattern.compile("合同到期</label>(.*?)</li>");
+	private static final Pattern TEAM_PATTERN = Pattern.compile("/team/.*?>(.*?)</a>");
 	private static final Pattern PAC_PATTERN = Pattern.compile("pointPAC =(.*?);");
 	private static final Pattern SHO_PATTERN = Pattern.compile("pointSHO =(.*?);");
 	private static final Pattern PAS_PATTERN = Pattern.compile("pointPAS =(.*?);");
@@ -88,6 +90,7 @@ public class SofifaUtils {
 			String name = doc.select("h1").eq(0).text();
 			name = StringUtils.trim(name.substring(name.indexOf("(")));
 			fifaDb.set("fifa_name", name);
+			fifaDb.set("team", clearData(CommonUtils.matcherString(TEAM_PATTERN, doc.html())));
 			fifaDb.set("foot", clearData(CommonUtils.matcherString(FOOT_PATTERN, doc.html())));
 			fifaDb.set("inter_rep", clearData(CommonUtils.matcherString(INTER_REP_PATTERN, doc.html())));
 			fifaDb.set("unuse_foot", clearData(CommonUtils.matcherString(UNUSE_FOOT_PATTERN, doc.html())));

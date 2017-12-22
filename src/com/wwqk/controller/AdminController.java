@@ -33,6 +33,7 @@ import com.wwqk.model.LeagueShooter163;
 import com.wwqk.model.MatchLive;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
+import com.wwqk.model.Sofifa;
 import com.wwqk.model.Team;
 import com.wwqk.model.TipsMatch;
 import com.wwqk.model.Videos;
@@ -55,6 +56,7 @@ import com.wwqk.service.MatchService;
 import com.wwqk.service.PlayerService;
 import com.wwqk.service.SayService;
 import com.wwqk.service.Shooter163Service;
+import com.wwqk.service.SofifaService;
 import com.wwqk.service.TeamService;
 import com.wwqk.service.TipsMatchService;
 import com.wwqk.service.VideosService;
@@ -229,7 +231,7 @@ public class AdminController extends Controller {
 			setAttr("say", say);
 		}
 		//全部player
-		List<Player> lstPlayer = Player.dao.find("select p.*, t.name team_name from player p, team t where p.team_id = t.id ");
+		List<Player> lstPlayer = Player.dao.find("select p.id, p.name, t.name team_name from player p, team t where p.team_id = t.id ");
 		setAttr("lstPlayer", lstPlayer);
 		render("admin/sayForm.jsp");
 	}
@@ -663,6 +665,43 @@ public class AdminController extends Controller {
 		if(StringUtils.isNotBlank(ids)){
 			String whereSql = " where id in (" + ids +")";
 			Db.update("delete from videos "+whereSql);
+			renderJson(1);
+		}else{
+			renderJson(0);
+		}
+	}
+	
+	public void listSofifa(){
+		render("admin/sofifaList.jsp");
+	}
+	
+	public void sofifaData(){
+		Map<Object, Object> map = SofifaService.sofifaData(this);
+		renderJson(map);
+	}
+	
+	public void editSofifa(){
+		String id = getPara("id");
+		if(id!=null){
+			Sofifa sofifa = Sofifa.dao.findById(id);
+			setAttr("sofifa", sofifa);
+		}
+		//全部player
+		List<Player> lstPlayer = Player.dao.find("select p.id, p.name, t.name team_name from player p, team t where p.team_id = t.id ");
+		setAttr("lstPlayer", lstPlayer);
+		render("admin/sofifaForm.jsp");
+	}
+	
+	public void saveSofifa(){
+		SofifaService.saveSofifa(this);
+		renderJson(1);
+	}
+	
+	public void deleteSofifa(){
+		String ids = getPara("ids");
+		if(StringUtils.isNotBlank(ids)){
+			String whereSql = " where id in (" + ids +")";
+			Db.update("delete from sofifa "+whereSql);
 			renderJson(1);
 		}else{
 			renderJson(0);
