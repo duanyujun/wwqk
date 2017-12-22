@@ -64,6 +64,7 @@ import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.GeneratorUtils;
 import com.wwqk.utils.ImageUtils;
+import com.wwqk.utils.SofifaUtils;
 import com.wwqk.utils.StringUtils;
 import com.wwqk.utils.TranslateUtils;
 import com.wwqk.utils.VideosZuqiulaUtils;
@@ -827,6 +828,7 @@ public class AdminController extends Controller {
 	
 	/**
 	 * 更新videos和league_match_history两个表中的desc字段
+	 * 	
 	 */
 	public void updateDesc(){
 		VideosZuqiulaUtils.updateDesc();
@@ -837,6 +839,21 @@ public class AdminController extends Controller {
 	public void updateMatchVideos() throws ParseException{
 		VideosZuqiulaUtils.updateMatchVideos(this);
 		renderJson(1);
+	}
+	
+	/**
+	 *  更新fifa数据
+	 *  //英超 https://sofifa.com/league/13
+	 *	//西甲 https://sofifa.com/league/53?hl=zh-CN
+	 *	//德甲 https://sofifa.com/league/19
+	 *	//意甲 https://sofifa.com/league/31
+	 *	//法甲 https://sofifa.com/league/16
+	 */
+	public void updateFifaData(){
+		String[] array = {"13","53","19","31","16"};
+		for(String leagueId : array){
+			SofifaUtils.collectLeague(leagueId);
+		}
 	}
 	
 }

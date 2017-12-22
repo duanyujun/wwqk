@@ -35,6 +35,13 @@
                       <div class="col-md-3"><label for="name"></label></div>
                  </div>
                  <div class="form-group">
+                      <label class="col-md-3 control-label">fifa球队：</label>
+                      <div class="col-md-6">
+                           <input type="text" class="form-control" id="team" name="team" value="${sofifa.team}" placeholder="请输入fifa姓名">
+                      </div>
+                      <div class="col-md-3"><label for="name"></label></div>
+                 </div>
+                 <div class="form-group">
                       <label class="control-label col-md-3"><font color="red">*</font>系统球员id：</label>
                       <div class="col-md-4">
                           <select class="bs-select form-control" required data-live-search="true" id="player_id" name="player_id">

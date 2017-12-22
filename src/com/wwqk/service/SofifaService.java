@@ -21,7 +21,7 @@ public class SofifaService {
 		String search = controller.getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
 			search =search.replaceAll("'", "").trim();
-			whereSql = " and (fifa_name like '%"+search+"%')"; 
+			whereSql = " and (fifa_name like '%"+search+"%' or team like '%"+search+"%')"; 
 		}
 		
 		int sortColumn = controller.getParaToInt("order[0][column]");
@@ -29,27 +29,38 @@ public class SofifaService {
 		switch (sortColumn) {
 			case 1:
               orderSql = " order by fifa_name "+sortType;
-              break;case 12:
+              break;
+            case 2:
               orderSql = " order by pac "+sortType;
-              break;case 13:
+              break;
+            case 3:
               orderSql = " order by sho "+sortType;
-              break;case 14:
+              break;
+            case 4:
               orderSql = " order by pas "+sortType;
-              break;case 15:
+              break;
+            case 5:
               orderSql = " order by dri "+sortType;
-              break;case 16:
+              break;
+            case 6:
               orderSql = " order by def "+sortType;
-              break;case 17:
+              break;
+            case 7:
               orderSql = " order by phy "+sortType;
-              break;case 18:
+              break;
+            case 8:
               orderSql = " order by overall_rate "+sortType;
-              break;case 19:
+              break;
+            case 9:
               orderSql = " order by potential "+sortType;
-              break;case 20:
+              break;
+            case 10:
               orderSql = " order by market_value "+sortType;
-              break;case 21:
+              break;
+            case 11:
               orderSql = " order by wage "+sortType;
-              break;case 22:
+              break;
+            case 12:
               orderSql = " order by player_id "+sortType;
               break;
 		default:
