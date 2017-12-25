@@ -42,7 +42,7 @@ public class GeneratorUtils{
 			//视频
 			Elements videosTds = document.select("#videos_td");
 			if(videosTds.size()>0){
-				List<Videos> lstVideos = Videos.dao.find("select id,match_date,match_title,match_en_title from videos where match_date > '2016-10-05 00:00:00' order by match_date desc ");
+				List<Videos> lstVideos = Videos.dao.find("select id,match_date,match_title,match_en_title from videos where match_date > ? order by match_date desc ", nowDate);
 				StringBuilder sb = new StringBuilder();
 				for(Videos videos : lstVideos){
 					sb.append("<a href=\"http://www.yutet.com/vdetail-"+DateTimeUtils.formatDate(videos.getDate("match_date"))+"-"+videos.getStr("match_en_title")+"-"+videos.get("id")+".html\" target=\"_blank\">"+videos.getStr("match_title")+"</a>&nbsp;");
