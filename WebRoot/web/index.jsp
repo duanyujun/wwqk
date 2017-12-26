@@ -295,8 +295,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		jsonObj = JSON.parse('${jsonStr}');
 		if(jsonObj.length!=0){
 			//消息提示
-			showMsg();
-			setInterval("showMsg()",38000); 
+			setTimeout("showMsg()",5000);
+			setInterval("showMsg()",40000); 
 		}
 	});
 	
