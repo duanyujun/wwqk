@@ -181,7 +181,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-12 col-md-12">
+				
+				<c:if test="${!empty fifa}">
+					<div class="col-lg-12 col-md-12">
 						<div class="col-lg-4 col-md-4" style="margin-top:10px;">国际声誉： <c:forEach var="i" begin="1" end="${fifa.inter_rep}"><i class="fa fa-star gold"></i></c:forEach></div>
 						<div class="col-lg-4 col-md-4" style="margin-top:10px;">逆足能力：<c:forEach var="i" begin="1" end="${fifa.unuse_foot}"><i class="fa fa-star gold"></i></c:forEach></div>
 						<div class="col-lg-4 col-md-4" style="margin-top:10px;">花式技巧：<c:forEach var="i" begin="1" end="${fifa.trick}"><i class="fa fa-star gold"></i></c:forEach></div>
@@ -191,8 +193,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="col-lg-4 col-md-4" style="margin-top:10px;">合同到期：${fifa.contract}</div>
 						<div class="col-lg-4 col-md-4" style="margin-top:10px;">综合能力：<span class="label label-success">${fifa.overall_rate}</span></div>
 						<div class="col-lg-4 col-md-4" style="margin-top:10px;">潜力：<span class="label label-success">${fifa.potential}</span></div>
-				</div>
-				
+					</div>
+				</c:if>
 			</div>
 			
 			
