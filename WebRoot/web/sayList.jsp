@@ -151,7 +151,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								<div class="row">
 									<div class="col-lg-12 col-md-12" style="line-height:32px;">
 										<c:if test="${!empty player.team_id}">
-											<a href="team-${player.team_name_en}-${player.team_id}.html" target="_blank" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a>
+											<span class="grey-title"><a href="team-${player.team_name_en}-${player.team_id}.html" target="_blank" title="${player.team_name}"><img src="assets/image/soccer/teams/150x150/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a></span>
 										</c:if>
 										&nbsp;·&nbsp;${player.position}<c:if test="${!empty player.number}">&nbsp;·&nbsp;${player.number}号</c:if>
 									</div>
@@ -309,7 +309,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  <tbody>
 						  	<c:forEach items="${lstTransfer}" var="transfer">
 							    <tr>
-							      	<td style="height:25px;line-height:25px;color:#aaa;"><fmt:formatDate value="${transfer.date}" pattern="yy/MM/dd"/> ${transfer.from_team} → ${transfer.to_team} ${transfer.value}${transfer.extra}<c:if test="${(empty transfer.extra) && transfer.value!='租借' &&  transfer.value!='免签' &&  transfer.value!='无信息'}">万欧元</c:if></td>
+							      	<td class="grey-title" style="height:25px;line-height:25px;"><fmt:formatDate value="${transfer.date}" pattern="yy/MM/dd"/> ${transfer.from_team} → ${transfer.to_team} ${transfer.value}${transfer.extra}<c:if test="${(empty transfer.extra) && transfer.value!='租借' &&  transfer.value!='免签' &&  transfer.value!='无信息'}">万欧元</c:if></td>
 							    </tr>
 						     </c:forEach>
 						  </tbody>
@@ -322,7 +322,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						  <tbody>
 						  	<c:forEach items="${lstNews}" var="news">
 							    <tr>
-							      	<td class="text_cut a-title" style="width:285px;height:25px;line-height:25px;color:#aaa;" title="<fmt:formatDate value="${news.create_time}" pattern="yyyy-MM-dd"/> ${news.title}"><a target="_blank" style="color:#aaa;" href="/fdetail-<fmt:formatDate value="${news.create_time}" pattern="yyyy-MM-dd"/>-${news.title_en}-${news.id}.html"><fmt:formatDate value="${news.create_time}" pattern="MM/dd"/> ${news.title}</a></td>
+							      	<td class="text_cut grey-title" style="width:285px;height:25px;line-height:25px;" title="<fmt:formatDate value="${news.create_time}" pattern="yyyy-MM-dd"/> ${news.title}"><a target="_blank" href="/fdetail-<fmt:formatDate value="${news.create_time}" pattern="yyyy-MM-dd"/>-${news.title_en}-${news.id}.html"><fmt:formatDate value="${news.create_time}" pattern="MM/dd"/> ${news.title}</a></td>
 							    </tr>
 						     </c:forEach>
 						  </tbody>
