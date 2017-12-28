@@ -37,6 +37,7 @@ import com.wwqk.model.Sofifa;
 import com.wwqk.model.Team;
 import com.wwqk.model.TipsMatch;
 import com.wwqk.model.Videos;
+import com.wwqk.model.VideosRealLinks;
 import com.wwqk.plugin.AnalyzeZgzcw;
 import com.wwqk.plugin.Live5chajian;
 import com.wwqk.plugin.LiveZuqiula;
@@ -652,7 +653,11 @@ public class AdminController extends Controller {
 			videos.set("match_date", DateTimeUtils.formatDateTime(videos.getTimestamp("match_date")));
 			setAttr("videos", videos);
 			setAttr("leagueId", getPara("leagueId"));
+			
+			List<VideosRealLinks> lstLinks = VideosRealLinks.dao.find("select * from videos_real_links where videos_id = ?", id);
+			setAttr("lstLinks", lstLinks);
 		}
+		setAttr("is_second", getPara("is_second"));
 		render("admin/videosForm.jsp");
 	}
 	
@@ -708,6 +713,50 @@ public class AdminController extends Controller {
 			renderJson(0);
 		}
 	}
+	
+	public void saveVideosLink() throws UnsupportedEncodingException{
+		String id = getPara("id");
+		String title = getPara("title");
+		String real_url = getPara("real_url");
+		
+		if(StringUtils.isNotBlank(getPara("title"))){
+			title = new String(getPara("title").getBytes("ISO-8859-1"),"UTF-8");
+		}
+		if(StringUtils.isNotBlank(getPara("real_url"))){
+			real_url = real_url.replaceAll("___", "&");
+			real_url = new String(real_url.getBytes("ISO-8859-1"),"UTF-8");
+		}
+		
+		VideosRealLinks links = null;
+		if(StringUtils.isNotBlank(id)){
+			links = VideosRealLinks.dao.findById(id);
+		}else{
+			links = new VideosRealLinks();
+		}
+		links.set("title", java.net.URLDecoder.decode(title , "UTF-8"));
+		links.set("real_url", java.net.URLDecoder.decode(real_url , "UTF-8"));
+		links.set("player_type", getPara("player_type"));
+		links.set("video_type", getPara("video_type"));
+		links.set("videos_id", getPara("videos_id"));
+		links.set("source_url", getPara("source_url"));
+		
+		if(StringUtils.isNotBlank(id)){
+			links.update();
+		}else{
+			links.save();
+		}
+		
+		renderJson(1);
+	}
+	
+	public void deleteVideosLink(){
+		String id = getPara("id");
+		if(StringUtils.isNotBlank(id)){
+			VideosRealLinks.dao.deleteById(id);
+		}
+		renderJson(1);
+	}
+	
 	
 	//日常管理：手动更新比赛信息； 手动更新一只球队球员情况
 	public void dailyManage(){
