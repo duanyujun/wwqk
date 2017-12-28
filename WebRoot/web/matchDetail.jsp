@@ -63,23 +63,23 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<c:if test="${history.status=='完场'}">
 										<span class="a-title" >
 											<c:if test="${!empty videosUrl}">
-												<u><a href="${videosUrl}" target="_blank">集锦</a></u>
+												<u><a href="${videosUrl}" target="_blank"><i class="fa fa-tv"></i> 集锦</a></u>
 											</c:if>
 											<c:if test="${empty videosUrl}">
 												<c:if test="${history.league_id==1}">
-													<u><a href="videos.html" target="_blank">集锦</a></u>
+													<u><a href="videos.html" target="_blank"><i class="fa fa-tv"></i> 集锦</a></u>
 												</c:if>
 												<c:if test="${history.league_id==2}">
-													<u><a href="videos-league-2.html" target="_blank">集锦</a></u>
+													<u><a href="videos-league-2.html" target="_blank"><i class="fa fa-tv"></i> 集锦</a></u>
 												</c:if>
 												<c:if test="${history.league_id==3}">
-													<u><a href="videos-league-3.html" target="_blank">集锦</a></u>
+													<u><a href="videos-league-3.html" target="_blank"><i class="fa fa-tv"></i> 集锦</a></u>
 												</c:if>
 												<c:if test="${history.league_id==4}">
-													<u><a href="videos-league-4.html" target="_blank">集锦</a></u>
+													<u><a href="videos-league-4.html" target="_blank"><i class="fa fa-tv"></i> 集锦</a></u>
 												</c:if>
 												<c:if test="${history.league_id==5}">
-													<u><a href="videos-league-5.html" target="_blank">集锦</a></u>
+													<u><a href="videos-league-5.html" target="_blank"><i class="fa fa-tv"></i> 集锦</a></u>
 												</c:if>
 											</c:if>
 										</span>
@@ -91,7 +91,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									<c:if test="${!empty lstMatchLive}">
 											<span class="a-title" >
 												<c:forEach items="${lstMatchLive}" var="live">
-													<nobr><img src="assets/pages/img/tv.png" style="margin-top:-5px;"/> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;</nobr>
+													<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;</nobr>
 												</c:forEach>
 												<nobr><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_blank" style="color:red;">比分直播</a></nobr>
 											</span>
@@ -454,23 +454,23 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 												<c:if test="${history.status=='完场'}">
 															<span class="a-title" >
 																<c:if test="${!empty videosUrl}">
-																	<u><a href="${videosUrl}" target="_blank">集锦</a></u>
+																	<u><a href="${videosUrl}" target="_blank"><i class="fa fa-tv"></i> 集锦</a></u>
 																</c:if>
 																<c:if test="${empty videosUrl}">
 																	<c:if test="${history.league_id==1}">
-																		<u><a href="videos.html" target="_blank">集锦</a></u>
+																		<u><a href="videos.html" target="_blank"><i class="fa fa-tv"></i> 集锦</a></u>
 																	</c:if>
 																	<c:if test="${history.league_id==2}">
-																		<u><a href="videos-league-2.html" target="_blank">集锦</a></u>
+																		<u><a href="videos-league-2.html" target="_blank"><i class="fa fa-tv"></i> 集锦</a></u>
 																	</c:if>
 																	<c:if test="${history.league_id==3}">
-																		<u><a href="videos-league-3.html" target="_blank">集锦</a></u>
+																		<u><a href="videos-league-3.html" target="_blank"><i class="fa fa-tv"></i> 集锦</a></u>
 																	</c:if>
 																	<c:if test="${history.league_id==4}">
-																		<u><a href="videos-league-4.html" target="_blank">集锦</a></u>
+																		<u><a href="videos-league-4.html" target="_blank"><i class="fa fa-tv"></i> 集锦</a></u>
 																	</c:if>
 																	<c:if test="${history.league_id==5}">
-																		<u><a href="videos-league-5.html" target="_blank">集锦</a></u>
+																		<u><a href="videos-league-5.html" target="_blank"><i class="fa fa-tv"></i> 集锦</a></u>
 																	</c:if>
 																</c:if>
 															</span>
@@ -482,7 +482,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 														<c:if test="${!empty lstMatchLive}">
 																<span class="a-title" >
 																	<c:forEach items="${lstMatchLive}" var="live">
-																		<nobr><img src="assets/pages/img/tv.png" style="margin-top:-5px;"/> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;</nobr>
+																		<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;</nobr>
 																	</c:forEach>
 																	<nobr><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_blank" style="color:red;">比分直播</a></nobr>
 																</span>

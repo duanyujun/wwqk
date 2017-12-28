@@ -58,7 +58,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<c:if test="${!empty lstMatchLive}">
 									<span class="a-title" >
 										<c:forEach items="${lstMatchLive}" var="live">
-											<nobr><img src="assets/pages/img/tv.png" style="margin-top:-5px;"/> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;</nobr>
+											<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;</nobr>
 										</c:forEach>
 										<nobr><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_blank" style="color:red;">比分直播</a></nobr>
 									</span>
@@ -132,7 +132,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 												<c:if test="${!empty lstMatchLive}">
 														<span class="a-title" >
 															<c:forEach items="${lstMatchLive}" var="live">
-																<nobr><img src="assets/pages/img/tv.png" style="margin-top:-5px;"/> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;</nobr>
+																<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;</nobr>
 															</c:forEach>
 															<nobr><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_blank" style="color:red;">比分直播</a></nobr>
 														</span>
