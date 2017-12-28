@@ -515,12 +515,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	var labelDRI = '盘带';
 	var labelDEF = '防守';
 	var labelPHY = '力量';
-	var pointPAC = 53;
-	var pointSHO = 82;
-	var pointPAS = 70;
-	var pointDRI = 73;
-	var pointDEF = 38;
-	var pointPHY = 83;
+	var pointPAC = '${fifa.pac}';
+	var pointSHO = '${fifa.sho}';
+	var pointPAS = '${fifa.pas}';
+	var pointDRI = '${fifa.dri}';
+	var pointDEF = '${fifa.def}';
+	var pointPHY = '${fifa.phy}';
 	function loadRadar(){
 		var myRadar = echarts.init(document.getElementById("radardiv"));
 		myRadar.setOption({
