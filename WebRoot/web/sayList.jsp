@@ -53,7 +53,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<div class="col-sm-7 col-xs-7" style="margin-top:10px;">${player.nationality} ${player.birthday}（${player.age}岁）</div>
 			<div class="col-sm-7 col-xs-7" style="margin-top:10px;">${player.height}&nbsp;·&nbsp;${player.weight}&nbsp;<c:if test="${!empty player.foot}">·&nbsp;惯用${player.foot}</c:if></div>
 			<c:if test="${!empty player.team_id}">
-				<div class="col-sm-7 col-xs-7" style="margin-top:10px;"><a href="team-${player.team_name_en}-${player.team_id}.html" target="_self" title="${player.team_name}" style="color:grey;">${player.team_name}</a>&nbsp;·&nbsp;${player.position}&nbsp;·&nbsp;${player.number}号</div>
+				<div class="col-sm-7 col-xs-7" style="margin-top:10px;"><span class="grey-title font-12"><a href="team-${player.team_name_en}-${player.team_id}.html" target="_self" title="${player.team_name}" >${player.team_name}</a></span>&nbsp;·&nbsp;${player.position}&nbsp;·&nbsp;${player.number}号</div>
 			</c:if>
 			
 			<div class="col-sm-7 col-xs-7" style="margin-top:10px;">赛季数据：
@@ -65,6 +65,49 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	      			<span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span>
 	      		</c:if>
 			</div>
+			
+			<c:if test="${!empty fifa}">
+				<div class="col-sm-7 col-xs-7" style="margin-top:10px;">
+					周薪： ${fifa.wage}&nbsp;&nbsp;身价： ${fifa.market_value}
+				</div>
+			</c:if>
+			<c:if test="${!empty fifa}">
+				<div class="col-sm-12 col-xs-12" >
+					<div class="row">
+						<div class="col-sm-5 col-xs-5" style="margin-top:10px;">
+							<div class="row">
+								
+								<div class="col-sm-12 col-xs-12" style="margin-top:10px;">
+									国际声誉： <c:forEach var="i" begin="1" end="${fifa.inter_rep}"><i class="fa fa-star gold"></i></c:forEach>
+								</div>
+								<div class="col-sm-12 col-xs-12" style="margin-top:10px;">
+									逆足能力：<c:forEach var="i" begin="1" end="${fifa.unuse_foot}"><i class="fa fa-star gold"></i></c:forEach>
+								</div>
+								<div class="col-sm-12 col-xs-12" style="margin-top:10px;">
+									花式技巧：<c:forEach var="i" begin="1" end="${fifa.trick}"><i class="fa fa-star gold"></i></c:forEach>
+								</div>
+								<div class="col-sm-12 col-xs-12" style="margin-top:10px;">
+									<nobr>合同到期：${fifa.contract}</nobr>
+								</div>
+								<div class="col-sm-12 col-xs-12" style="margin-top:10px;">
+									违约金：${fifa.release_clause}
+								</div>
+								<div class="col-sm-12 col-xs-12" style="margin-top:10px;">
+									综合/潜力：<span class="label label-success">${fifa.overall_rate}/${fifa.potential}</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-7 col-xs-7" style="margin-top:10px;">
+							<div class="row">
+								<div class="col-sm-12 col-xs-12" style="margin-top:10px;">
+									<div id="mRadardiv" style="width: 200px; height: 150px; -webkit-tap-highlight-color: transparent; user-select: none; background: transparent;"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</c:if>
+			
 			
 			<c:if test="${!empty NO_SAY}">
 				<div class="col-sm-12 col-xs-12" style="margin-top:15px;">
@@ -349,7 +392,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<script>
 	
 	$(function(){
-		loadRadar();
+		loadRadar(document.getElementById("radardiv"));
 		
 		$('.image').viewer({toolbar:false,
 			zIndex:20000,
@@ -361,6 +404,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			return;
 		}
 		
+		loadRadar(document.getElementById("mRadardiv"));
 	    var noDataStr = '<div class="dropload-noData">暂无数据</div>';
 	    if(parseInt('${initCount}')<5){
 	    	if(parseInt('${initCount}')!=0){
@@ -523,8 +567,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	var pointDRI = '${fifa.dri}';
 	var pointDEF = '${fifa.def}';
 	var pointPHY = '${fifa.phy}';
-	function loadRadar(){
-		var myRadar = echarts.init(document.getElementById("radardiv"));
+	function loadRadar(obj){
+		var myRadar = echarts.init(obj);
 		myRadar.setOption({
 		    radar: {
 		        indicator: [{
