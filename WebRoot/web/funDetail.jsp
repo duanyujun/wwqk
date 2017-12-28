@@ -57,7 +57,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</blockquote>
 			</div>
 			<div class="col-sm-12 col-xs-12" style="margin-top:10px;font-size:14px;">
-				<div class="well well-lg" style="line-height:2;text-indent:20px;padding:10px;">
+				<div class="well well-lg" style="line-height:2;text-indent:20px;padding:10px;background:#fdfdfd;">
 					${fun.content}
 				</div>
 			</div>

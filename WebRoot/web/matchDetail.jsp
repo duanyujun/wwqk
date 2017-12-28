@@ -425,7 +425,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<div class="col-lg-12 col-md-12 ">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 " style="margin-top:10px;font-size:14px;">
-						<div class="well well-lg" style="line-height:2;text-indent:20px;">
+						<div class="well well-lg" style="line-height:2;text-indent:20px;background:#fdfdfd;">
 							<div class="row">
 								<div class="col-lg-12 col-md-12" >
 									<table style="text-indent:0;">
