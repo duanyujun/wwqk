@@ -43,7 +43,7 @@ public class SofifaUtils {
 	
 	private static int countAll = 1;
 	public static void collectTeam(String teamId){
-		System.err.println((countAll++)+" https://sofifa.com/team/"+teamId+"?hl=zh-CN");
+		//System.err.println((countAll++)+" https://sofifa.com/team/"+teamId+"?hl=zh-CN");
 		Connection connection = Jsoup.connect("https://sofifa.com/team/"+teamId+"?hl=zh-CN");
 		connection = connection.data(MatchUtils.getSofifaHeader());
 		try {

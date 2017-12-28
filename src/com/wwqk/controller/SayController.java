@@ -56,6 +56,11 @@ public class SayController extends Controller {
 		if(player.getStr("nationality").contains("波斯尼亚和黑塞哥维那")){
 			player.set("nationality", "波黑");
 		}
+		if(StringUtils.isBlank(player.getStr("foot")) || "0".equals(player.getStr("foot"))){
+			player.set("foot", null);
+		}else if(!player.getStr("foot").contains("脚")){
+			player.set("foot", player.getStr("foot")+"脚");
+		}
 		
 		setAttr("player", player);
 		

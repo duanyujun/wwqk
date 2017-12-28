@@ -854,6 +854,36 @@ public class AdminController extends Controller {
 		for(String leagueId : array){
 			SofifaUtils.collectLeague(leagueId);
 		}
+		renderJson(1);
+	}
+	
+	public void updateLeagueFifa(){
+		String leagueId = getPara("leagueId");
+		SofifaUtils.collectLeague(leagueId);
+		renderJson(1);
+	}
+	
+	/**
+	 * 同步球衣号码与惯用脚
+	 */
+	public void updateNumberFoot(){
+		List<Sofifa> lstFifa = Sofifa.dao.find("select id, foot, number, player_id from sofifa");
+		List<Player> lstPlayers = Player.dao.find("select * from player");
+		Map<String, Player> map = new HashMap<String, Player>();
+		for(Player player:lstPlayers){
+			map.put(player.getStr("id"), player);
+		}
+		
+		for(int i=0; i<lstFifa.size(); i++){
+			System.err.println(i);
+			Player player = map.get(lstFifa.get(i).getStr("player_id"));
+			if(player!=null){
+				player.set("number", lstFifa.get(i).get("number"));
+				player.set("foot", lstFifa.get(i).get("foot"));
+			}
+		}
+		Db.batchUpdate(lstPlayers, lstPlayers.size());
+		renderJson(1);
 	}
 	
 }

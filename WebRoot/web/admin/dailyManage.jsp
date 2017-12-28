@@ -119,6 +119,29 @@
             </div>
             
             <div class="row" style="margin-top:20px;">
+            	<div class="col-md-6 col-sm-6 col-xs-6">
+                	<select id="fifaLeagueId">
+                		<option value="">--请选择联赛--</option>
+                		<option value="13">英超</option>
+                		<option value="53">西甲</option>
+                		<option value="19">德甲</option>
+                		<option value="31">意甲</option>
+                		<option value="16">法甲</option>
+                	</select>
+                    <button onclick="updateLeagueFifa();" class="btn sbold green" style="margin-left:10px;"> 更新联赛FIFA数据
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="btn-group">
+                        <button onclick="updateNumberFoot();" class="btn sbold green" style="margin-left:10px;"> 同步球衣号码及惯用脚
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row" style="margin-top:20px;">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <select id="matches">
                 		<option value="">--请选择比赛--</option>
@@ -134,6 +157,8 @@
                 	<div style="width:100%;min-height:100px;" id="result_div"></div>
                 </div>
             </div>
+            
+             
             
             
         </div>
@@ -286,6 +311,27 @@ function updateMatchVideos(){
 				{videosId: $("#videosId").val()},
 				function(result){
 					$("#videosId").val("");
+					$("body").hideLoading();
+					showToast(1, "更新成功！", "温馨提示");
+				}
+	);
+}
+
+function updateNumberFoot(){
+	commonPost("/admin/updateNumberFoot");
+}
+
+function updateLeagueFifa(){
+	
+	if($("#fifaLeagueId").val()==''){
+		showToast(2, "请选择联赛", "温馨提示");
+		return;
+	}
+	$("body").showLoading();
+	showToast(1, "更新中...", "温馨提示");
+	$.post("/admin/updateLeagueFifa",
+				{leagueId: $("#fifaLeagueId").val()},
+				function(result){
 					$("body").hideLoading();
 					showToast(1, "更新成功！", "温馨提示");
 				}

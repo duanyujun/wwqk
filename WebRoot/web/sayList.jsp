@@ -51,7 +51,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			</div>
 		
 			<div class="col-sm-7 col-xs-7" style="margin-top:10px;">${player.nationality} ${player.birthday}（${player.age}岁）</div>
-			<div class="col-sm-7 col-xs-7" style="margin-top:10px;">${player.height}&nbsp;·&nbsp;${player.weight}&nbsp;<c:if test="${!empty player.foot}">·&nbsp;惯用${player.foot}脚</c:if></div>
+			<div class="col-sm-7 col-xs-7" style="margin-top:10px;">${player.height}&nbsp;·&nbsp;${player.weight}&nbsp;<c:if test="${!empty player.foot}">·&nbsp;惯用${player.foot}</c:if></div>
 			<c:if test="${!empty player.team_id}">
 				<div class="col-sm-7 col-xs-7" style="margin-top:10px;"><a href="team-${player.team_name_en}-${player.team_id}.html" target="_self" title="${player.team_name}" style="color:grey;">${player.team_name}</a>&nbsp;·&nbsp;${player.position}&nbsp;·&nbsp;${player.number}号</div>
 			</c:if>
@@ -145,7 +145,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</div>
 								<div class="row">
 									<div class="col-lg-12 col-md-12" style="line-height:32px;">
-										${player.height}&nbsp;·&nbsp;${player.weight}&nbsp;<c:if test="${!empty player.foot}">·&nbsp;惯用${player.foot}脚</c:if>
+										${player.height}&nbsp;·&nbsp;${player.weight}&nbsp;<c:if test="${!empty player.foot}">·&nbsp;惯用${player.foot}</c:if>
 									</div>
 								</div>
 								<div class="row">
