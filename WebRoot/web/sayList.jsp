@@ -204,7 +204,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										<c:if test="${!empty fifa}">
 										周薪：${fifa.wage}&nbsp;
 										</c:if>
-										赛季数据：
+										<c:if test="${player.goal_count!=0 || player.assists_count!=0}">
+							      		赛季数据：
+							      		</c:if>
 										<c:if test="${player.goal_count!=0}">
 							      			<span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span>
 							      		</c:if>
