@@ -48,6 +48,7 @@ import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.LeaguePosition;
 import com.wwqk.model.LeagueShooter;
 import com.wwqk.model.LeagueShooter163;
+import com.wwqk.model.MatchGuess;
 import com.wwqk.model.MatchLive;
 import com.wwqk.model.MatchSource;
 import com.wwqk.model.MatchSourceSina;
@@ -173,6 +174,7 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("videos", Videos.class);
 		arp.addMapping("videos_real_links", VideosRealLinks.class);
 		arp.addMapping("sofifa", Sofifa.class);
+		arp.addMapping("match_guess", MatchGuess.class);
 		
 		me.add(c3p0Plugin);
 		me.add(arp);
