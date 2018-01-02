@@ -137,6 +137,9 @@
                         <button onclick="updateNumberFoot();" class="btn sbold green" style="margin-left:10px;"> 同步球衣号码及惯用脚
                             <i class="fa fa-refresh"></i>
                         </button>
+                        <button onclick="updateMatchGuess();" class="btn sbold green" style="margin-left:10px;"> 同步网友推荐
+                            <i class="fa fa-refresh"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -319,6 +322,10 @@ function updateMatchVideos(){
 
 function updateNumberFoot(){
 	commonPost("/admin/updateNumberFoot");
+}
+
+function updateMatchGuess(){
+	commonPost("/admin/updateMatchGuess");
 }
 
 function updateLeagueFifa(){

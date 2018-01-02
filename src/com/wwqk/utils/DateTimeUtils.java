@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.TimeZone;
 
@@ -1225,5 +1226,11 @@ public final class DateTimeUtils {
 
 	       return isSameDate;
 	 }
+	
+	public static Date getTimeZoneDate(String dateStr) throws ParseException{
+		SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
+		Date date = sdf.parse(dateStr);
+		return date;
+	}
 	
 }

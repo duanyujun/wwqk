@@ -374,6 +374,21 @@ public class MatchUtils {
 	       return header;
 	}
 	
+	public static Map<String, String> getBetHeader(String path) {
+		Map<String, String> header = new HashMap<String, String>();
+
+		header.put("accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+		header.put("accept-encoding", "gzip, deflate, br");
+		header.put("accept-language", "zh-CN,zh;q=0.9,en;q=0.8");
+		header.put("user-agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36");
+		header.put(":authority", "www.bettingexpert.com");
+		header.put(":method", "GET");
+		header.put(":path", path);
+		header.put(":scheme", "https");
+
+		return header;
+	}
+	
 	
 	public static void main(String[] args) throws IOException {
 		String SIET_URL = "http://m.188bifen.com/json/zuqiu.htm?k=0.61970021480676236";

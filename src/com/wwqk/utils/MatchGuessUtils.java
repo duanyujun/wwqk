@@ -7,13 +7,19 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.zip.GZIPInputStream;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import com.jfinal.plugin.activerecord.Db;
 import com.rometools.rome.feed.rss.Channel;
 import com.rometools.rome.feed.rss.Description;
 import com.rometools.rome.feed.rss.Guid;
@@ -28,22 +34,58 @@ import com.wwqk.model.MatchGuess;
 
 public class MatchGuessUtils {
 
-	public static void collect() throws Exception {
+	public static void collect(){
+		List<MatchGuess> lstGuessesAdd = new ArrayList<MatchGuess>();
 		List<MatchGuess> lstGuesses = new ArrayList<MatchGuess>();
-		URL url = new URL("https://www.bettingexpert.com/tips.rss");
-		URLConnection conn = url.openConnection();
-		configConn(conn, "/tips.rss");
-		String content_encoding = conn.getHeaderField("Content-Encoding");
-		if (content_encoding != null && content_encoding.contains("gzip")) {
-			System.out.println("conent encoding is gzip");
-			GZIPInputStream gzin = new GZIPInputStream(
-					conn.getInputStream());
-			lstGuesses = staxParse(gzin);
-		} else {
-			lstGuesses = staxParse(conn.getInputStream());
+		try {
+			URL url = new URL("https://www.bettingexpert.com/tips.rss");
+			URLConnection conn = url.openConnection();
+			configConn(conn, "/tips.rss");
+			String content_encoding = conn.getHeaderField("Content-Encoding");
+			if (content_encoding != null && content_encoding.contains("gzip")) {
+				System.out.println("conent encoding is gzip");
+				GZIPInputStream gzin = new GZIPInputStream(
+						conn.getInputStream());
+				lstGuesses = staxParse(gzin);
+			} else {
+				lstGuesses = staxParse(conn.getInputStream());
+			}
+			for(MatchGuess guess:lstGuesses){
+				if(MatchGuess.dao.findFirst("select * from match_guess where source_url = ? ", guess.getStr("source_url"))==null){
+					guess.getAttrs().remove("sport");
+					collectOneTips(guess);
+					if(StringUtils.isNotBlank(guess.getStr("bet_title")) && StringUtils.isNotBlank(guess.getStr("content"))){
+						lstGuessesAdd.add(guess);
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		for(MatchGuess guess:lstGuesses){
-			System.err.println(guess.getStr("country")+" "+guess.getStr("league")+" "+guess.getStr("source_url"));
+		
+		
+		if(lstGuessesAdd.size()>0){
+			Db.batchSave(lstGuessesAdd, lstGuessesAdd.size());
+		}
+		
+	}
+	
+	private static void collectOneTips(MatchGuess guess) throws Exception{
+		String sourceUrl = guess.getStr("source_url");
+		Connection connection = Jsoup.connect(sourceUrl);
+		String path = sourceUrl.replace("https://www.bettingexpert.com", "");
+		Map<String, String> map = MatchUtils.getBetHeader(path);
+		for(Entry<String, String> entry :map.entrySet()){
+			connection.header(entry.getKey(), entry.getValue());
+		}
+		try {
+			Document doc = connection.get();
+			String title = doc.select(".clashOneliner").get(0).text();
+			String content = doc.select(".tipArticle").get(0).text();
+			guess.set("bet_title", title);
+			guess.set("content", content);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -89,6 +131,7 @@ public class MatchGuessUtils {
             XMLStreamReader reader = factory.createXMLStreamReader(in);
             MatchGuess oneItem = null;
             boolean isFirst = false;
+            boolean isTipsterName = false;
             while(reader.hasNext()) {
                 int type = reader.next();
                 //判断节点类型是否是开始或者结束或者文本节点,之后根据情况及进行处理
@@ -107,6 +150,17 @@ public class MatchGuessUtils {
                     	oneItem.set("league", reader.getElementText());
                     }else if("sport".equals(reader.getName().toString())){
                     	oneItem.getAttrs().put("sport", reader.getElementText());
+                    }else if("pubDate".equals(reader.getName().toString())){
+                    	oneItem.set("publish_time", DateTimeUtils.getTimeZoneDate(reader.getElementText()));
+                    }else if("kickoffDate".equals(reader.getName().toString())){
+                    	oneItem.set("match_time", DateTimeUtils.getTimeZoneDate(reader.getElementText()));
+                    }else if("tipster".equals(reader.getName().toString())){
+                    	isTipsterName = true;
+                    }else if("name".equals(reader.getName().toString())){
+                    	if(isTipsterName){
+                    		oneItem.set("tipster_name", reader.getElementText());
+                    		isTipsterName = false;
+                    	}
                     }
                 }else if(type==XMLStreamConstants.END_ELEMENT){
                 	if("item".equals(reader.getName().toString())){
@@ -118,7 +172,7 @@ public class MatchGuessUtils {
                 
                 
             }
-        } catch (XMLStreamException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
@@ -187,7 +241,8 @@ public class MatchGuessUtils {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		collect();
+		//collect();
+		
 	}
 
 }

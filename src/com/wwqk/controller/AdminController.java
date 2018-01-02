@@ -30,6 +30,7 @@ import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.LeagueShooter;
 import com.wwqk.model.LeagueShooter163;
+import com.wwqk.model.MatchGuess;
 import com.wwqk.model.MatchLive;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
@@ -52,6 +53,7 @@ import com.wwqk.service.AllMatchService;
 import com.wwqk.service.Assists163Service;
 import com.wwqk.service.FunService;
 import com.wwqk.service.LeagueService;
+import com.wwqk.service.MatchGuessService;
 import com.wwqk.service.MatchHistoryService;
 import com.wwqk.service.MatchService;
 import com.wwqk.service.PlayerService;
@@ -65,6 +67,7 @@ import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.GeneratorUtils;
 import com.wwqk.utils.ImageUtils;
+import com.wwqk.utils.MatchGuessUtils;
 import com.wwqk.utils.SofifaUtils;
 import com.wwqk.utils.StringUtils;
 import com.wwqk.utils.TranslateUtils;
@@ -758,6 +761,49 @@ public class AdminController extends Controller {
 	}
 	
 	
+	public void listMatchGuess(){
+		render("admin/matchGuessList.jsp");
+	}
+	
+	public void matchGuessData(){
+		Map<Object, Object> map = MatchGuessService.matchGuessData(this);
+		renderJson(map);
+	}
+	
+	public void editMatchGuess(){
+		String id = getPara("id");
+		if(id!=null){
+			MatchGuess matchGuess = MatchGuess.dao.findById(id);
+			matchGuess.set("match_time", DateTimeUtils.formatDateTime(matchGuess.getTimestamp("match_time")));
+			setAttr("matchGuess", matchGuess);
+		}
+		Date nowDate = DateTimeUtils.addHours(new Date(), -20);
+		List<AllLiveMatch> lstAllLiveMatch = AllLiveMatch.dao.find("select id,league_name,match_datetime,home_team_name,away_team_name from all_live_match where match_datetime > ?", nowDate);
+		for(AllLiveMatch liveMatch:lstAllLiveMatch){
+			liveMatch.set("match_datetime", DateTimeUtils.formatDateTime(liveMatch.getTimestamp("match_datetime")));
+		}
+		setAttr("lstLiveMatch", lstAllLiveMatch);
+		
+		render("admin/matchGuessForm.jsp");
+	}
+	
+	public void saveMatchGuess(){
+		MatchGuessService.saveMatchGuess(this);
+		renderJson(1);
+	}
+	
+	public void deleteMatchGuess(){
+		String ids = getPara("ids");
+		if(StringUtils.isNotBlank(ids)){
+			String whereSql = " where id in (" + ids +")";
+			Db.update("delete from match_guess "+whereSql);
+			renderJson(1);
+		}else{
+			renderJson(0);
+		}
+	}
+	
+	
 	//日常管理：手动更新比赛信息； 手动更新一只球队球员情况
 	public void dailyManage(){
 		//获取比赛联赛信息
@@ -932,6 +978,11 @@ public class AdminController extends Controller {
 			}
 		}
 		Db.batchUpdate(lstPlayers, lstPlayers.size());
+		renderJson(1);
+	}
+	
+	public void updateMatchGuess(){
+		MatchGuessUtils.collect();
 		renderJson(1);
 	}
 	
