@@ -14,6 +14,7 @@ import com.wwqk.constants.MenuEnum;
 import com.wwqk.constants.OddsProviderEnum;
 import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeagueMatchHistory;
+import com.wwqk.model.MatchGuess;
 import com.wwqk.model.MatchLive;
 import com.wwqk.model.Team;
 import com.wwqk.model.TipsAll;
@@ -81,6 +82,10 @@ public class MatchController extends Controller {
 		if(lstMatchLive.size()>0){
 			setAttr("lstMatchLive", lstMatchLive);
 		}
+		
+		//网友推荐
+		List<MatchGuess> lstMatchGuesses = MatchGuess.dao.find("select * from match_guess where match_key = ? ", matchKey);
+		setAttr("lstGuess", lstMatchGuesses);
 		//主队球场
 		LeagueMatchHistory history = LeagueMatchHistory.dao.findById(matchKey);
 		

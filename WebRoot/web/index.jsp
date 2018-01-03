@@ -209,6 +209,22 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<div class="col-lg-12 col-md-12">
 					<table class="table">
 					  <tbody>
+					  	<c:if test="${!empty lstGuesses}">
+					  		<tr>
+					    		<td id="guess_show" colspan="3" class="team-title" style="font-size:14px;">
+					    		网友<i>${lstGuesses[0].tipster_name}</i> 推荐 <img src="assets/image/page/voice.png" style="width:18px;margin-top:-5px;"><br>
+					    		${lstGuesses[0].bet_title_cn}&nbsp;<a href="" target="_blank"><u>详情</u></a>
+					    		</td>
+					    	</tr>
+					  		<c:forEach items="${lstGuesses}" var="guess" varStatus="status">
+					  			<tr style="display:none;">
+						    		<td id="guess_${status.index}" colspan="3" class="team-title" style="font-size:14px;">
+						    		网友<i>${guess.tipster_name}</i> 推荐 <img src="assets/image/page/voice.png" style="width:18px;margin-top:-5px;"><br>
+						    		${guess.bet_title_cn}&nbsp;<a href="" target="_blank"><u>详情</u></a>
+						    		</td>
+						    	</tr>
+					  		</c:forEach>
+					  	</c:if>
 					  	<c:forEach items="${lstRecomMatches}" var="match">
 						    <tr style="font-size:12px;">
 						      <td class="team-title">
@@ -233,11 +249,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						      </td>
 						    </tr>
 					    </c:forEach>
+					    	
 					  </tbody>
 					</table>
 					
 				</div>
 			</div>
+			
 		</div>
 	</div>
     <!-- PC内容结束 -->
@@ -287,6 +305,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	  } 
 	}
 	
+	var startCount = 1;
+	var guessCount = parseInt('${guessCount}');
 	var jsonObj;
 	$(document).ready(function(){
 		$(window).resize(function() {
@@ -298,7 +318,21 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			setTimeout("showMsg()",5000);
 			setInterval("showMsg()",40000); 
 		}
+		
+		if(guessCount>0){
+			setInterval("changeGuess()",30000); 
+		}
 	});
+	
+	function changeGuess(){
+		if(startCount<guessCount-1){
+			$("#guess_show").html($("#guess_"+startCount).html());
+			startCount++;
+		}else{
+			$("#guess_show").html($("#guess_0").html());
+			startCount = 1;
+		}
+	}
 	
 	var i = 0;
 	function showMsg(){
@@ -336,7 +370,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					  title: false,   
 					  msg: leagueName+' '+homeName+' vs '+awayName+urlLink+'<br><span title="'+predictionAll+'">'+predictionDesc+'</span>',  
 					  icon: false, 
-					  delay: 12000, 
+					  delay: 25000, 
 					  position: "bottom right"
 				  }
 		); 

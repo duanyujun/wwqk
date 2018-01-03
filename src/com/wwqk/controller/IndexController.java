@@ -19,6 +19,7 @@ import com.wwqk.constants.MenuEnum;
 import com.wwqk.model.Fun;
 import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeaguePosition;
+import com.wwqk.model.MatchGuess;
 import com.wwqk.model.TipsMatch;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.DateTimeUtils;
@@ -38,6 +39,7 @@ public class IndexController extends Controller {
 		getRecomMatches();
 		CommonUtils.initLeagueNameMap();
 		getMatchNews();
+		getMatchGuess();
 		
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.INDEX.getKey());
 		render("index.jsp");
@@ -178,9 +180,17 @@ public class IndexController extends Controller {
 		}else{
 			lstResult.addAll(lstChooseMatch);
 		}
-	
 		
 		return lstResult;
+	}
+	
+	private void getMatchGuess(){
+		Date nowDate = DateTimeUtils.addHours(new Date(), -2);
+		List<MatchGuess> lstGuesses = MatchGuess.dao.find("select * from match_guess where live_match_id!=0 and match_time > ? order by match_time desc limit 0, 20", nowDate);
+		if(lstGuesses.size()>0){
+			setAttr("lstGuesses", lstGuesses);
+			setAttr("guessCount", lstGuesses.size());
+		}
 	}
 	
 }

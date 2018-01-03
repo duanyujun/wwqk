@@ -6,15 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.tx.Tx;
+import com.wwqk.model.AllLiveMatch;
 import com.wwqk.model.MatchGuess;
 import com.wwqk.utils.DateTimeUtils;
-import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.StringUtils;
-import com.jfinal.upload.UploadFile;
-
-import java.util.UUID;
 
 public class MatchGuessService {
 
@@ -80,6 +79,7 @@ public class MatchGuessService {
 		return map;
 	}
 	
+	@Before(Tx.class)
 	public static void saveMatchGuess(Controller controller){
 	
 		String id = controller.getPara("id");
@@ -90,7 +90,17 @@ public class MatchGuessService {
 			matchGuess = MatchGuess.dao.findById(id);
 		}
 		
-		matchGuess.set("live_match_id", controller.getPara("live_match_id"));
+		String liveMatchId = controller.getPara("live_match_id");
+		if(StringUtils.isNotBlank(liveMatchId)){
+			matchGuess.set("live_match_id", liveMatchId);
+			AllLiveMatch liveMatch = AllLiveMatch.dao.findFirst("select * from all_live_match where id = ?", controller.getPara("live_match_id"));
+			if(StringUtils.isNotBlank(liveMatch.getStr("match_key"))){
+				matchGuess.set("match_key", liveMatch.getStr("match_key"));
+				liveMatch.set("tips", "1");
+				liveMatch.update();
+			}
+		}
+		
 		if(StringUtils.isNotBlank(controller.getPara("bet_title"))){
 			matchGuess.set("bet_title", controller.getPara("bet_title"));
 		}

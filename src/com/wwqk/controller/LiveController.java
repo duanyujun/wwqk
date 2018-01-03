@@ -16,6 +16,7 @@ import com.wwqk.constants.MenuEnum;
 import com.wwqk.constants.OddsProviderEnum;
 import com.wwqk.model.AllLiveMatch;
 import com.wwqk.model.LeagueMatchHistory;
+import com.wwqk.model.MatchGuess;
 import com.wwqk.model.MatchLive;
 import com.wwqk.model.Team;
 import com.wwqk.model.TipsAll;
@@ -97,6 +98,10 @@ public class LiveController extends Controller {
 		if(lstMatchLive.size()>0){
 			setAttr("lstMatchLive", lstMatchLive);
 		}
+		
+		//网友推荐
+		List<MatchGuess> lstMatchGuesses = MatchGuess.dao.find("select * from match_guess where live_match_id = ? ", id);
+		setAttr("lstGuess", lstMatchGuesses);
 		
 		//处理杯赛中两联赛中的队伍问题
 		if(!"英超".equals(match.getStr("league_name"))
