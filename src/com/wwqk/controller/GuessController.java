@@ -27,7 +27,12 @@ public class GuessController extends Controller{
 	
 	public void detail(){
 		String id = getPara("id");
-		AllLiveMatch match = AllLiveMatch.dao.findFirst("select * from all_live_match where live_match_id = ? ", id);
+		MatchGuess guess = MatchGuess.dao.findById(id);
+		if(guess==null){
+			redirect("/live");
+			return;
+		}
+		AllLiveMatch match = AllLiveMatch.dao.findFirst("select * from all_live_match where id = ? ", guess.get("live_match_id"));
 		if(match==null){
 			redirect("/live");
 			return;
@@ -41,7 +46,7 @@ public class GuessController extends Controller{
 		}
 		
 		//网友推荐
-		List<MatchGuess> lstMatchGuesses = MatchGuess.dao.find("select * from match_guess where live_match_id = ? ", id);
+		List<MatchGuess> lstMatchGuesses = MatchGuess.dao.find("select * from match_guess where live_match_id = ? ", guess.get("live_match_id"));
 		setAttr("lstGuess", lstMatchGuesses);
 		
 		//处理杯赛中两联赛中的队伍问题

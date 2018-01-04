@@ -320,12 +320,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		}
 		
 		if(guessCount>0){
-			setInterval("changeGuess()",30000); 
+			setInterval("changeGuess()",18000); 
 		}
 	});
 	
 	function changeGuess(){
-		if(startCount<guessCount-1){
+		if(startCount<guessCount){
 			$("#guess_show").html($("#guess_"+startCount).html());
 			startCount++;
 		}else{
