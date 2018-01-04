@@ -195,7 +195,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 												
 													<ul id="guessTab" class="nav nav-tabs bread" >
 														<c:forEach items="${lstGuess}" var="guess" varStatus="status">
-															<li class="${guessId==guess.id?'active':''}"><a href="#guess_tab_${status.index}" data-toggle="tab">${guess.tipster_name}</a></li>
+															<li class="${guessId==guess.id?'active':''}"><a href="#guess_tab_${status.index}" id="gtab_${guess.id}" data-toggle="tab">${guess.tipster_name}</a></li>
 														</c:forEach>
 													</ul>
 													<div id="guessTabContent" class="tab-content">
@@ -250,6 +250,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	})();
 	
 	$(function(){
+		var guessId = '${guessId}';
+		if(guessId!=''){
+			$('#myTab a[id="#gtab_'+guessId+'"]').tab('show');
+		}
+		
 		$('.image').viewer(
 				{toolbar:false, 
 				zIndex:20000,
