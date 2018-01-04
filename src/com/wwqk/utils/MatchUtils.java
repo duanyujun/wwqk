@@ -381,10 +381,11 @@ public class MatchUtils {
 		header.put("accept-encoding", "gzip, deflate, br");
 		header.put("accept-language", "zh-CN,zh;q=0.9,en;q=0.8");
 		header.put("user-agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36");
-		header.put(":authority", "www.bettingexpert.com");
-		header.put(":method", "GET");
-		header.put(":path", path);
-		header.put(":scheme", "https");
+		
+		header.put("authority", "www.bettingexpert.com");
+		header.put("method", "GET");
+		header.put("path", path);
+		header.put("scheme", "https");
 
 		return header;
 	}

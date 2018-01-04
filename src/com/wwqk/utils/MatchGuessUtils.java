@@ -72,6 +72,7 @@ public class MatchGuessUtils {
 	
 	private static void collectOneTips(MatchGuess guess) throws Exception{
 		String sourceUrl = guess.getStr("source_url");
+		System.err.println(sourceUrl);
 		Connection connection = Jsoup.connect(sourceUrl);
 		String path = sourceUrl.replace("https://www.bettingexpert.com", "");
 		Map<String, String> map = MatchUtils.getBetHeader(path);
@@ -234,10 +235,10 @@ public class MatchGuessUtils {
 		conn.setRequestProperty("accept-encoding", "gzip, deflate, br");
 		conn.setRequestProperty("accept-language", "zh-CN,zh;q=0.9,en;q=0.8");
 		conn.setRequestProperty("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36");
-		conn.setRequestProperty(":authority", "www.bettingexpert.com");
-		conn.setRequestProperty(":method", "GET");
-		conn.setRequestProperty(":path", path);
-		conn.setRequestProperty(":scheme", "https");
+		conn.setRequestProperty("authority", "www.bettingexpert.com");
+		conn.setRequestProperty("method", "GET");
+		conn.setRequestProperty("path", path);
+		conn.setRequestProperty("scheme", "https");
 	}
 	
 	public static void main(String[] args) throws Exception {

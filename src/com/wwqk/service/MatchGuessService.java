@@ -18,7 +18,7 @@ import com.wwqk.utils.StringUtils;
 public class MatchGuessService {
 
 	public static Map<Object, Object> matchGuessData(Controller controller){
-		Date nowDate = DateTimeUtils.addHours(new Date(), -20);
+		Date nowDate = DateTimeUtils.addHours(new Date(), -2);
 		String sumSql = "select count(*) from match_guess where match_time > ?  ";
 		String sql = "select * from match_guess where match_time > ? ";
 		String orderSql = "";
