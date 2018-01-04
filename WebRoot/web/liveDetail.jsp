@@ -195,12 +195,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 												
 													<ul id="guessTab" class="nav nav-tabs bread" >
 														<c:forEach items="${lstGuess}" var="guess" varStatus="status">
-															<li class="${status.index==0?'active':''}"><a href="#guess_tab_${status.index}" data-toggle="tab">${guess.tipster_name}</a></li>
+															<li class="${guessId==guess.id?'active':''}"><a href="#guess_tab_${status.index}" data-toggle="tab">${guess.tipster_name}</a></li>
 														</c:forEach>
 													</ul>
 													<div id="guessTabContent" class="tab-content">
 														<c:forEach items="${lstGuess}" var="guess" varStatus="status">
-															<div class="tab-pane fade in ${status.index==0?'active':''}" id="guess_tab_${status.index}" style="border:1px solid #ddd;border-top:none;padding:8px;">
+															<div class="tab-pane fade in ${guessId==guess.id?'active':''}" id="guess_tab_${status.index}" style="border:1px solid #ddd;border-top:none;padding:8px;">
 																	<div class="alert alert-success" style="background-color:#f5f5f5;color:#333;">
 																		<span class="label label-danger">荐</span> <b>${guess.bet_title_cn}</b>
 																	</div>

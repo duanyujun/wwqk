@@ -213,14 +213,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					  		<tr>
 					    		<td id="guess_show" colspan="3" class="team-title" style="font-size:14px;">
 					    		网友<i>${lstGuesses[0].tipster_name}</i> 推荐 <img src="assets/image/page/voice.png" style="width:18px;margin-top:-5px;"><br>
-					    		${lstGuesses[0].bet_title_cn}&nbsp;<a href="" target="_blank"><u>详情</u></a>
+					    		${lstGuesses[0].bet_title_cn}&nbsp;<a href="guess-${lstGuesses[0].id}.html" target="_blank"><u>详情</u></a>
 					    		</td>
 					    	</tr>
 					  		<c:forEach items="${lstGuesses}" var="guess" varStatus="status">
 					  			<tr style="display:none;">
 						    		<td id="guess_${status.index}" colspan="3" class="team-title" style="font-size:14px;">
 						    		网友<i>${guess.tipster_name}</i> 推荐 <img src="assets/image/page/voice.png" style="width:18px;margin-top:-5px;"><br>
-						    		${guess.bet_title_cn}&nbsp;<a href="" target="_blank"><u>详情</u></a>
+						    		${guess.bet_title_cn}&nbsp;<a href="guess-${guess.id}.html" target="_blank"><u>详情</u></a>
 						    		</td>
 						    	</tr>
 					  		</c:forEach>
