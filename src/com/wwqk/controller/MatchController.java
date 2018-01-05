@@ -86,6 +86,9 @@ public class MatchController extends Controller {
 		//网友推荐
 		List<MatchGuess> lstMatchGuesses = MatchGuess.dao.find("select * from match_guess where match_key = ? ", matchKey);
 		setAttr("lstGuess", lstMatchGuesses);
+		if(lstMatchGuesses.size()>0){
+			setAttr("guessId", lstMatchGuesses.get(0).get("id"));
+		}
 		//主队球场
 		LeagueMatchHistory history = LeagueMatchHistory.dao.findById(matchKey);
 		

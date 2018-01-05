@@ -102,6 +102,9 @@ public class LiveController extends Controller {
 		//网友推荐
 		List<MatchGuess> lstMatchGuesses = MatchGuess.dao.find("select * from match_guess where live_match_id = ? ", id);
 		setAttr("lstGuess", lstMatchGuesses);
+		if(lstMatchGuesses.size()>0){
+			setAttr("guessId", lstMatchGuesses.get(0).get("id"));
+		}
 		
 		//处理杯赛中两联赛中的队伍问题
 		if(!"英超".equals(match.getStr("league_name"))
