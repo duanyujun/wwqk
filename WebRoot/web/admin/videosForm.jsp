@@ -72,7 +72,7 @@
 				                      </div>
 				                      <div class="col-md-3"><label for="name"></label></div>
 				                 </div>
-				                 <div class="form-group">
+				                 <div class="form-group" style="display:none;">
 				                      <label class="col-md-3 control-label">来源：</label>
 				                      <div class="col-md-6">
 				                           <input type="text" class="form-control" id="from_site" name="from_site"  value="${videos.from_site}" placeholder="请输入来源">
@@ -99,6 +99,12 @@
 				                           <input type="text" class="form-control" id="description" name="description"  value="${videos.description}" placeholder="请输入简述">
 				                      </div>
 				                      <div class="col-md-3"><label for="name"></label></div>
+				                 </div>
+				                 <div class="form-group">
+				                      <label class="col-md-3 control-label">summary：</label>
+				                      <div class="col-md-8">
+				                      		 <textarea rows="7" cols="50"  class="form-control" id="summary" name="summary">${videos.summary}</textarea>
+				                      </div>
 				                 </div>
 				
 							  		<div class="form-group">

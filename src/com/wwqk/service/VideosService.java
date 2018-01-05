@@ -126,7 +126,10 @@ public class VideosService {
         }else{
         	videos.set("description", null);
         }
-
+        if(StringUtils.isNotBlank(controller.getPara("summary"))){
+        	videos.set("summary", controller.getPara("summary"));
+        }
+        
 		save(videos);
 	}
 	

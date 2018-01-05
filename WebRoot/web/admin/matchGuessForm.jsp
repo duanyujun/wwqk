@@ -68,7 +68,7 @@
                  <div class="form-group">
                       <label class="col-md-3 control-label">中文内容：</label>
                       <div class="col-md-8">
-                      		 <textarea rows="4" cols="50"  class="form-control" id="content_cn" name="content_cn">${matchGuess.content_cn}</textarea>
+                      		 <textarea rows="7" cols="50"  class="form-control" id="content_cn" name="content_cn">${matchGuess.content_cn}</textarea>
                       </div>
                  </div>
                  
