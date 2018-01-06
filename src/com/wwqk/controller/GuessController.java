@@ -15,7 +15,9 @@ import com.wwqk.model.MatchLive;
 import com.wwqk.model.Team;
 import com.wwqk.model.TipsAll;
 import com.wwqk.model.TipsMatch;
+import com.wwqk.model.Videos;
 import com.wwqk.plugin.OddsUtils;
+import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.EnumUtils;
 import com.wwqk.utils.StringUtils;
 
@@ -86,7 +88,7 @@ public class GuessController extends Controller{
 			render("liveDetail.jsp");
 		}else{
 			LeagueMatchHistory history = LeagueMatchHistory.dao.findFirst(
-					"select * from league_match_history where leauge_id = ? and home_team_id = ? and away_team_id = ? and year_show = ? ",
+					"select * from league_match_history where league_id = ? and home_team_id = ? and away_team_id = ? and year_show = ? ",
 					match.getStr("league_id"),match.getStr("home_team_id"),match.getStr("away_team_id"),match.getStr("year_show"));
 			
 			if(history!=null){
@@ -98,8 +100,44 @@ public class GuessController extends Controller{
 				OddsUtils.setStartEndOdds(history,this);
 			}
 			
+			
+			
+			if(!"0".equals(history.getStr("game_id"))){
+				List<TipsAll> lstTips =TipsAll.dao.find("select * from tips_all where game_id = ? order by is_home_away asc", history.getStr("game_id"));
+				if(lstTips.size()!=0){
+					TipsMatch tipsMatch = TipsMatch.dao.findFirst("select * from tips_match where game_id = ?", history.getStr("game_id"));
+					if(tipsMatch!=null){
+						if(StringUtils.isNotBlank(tipsMatch.getStr("home_absence"))){
+							TipsAll tipsAllHome = new TipsAll();
+							tipsAllHome.set("is_home_away", "0");
+							tipsAllHome.set("is_good_bad", "1");
+							tipsAllHome.set("news", "伤停情况："+tipsMatch.getStr("home_absence"));
+							lstTips.add(0, tipsAllHome);
+						}
+						if(StringUtils.isNotBlank(tipsMatch.getStr("away_absence"))){
+							TipsAll tipsAllAway = new TipsAll();
+							tipsAllAway.set("is_home_away", "1");
+							tipsAllAway.set("is_good_bad", "1");
+							tipsAllAway.set("news", "伤停情况："+tipsMatch.getStr("away_absence"));
+							lstTips.add(tipsAllAway);
+						}
+					}
+					setAttr("lstTips", lstTips);
+				}
+			}
+			
+			//视频
+			Videos videos = Videos.dao.findFirst("select * from videos where match_history_id = ? ", history.getStr("id"));
+			if(videos!=null){
+				//vdetail-2017-12-11-6716.html
+				String videosUrl = "vdetail-"+DateTimeUtils.formatDate(videos.getDate("match_date"))+"-"+videos.get("match_en_title")+"-"+videos.get("id")+".html";
+				setAttr("videosUrl", videosUrl);
+			}
+			
 			Team homeTeam = Team.dao.findById(history.getStr("home_team_id"));
 			setAttr("homeTeam", homeTeam);
+			Team awayTeam = Team.dao.findById(history.getStr("away_team_id"));
+			setAttr("awayTeam", awayTeam);
 			String yearShow = history.getStr("year_show").substring(0,2)+"/"+history.getStr("year_show").substring(2);
 			history.set("year_show", yearShow);
 			setAttr("history", history);
