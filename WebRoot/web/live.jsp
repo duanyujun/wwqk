@@ -102,29 +102,39 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</c:if>
 								<c:if test="${!empty match.home_team_name}">
 									<tr >
-									  <td style="width:60px;height:35px;line-height:35px;"><span class="label label-default"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></span></td>
-								      <td style="width:70px;height:35px;line-height:35px;"><span class="league_${match.league_id}" title="${match.league_name}"><div class="text_cut" style="width:70px;line-height:35px;">${match.league_name}</div></span></td>
-								      <td style="width:270px;height:35px;line-height:35px;" class="a-title">
-								      	<c:if test="${empty match.league_id}">
-								      		<a  title="${match.game_id!='0'?'有情报':''}"href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_blank">
-								      		<c:if test="${match.game_id!='0'}"><span class="label label-success">情报</span></c:if> ${match.home_team_name} VS ${match.away_team_name}
-								      		</a>
-								      	</c:if>
-								      	<c:if test="${!empty match.league_id}">
-								      		<b class="a-title" ><a title="${match.game_id!='0'?'有情报':''}" href="match-${match.home_team_enname}-vs-${match.away_team_enname}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">
-								      		<c:if test="${match.game_id!='0'}"><span class="label label-success">情报</span></c:if> ${match.home_team_name} VS ${match.away_team_name}
-								      		</a></b>
-								      	</c:if>
-								      	
-								      </td>
-								      <td class="a-title" style="height:35px;line-height:35px;">
-								      	  <c:forEach items="${match.liveList}" var="live">
-								      	  		 <nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a></nobr>
-								      	  </c:forEach>
-								      	  &nbsp;<nobr><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_blank">比分直播</a></nobr>
+									  <td style="width:80px;height:35px;line-height:35px;"><span class="label label-default"><fmt:formatDate value="${match.match_datetime}" pattern="HH:mm"/></span></td>
+								      <td style="width:110px;height:35px;line-height:35px;"><span class="league_${match.league_id}" title="${match.league_name}"><div class="text_cut" style="width:110px;line-height:35px;">${match.league_name}</div></span></td>
+								      <td style="height:35px;line-height:35px;" class="a-title">
+									      	<div class="row">
+									      		<div class="col-lg-12 col-md-12">
+									      			<c:if test="${empty match.league_id}">
+											      		<a  title="${match.game_id!='0'?'有情报':''} ${match.tips!='0'?'有推荐':''}" href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_blank">
+											      		<c:if test="${match.game_id!='0'}"><span class="label label-success">情报</span></c:if><c:if test="${match.tips!='0'}"><span class="label label-success">推荐</span></c:if> ${match.home_team_name} VS ${match.away_team_name}
+											      		</a>
+											      	</c:if>
+											      	<c:if test="${!empty match.league_id}">
+											      		<b class="a-title" ><a title="${match.game_id!='0'?'有情报':''} ${match.tips!='0'?'有推荐':''}" href="match-${match.home_team_enname}-vs-${match.away_team_enname}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">
+											      		<c:if test="${match.game_id!='0'}"><span class="label label-success">情报</span></c:if><c:if test="${match.tips!='0'}"><span class="label label-success">推荐</span></c:if> ${match.home_team_name} VS ${match.away_team_name}
+											      		</a></b>
+											      	</c:if>
+									      		</div>
+									      	</div>
+									      	<div class="row">
+									      		<div class="col-lg-12 col-md-12">
+									      			  <c:forEach items="${match.liveList}" var="live">
+											      	  		 <nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a></nobr>
+											      	  </c:forEach>
+											      	  <c:if test="${!empty match.liveList}">
+											      	  	 &nbsp;
+											      	  </c:if>
+											      	  <nobr><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_blank">比分直播</a></nobr>
+									      		</div>
+									      	</div>
 								      </td>
 								      
 								    </tr>
+								    
+								    
 								</c:if>
 						    </c:forEach>
 						   </tbody>
