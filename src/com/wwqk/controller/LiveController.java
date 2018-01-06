@@ -143,7 +143,7 @@ public class LiveController extends Controller {
 			render("liveDetail.jsp");
 		}else{
 			LeagueMatchHistory history = LeagueMatchHistory.dao.findFirst(
-					"select * from league_match_history where leauge_id = ? home_team_id = ? and away_team_id = ? and year_show = ? ",
+					"select * from league_match_history where leauge_id = ? and home_team_id = ? and away_team_id = ? and year_show = ? ",
 					match.getStr("league_id"),match.getStr("home_team_id"),match.getStr("away_team_id"),match.getStr("year_show"));
 			
 			if(history!=null){

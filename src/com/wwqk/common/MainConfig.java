@@ -136,7 +136,6 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("league_position", LeaguePosition.class);
 		arp.addMapping("league_shooter", LeagueShooter.class);
 		arp.addMapping("league_match", LeagueMatch.class);
-		arp.addMapping("league_match_history", LeagueMatchHistory.class);
 		arp.addMapping("transfer", Transfer.class);
 		arp.addMapping("trophy", Trophy.class);
 		arp.addMapping("coach", Coach.class);
