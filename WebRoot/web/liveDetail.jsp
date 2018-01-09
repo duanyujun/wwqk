@@ -141,7 +141,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										</tr>
 										<c:if test="${!empty lstTips}">
 											<tr>
-												<td>【赛事情报】：</td>
+												<td>【赛事分析】：</td>
 												<td>
 												
 													<ul id="infoTab" class="nav nav-tabs bread" >
