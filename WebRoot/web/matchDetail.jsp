@@ -99,24 +99,74 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							</c:if>
 						</td>
 					</tr>
+					
 					<c:if test="${!empty lstTips}">
 						<tr>
-							<td style="padding-top:5px;">
-								<c:forEach items="${lstTips}" var="tips">
-									<c:if test="${tips.is_good_bad=='0'}">
-										<div class="alert alert-success" title="有利情报"><c:if test="${tips.is_home_away==0}"><span class="label label-danger">主</span></c:if><c:if test="${tips.is_home_away==1}"><span class="label label-primary">客</span></c:if> ${tips.news}</div>
-									</c:if>
-									<c:if test="${tips.is_good_bad=='1'}">
-										<div class="alert alert-danger" title="不利情报"><c:if test="${tips.is_home_away==0}"><span class="label label-danger">主</span></c:if><c:if test="${tips.is_home_away==1}"><span class="label label-primary">客</span></c:if> ${tips.news}</div>
-									</c:if>
-									<c:if test="${tips.is_good_bad!='0' && tips.is_good_bad!='1'}">
-										<div class="alert alert-warning" title="中立情报"><c:if test="${tips.is_home_away==0}"><span class="label label-danger">主</span></c:if><c:if test="${tips.is_home_away==1}"><span class="label label-primary">客</span></c:if> ${tips.news}</div>
-									</c:if>
-									
-								</c:forEach>
+							<td style="padding-top:10px;">
+								<ul id="minfoTab" class="nav nav-tabs bread" >
+									<li class="active"><a href="#m_home_tab" data-toggle="tab">主队分析</a></li>
+									<li ><a href="#m_away_tab" data-toggle="tab">客队分析</a></li>
+								</ul>
+								<div id="minfoTabContent" class="tab-content">
+									<div class="tab-pane fade in active" id="m_home_tab" style="border:1px solid #ddd;border-top:none;padding:8px;">
+											<c:forEach items="${lstTips}" var="tips">
+												<c:if test="${tips.is_home_away==0}">
+													<c:if test="${tips.is_good_bad=='0'}">
+														<div class="alert alert-success" title="有利情报"><span class="label label-danger">主</span> ${tips.news}</div>
+													</c:if>
+													<c:if test="${tips.is_good_bad=='1'}">
+														<div class="alert alert-danger" title="不利情报"><span class="label label-danger">主</span> ${tips.news}</div>
+													</c:if>
+													<c:if test="${tips.is_good_bad!='0' && tips.is_good_bad!='1'}">
+														<div class="alert alert-warning" title="中立情报"><span class="label label-danger">主</span> ${tips.news}</div>
+													</c:if>
+												</c:if>
+											</c:forEach>
+									</div>
+									<div class="tab-pane fade in" id="m_away_tab" style="border:1px solid #ddd;border-top:none;padding:8px;">
+											<c:forEach items="${lstTips}" var="tips">
+												<c:if test="${tips.is_home_away==1}">
+													<c:if test="${tips.is_good_bad=='0'}">
+														<div class="alert alert-success" title="有利情报"><span class="label label-primary">客</span> ${tips.news}</div>
+													</c:if>
+													<c:if test="${tips.is_good_bad=='1'}">
+														<div class="alert alert-danger" title="不利情报"><span class="label label-primary">客</span> ${tips.news}</div>
+													</c:if>
+													<c:if test="${tips.is_good_bad!='0' && tips.is_good_bad!='1'}">
+														<div class="alert alert-warning" title="中立情报"><span class="label label-primary">客</span> ${tips.news}</div>
+													</c:if>
+												</c:if>
+											</c:forEach>
+									</div>
+								</div>
 							</td>
 						</tr>
 					</c:if>
+					
+					<c:if test="${!empty lstGuess}">
+						<tr>
+							<td style="padding-top:10px;">
+								<ul id="mguessTab" class="nav nav-tabs bread" >
+									<c:forEach items="${lstGuess}" var="guess" varStatus="status">
+										<li class="${guessId==guess.id?'active':''}"><a href="#mguess_tab_${status.index}" id="mgtab_${guess.id}" data-toggle="tab">${guess.tipster_name}</a></li>
+									</c:forEach>
+								</ul>
+								<div id="mguessTabContent" class="tab-content">
+									<c:forEach items="${lstGuess}" var="guess" varStatus="status">
+										<div class="tab-pane fade in ${guessId==guess.id?'active':''}" id="mguess_tab_${status.index}" style="border:1px solid #ddd;border-top:none;padding:8px;">
+												<div class="alert alert-success" style="background-color:#f5f5f5;color:#333;">
+													<span class="label label-danger">荐</span> <b>${guess.bet_title_cn}</b>
+												</div>
+												<div class="alert alert-success" style="background-color:#f5f5f5;color:#333;">
+													${guess.content_cn}
+												</div>
+										</div>
+									</c:forEach>
+								</div>
+							</td>
+						</tr>
+					</c:if>
+					
 					<tr>
 						<td style="padding-top:5px;">
 							[${homeTeam.venue_name} &nbsp;&nbsp;<span style="color:#888;">容量：${homeTeam.venue_capacity}人</span>]
@@ -889,8 +939,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	$(function(){
 		var guessId = '${guessId}';
 		if(guessId!=''){
-			$('#myTab a[id="#gtab_'+guessId+'"]').tab('show');
+			$('#guessTab a[id="#gtab_'+guessId+'"]').tab('show');
+			$('#mguessTab a[id="#mgtab_'+guessId+'"]').tab('show');
 		}
+		
 		$('.image').viewer(
 				{toolbar:false, 
 				zIndex:20000,
