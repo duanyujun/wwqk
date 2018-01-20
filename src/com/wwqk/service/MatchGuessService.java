@@ -93,13 +93,14 @@ public class MatchGuessService {
 		String liveMatchId = controller.getPara("live_match_id");
 		if(StringUtils.isNotBlank(liveMatchId)){
 			matchGuess.set("live_match_id", liveMatchId);
-			AllLiveMatch liveMatch = AllLiveMatch.dao.findFirst("select * from all_live_match where id = ?", controller.getPara("live_match_id"));
+			AllLiveMatch liveMatch = AllLiveMatch.dao.findFirst("select * from all_live_match where id = ?", liveMatchId);
 			if(StringUtils.isNotBlank(liveMatch.getStr("match_key"))){
 				matchGuess.set("match_key", liveMatch.getStr("match_key"));
-				liveMatch.set("tips", "1");
-				liveMatch.update();
 			}
+			liveMatch.set("tips", "1");
+			liveMatch.update();
 		}
+		
 		
 		if(StringUtils.isNotBlank(controller.getPara("bet_title"))){
 			matchGuess.set("bet_title", controller.getPara("bet_title"));
@@ -121,7 +122,7 @@ public class MatchGuessService {
         if(StringUtils.isNotBlank(controller.getPara("source_url"))){
         	matchGuess.set("source_url", controller.getPara("source_url"));
         }
-        matchGuess.set("match_key", controller.getPara("match_key"));
+       
 
 		save(matchGuess);
 	}
