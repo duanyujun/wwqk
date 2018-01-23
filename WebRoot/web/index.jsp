@@ -97,7 +97,16 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	<!-- PC内容开始 -->
     <div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:80px;padding-bottom: 130px;">
-		<div id="main_content" style="min-height:20px;" class="col-lg-6 col-lg-offset-2 col-md-6 col-md-offset-2">		
+    	<div class="col-lg-2 col-md-2">
+    		<div id="slideBox" class="slideBox">
+			  <ul class="items">
+			    <li><a href="http://www.tmall.com" title="这里是测试标题一" target="_blank"><img src="assets/p1.webp"></a></li>
+			    <li><a href="http://www.tmall.com" title="这里是测试标题二" target="_blank"><img src="assets/p2.webp"></a></li>
+			    <li><a href="http://www.tmall.com" title="这里是测试标题三" target="_blank"><img src="assets/p3.webp"></a></li>
+			  </ul>
+			</div>
+    	</div>
+		<div id="main_content" style="min-height:20px;" class="col-lg-6 col-md-6">		
 			<div class="col-lg-11 col-md-11" style="padding-left:0px;">
 				<c:forEach items="${funPage.list}" var="fun" varStatus="status">
 					<c:if test="${status.index!=0}">
@@ -268,6 +277,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<script src="assets/global/plugins/dropload/dropload.min.js" type="text/javascript"></script>
 	<script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
 	<script src="assets/global/plugins/lobibox/js/notifications.min.js" type="text/javascript"></script>
+	<script src="assets/global/plugins/jquery.slideBox.min.js" type="text/javascript"></script>
 	
 	<script>
 	(function(){
@@ -382,6 +392,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	$(function(){
 		resizeBackground();
+		$('#slideBox').slideBox({
+			duration : 0.3,//滚动持续时间，单位：秒
+			easing : 'linear',//swing,linear//滚动特效
+			hideClickBar : false,//不自动隐藏点选按键
+		});
 		
 		if (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
 			return;
