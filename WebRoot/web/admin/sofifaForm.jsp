@@ -58,28 +58,28 @@
                       </div>
                       <div class="col-md-3"><label for="name"></label></div>
                  </div>
-                 <div class="form-group">
+                 <div class="form-group" style="display:none;">
                       <label class="col-md-3 control-label">国际声誉：</label>
                       <div class="col-md-6">
                            <input type="text" class="form-control" id="inter_rep" name="inter_rep"  value="${sofifa.inter_rep}" placeholder="请输入国际声誉">
                       </div>
                       <div class="col-md-3"><label for="name"></label></div>
                  </div>
-                 <div class="form-group">
+                 <div class="form-group" style="display:none;">
                       <label class="col-md-3 control-label">逆足能力：</label>
                       <div class="col-md-6">
                            <input type="text" class="form-control" id="unuse_foot" name="unuse_foot"  value="${sofifa.unuse_foot}" placeholder="请输入逆足能力">
                       </div>
                       <div class="col-md-3"><label for="name"></label></div>
                  </div>
-                 <div class="form-group">
+                 <div class="form-group" style="display:none;">
                       <label class="col-md-3 control-label">花式技巧：</label>
                       <div class="col-md-6">
                            <input type="text" class="form-control" id="trick" name="trick"  value="${sofifa.trick}" placeholder="请输入花式技巧">
                       </div>
                       <div class="col-md-3"><label for="name"></label></div>
                  </div>
-                 <div class="form-group">
+                 <div class="form-group" style="display:none;">
                       <label class="col-md-3 control-label">积极性：</label>
                       <div class="col-md-6">
                            <input type="text" class="form-control" id="work_rate" name="work_rate"  value="${sofifa.work_rate}" placeholder="请输入积极性">
@@ -184,7 +184,7 @@
                       </div>
                       <div class="col-md-3"><label for="name"></label></div>
                  </div>
-                 <div class="form-group" style="display:none;">
+                 <div class="form-group" >
                       <label class="col-md-3 control-label">周薪：</label>
                       <div class="col-md-6">
                            <input type="text" class="form-control" id="wage" name="wage"  value="${sofifa.wage}" placeholder="请输入周薪">

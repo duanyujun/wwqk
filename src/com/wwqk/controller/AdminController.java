@@ -954,7 +954,20 @@ public class AdminController extends Controller {
 	
 	public void updateLeagueFifa(){
 		String leagueId = getPara("leagueId");
-		SofifaUtils.collectLeague(leagueId);
+		if(StringUtils.isNotBlank(leagueId)){
+			SofifaUtils.collectLeague(leagueId);
+		}
+		String teamId = getPara("teamId");
+		if(StringUtils.isNotBlank(teamId)){
+			SofifaUtils.collectTeam(teamId);
+		}
+		String playerId = getPara("playerId");
+		if(StringUtils.isNotBlank(playerId)){
+			Sofifa sofifa = Sofifa.dao.findFirst("select * from sofifa where player_id = ?", playerId);
+			if(sofifa!=null){
+				SofifaUtils.collectPlayer(sofifa.getStr("id"));
+			}
+		}
 		renderJson(1);
 	}
 	

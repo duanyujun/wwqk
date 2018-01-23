@@ -1,7 +1,7 @@
 package com.wwqk.utils;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
 import org.jsoup.Connection;
@@ -24,7 +24,9 @@ public class SofifaUtils {
 
 	public static void collectLeague(String leagueId){
 		Connection connection = Jsoup.connect("https://sofifa.com/league/"+leagueId+"?hl=zh-CN");
-		connection = connection.data(MatchUtils.getSofifaHeader());
+		for(Entry<String, String> entry : MatchUtils.getSofifaHeader().entrySet()){
+			connection.header(entry.getKey(), entry.getValue());
+		}
 		try {
 			Document doc = connection.get();
 			Elements elements = doc.select(".table-hover");
@@ -45,7 +47,9 @@ public class SofifaUtils {
 	public static void collectTeam(String teamId){
 		//System.err.println((countAll++)+" https://sofifa.com/team/"+teamId+"?hl=zh-CN");
 		Connection connection = Jsoup.connect("https://sofifa.com/team/"+teamId+"?hl=zh-CN");
-		connection = connection.data(MatchUtils.getSofifaHeader());
+		for(Entry<String, String> entry : MatchUtils.getSofifaHeader().entrySet()){
+			connection.header(entry.getKey(), entry.getValue());
+		}
 		try {
 			Document doc = connection.get();
 			Elements elements = doc.select(".persist-area");
@@ -82,7 +86,9 @@ public class SofifaUtils {
 	
 	public static void collectPlayer(String playerId){
 		Connection connection = Jsoup.connect("https://sofifa.com/player/"+playerId+"?hl=zh-CN");
-		connection = connection.data(MatchUtils.getSofifaHeader());
+		for(Entry<String, String> entry : MatchUtils.getSofifaHeader().entrySet()){
+			connection.header(entry.getKey(), entry.getValue());
+		}
 		try {
 			Document doc = connection.get();
 			Sofifa fifaDb = Sofifa.dao.findById(playerId);
