@@ -593,7 +593,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 												
 													<ul id="guessTab" class="nav nav-tabs bread" >
 														<c:forEach items="${lstGuess}" var="guess" varStatus="status">
-															<li class="${guessId==guess.id?'active':''}"><a href="#guess_tab_${status.index}" id="gtab_${guess.id}"  data-toggle="tab">${guess.tipster_name}</a></li>
+															<li class="${guessId==guess.id?'active':''}"><a href="#guess_tab_${status.index}" id="gtab_${guess.id}"  data-toggle="tab" title="网友${guess.tipster_name}推荐">${guess.tipster_name}</a></li>
 														</c:forEach>
 													</ul>
 													<div id="guessTabContent" class="tab-content">
