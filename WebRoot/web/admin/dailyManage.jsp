@@ -97,6 +97,9 @@
                     <button onclick="updateMatchNews();" class="btn sbold green" style="margin-left:10px;"> 更新情报
                         <i class="fa fa-refresh"></i>
                     </button>
+                    <button onclick="updateMatchGuess();" class="btn sbold green" style="margin-left:10px;"> 同步网友推荐
+                            <i class="fa fa-refresh"></i>
+                    </button>
                 </div>
             </div>
             
@@ -120,7 +123,7 @@
             
             <div class="row" style="margin-top:20px;">
             	<div class="col-md-12 col-sm-12 col-xs-12">
-                	<select id="fifaLeagueId" style="width:100px;">
+                	<select id="fifaLeagueId" >
                 		<option value="">--请选择联赛--</option>
                 		<option value="13">英超</option>
                 		<option value="53">西甲</option>
@@ -142,9 +145,7 @@
                         <button onclick="updateNumberFoot();" class="btn sbold green" style="margin-left:10px;"> 同步球衣号码及惯用脚
                             <i class="fa fa-refresh"></i>
                         </button>
-                        <button onclick="updateMatchGuess();" class="btn sbold green" style="margin-left:10px;"> 同步网友推荐
-                            <i class="fa fa-refresh"></i>
-                        </button>
+                        
                     </div>
                 </div>
             </div>
