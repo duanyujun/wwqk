@@ -35,6 +35,7 @@ import com.wwqk.model.MatchLive;
 import com.wwqk.model.Player;
 import com.wwqk.model.Say;
 import com.wwqk.model.Sofifa;
+import com.wwqk.model.TaobaoAlliance;
 import com.wwqk.model.Team;
 import com.wwqk.model.TipsMatch;
 import com.wwqk.model.Videos;
@@ -60,6 +61,7 @@ import com.wwqk.service.PlayerService;
 import com.wwqk.service.SayService;
 import com.wwqk.service.Shooter163Service;
 import com.wwqk.service.SofifaService;
+import com.wwqk.service.TaobaoAllianceService;
 import com.wwqk.service.TeamService;
 import com.wwqk.service.TipsMatchService;
 import com.wwqk.service.VideosService;
@@ -70,6 +72,7 @@ import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.MatchGuessUtils;
 import com.wwqk.utils.SofifaUtils;
 import com.wwqk.utils.StringUtils;
+import com.wwqk.utils.TaobaoUtils;
 import com.wwqk.utils.TranslateUtils;
 import com.wwqk.utils.VideosZuqiulaUtils;
 
@@ -717,6 +720,40 @@ public class AdminController extends Controller {
 		}
 	}
 	
+	public void listTaobaoAlliance(){
+		render("admin/taobaoAllianceList.jsp");
+	}
+	
+	public void taobaoAllianceData(){
+		Map<Object, Object> map = TaobaoAllianceService.taobaoAllianceData(this);
+		renderJson(map);
+	}
+	
+	public void editTaobaoAlliance(){
+		String id = getPara("id");
+		if(id!=null){
+			TaobaoAlliance taobaoAlliance = TaobaoAlliance.dao.findById(id);
+			setAttr("taobaoAlliance", taobaoAlliance);
+		}
+		render("admin/taobaoAllianceForm.jsp");
+	}
+	
+	public void saveTaobaoAlliance(){
+		TaobaoAllianceService.saveTaobaoAlliance(this);
+		renderJson(1);
+	}
+	
+	public void deleteTaobaoAlliance(){
+		String ids = getPara("ids");
+		if(StringUtils.isNotBlank(ids)){
+			String whereSql = " where id in (" + ids +")";
+			Db.update("delete from taobao_alliance "+whereSql);
+			renderJson(1);
+		}else{
+			renderJson(0);
+		}
+	}
+	
 	public void saveVideosLink() throws UnsupportedEncodingException{
 		String id = getPara("id");
 		String title = getPara("title");
@@ -996,6 +1033,11 @@ public class AdminController extends Controller {
 	
 	public void updateMatchGuess(){
 		MatchGuessUtils.collect();
+		renderJson(1);
+	}
+	
+	public void updateProduct(){
+		TaobaoUtils.updateProduct(this);
 		renderJson(1);
 	}
 	

@@ -98,13 +98,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<!-- PC内容开始 -->
     <div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:80px;padding-bottom: 130px;">
     	<div class="col-lg-2 col-md-2">
-    		<div id="slideBox" class="slideBox">
-			  <ul class="items">
-			    <li><a href="http://www.tmall.com" title="这里是测试标题一" target="_blank"><img src="assets/p1.webp"></a></li>
-			    <li><a href="http://www.tmall.com" title="这里是测试标题二" target="_blank"><img src="assets/p2.webp"></a></li>
-			    <li><a href="http://www.tmall.com" title="这里是测试标题三" target="_blank"><img src="assets/p3.webp"></a></li>
-			  </ul>
-			</div>
+    		<c:if test="${!empty lstAlliance}">
+    			<div id="slideBox" class="slideBox">
+				  <ul class="items">
+				  	<c:forEach items="${lstAlliance}" var="alliance">
+				  		<li><a href="${alliance.tbk_short_url}" title="${alliance.product_name}" target="_blank"><img src="${alliance.product_img}"></a></li>
+				  	</c:forEach>
+				  </ul>
+				</div>
+    		</c:if>
     	</div>
 		<div id="main_content" style="min-height:20px;" class="col-lg-6 col-md-6">		
 			<div class="col-lg-11 col-md-11" style="padding-left:0px;">

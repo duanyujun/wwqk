@@ -69,6 +69,7 @@ import com.wwqk.model.RolesPermissions;
 import com.wwqk.model.Say;
 import com.wwqk.model.ShooterAssistsSource;
 import com.wwqk.model.Sofifa;
+import com.wwqk.model.TaobaoAlliance;
 import com.wwqk.model.Team;
 import com.wwqk.model.TipsAll;
 import com.wwqk.model.TipsMatch;
@@ -175,6 +176,8 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("videos_real_links", VideosRealLinks.class);
 		arp.addMapping("sofifa", Sofifa.class);
 		arp.addMapping("match_guess", MatchGuess.class);
+		arp.addMapping("taobao_alliance", TaobaoAlliance.class);
+		
 		
 		me.add(c3p0Plugin);
 		me.add(arp);
@@ -201,7 +204,7 @@ public class MainConfig extends JFinalConfig {
 	}
 	
 	public static void main(String[] args) {
-		JFinal.start("WebRoot", 9999, "/", 5);
+		JFinal.start("WebRoot", 1111, "/", 5);
 	}
 
 }

@@ -213,7 +213,7 @@ public class CodeGenerator {
 			if(lstColumnVO.get(i).getIsOrderable()==1){
 				sb.append("case ").append(i+1).append(":\n")
 				.append("              orderSql = \" order by ").append(lstColumnVO.get(i).getColomnName())
-				.append(" \"+sortType;").append("\n              break;");
+				.append(" \"+sortType;").append("\n              break;\n");
 			}
 		}
 		return sb.toString();
@@ -284,35 +284,39 @@ public class CodeGenerator {
 		//isInForm, isInList, isOrderable, isSearchable, finalType, isRequired)
 		
 		List<ColumnVO> lstColumnVO = new ArrayList<ColumnVO>();
-		ColumnVO c1 = getColumnVO("fifa_name", null, "fifa姓名", 1, 1, 1, 1, 0, 1);
-		ColumnVO c2 = getColumnVO("foot", null, "惯用脚", 1,1,0,0,0,0);
-		ColumnVO c3 = getColumnVO("inter_rep", null, "国际声誉", 1,0,0,0,0,0);
-		ColumnVO c4 = getColumnVO("unuse_foot", null, "逆足能力", 1,0,0,0,0,0);
-		ColumnVO c5 = getColumnVO("trick", null, "花式技巧", 1,0,0,0,0,0);
-		ColumnVO c6 = getColumnVO("work_rate", null, "积极性", 1,0,0,0,0,0);
-		ColumnVO c7 = getColumnVO("body_type", null, "身体条件", 1,0,0,0,0,0);
-		ColumnVO c8 = getColumnVO("release_clause", null, "违约金", 1,0,0,0,0,0);
-		ColumnVO c9 = getColumnVO("position", null, "位置", 1,1,0,0,0,0);
-		ColumnVO c10 = getColumnVO("number", null, "号码", 1,1,0,0,0,0);
-		ColumnVO c11 = getColumnVO("contract", null, "合同到期", 1,0,0,0,0,0);
-		ColumnVO c12 = getColumnVO("pac", null, "速度", 1,1,1,0,0,0);
-		ColumnVO c13 = getColumnVO("sho", null, "射门", 1,1,1,0,0,0);
-		ColumnVO c14 = getColumnVO("pas", null, "传球", 1,1,1,0,0,0);
-		ColumnVO c15 = getColumnVO("dri", null, "盘带", 1,1,1,0,0,0);
-		ColumnVO c16 = getColumnVO("def", null, "防守", 1,1,1,0,0,0);
-		ColumnVO c17 = getColumnVO("phy", null, "力量", 1,1,1,0,0,0);
-		ColumnVO c18 = getColumnVO("overall_rate", null, "综合能力", 1,1,1,0,0,0);
-		ColumnVO c19 = getColumnVO("potential", null, "潜力", 1,1,1,0,0,0);
-		ColumnVO c20 = getColumnVO("market_value", null, "身价", 1,1,1,0,0,0);
-		ColumnVO c21 = getColumnVO("wage", null, "周薪", 1,1,1,0,0,0);
-		ColumnVO c22 = getColumnVO("player_id", null, "系统球员id", 1,1,1,0,0,0);
+		ColumnVO c1 = getColumnVO("product_name", null, "商品名称", 1, 1, 1, 1, 0, 0);
+		ColumnVO c2 = getColumnVO("product_img", null, "商品主图", 1, 0, 1, 1, 0, 0);
+		ColumnVO c3 = getColumnVO("product_url", null, "商品详情", 1, 0, 1, 1, 0, 0);
+		ColumnVO c4 = getColumnVO("store_name", null, "店铺名称", 1, 0, 1, 1, 0, 0);
+		ColumnVO c5 = getColumnVO("price", null, "商品价格", 1, 1, 1, 1, 0, 0);
+		ColumnVO c6 = getColumnVO("sale_month_count", null, "商品月销量", 1, 0, 1, 1, 0, 0);
+		ColumnVO c7 = getColumnVO("earn_percent", null, "通用收入比率（%）", 1, 1, 1, 1, 0, 0);
+		ColumnVO c8 = getColumnVO("earn_common", null, "通用佣金", 1, 1, 1, 1, 0, 0);
+		ColumnVO c9 = getColumnVO("promotion", null, "活动状态", 1, 1, 1, 1, 0, 0);
+		ColumnVO c10 = getColumnVO("promotion_percent", null, "活动收入比率（%）", 1, 1, 1, 1, 0, 0);
+		ColumnVO c11 = getColumnVO("earn_promotion", null, "活动佣金", 1, 1, 1, 1, 0, 0);
+		ColumnVO c12 = getColumnVO("promotion_start", null, "活动开始时间", 1, 1, 1, 1, 0, 0);
+		ColumnVO c13 = getColumnVO("promotion_end", null, "活动结束时间", 1, 1, 1, 1, 0, 0);
+		ColumnVO c14 = getColumnVO("store_ww", null, "卖家旺旺", 1, 0, 1, 1, 0, 0);
+		ColumnVO c15 = getColumnVO("tbk_short_url", null, "淘宝客短链接（300天内有效）", 1, 1, 1, 1, 0, 0);
+		ColumnVO c16 = getColumnVO("tbk_url", null, "淘宝客链接", 1, 0, 1, 1, 0, 0);
+		ColumnVO c17 = getColumnVO("tkl", null, "淘口令", 1, 1, 1, 1, 0, 0);
+		ColumnVO c18 = getColumnVO("coupon_count", null, "优惠券总量", 1, 0, 1, 1, 0, 0);
+		ColumnVO c19 = getColumnVO("coupon_count_last", null, "优惠券剩余量", 1, 0, 1, 1, 0, 0);
+		ColumnVO c20 = getColumnVO("coupon_desc", null, "优惠券面额", 1, 0, 1, 1, 0, 0);
+		ColumnVO c21 = getColumnVO("coupon_start", null, "优惠券开始时间", 1, 0, 1, 1, 0, 0);
+		ColumnVO c22 = getColumnVO("coupon_end", null, "优惠券结束时间", 1, 0, 1, 1, 0, 0);
+		ColumnVO c23 = getColumnVO("coupon_url", null, "优惠券链接", 1, 0, 1, 1, 0, 0);
+		ColumnVO c24 = getColumnVO("coupon_tkl", null, "优惠券淘口令(30天内有效)", 1, 0, 1, 1, 0, 0);
+		ColumnVO c25 = getColumnVO("coupon_short_url", null, "优惠券短链接(300天内有效)", 1, 0, 1, 1, 0, 0);
+		ColumnVO c26 = getColumnVO("recom", null, "首页推荐", 1, 1, 1, 1, 0, 0);
 		
-		ColumnVO[] allColumns = {c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22};
+		ColumnVO[] allColumns = {c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22,c23,c24,c25,c26};
 		for(ColumnVO columnVO : allColumns){
 			lstColumnVO.add(columnVO);
 		}
 		
-		build("sofifa", "FIFA数据", "com.wwqk", lstColumnVO);
+		build("taobao_alliance", "淘宝联盟", "com.wwqk", lstColumnVO);
 	}
 	
 	//getColumnVO(colomnName, colomnType, colomnComment, isInForm, isInList, isOrderable, isSearchable, finalType, isRequired)

@@ -1,5 +1,6 @@
 <%@ include file="/common/include.jsp"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<script src="${ctx}/assets/global/plugins/jquery.form.min.js" type="text/javascript"></script>
 <script src="${ctx}/assets/global/plugins/bootstrap-toastr/toastr.js" type="text/javascript"></script>
 <script src="${ctx}/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 <link href="${ctx}/assets/global/plugins/loading/css/showLoading.css" rel="stylesheet" type="text/css" />
@@ -136,17 +137,22 @@
                     <button onclick="updateLeagueFifa();" class="btn sbold green" style="margin-left:10px;"> 更新FIFA
                         <i class="fa fa-refresh"></i>
                     </button>
+                    <button onclick="updateNumberFoot();" class="btn sbold green" style="margin-left:10px;"> 同步球衣号码及惯用脚
+                        <i class="fa fa-refresh"></i>
+                    </button>
                 </div>
             </div>
             
             <div class="row" style="margin-top:20px;">
-            	<div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="btn-group">
-                        <button onclick="updateNumberFoot();" class="btn sbold green" style="margin-left:10px;"> 同步球衣号码及惯用脚
-                            <i class="fa fa-refresh"></i>
-                        </button>
-                        
-                    </div>
+            	<div class="col-md-2 col-sm-2 col-xs-2">
+            		<form class="form-horizontal" id="form" action="/admin/updateProduct" enctype="multipart/form-data" method="post">
+            			<input type="file" name="excel"/>
+            		</form>
+                </div>
+                <div class="col-md-10 col-sm-10 col-xs-10">
+                    <button onclick="updateProduct();" class="btn sbold green" style="margin-left:10px;"> 更新联盟产品
+                        <i class="fa fa-refresh"></i>
+                    </button>
                 </div>
             </div>
             
@@ -166,9 +172,6 @@
                 	<div style="width:100%;min-height:100px;" id="result_div"></div>
                 </div>
             </div>
-            
-             
-            
             
         </div>
         
@@ -334,6 +337,11 @@ function updateMatchGuess(){
 	commonPost("/admin/updateMatchGuess");
 }
 
+function updateProduct(){
+	showToast(1, "更新中...", "温馨提示");
+	$('#form').submit();
+}
+
 function updateLeagueFifa(){
 	
 	if($("#fifaLeagueId").val()=='' || $("#fifaTeamId").val()=='' || $("#sysPlayerId").val()==''){
@@ -349,6 +357,23 @@ function updateLeagueFifa(){
 					showToast(1, "更新成功！", "温馨提示");
 				}
 	);
+}
+
+$(function(){
+    var options = {
+        target: '#form',
+   		success:showSuccess
+    };
+    $('#form').submit(function(){
+        $(this).ajaxSubmit(options);
+        return false;
+    });
+});
+
+function showSuccess(data){
+	$('#main-content').load($('#urlHidden').val());
+	$("body").hideLoading();
+	showToast(1, "保存成功！", "温馨提示");
 }
 
 </script>

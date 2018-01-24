@@ -31,8 +31,8 @@ public class #ClazzService {
 		String sortType = controller.getPara("order[0][dir]");
 		switch (sortColumn) {
 			#orderSql
-		default:
-			break;
+			default:
+				break;
 		}
 		
 		int start = controller.getParaToInt("start");

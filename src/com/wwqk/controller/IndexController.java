@@ -20,6 +20,7 @@ import com.wwqk.model.Fun;
 import com.wwqk.model.LeagueMatch;
 import com.wwqk.model.LeaguePosition;
 import com.wwqk.model.MatchGuess;
+import com.wwqk.model.TaobaoAlliance;
 import com.wwqk.model.TipsMatch;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.DateTimeUtils;
@@ -40,6 +41,7 @@ public class IndexController extends Controller {
 		CommonUtils.initLeagueNameMap();
 		getMatchNews();
 		getMatchGuess();
+		getProducts();
 		
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.INDEX.getKey());
 		render("index.jsp");
@@ -193,4 +195,8 @@ public class IndexController extends Controller {
 		}
 	}
 	
+	private void getProducts(){
+		List<TaobaoAlliance> lstAlliance = TaobaoAlliance.dao.find("select * from taobao_alliance where recom = 1 ");
+		setAttr("lstAlliance", lstAlliance);
+	}
 }
