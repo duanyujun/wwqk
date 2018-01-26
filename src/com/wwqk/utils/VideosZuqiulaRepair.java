@@ -378,6 +378,22 @@ public class VideosZuqiulaRepair {
 		
 	}
 	
+	public static void updateErrorLinks(){
+		List<VideosRealLinks> lstLinks = VideosRealLinks.dao.find("select * from videos_real_links where real_url like '%vd.html%' ");
+		for(VideosRealLinks links : lstLinks){
+			if(links.getStr("real_url").contains("vd.html")){
+				if(links.getStr("real_url").contains("youku")){
+					links.set("real_url", "http://player.youku.com/player.php/sid/"+links.getStr("real_url").substring(links.getStr("real_url").lastIndexOf("=")+1)+"/v.swf");
+				}else if(links.getStr("real_url").contains("pptv")){
+					links.set("real_url", "http://player.pptv.com/v/"+links.getStr("real_url").substring(links.getStr("real_url").lastIndexOf("=")+1)+".swf");
+				} 
+			}
+		}
+		if(lstLinks.size()>0){
+			Db.batchUpdate(lstLinks, lstLinks.size());
+		}
+	}
+	
 	public static void main(String[] args) {
 		
 		Connection connect = Jsoup.connect("http://www.zuqiu.la/video/17526.html").ignoreContentType(true);

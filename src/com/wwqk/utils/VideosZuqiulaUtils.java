@@ -373,6 +373,13 @@ public class VideosZuqiulaUtils {
 		Matcher matcher = URL_PATTERN.matcher(html);
 		if(matcher.find()){
 			result = matcher.group(1);
+			if(result.contains("vd.html")){
+				if(result.contains("pptv")){
+					result = "http://player.pptv.com/v/"+result.substring(result.lastIndexOf("=")+1)+".swf";
+				}else if(result.contains("youku")){
+					result = "http://player.youku.com/player.php/sid/"+result.substring(result.lastIndexOf("idswf=")+6)+"/v.swf";
+				}
+			}
 		}
 		
 		return result;
