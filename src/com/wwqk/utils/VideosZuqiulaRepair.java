@@ -383,7 +383,7 @@ public class VideosZuqiulaRepair {
 		for(VideosRealLinks links : lstLinks){
 			if(links.getStr("real_url").contains("vd.html")){
 				if(links.getStr("real_url").contains("youku")){
-					links.set("real_url", "http://player.youku.com/player.php/sid/"+links.getStr("real_url").substring(links.getStr("real_url").lastIndexOf("=")+1)+"/v.swf");
+					links.set("real_url", "http://player.youku.com/player.php/sid/"+links.getStr("real_url").substring(links.getStr("real_url").lastIndexOf("idswf=")+6)+"/v.swf");
 				}else if(links.getStr("real_url").contains("pptv")){
 					links.set("real_url", "http://player.pptv.com/v/"+links.getStr("real_url").substring(links.getStr("real_url").lastIndexOf("=")+1)+".swf");
 				} 

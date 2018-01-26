@@ -374,11 +374,11 @@ public class VideosZuqiulaUtils {
 		if(matcher.find()){
 			result = matcher.group(1);
 			if(result.contains("vd.html")){
-				if(result.contains("pptv")){
-					result = "http://player.pptv.com/v/"+result.substring(result.lastIndexOf("=")+1)+".swf";
-				}else if(result.contains("youku")){
+				if(result.contains("youku")){
 					result = "http://player.youku.com/player.php/sid/"+result.substring(result.lastIndexOf("idswf=")+6)+"/v.swf";
-				}
+				} else if(result.contains("pptv")){
+					result = "http://player.pptv.com/v/"+result.substring(result.lastIndexOf("=")+1)+".swf";
+				} 
 			}
 		}
 		
