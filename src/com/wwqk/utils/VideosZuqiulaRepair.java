@@ -302,7 +302,7 @@ public class VideosZuqiulaRepair {
 			yearShow = yearShow.substring(0, 2)+"/"+yearShow.substring(2);
 			sb.append("北京时间 - ").append(DateTimeUtils.formatDate(history.getDate("match_date"), "yyyy年M月d日 H点m分，"))
 			.append(EnumUtils.getValue(LeagueEnum.values(), history.getStr("league_id"))).append(yearShow)
-			.append("赛季第").append(history.get("match_round")).append("轮，").append(history.getStr("home_team_name"))
+			.append("赛季第").append(history.getInt("match_round")).append("轮，").append(history.getStr("home_team_name"))
 			.append("坐镇主场").append(homeTeam.getStr("venue_name")).append("迎战").append(history.getStr("away_team_name")).append("。")
 			.append("趣点足球网将为您提供直播信号导航，欢迎准时收看！");
 			history.set("description", sb.toString());
@@ -325,7 +325,7 @@ public class VideosZuqiulaRepair {
 						yearShow = yearShow.substring(0, 2)+"/"+yearShow.substring(2);
 						sb.append("北京时间 - ").append(DateTimeUtils.formatDate(history.getDate("match_date"), "yyyy年M月d日 H点m分，"))
 						.append(EnumUtils.getValue(LeagueEnum.values(), videos.getStr("league_id"))).append(yearShow)
-						.append("赛季第").append(history.get("match_round")).append("轮，").append(videos.getStr("home_team"))
+						.append("赛季第").append(history.getInt("match_round")).append("轮，").append(videos.getStr("home_team"))
 						.append("坐镇主场").append(homeTeam.getStr("venue_name")).append("迎战").append(videos.getStr("away_team")).append("。");
 						desc = sb.toString();
 					}
