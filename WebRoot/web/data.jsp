@@ -319,7 +319,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 											        	<c:forEach items="${lstMatch}" var="match">
 												            <div class="sr-box" >
 												                <div class="up">
-												                    <p class="date"><fmt:formatDate value="${match.match_date}" pattern="MM-dd"/> ${match.match_weekday} <fmt:formatDate value="${match.match_date}" pattern="HH:mm"/></p>
+												                    <p class="date"><fmt:formatDate value="${match.match_date}" pattern="MM-dd"/> <span style="color:#444;">${match.match_weekday}</span> <fmt:formatDate value="${match.match_date}" pattern="HH:mm"/></p>
 												                    <p class="team a-title"><a href="team-${match.home_team_en_name}-${match.home_team_id}.html" target="_blank" class="link-333333 ml35"><img src="${match.home_team_img}" height="20" width="20" alt="${match.home_team_name}">&nbsp;${match.home_team_name}</a></p>
 								 				                    <c:if test="${match.status!='完场'}">
 									 				                    <p class="time a-title" title="直播">
