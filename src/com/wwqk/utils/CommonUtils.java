@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.jfinal.plugin.activerecord.Model;
 import com.wwqk.constants.InjuryTypeEnum;
 import com.wwqk.model.AllLiveMatch;
 import com.wwqk.model.Team;
@@ -612,5 +613,11 @@ public class CommonUtils {
 		StringBuilder sb = new StringBuilder();
 		sb.append(FileUtils.getWebDiskPath()).append(File.separator).append("web").append(File.separator).append("admin").append(File.separator);
 		return sb.toString();
+	}
+	
+	public static void setNullValue(Model<?> model, String field, String value){
+		if(StringUtils.isNotBlank(value)){
+			model.set(field, value);
+		}
 	}
 }

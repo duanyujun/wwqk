@@ -284,39 +284,20 @@ public class CodeGenerator {
 		//isInForm, isInList, isOrderable, isSearchable, finalType, isRequired)
 		
 		List<ColumnVO> lstColumnVO = new ArrayList<ColumnVO>();
-		ColumnVO c1 = getColumnVO("product_name", null, "商品名称", 1, 1, 1, 1, 0, 0);
-		ColumnVO c2 = getColumnVO("product_img", null, "商品主图", 1, 0, 1, 1, 0, 0);
-		ColumnVO c3 = getColumnVO("product_url", null, "商品详情", 1, 0, 1, 1, 0, 0);
-		ColumnVO c4 = getColumnVO("store_name", null, "店铺名称", 1, 0, 1, 1, 0, 0);
-		ColumnVO c5 = getColumnVO("price", null, "商品价格", 1, 1, 1, 1, 0, 0);
-		ColumnVO c6 = getColumnVO("sale_month_count", null, "商品月销量", 1, 0, 1, 1, 0, 0);
-		ColumnVO c7 = getColumnVO("earn_percent", null, "通用收入比率（%）", 1, 1, 1, 1, 0, 0);
-		ColumnVO c8 = getColumnVO("earn_common", null, "通用佣金", 1, 1, 1, 1, 0, 0);
-		ColumnVO c9 = getColumnVO("promotion", null, "活动状态", 1, 1, 1, 1, 0, 0);
-		ColumnVO c10 = getColumnVO("promotion_percent", null, "活动收入比率（%）", 1, 1, 1, 1, 0, 0);
-		ColumnVO c11 = getColumnVO("earn_promotion", null, "活动佣金", 1, 1, 1, 1, 0, 0);
-		ColumnVO c12 = getColumnVO("promotion_start", null, "活动开始时间", 1, 1, 1, 1, 0, 0);
-		ColumnVO c13 = getColumnVO("promotion_end", null, "活动结束时间", 1, 1, 1, 1, 0, 0);
-		ColumnVO c14 = getColumnVO("store_ww", null, "卖家旺旺", 1, 0, 1, 1, 0, 0);
-		ColumnVO c15 = getColumnVO("tbk_short_url", null, "淘宝客短链接（300天内有效）", 1, 1, 1, 1, 0, 0);
-		ColumnVO c16 = getColumnVO("tbk_url", null, "淘宝客链接", 1, 0, 1, 1, 0, 0);
-		ColumnVO c17 = getColumnVO("tkl", null, "淘口令", 1, 1, 1, 1, 0, 0);
-		ColumnVO c18 = getColumnVO("coupon_count", null, "优惠券总量", 1, 0, 1, 1, 0, 0);
-		ColumnVO c19 = getColumnVO("coupon_count_last", null, "优惠券剩余量", 1, 0, 1, 1, 0, 0);
-		ColumnVO c20 = getColumnVO("coupon_desc", null, "优惠券面额", 1, 0, 1, 1, 0, 0);
-		ColumnVO c21 = getColumnVO("coupon_start", null, "优惠券开始时间", 1, 0, 1, 1, 0, 0);
-		ColumnVO c22 = getColumnVO("coupon_end", null, "优惠券结束时间", 1, 0, 1, 1, 0, 0);
-		ColumnVO c23 = getColumnVO("coupon_url", null, "优惠券链接", 1, 0, 1, 1, 0, 0);
-		ColumnVO c24 = getColumnVO("coupon_tkl", null, "优惠券淘口令(30天内有效)", 1, 0, 1, 1, 0, 0);
-		ColumnVO c25 = getColumnVO("coupon_short_url", null, "优惠券短链接(300天内有效)", 1, 0, 1, 1, 0, 0);
-		ColumnVO c26 = getColumnVO("recom", null, "首页推荐", 1, 1, 1, 1, 0, 0);
-		
-		ColumnVO[] allColumns = {c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22,c23,c24,c25,c26};
+		ColumnVO c1 = getColumnVO("title", null, "题目名称", 1, 1, 1, 1, 0, 1);
+		ColumnVO c2 = getColumnVO("source_id", null, "源id", 1, 1, 0, 0, 0, 0);
+		ColumnVO c3 = getColumnVO("r_answer", null, "正确答案（ABCD）", 1, 1, 0, 0, 0, 0);
+		ColumnVO c4 = getColumnVO("answer_show", null, "完整正确答案", 1, 1, 0, 0, 0, 0);
+		ColumnVO c5 = getColumnVO("update_time", null, "更新时间", 1, 0, 1, 0, 0, 0);
+		ColumnVO c6 = getColumnVO("status", null, "状态", 1, 1, 1, 0, 0, 0);
+		ColumnVO c7 = getColumnVO("type", null, "类型", 1, 1, 0, 0, 0, 0);
+	
+		ColumnVO[] allColumns = {c1,c2,c3,c4,c5,c6,c7};
 		for(ColumnVO columnVO : allColumns){
 			lstColumnVO.add(columnVO);
 		}
 		
-		build("taobao_alliance", "淘宝联盟", "com.wwqk", lstColumnVO);
+		build("question", "题目", "com.wwqk", lstColumnVO);
 	}
 	
 	//getColumnVO(colomnName, colomnType, colomnComment, isInForm, isInList, isOrderable, isSearchable, finalType, isRequired)

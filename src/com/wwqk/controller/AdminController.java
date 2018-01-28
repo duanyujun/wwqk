@@ -22,6 +22,7 @@ import com.wwqk.constants.CommonConstants;
 import com.wwqk.constants.FlagMask;
 import com.wwqk.constants.QuestionEnum;
 import com.wwqk.model.AllLiveMatch;
+import com.wwqk.model.Answer;
 import com.wwqk.model.Article;
 import com.wwqk.model.Fun;
 import com.wwqk.model.KeyValue;
@@ -35,6 +36,7 @@ import com.wwqk.model.LeagueShooter163;
 import com.wwqk.model.MatchGuess;
 import com.wwqk.model.MatchLive;
 import com.wwqk.model.Player;
+import com.wwqk.model.Question;
 import com.wwqk.model.Say;
 import com.wwqk.model.Sofifa;
 import com.wwqk.model.TaobaoAlliance;
@@ -60,6 +62,7 @@ import com.wwqk.service.MatchGuessService;
 import com.wwqk.service.MatchHistoryService;
 import com.wwqk.service.MatchService;
 import com.wwqk.service.PlayerService;
+import com.wwqk.service.QuestionService;
 import com.wwqk.service.SayService;
 import com.wwqk.service.Shooter163Service;
 import com.wwqk.service.SofifaService;
@@ -841,6 +844,86 @@ public class AdminController extends Controller {
 		}else{
 			renderJson(0);
 		}
+	}
+	
+	public void listQuestion(){
+		render("admin/questionList.jsp");
+	}
+	
+	public void questionData(){
+		Map<Object, Object> map = QuestionService.questionData(this);
+		renderJson(map);
+	}
+	
+	public void editQuestion(){
+		String id = getPara("id");
+		if(id!=null){
+			Question question = Question.dao.findById(id);
+			question.set("update_time", DateTimeUtils.formatDateTime(question.getTimestamp("update_time")));
+			setAttr("question", question);
+			List<Answer> lstAnswer = Answer.dao.find("select * from answer where question_id = ?", id);
+			setAttr("lstAnswer", lstAnswer);
+		}
+		//题目类型
+		List<KeyValue> lstQtype = new ArrayList<KeyValue>();
+		for(QuestionEnum qEnum : QuestionEnum.values()){
+			KeyValue keyValue = new KeyValue();
+			keyValue.setKey(qEnum.getKey());
+			keyValue.setValue(qEnum.getValue());
+			lstQtype.add(keyValue);
+		}
+		setAttr("lstQtype", lstQtype);
+		render("admin/questionForm.jsp");
+	}
+	
+	public void saveQuestion(){
+		QuestionService.saveQuestion(this);
+		renderJson(1);
+	}
+	
+	public void deleteQuestion(){
+		String ids = getPara("ids");
+		if(StringUtils.isNotBlank(ids)){
+			String whereSql = " where id in (" + ids +")";
+			Db.update("delete from question "+whereSql);
+			renderJson(1);
+		}else{
+			renderJson(0);
+		}
+	}
+	
+	public void saveAnswer() throws UnsupportedEncodingException{
+		String id = getPara("id");
+		String choice = getPara("choice");
+		String show = getPara("show");
+		if(StringUtils.isNotBlank(show)){
+			show = new String(getPara("show").getBytes("ISO-8859-1"),"UTF-8");
+		}
+		
+		Answer answer = null;
+		if(StringUtils.isNotBlank(id)){
+			answer = Answer.dao.findById(id);
+		}else{
+			answer = new Answer();
+		}
+		answer.set("show", java.net.URLDecoder.decode(show, "UTF-8"));
+		answer.set("choice", choice);
+		answer.set("question_id", getPara("question_id"));
+		
+		if(StringUtils.isNotBlank(id)){
+			answer.update();
+		}else{
+			answer.save();
+		}
+		renderJson(1);
+	}
+	
+	public void deleteAnswer(){
+		String id = getPara("id");
+		if(StringUtils.isNotBlank(id)){
+			Answer.dao.deleteById(id);
+		}
+		renderJson(1);
 	}
 	
 	
