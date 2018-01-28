@@ -34,6 +34,7 @@ import com.wwqk.controller.UploadController;
 import com.wwqk.controller.UserController;
 import com.wwqk.controller.VideosController;
 import com.wwqk.model.AllLiveMatch;
+import com.wwqk.model.Answer;
 import com.wwqk.model.Article;
 import com.wwqk.model.Career;
 import com.wwqk.model.Coach;
@@ -64,6 +65,7 @@ import com.wwqk.model.OddsSource;
 import com.wwqk.model.OddsWH;
 import com.wwqk.model.Permissions;
 import com.wwqk.model.Player;
+import com.wwqk.model.Question;
 import com.wwqk.model.Roles;
 import com.wwqk.model.RolesPermissions;
 import com.wwqk.model.Say;
@@ -177,6 +179,8 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("sofifa", Sofifa.class);
 		arp.addMapping("match_guess", MatchGuess.class);
 		arp.addMapping("taobao_alliance", TaobaoAlliance.class);
+		arp.addMapping("question", Question.class);
+		arp.addMapping("answer", Answer.class);
 		
 		
 		me.add(c3p0Plugin);

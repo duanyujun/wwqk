@@ -20,9 +20,11 @@ import com.jfinal.plugin.activerecord.tx.Tx;
 import com.jfinal.upload.UploadFile;
 import com.wwqk.constants.CommonConstants;
 import com.wwqk.constants.FlagMask;
+import com.wwqk.constants.QuestionEnum;
 import com.wwqk.model.AllLiveMatch;
 import com.wwqk.model.Article;
 import com.wwqk.model.Fun;
+import com.wwqk.model.KeyValue;
 import com.wwqk.model.League;
 import com.wwqk.model.LeagueAssists;
 import com.wwqk.model.LeagueAssists163;
@@ -70,6 +72,7 @@ import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.GeneratorUtils;
 import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.MatchGuessUtils;
+import com.wwqk.utils.QuestionUtils;
 import com.wwqk.utils.SofifaUtils;
 import com.wwqk.utils.StringUtils;
 import com.wwqk.utils.TaobaoUtils;
@@ -847,6 +850,17 @@ public class AdminController extends Controller {
 		List<LeagueMatch> lstMatch = LeagueMatch.dao.find(
 				"select m.home_team_id, m.away_team_id, m.home_team_name, m.away_team_name, l.name league_name from league_match m, league l where m.league_id = l.id");
 		setAttr("lstMatch", lstMatch);
+		
+		//题目类型
+		List<KeyValue> lstQtype = new ArrayList<KeyValue>();
+		for(QuestionEnum qEnum : QuestionEnum.values()){
+			KeyValue keyValue = new KeyValue();
+			keyValue.setKey(qEnum.getKey());
+			keyValue.setValue(qEnum.getValue());
+			lstQtype.add(keyValue);
+		}
+		setAttr("lstQtype", lstQtype);
+		
 		render("admin/dailyManage.jsp");
 	}
 	
@@ -1041,4 +1055,13 @@ public class AdminController extends Controller {
 		renderJson(1);
 	}
 	
+	public void updateQuestion(){
+		String url = getPara("url");
+		String refererUrl = getPara("refererUrl");
+		String qtype = getPara("qtype");
+		if(StringUtils.isNotBlank(url) && StringUtils.isNotBlank(refererUrl) && StringUtils.isNotBlank(qtype)){
+			QuestionUtils.collect(url,refererUrl, qtype);
+		}
+		renderJson(1);
+	}
 }

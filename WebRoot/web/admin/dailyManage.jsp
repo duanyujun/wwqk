@@ -156,6 +156,22 @@
                 </div>
             </div>
             
+             <div class="row" style="margin-top:20px;">
+            	<div class="col-md-12 col-sm-12 col-xs-12">
+                	<select id="qtype" >
+                		<option value="">--请选择题目类型--</option>
+                		<c:forEach items="${lstQtype}" var="qtype">
+	                		<option value="${qtype.key }">${qtype.value}</option>
+                		</c:forEach>
+                	</select>
+                	<input type="text" id="url"  placeholder="url" />
+                    <input type="text" id="refererUrl"  placeholder="refererUrl" />
+                    <button onclick="updateQuestion();" class="btn sbold green" style="margin-left:10px;"> 更新题目
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </div>
+            
             <div class="row" style="margin-top:20px;">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <select id="matches">
@@ -352,6 +368,23 @@ function updateLeagueFifa(){
 	showToast(1, "更新中...", "温馨提示");
 	$.post("/admin/updateLeagueFifa",
 				{leagueId: $("#fifaLeagueId").val(), teamId:$("#fifaTeamId").val(), playerId:$("#sysPlayerId").val()},
+				function(result){
+					$("body").hideLoading();
+					showToast(1, "更新成功！", "温馨提示");
+				}
+	);
+}
+
+function updateQuestion(){
+	
+	if($("#qtype").val()=='' || $("#refererUrl").val()=='' || $("#url").val()==''){
+		showToast(2, "请填写完整", "温馨提示");
+		return;
+	}
+	$("body").showLoading();
+	showToast(1, "更新中...", "温馨提示");
+	$.post("/admin/updateQuestion",
+				{qtype: $("#qtype").val(), refererUrl:$("#refererUrl").val(), url:$("#url").val()},
 				function(result){
 					$("body").hideLoading();
 					showToast(1, "更新成功！", "温馨提示");
