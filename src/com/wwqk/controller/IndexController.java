@@ -35,14 +35,13 @@ public class IndexController extends Controller {
 			fun.set("summary", summary);
 		}
 		setAttr("funPage", funPage);
-		setAttr("pageUI", PageUtils.calcStartEnd(funPage));
 		setAttr("initCount", funPage.getList().size());
 		getRecomMatches();
 		CommonUtils.initLeagueNameMap();
 		getMatchNews();
 		getMatchGuess();
 		getProducts();
-		
+		setAttr("pageContent", PageUtils.getPageContent("/index", funPage));
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.INDEX.getKey());
 		render("index.jsp");
 	}

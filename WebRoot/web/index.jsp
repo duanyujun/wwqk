@@ -21,8 +21,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="assets/global/plugins/dropload/dropload.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/lobibox/css/lobibox.min.css" rel="stylesheet" type="text/css" />
-    
-    
     <title>趣点足球网 - 一个有意思的足球网站|足球说说|足球趣闻|足球数据|球星生活|免费直播</title>
 </head>
 
@@ -32,12 +30,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		<%@ include file="/common/menu.jsp"%>
 	    
 	    <!-- 移动端内容开始 -->
-	    <div id="list_content" class="row visible-sm visible-xs" style="margin-top:45px;padding-bottom: 130px;">
+	    <div id="list_content" class="row visible-sm visible-xs m-idx-list" >
 	    	<c:forEach items="${funPage.list}" var="fun" varStatus="status">
 					<c:if test="${status.index!=0}">
-						<div class="col-sm-12 col-xs-12" style="margin-top:10px;height:1px;"></div>
+						<div class="col-sm-12 col-xs-12 m-idx-line"></div>
 					</c:if>
-			    	<div class="col-sm-12 col-xs-12" style="padding-left:8px;">
+			    	<div class="col-sm-12 col-xs-12 padding-left-8">
 		   					<div class="mob-author">
 		   					
 		   							<c:if test="${fun.type==2}">
@@ -48,7 +46,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		                            
 		                            <c:if test="${fun.type==1}">
 										<a href="${(empty fun.source_name)?'fun.html':fun.source_url}" target="_blank" class="mob-author-a" >
-			                                <span class="author-name" style="margin-left:0;">${(empty fun.source_name)?'趣点足球网':fun.source_name}</span>
+			                                <span class="author-name margin-left-0">${(empty fun.source_name)?'趣点足球网':fun.source_name}</span>
 			                            </a>
 			                            <span class="author-name">
 											&nbsp;<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>
@@ -65,7 +63,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		                    </div>
 			    	</div>
 			    	<!-- 内容 -->
-			    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:10px;padding-left:38px;">
+			    	<div class="col-sm-12 col-xs-12 content-title m-idx-title" >
 						<c:if test="${fun.type==1}">
 							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_self" ><span class="summary-mobile">${fun.summary}</span></a>
 						</c:if>
@@ -74,19 +72,19 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						</c:if>
 					</div>
 			    	<!-- 图片 -->
-			    	<div class="col-sm-12 col-xs-12 content-title" style="margin-top:8px;padding-left:38px;">
+			    	<div class="col-sm-12 col-xs-12 content-title m-idx-title" >
 						<c:if test="${fun.type==1}">
 							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_self" ><img src="${fun.image_small}" class="img-responsive" alt="${fun.title}" title="${fun.title}"/></a>
 						</c:if>
 						<c:if test="${fun.type==2}">
 							<c:if test="${!empty fun.image_big}">
-								<div class="mobile-div-img" data-bg-sm="${fun.image_big}" width="${fun.image_big_width }" height="${fun.image_big_height}" style="min-height:220px;">
+								<div class="mobile-div-img min-height-220" data-bg-sm="${fun.image_big}" width="${fun.image_big_width }" height="${fun.image_big_height}" >
 								
 								</div>
 							</c:if>
 						</c:if>
 					</div>
-					<div class="col-sm-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
+					<div class="col-sm-12 col-xs-12 padding-zero">
 						<div class="index-line"></div>
 					</div>
 			    	
@@ -96,7 +94,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	</div>
 	
 	<!-- PC内容开始 -->
-    <div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:80px;padding-bottom: 130px;">
+    <div class="row clear_row_margin hidden-sm hidden-xs pc-idx-list">
     	<div class="col-lg-2 col-md-2">
     		<c:if test="${!empty lstAlliance}">
     			<div id="slideBox" class="slideBox">
@@ -108,14 +106,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</div>
     		</c:if>
     	</div>
-		<div id="main_content" style="min-height:20px;" class="col-lg-6 col-md-6">		
-			<div class="col-lg-11 col-md-11" style="padding-left:0px;">
+		<div id="main_content" class="col-lg-6 col-md-6 min-height-20">		
+			<div class="col-lg-11 col-md-11 padding-left-0">
 				<c:forEach items="${funPage.list}" var="fun" varStatus="status">
 					<c:if test="${status.index!=0}">
-						<div class="col-lg-12 col-md-12" style="margin-top:19px;height:1px;"></div>
+						<div class="col-lg-12 col-md-12 pc-idx-cont"></div>
 					</c:if>
 				
-					<div class="col-lg-4 col-md-4 content-title" style="padding-left:0px;">
+					<div class="col-lg-4 col-md-4 content-title padding-left-0">
 						<c:if test="${fun.type==1}">
 							<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_blank"><img src="${fun.image_small}" class="msg-img" alt="${fun.title}" title="${fun.title}"/></a>
 						</c:if>
@@ -130,11 +128,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									<a href="fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_blank" title="${fun.title}">${fun.title}</a>
 								</c:if>
 								<c:if test="${fun.type==2}">
-									<a href="sdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.player_name_en}-${fun.source_id}.html" target="_blank"><div class="text_cut" style="width:410px;line-height:32px;" title="${fun.summary}">${fun.summary}</div></a>
+									<a href="sdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.player_name_en}-${fun.source_id}.html" target="_blank"><div class="text_cut pc-cut-title" title="${fun.summary}">${fun.summary}</div></a>
 								</c:if>
 							</span>
 						</div>
-						<div class="col-lg-12 col-md-12" style="margin-top:5px;">
+						<div class="col-lg-12 col-md-12 margin-top-5">
 							<div class="mob-author">
 									<c:if test="${fun.type==2}">
 		                                <div class="author-face">
@@ -143,7 +141,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		                            </c:if>
 		                            
 		                            <c:if test="${fun.type==1}">
-			                            <a href="${(empty fun.source_name)?'fun.html':fun.source_url}" target="_blank" class="mob-author-a" style="margin-left:0;">
+			                            <a href="${(empty fun.source_name)?'fun.html':fun.source_url}" target="_blank" class="mob-author-a margin-left-0">
 			                                <span class="author-name" style="margin-left:0;">${(empty fun.source_name)?'趣点足球网':fun.source_name}</span>
 			                            </a>
 			                            <span class="author-name">
@@ -161,56 +159,18 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		                    </div>
 						</div>
 						
-						<div class="col-lg-12 col-md-12" style="margin-top:20px;padding-right:0;" title="${fun.summary}">
+						<div class="col-lg-12 col-md-12 pc-summary" title="${fun.summary}">
 							<span class="summary line-cut">${fun.summary}</span>
 						</div>
 					</div>
-					<div class="col-lg-12 col-md-12" style="padding-left:0px;">
+					<div class="col-lg-12 col-md-12 padding-left-0">
 						<div class="index-line"></div>
 					</div>
 					
 				</c:forEach>
 				
-				<div class="col-lg-12 col-md-12 " style="margin-top:20px;">
-					<div class="scott pull-right">
-						<a href="/index-page-1.html" title="首页"> &lt;&lt; </a>
-						
-						<c:if test="${funPage.pageNumber == 1}">
-							<span class="disabled"> &lt; </span>
-						</c:if>
-						<c:if test="${funPage.pageNumber != 1}">
-							<a href="/index-page-${funPage.pageNumber - 1}.html" > &lt; </a>
-						</c:if>
-						<c:if test="${funPage.pageNumber > 8}">
-							<a href="/index-page-1.html">1</a>
-							<a href="/index-page-2.html">2</a>
-							...
-						</c:if>
-						<c:if test="${!empty pageUI.list}">
-							<c:forEach items="${pageUI.list}" var="pageNo">
-								<c:if test="${funPage.pageNumber == pageNo }">
-									<span class="current">${pageNo}</span>
-								</c:if>
-								<c:if test="${funPage.pageNumber != pageNo }">
-									<a href="/index-page-${pageNo}.html">${pageNo}</a>
-								</c:if>
-							</c:forEach>
-						</c:if>
-						<c:if test="${(funPage.totalPage - funPage.pageNumber) >= 8 }">
-							...
-							<a href="/index-page-${funPage.totalPage - 1}.html">${funPage.totalPage - 1}</a>
-							<a href="/index-page-${funPage.totalPage}.html">${funPage.totalPage}</a>
-						</c:if>
-						
-						<c:if test="${funPage.pageNumber == funPage.totalPage}">
-							<span class="disabled"> &gt; </span>
-						</c:if>
-						<c:if test="${funPage.pageNumber != funPage.totalPage}">
-							<a href="/index-page-${funPage.pageNumber + 1}.html"> &gt; </a>
-						</c:if>
-						
-						<a href="/index-page-${funPage.totalPage}.html" title="尾页"> &gt;&gt; </a>
-					</div>
+				<div class="col-lg-12 col-md-12 margin-top-20">
+					${pageContent}
 				</div>
 				
 			</div>
@@ -222,15 +182,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					  <tbody>
 					  	<c:if test="${!empty lstGuesses}">
 					  		<tr>
-					    		<td id="guess_show" colspan="3" class="team-title" style="font-size:14px;">
-					    		网友<i>${lstGuesses[0].tipster_name}</i> 推荐 <img src="assets/image/page/voice.png" style="width:18px;margin-top:-5px;"><br>
+					    		<td id="guess_show" colspan="3" class="team-title font-14" >
+					    		网友<i>${lstGuesses[0].tipster_name}</i> 推荐 <img src="assets/image/page/voice.png" class="guess-voice" ><br>
 					    		${lstGuesses[0].bet_title_cn}&nbsp;<a href="guess-${lstGuesses[0].id}.html" target="_blank"><u>详情</u></a>
 					    		</td>
 					    	</tr>
 					  		<c:forEach items="${lstGuesses}" var="guess" varStatus="status">
 					  			<tr style="display:none;">
-						    		<td id="guess_${status.index}" colspan="3" class="team-title" style="font-size:14px;">
-						    		网友<i>${guess.tipster_name}</i> 推荐 <img src="assets/image/page/voice.png" style="width:18px;margin-top:-5px;"><br>
+						    		<td id="guess_${status.index}" colspan="3" class="team-title font-14" >
+						    		网友<i>${guess.tipster_name}</i> 推荐 <img src="assets/image/page/voice.png" class="guess-voice"><br>
 						    		${guess.bet_title_cn}&nbsp;<a href="guess-${guess.id}.html" target="_blank"><u>详情</u></a>
 						    		</td>
 						    	</tr>
@@ -240,7 +200,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						    <tr style="font-size:12px;">
 						      <td class="team-title">
 						      		<div class="row">
-						      			<div class="col-lg-12 col-md-12"><center><a href="team-${match.home_team_en_name}-${match.home_team_id}.html" target="_blank"><img src="assets/image/soccer/teams/150x150/${match.home_team_id}.png" style="width:40px;height:40px;"/></a></center></div>
+						      			<div class="col-lg-12 col-md-12"><center><a href="team-${match.home_team_en_name}-${match.home_team_id}.html" target="_blank"><img src="assets/image/soccer/teams/150x150/${match.home_team_id}.png" class="w40-h40" /></a></center></div>
 						      			<div class="col-lg-12 col-md-12"><center><a href="team-${match.home_team_en_name}-${match.home_team_id}.html" target="_blank">${match.home_team_name}</a></center></div>
 						      		</div>
 						      </td>
@@ -248,14 +208,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							      	<fmt:formatDate value="${match.match_date}" pattern="yy/MM/dd"/><br>&nbsp;
 							      		<b>${match.result}</b><br>&nbsp;
 							      		<c:if test="${match.status=='完场'}">
-								      		<span class="grey-title" style="font-size:12px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">集锦</a></span>
+								      		<span class="grey-title font-12"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">集锦</a></span>
 								      	</c:if>
 								      	<c:if test="${match.status!='完场'}">
-								      		<b class="a-title" style="font-size:12px;"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">直播</a></b>
+								      		<b class="a-title font-12"><a href="match-${match.home_team_en_name}-vs-${match.away_team_en_name}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank">直播</a></b>
 								      	</c:if>
 						      </td>
 						      <td class="team-title">
-						      		<div class="col-lg-12 col-md-12"><center><a href="team-${match.away_team_en_name}-${match.away_team_id}.html" target="_blank"><img src="assets/image/soccer/teams/150x150/${match.away_team_id}.png" style="width:40px;height:40px;"/></a></center></div>
+						      		<div class="col-lg-12 col-md-12"><center><a href="team-${match.away_team_en_name}-${match.away_team_id}.html" target="_blank"><img src="assets/image/soccer/teams/150x150/${match.away_team_id}.png" class="w40-h40" /></a></center></div>
 						      		<div class="col-lg-12 col-md-12"><center><a href="team-${match.away_team_en_name}-${match.away_team_id}.html" target="_blank">${match.away_team_name}</a></center></div>
 						      </td>
 						    </tr>
@@ -280,302 +240,21 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
 	<script src="assets/global/plugins/lobibox/js/notifications.min.js" type="text/javascript"></script>
 	<script src="assets/global/plugins/jquery.slideBox.min.js" type="text/javascript"></script>
+	<script src="assets/pages/scripts/index.js" type="text/javascript"></script>
 	
 	<script>
-	(function(){
-	    var bp = document.createElement('script');
-	    var curProtocol = window.location.protocol.split(':')[0];
-	    if (curProtocol === 'https') {
-	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-	    }
-	    else {
-	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-	    }
-	    var s = document.getElementsByTagName("script")[0];
-	    s.parentNode.insertBefore(bp, s);
-	})();
-	
-	function resizeBackground(){
-	  var winWidth = $(window).width();
-	  if (winWidth<992) {
-		  $(".mobile-div-img").each(function(){
-			  var percent = (parseFloat($(this).attr("height"))/parseFloat($(this).attr("width"))).toFixed(2);
-			  var width = winWidth-70;
-			  var height = width * percent;
-			  $(this).css("width",width+"px").css("height",height+"px");
-			  var imageHtml = "<img class='image' src='"+$(this).attr("data-bg-sm")+"' style='width:"+width+"px;height:"+height+"px;' />";
-			  $(this).html(imageHtml);
-		  });
-		  $('.image').viewer(
-					{toolbar:false, 
-					zIndex:20000,
-					shown: function() {
-						$(".viewer-canvas").attr("data-action","mix");
-					 }
-				 }
-			);
-	  } 
-	}
-	
-	var startCount = 1;
-	var guessCount = parseInt('${guessCount}');
-	var jsonObj;
-	$(document).ready(function(){
-		$(window).resize(function() {
-			resizeBackground();
-		});
-		jsonObj = JSON.parse('${jsonStr}');
-		if(jsonObj.length!=0){
-			//消息提示
-			setTimeout("showMsg()",5000);
-			setInterval("showMsg()",40000); 
-		}
-		
-		if(guessCount>0){
-			setInterval("changeGuess()",18000); 
-		}
-	});
-	
-	function changeGuess(){
-		if(startCount<guessCount){
-			$("#guess_show").html($("#guess_"+startCount).html());
-			startCount++;
-		}else{
-			$("#guess_show").html($("#guess_0").html());
-			startCount = 1;
-		}
-	}
-	
-	var i = 0;
-	function showMsg(){
-		if($(".lobibox-notify").size()>0){
-			$(".lobibox-notify").remove();
-		}
-		
-		var leagueName = jsonObj[i].attrs.league_name; 
-		var homeName = jsonObj[i].attrs.home_name; 
-		var awayName = jsonObj[i].attrs.away_name; 
-		var predictionDesc = jsonObj[i].attrs.prediction_desc; 
-		var predictionAll = jsonObj[i].attrs.prediction_all;
-		var live_match_id = jsonObj[i].attrs.live_match_id;
-		var match_key = jsonObj[i].attrs.match_key;
-		var match_time = jsonObj[i].attrs.match_time;
-		match_time = match_time.substring(0,10);
-		var home_team_enname = jsonObj[i].attrs.home_team_enname;
-		var away_team_enname = jsonObj[i].attrs.away_team_enname;
-		var home_team_id = jsonObj[i].attrs.home_team_id;
-		var away_team_id = jsonObj[i].attrs.away_team_id;
-		var year_show = jsonObj[i].attrs.year_show;
-		
-		var urlLink = '';
-		if(live_match_id!=0){
-			if(home_team_id==undefined || home_team_id==''){
-				urlLink = '&nbsp;<a style="color:#ddd;" target="_blank" href="live-'+match_time+'-'+home_team_enname+'-vs-'+away_team_enname+'-'+live_match_id+'.html">详情...</a>';
-			}else{
-				urlLink = '&nbsp;<a style="color:#ddd;" target="_blank" href="match-'+home_team_enname+'-vs-'+away_team_enname+'_'+match_key+'.html">详情...</a>';
-			}
-		}
-		
-		Lobibox.notify(
-				  'success',
-				  {
-					  title: false,   
-					  msg: leagueName+' '+homeName+' vs '+awayName+urlLink+'<br><span title="'+predictionAll+'">'+predictionDesc+'</span>',  
-					  icon: false, 
-					  delay: 25000, 
-					  position: "bottom right"
-				  }
-		); 
-		i++;
-		if(i==jsonObj.length){
-			i=0;
-		}
-	}
-	
-	$(function(){
-		resizeBackground();
-		$('#slideBox').slideBox({
-			duration : 0.3,//滚动持续时间，单位：秒
-			easing : 'linear',//swing,linear//滚动特效
-			hideClickBar : false,//不自动隐藏点选按键
-		});
-		
-		if (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
-			return;
-		}
-	    var noDataStr = '<div class="dropload-noData">暂无数据</div>';
-	    if(parseInt('${initCount}')<5){
-	    	if(parseInt('${initCount}')!=0){
-		    	noDataStr = '<div class="dropload-noData">&nbsp;</div>';
-	    	}
-	    }
-	    
-	    var pageNo = 1;
-	    // dropload
-	    $('.container').dropload({
-	        scrollArea : window,
-	        domUp : {
-	            domClass   : 'dropload-up',
-	            domRefresh : '<div class="dropload-refresh">↓下拉刷新</div>',
-	            domUpdate  : '<div class="dropload-update">↑释放更新</div>',
-	            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
-	        },
-	        domDown : {
-	            domClass   : 'dropload-down',
-	            domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
-	            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
-	            domNoData  : noDataStr
-	        },
-	        loadUpFn : function(me){
-	            $.ajax({
-	                type: 'GET',
-	                data: {pageNo:1},
-	                url: 'listMore',
-	                dataType: 'json',
-	                success: function(data){
-	                    var strhtml = '';
-	                    for(var i = 0; i < data.length; i++){
-	                    	if(i!=0){
-	                    		strhtml += "<div class=\"col-sm-12 col-xs-12\" style=\"margin-top:10px;height:1px;\"></div>";
-	                    	}
-	                    	strhtml += addRecode(data[i]);
-	                    }
-	                    $('#list_content').html(strhtml);
-	                    // 每次数据加载完，必须重置
-	                    me.resetload();
-	                    // 重置页数，重新获取loadDownFn的数据
-	                    pageNo = 1;
-	                    // 解锁loadDownFn里锁定的情况
-	                    me.unlock();
-	                    me.noData(false);
-	                    $('.image').viewer(
-	        					{toolbar:false, 
-	        					zIndex:20000,
-	        					shown: function() {
-	        						$(".viewer-canvas").attr("data-action","mix");
-	        					 }
-	        				 }
-	        			);
-	                },
-	                error: function(xhr, type){
-	                    // 即使加载出错，也得重置
-	                    me.resetload();
-	                }
-	            });
-	        },
-	        loadDownFn : function(me){
-	        	pageNo++;
-	            // 拼接HTML
-	            var strhtml = '';
-	            $.ajax({
-	            	type: 'GET',
-	                data: {pageNo:pageNo},
-	                url: 'listMore',
-	                dataType: 'json',
-	                success: function(data){
-	                    var arrLen = data.length;
-	                    if(arrLen > 0){
-	                    	strhtml += "<div class=\"col-sm-12 col-xs-12\" style=\"margin-top:10px;height:1px;\"></div>";
-	                        for(var i=0; i<arrLen; i++){
-	                        	if(i!=0){
-		                    		strhtml += "<div class=\"col-sm-12 col-xs-12\" style=\"margin-top:10px;height:1px;\"></div>";
-		                    	}
-	                        	strhtml += addRecode(data[i]);
-	                        }
-	                    // 如果没有数据
-	                    }else{
-	                        // 锁定
-	                        me.lock();
-	                        // 无数据
-	                        me.noData();
-	                    }
-	                 	// 插入数据到页面，放到最后面
-	                    $('#list_content').append(strhtml);
-	                    // 每次数据插入，必须重置
-	                    me.resetload();
-	                    $('.image').viewer(
-	        					{toolbar:false, 
-	        					zIndex:20000,
-	        					shown: function() {
-	        						$(".viewer-canvas").attr("data-action","mix");
-	        					 }
-	        				 }
-	        			);
-	                },
-	                error: function(xhr, type){
-	                    // 即使加载出错，也得重置
-	                    me.resetload();
-	                }
-	            });
-	        },
-	        threshold : 50
-	    });
-	});
-	
-	function addRecode(fun){
-		var winWidth = $(window).width();
-		var width;
-		var height;
-		if (winWidth<992) {
-			  var percent = (parseFloat($(this).attr("height"))/parseFloat($(this).attr("width"))).toFixed(2);
-			  width = winWidth-70;
-			  height = width * percent;
-		} 
-		
-		var create_time = '';
-		var date_str = '';
-		if(fun.create_time){
-			create_time = fun.create_time.substring(0,10);
-			date_str = create_time.substring(0,10);
-		}
-		var strhtml = "<div class=\"col-sm-12 col-xs-12\">";
-		strhtml+="		   					<div class=\"mob-author\">";
-		strhtml+="		                               <div class=\"author-face\">";
-		if(fun.type==1){
-			strhtml+="											<img src=\"assets/image/page/logo-small.png\">";
-		}else{
-			strhtml+="											<a href=\"player-"+fun.player_name_en+"-"+fun.player_id+".html\" target=\"_self\"><img src=\""+fun.player_image+"\"></a>";
-		}
-		strhtml+="		                            </div>";
-		if(fun.type==1){
-			strhtml+="										<a href=\"fun.html\" target=\"_blank\" class=\"mob-author-a\">";
-			strhtml+="			                                <span class=\"author-name\">趣点足球网</span>";
-			strhtml+="			                            </a>";
-		}else{
-			strhtml+="										<a href=\"player-"+fun.player_name_en+"-"+fun.player_id+".html\" target=\"_self\" class=\"mob-author-a\">";
-			strhtml+="			                                <span class=\"author-name\">"+fun.player_name+"</span>";
-			strhtml+="			                            </a>";
-		}
-		strhtml+="		                            <span class=\"author-name\">";
-		strhtml+="										&nbsp;"+create_time;
-		strhtml+="									</span>";
-		strhtml+="		                    </div>";
-		strhtml+="			    	</div>";
-		strhtml+="			    	<div class=\"col-sm-12 col-xs-12 content-title\" style=\"margin-top:10px;padding-left:45px;\">";
-		if(fun.type==1){
-			strhtml+="							<a href=\"fdetail-"+date_str+"-"+fun.title_en+"-"+fun.id+".html\" target=\"_self\" ><span class=\"summary-mobile\">"+fun.summary+"</span></a>";
-		}else{
-			strhtml+="							<span class=\"summary-mobile\">"+fun.summary+"</span>";
-		}
-		strhtml+="					</div>";
-		strhtml+="			    	<div class=\"col-sm-12 col-xs-12 content-title\" style=\"margin-top:8px;padding-left:45px;\">";
-		if(fun.type==1){
-			strhtml+="							<a href=\"fdetail-"+date_str+"-"+fun.title_en+"-"+fun.id+".html\" target=\"_self\" ><img src=\""+fun.image_small+"\" class=\"img-responsive\" alt=\""+fun.title+"\" /></a>";
-		}else{
-			if(fun.image_big && fun.image_big!=''){
-				strhtml+="<div class='mobile-div-img' data-bg-sm='"+fun.image_big+"' width='"+fun.image_big_width+"' height='"+fun.image_big_height+"' style='width:"+width+"px;height:"+height+"px;'><img class='image' src='"+fun.image_big+"' style='width:"+width+"px;height:"+height+"px;' /></div>";
-			}
-		}
-		strhtml+="					</div>";
-		strhtml+="					<div class=\"col-sm-12 col-xs-12\" style=\"padding-left:0px;padding-right:0px;\">";
-		strhtml+="						<div class=\"index-line\"></div>";
-		strhtml+="					</div>";
-			
-		return strhtml;
-	}
-	
-	
-	
+		(function(){
+		    var bp = document.createElement('script');
+		    var curProtocol = window.location.protocol.split(':')[0];
+		    if (curProtocol === 'https') {
+		        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+		    }
+		    else {
+		        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		    }
+		    var s = document.getElementsByTagName("script")[0];
+		    s.parentNode.insertBefore(bp, s);
+		})();
 	</script>
 		
 	
