@@ -24,11 +24,13 @@ public class QuestionUtils {
 	
 	private final static Pattern MAX_PAGE_SIZE_PATTERN = Pattern.compile("page>(\\d+)");
 	private static String MAIN_URL = null;
+	//最大页数
+	private static final int MAX_PAGE_SIZE = 10;
 	
 	/**
 	 * 
 	 */
-	public static void collect(String url, String refererUrl, String type){
+	public static void collect(String url, String refererUrl, String type, boolean isInit){
 		MAIN_URL = url;
 		Connection connection = Jsoup.connect(url);
 		for(Entry<String, String> entry :get33IQHeader(refererUrl).entrySet()){
@@ -41,6 +43,9 @@ public class QuestionUtils {
 			String nextRefererUrl = null;
 			String maxPageCountStr = CommonUtils.matcherString(MAX_PAGE_SIZE_PATTERN, doc.html());
 			int maxPage = Integer.valueOf(maxPageCountStr);
+			if(!isInit){
+				maxPage = MAX_PAGE_SIZE;
+			}
 			for(int i=2; i<= maxPage; i++){
 				if(i==2){
 					nextUrl = MAIN_URL.replace(".html", "/2.html");
@@ -50,7 +55,7 @@ public class QuestionUtils {
 					nextRefererUrl = MAIN_URL.replace(".html", "/"+(i-1)+".html");
 				}
 				Thread.sleep(150);
-				System.err.println("handle page："+i+" url-"+nextUrl+" ====refererUrl："+nextRefererUrl);
+				//System.err.println("handle page："+i+" url-"+nextUrl+" ====refererUrl："+nextRefererUrl);
 				for(Entry<String, String> entry :get33IQHeader(nextRefererUrl).entrySet()){
 					connection.header(entry.getKey(), entry.getValue());
 				}
@@ -61,7 +66,7 @@ public class QuestionUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.err.println("done!!!!");
+		//System.err.println("done!!!!");
 	}
 	
 	@Before(Tx.class)
@@ -92,7 +97,7 @@ public class QuestionUtils {
 				answer.set("answer_show", StringUtils.trim(ansEle.text()));
 				answer.set("question_id", question.get("id"));
 				lstAnswer.add(answer);
-				System.err.println(ansEle.attr("chooseid")+"："+ansEle.text());
+				//System.err.println(ansEle.attr("chooseid")+"："+ansEle.text());
 			}
 			if(lstAnswer.size()>0){
 				Db.batchSave(lstAnswer, lstAnswer.size());

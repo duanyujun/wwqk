@@ -27,16 +27,23 @@ public class QuestionService {
 			whereSql = " and (title like '%"+search+"%')"; 
 		}
 		
+		String status = controller.getPara("statusSel");
+		if(StringUtils.isNotBlank(status)){
+			whereSql += " and status = "+status;
+		}
+		
+		String type = controller.getPara("typeSel");
+		if(StringUtils.isNotBlank(type)){
+			whereSql += " and type = "+type;
+		}
+		
 		int sortColumn = controller.getParaToInt("order[0][column]");
 		String sortType = controller.getPara("order[0][dir]");
 		switch (sortColumn) {
 			case 1:
               orderSql = " order by title "+sortType;
               break;
-			case 5:
-              orderSql = " order by update_time "+sortType;
-              break;
-			case 6:
+			case 2:
               orderSql = " order by status "+sortType;
               break;
 
@@ -56,15 +63,14 @@ public class QuestionService {
 			lstQuestion = Question.dao.find(sql+whereSql+orderSql+limitSql);
 			data = new Object[lstQuestion.size()];
 			for(int i=0; i<lstQuestion.size(); i++){
-				Object[] obj = new Object[7];
+				Object[] obj = new Object[6];
 				Question question = lstQuestion.get(i);
 				obj[0] = question.get("id");
 				obj[1] = question.get("title");
 				obj[2] = question.get("status");
-				obj[3] = question.get("source_id");
-				obj[4] = question.get("a_right");
-				obj[5] = question.get("a_show");
-				obj[6] = question.get("type");
+				obj[3] = question.get("a_right");
+				obj[4] = question.get("a_show");
+				obj[5] = question.get("type");
 
 				data[i] = obj;
 			}

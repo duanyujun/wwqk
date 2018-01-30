@@ -847,6 +847,15 @@ public class AdminController extends Controller {
 	}
 	
 	public void listQuestion(){
+		//题目类型
+		List<KeyValue> lstQtype = new ArrayList<KeyValue>();
+		for(QuestionEnum qEnum : QuestionEnum.values()){
+			KeyValue keyValue = new KeyValue();
+			keyValue.setKey(qEnum.getKey());
+			keyValue.setValue(qEnum.getValue());
+			lstQtype.add(keyValue);
+		}
+		setAttr("lstQtype", lstQtype);
 		render("admin/questionList.jsp");
 	}
 	
@@ -873,6 +882,9 @@ public class AdminController extends Controller {
 			lstQtype.add(keyValue);
 		}
 		setAttr("lstQtype", lstQtype);
+		setAttr("typeSel", getPara("typeSel"));
+		setAttr("statusSel", getPara("statusSel"));
+		
 		render("admin/questionForm.jsp");
 	}
 	
@@ -1143,7 +1155,7 @@ public class AdminController extends Controller {
 		String refererUrl = getPara("refererUrl");
 		String qtype = getPara("qtype");
 		if(StringUtils.isNotBlank(url) && StringUtils.isNotBlank(refererUrl) && StringUtils.isNotBlank(qtype)){
-			QuestionUtils.collect(url,refererUrl, qtype);
+			QuestionUtils.collect(url,refererUrl, qtype, false);
 		}
 		renderJson(1);
 	}

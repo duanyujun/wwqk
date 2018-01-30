@@ -189,7 +189,7 @@ $(document).ready(function() {
 
 
 function cancel(){
-	$('#main-content').load($('#urlHidden').val());
+	$('#main-content').load($('#urlHidden').val()+"?statusSel=${statusSel}&typeSel=${typeSel}");
 }
 
 function save(){
@@ -212,7 +212,7 @@ $(function(){
 });
 
 function showSuccess(data){
-	$('#main-content').load($('#urlHidden').val());
+	$('#main-content').load($('#urlHidden').val()+"?statusSel=${statusSel}&typeSel=${typeSel}");
 	showToast(1, "保存成功！", "温馨提示");
 }
 
