@@ -856,6 +856,9 @@ public class AdminController extends Controller {
 			lstQtype.add(keyValue);
 		}
 		setAttr("lstQtype", lstQtype);
+		setAttr("typeSel", getPara("typeSel"));
+		setAttr("statusSel", getPara("statusSel"));
+		
 		render("admin/questionList.jsp");
 	}
 	

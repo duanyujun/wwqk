@@ -164,8 +164,10 @@
 	                		<option value="${qtype.key }">${qtype.value}</option>
                 		</c:forEach>
                 	</select>
+                	引用URL：
+                	<input type="text" id="refererUrl"  placeholder="refererUrl" />
+                	目标：
                 	<input type="text" id="url"  placeholder="url" />
-                    <input type="text" id="refererUrl"  placeholder="refererUrl" />
                     <button onclick="updateQuestion();" class="btn sbold green" style="margin-left:10px;"> 更新题目
                         <i class="fa fa-refresh"></i>
                     </button>

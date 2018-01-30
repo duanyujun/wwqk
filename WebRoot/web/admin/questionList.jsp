@@ -34,14 +34,14 @@
                 	<select class="form-control pull-right" id="typeSel" onchange="reloadTable();" style="width:155px;">
                             <option value="" >-类型-</option>
                             <c:forEach items="${lstQtype}" var="qtype">
-                            	<option value="${qtype.key}" ${qtype.key==type?'selected':''}>${qtype.value}</option>
+                            	<option value="${qtype.key}" ${qtype.key==typeSel?'selected':''}>${qtype.value}</option>
                             </c:forEach>
                      </select>
                     <select class="form-control pull-right" id="statusSel" onchange="reloadTable();" style="width:155px;">
                             <option value="" >-状态-</option>
-                        	<option value="1" ${status==1?'selected':''}>待处理</option>
-                        	<option value="2" ${leagueId==2?'selected':''}>推荐</option>
-                        	<option value="3" ${leagueId==3?'selected':''}>废弃</option>
+                        	<option value="1" ${statusSel==1?'selected':''}>待处理</option>
+                        	<option value="2" ${statusSel==2?'selected':''}>推荐</option>
+                        	<option value="3" ${statusSel==3?'selected':''}>废弃</option>
                      </select>
                      
                 </div>
