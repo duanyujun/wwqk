@@ -212,6 +212,7 @@ $(function(){
 });
 
 function showSuccess(data){
+	alert($('#urlHidden').val()+"?statusSel=${statusSel}&typeSel=${typeSel}");
 	$('#main-content').load($('#urlHidden').val()+"?statusSel=${statusSel}&typeSel=${typeSel}");
 	showToast(1, "保存成功！", "温馨提示");
 }

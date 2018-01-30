@@ -186,7 +186,7 @@ function goInsert(id){
 	var url = "/admin/editQuestion";
 	if(id){
 		var timestamp=new Date().getTime();
-		url = url + "?id="+id+"&t="+timestamp;
+		url = url + "?id="+id+"&t="+timestamp+"&statusSel="+$("#statusSel").val()+"&typeSel="+$("#typeSel").val();
 	}
 	$('#main-content').load(url);
 }
