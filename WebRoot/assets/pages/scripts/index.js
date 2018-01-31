@@ -27,16 +27,19 @@ $(document).ready(function(){
 	$(window).resize(function() {
 		resizeBackground();
 	});
-	jsonObj = JSON.parse('${jsonStr}');
-	if(jsonObj.length!=0){
-		//消息提示
-		setTimeout("showMsg()",5000);
-		setInterval("showMsg()",40000); 
+	if('${jsonStr}'!=''){
+		jsonObj = JSON.parse('${jsonStr}');
+		if(jsonObj.length!=0){
+			//消息提示
+			setTimeout("showMsg()",5000);
+			setInterval("showMsg()",40000); 
+		}
+		
+		if(guessCount>0){
+			setInterval("changeGuess()",18000); 
+		}
 	}
 	
-	if(guessCount>0){
-		setInterval("changeGuess()",18000); 
-	}
 });
 
 function changeGuess(){
