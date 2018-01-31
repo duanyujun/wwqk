@@ -18,6 +18,7 @@ import com.wwqk.controller.AdminController;
 import com.wwqk.controller.BifenController;
 import com.wwqk.controller.DataController;
 import com.wwqk.controller.FunController;
+import com.wwqk.controller.GoodsController;
 import com.wwqk.controller.GuessController;
 import com.wwqk.controller.HomeController;
 import com.wwqk.controller.IndexController;
@@ -122,6 +123,7 @@ public class MainConfig extends JFinalConfig {
 		me.add("/bifen",BifenController.class, "web");
 		me.add("/videos",VideosController.class, "web");
 		me.add("/guess",GuessController.class, "web");
+		me.add("/goods",GoodsController.class, "web");
 	}
 
 	@Override

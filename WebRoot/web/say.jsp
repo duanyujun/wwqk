@@ -15,7 +15,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="keywords" content="趣点足球网,球员说说,球星资讯,球员动态,球星生活" />
 	<meta name="description" content="趣点足球网为球迷们提供最新的球员生活、球星生活动态，球员资讯" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
-    <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/dropload/dropload.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />

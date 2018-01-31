@@ -15,7 +15,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="keywords" content="${fun.keyword},${fun.title},<c:if test="${empty fun.keyword}">足球趣点,数据分析,新星挖掘,球员评价</c:if>" />
 	<meta name="description" content="${fun.summary}" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
-    <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
     <style type="text/css">

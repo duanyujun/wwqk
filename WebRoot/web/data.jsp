@@ -15,7 +15,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta content="telephone=no" name="format-detection">	
 	<meta name="keywords" content="${leagueName}足球数据,${leagueName}射手榜,${leagueName}助攻榜,${leagueName}积分榜,${leagueName}联赛排名" />
 	<meta name="description" content="趣点足球网为球迷们提供${leagueName}足球数据，${leagueName}射手榜，${leagueName}助攻榜，${leagueName}积分榜，${leagueName}联赛排名。了解五大联赛，上趣点足球网。" />
-    <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - ${leagueName}足球数据|${leagueName}射手榜|${leagueName}助攻榜|${leagueName}积分榜|${leagueName}联赛排名</title>
 	<style type="text/css">

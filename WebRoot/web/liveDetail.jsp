@@ -15,7 +15,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="keywords" content="${match.home_team_name}vs${match.away_team_name}直播,${match.away_team_name}vs${match.home_team_name}免费直播,${match.away_team_name}vs${match.home_team_name}在线直播,${match.away_team_name}vs${match.home_team_name}视频直播,${match.home_team_name} ${match.away_team_name} 直播,<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/> ${match.home_team_name} vs ${match.away_team_name} 阵容 " />
 	<meta name="description" content='<fmt:formatDate value="${match.match_datetime}" pattern="北京时间 - yyyy年MM月dd日 H点m分"/>，${match.league_name} ${match.home_team_name}vs${match.away_team_name}直播,趣点足球网还为您提供赛事分析，比赛结果，更有精彩视频录像集锦等着您！' />
 	<meta name="apple-mobile-web-app-capable" content="yes">
-    <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
     <script src="common/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <style type="text/css">

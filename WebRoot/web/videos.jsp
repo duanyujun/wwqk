@@ -15,7 +15,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="keywords" content="足球录像集锦,英超视频,西甲视频,德甲视频,意甲视频,法甲视频,中超视频,欧冠视频,足球视频在线观看" />
 	<meta name="description" content="提供足球视频录像,足球全场录像,足球在线观看视频等,英超,西甲,德甲,意甲,法甲等五大联赛,欧洲杯,美洲杯,欧冠,中超等一些热点足球赛事录像，弥补球迷朋友们不能看直播的遗憾！" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
-    <link href="common/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - 足球录像集锦|英超视频|西甲视频|德甲视频|意甲视频|法甲视频|中超视频|欧冠视频|足球视频在线观看</title>
  	<style type="text/css">

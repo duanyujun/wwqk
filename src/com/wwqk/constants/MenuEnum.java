@@ -7,7 +7,8 @@ public enum MenuEnum implements IEnum{
 	BIFEN("2", "比分"),
 	LIVE("3", "直播"),
 	VIDEO("4", "视频"),
-	DATA("5", "数据");
+	DATA("5", "数据"),
+	GOODS("6", "精选");
 	
 	/** 键 */
 	private String key;
