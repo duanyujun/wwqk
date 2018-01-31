@@ -32,38 +32,9 @@
 	</div>
 	
 	<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="${ctx}/assets/pages/scripts/gotop.js"></script>
+	
 	<script type="text/javascript">
-		//Handles the go to top button at the footer
-		var handleGoTop = function() {
-		    var offset = 300;
-		    var duration = 300;
-		    if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) { // ios supported
-		        $(window).bind("touchend touchcancel touchleave", function(e) {
-		            if ($(this).scrollTop() > offset) {
-		                $('.scroll-to-top').fadeIn(duration);
-		            } else {
-		                $('.scroll-to-top').fadeOut(duration);
-		            }
-		        });
-		    } else { // general 
-		        $(window).scroll(function() {
-		            if ($(this).scrollTop() > offset) {
-		                $('.scroll-to-top').fadeIn(duration);
-		            } else {
-		                $('.scroll-to-top').fadeOut(duration);
-		            }
-		        });
-		    }
-		
-		    $('.scroll-to-top').click(function(e) {
-		        e.preventDefault();
-		        $('html, body').animate({
-		            scrollTop: 0
-		        }, duration);
-		        return false;
-		    });
-		};
-		
 		$(function(){
 			  handleGoTop();
 		});
