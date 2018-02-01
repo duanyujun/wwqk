@@ -48,9 +48,10 @@ public class PageUtils {
 	 * 获取所有分页
 	 * @param url
 	 * @param page
+	 * @param align：pull-left, pull-right, ""(center)
 	 * @return
 	 */
-	public static String getPageContent(String url, Page<?> page){
+	public static String getPageContent(String url, Page<?> page, String align){
 		int currentPage = page.getPageNumber();
 		int totalPage = page.getTotalPage();
 		int startPage = currentPage - 4;
@@ -79,7 +80,7 @@ public class PageUtils {
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("<div class=\"scott pull-right\">");
+		sb.append("<div class=\"scott ").append(align).append("\">");
 		sb.append("	<a href=\"").append(url).append("-page-1.html\" title=\"首页\"> &lt;&lt; </a>");
 		if(currentPage==1){
 			sb.append("		<span class=\"disabled\"> &lt; </span>");

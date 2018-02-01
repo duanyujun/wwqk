@@ -41,7 +41,7 @@ public class IndexController extends Controller {
 		getMatchNews();
 		getMatchGuess();
 		getProducts();
-		setAttr("pageContent", PageUtils.getPageContent("/index", funPage));
+		setAttr("pageContent", PageUtils.getPageContent("/index", funPage, "pull-right"));
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.INDEX.getKey());
 		render("index.jsp");
 	}
@@ -195,7 +195,7 @@ public class IndexController extends Controller {
 	}
 	
 	private void getProducts(){
-		List<TaobaoAlliance> lstAlliance = TaobaoAlliance.dao.find("select * from taobao_alliance where recom = 1 ");
+		List<TaobaoAlliance> lstAlliance = TaobaoAlliance.dao.find("select * from taobao_alliance where recom = 1 limit 0,6");
 		setAttr("lstAlliance", lstAlliance);
 	}
 }

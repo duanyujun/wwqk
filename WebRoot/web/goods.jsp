@@ -56,108 +56,38 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 	</div>
 	
-	<div class="row clear_row_margin" style="padding-bottom: 130px;">
+	<div class="row clear_row_margin" style="padding-bottom: 130px;margin-top:15px;">
 		<div id="main_content" style="min-height:20px;padding-bottom:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="row">
-				<div class="col-lg-3 col-md-3" style="margin-top:15px;">
-					<div class="row">
-						<div class="col-lg-11 col-md-11 goods-div">
-							<div style="float:left;width:100%;">
-								<a href="www.baidu.com" target="_blank"><img src="http://img.alicdn.com/bao/uploaded/i2/2261961680/TB1dvDveVHM8KJjSZFwXXcibXXa_!!0-item_pic.jpg" style="width:100%;" /></a>
-							</div>
-							<div style="float:left;width:90%;margin-left:5%;height:36px;line-height:40px;">
-								<div style="font-size:18px;color:#F40;">
-							       <span>¥</span><strong>168.00</strong>
-							    </div>
-							</div>
-							<div style="float:left;width:90%;margin-left:5%;height:40px;">
-								<div class="more_text goods-link" style="height:40px;">
-							       <a href="www.baidu.com" href="_blank" title="">佑美跑步机W999家用款多功能超静音电动彩屏wifi折叠电动跑步机</a>
-							    </div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3" style="margin-top:15px;">
-					<div class="row">
-						<div class="col-lg-11 col-md-11 goods-div">
-							<div style="float:left;width:100%;">
-								<a href="www.baidu.com" target="_blank"><img src="http://img.alicdn.com/bao/uploaded/i2/2261961680/TB1dvDveVHM8KJjSZFwXXcibXXa_!!0-item_pic.jpg" style="width:100%;" /></a>
-							</div>
-							<div style="float:left;width:90%;margin-left:5%;height:36px;line-height:40px;">
-								<div style="font-size:18px;color:#F40;">
-							       <span>¥</span><strong>168.00</strong>
-							    </div>
-							</div>
-							<div style="float:left;width:90%;margin-left:5%;height:40px;">
-								<div class="more_text goods-link" style="height:40px;">
-							       <a href="www.baidu.com" href="_blank" title="">佑美跑步机W999家用款多功能超静音电动彩屏wifi折叠电动跑步机</a>
-							    </div>
+				<c:forEach items="${goodsPage.list}" var="goods" varStatus="status">
+					<div class="col-lg-3 col-md-3" style="margin-bottom:25px;">
+						<div class="row">
+							<div class="col-lg-11 col-md-11 goods-div">
+								<div style="float:left;width:100%;">
+									<a href="${goods.tbk_short_url}" target="_blank"><img src="${goods.product_img}" style="width:100%;" /></a>
+								</div>
+								<div style="float:left;width:90%;margin-left:5%;margin-right:5%;height:36px;line-height:40px;">
+									<div style="font-size:18px;color:#F40;">
+								       <span>¥</span><strong>${goods.price}</strong>
+								    </div>
+								</div>
+								<div style="float:left;width:90%;margin-left:5%;margin-right:5%;height:40px;">
+									<div class="more_text goods-link" style="height:40px;">
+								       <a href="${goods.tbk_short_url}" href="_blank" title="${goods.product_name}">${goods.product_name}</a>
+								    </div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-lg-3 col-md-3" style="margin-top:15px;">
-					<div class="row">
-						<div class="col-lg-11 col-md-11 goods-div">
-							<div style="float:left;width:100%;">
-								<a href="www.baidu.com" target="_blank"><img src="http://img.alicdn.com/bao/uploaded/i2/2261961680/TB1dvDveVHM8KJjSZFwXXcibXXa_!!0-item_pic.jpg" style="width:100%;" /></a>
-							</div>
-							<div style="float:left;width:90%;margin-left:5%;height:36px;line-height:40px;">
-								<div style="font-size:18px;color:#F40;">
-							       <span>¥</span><strong>168.00</strong>
-							    </div>
-							</div>
-							<div style="float:left;width:90%;margin-left:5%;height:40px;">
-								<div class="more_text goods-link" style="height:40px;">
-							       <a href="www.baidu.com" href="_blank" title="">佑美跑步机W999家用款多功能超静音电动彩屏wifi折叠电动跑步机</a>
-							    </div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3" style="margin-top:15px;">
-					<div class="row">
-						<div class="col-lg-11 col-md-11 goods-div">
-							<div style="float:left;width:100%;">
-								<a href="www.baidu.com" target="_blank"><img src="http://img.alicdn.com/bao/uploaded/i2/2261961680/TB1dvDveVHM8KJjSZFwXXcibXXa_!!0-item_pic.jpg" style="width:100%;" /></a>
-							</div>
-							<div style="float:left;width:90%;margin-left:5%;height:36px;line-height:40px;">
-								<div style="font-size:18px;color:#F40;">
-							       <span>¥</span><strong>168.00</strong>
-							    </div>
-							</div>
-							<div style="float:left;width:90%;margin-left:5%;height:40px;">
-								<div class="more_text goods-link" style="height:40px;">
-							       <a href="www.baidu.com" href="_blank" title="">佑美跑步机W999家用款多功能超静音电动彩屏wifi折叠电动跑步机</a>
-							    </div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3" style="margin-top:15px;">
-					<div class="row">
-						<div class="col-lg-11 col-md-11 goods-div">
-							<div style="float:left;width:100%;">
-								<a href="www.baidu.com" target="_blank"><img src="http://img.alicdn.com/bao/uploaded/i2/2261961680/TB1dvDveVHM8KJjSZFwXXcibXXa_!!0-item_pic.jpg" style="width:100%;" /></a>
-							</div>
-							<div style="float:left;width:90%;margin-left:5%;height:36px;line-height:40px;">
-								<div style="font-size:18px;color:#F40;">
-							       <span>¥</span><strong>168.00</strong>
-							    </div>
-							</div>
-							<div style="float:left;width:90%;margin-left:5%;height:40px;">
-								<div class="more_text goods-link" style="height:40px;">
-							       <a href="www.baidu.com" href="_blank" title="">佑美跑步机W999家用款多功能超静音电动彩屏wifi折叠电动跑步机</a>
-							    </div>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				
+					
+				</c:forEach>
 			</div>
-		
+			<div class="row">
+				<div class="col-lg-12 col-md-12 margin-top-20">
+					${pageContent}
+				</div>
+			</div>
+			
 			
 		</div>
 	</div>

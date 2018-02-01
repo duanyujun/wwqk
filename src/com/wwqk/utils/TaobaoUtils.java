@@ -120,7 +120,7 @@ public class TaobaoUtils {
 			}
 		}
 		//删除已经过期的
-		Db.update("delete from taobao_alliance where promotion_end < ? ", new Date());
+		//Db.update("delete from taobao_alliance where promotion_end < ? ", new Date());
 	}
 	
 	@SuppressWarnings("static-access")

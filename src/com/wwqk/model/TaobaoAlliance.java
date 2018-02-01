@@ -16,7 +16,7 @@ public class TaobaoAlliance extends Model<TaobaoAlliance> {
 	}
 	
 	public Page<TaobaoAlliance> paginate(int pageNumber, int pageSize) {
-		return paginate(pageNumber, pageSize, "select * ", "from taobao_alliance order by promotion_percent desc");
+		return paginate(pageNumber, pageSize, "select * ", "from taobao_alliance order by earn_common desc");
 	}
 		
 }
