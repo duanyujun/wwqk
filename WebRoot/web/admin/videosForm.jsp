@@ -321,7 +321,7 @@ function saveLink(){
 			encodeURI(encodeURI(decodeURIComponent($('#link_form').formSerialize(),true))),
 			function(result){
 				var timestamp=new Date().getTime();
-				$('#main-content').load("/admin/editVideos?id=${videos.id}&is_second=true&t="+timestamp);
+				$('#main-content').load("/admin/editVideos?id=${videos.id}&leagueId=${leagueId}&is_second=true&t="+timestamp);
 				showToast(1, "保存成功！", "温馨提示");
 			}
 		);
@@ -339,7 +339,7 @@ function deleteLink(id){
 			data: {id: id},
 	    	success: function(data){
 	    		var timestamp=new Date().getTime();
-				$('#main-content').load("/admin/editVideos?id=${videos.id}&is_second=true&t="+timestamp);
+				$('#main-content').load("/admin/editVideos?id=${videos.id}&leagueId=${leagueId}&is_second=true&t="+timestamp);
 				showToast(1, "删除成功！", "温馨提示");
 	        }
 		});

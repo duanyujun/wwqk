@@ -114,7 +114,11 @@ public class VideosService {
         	videos.set("match_en_title", PinyinUtils.getPingYin(videos.getStr("match_title")));
         }
         videos.set("source_url", controller.getPara("source_url"));
-        videos.set("from_site", controller.getPara("from_site"));
+        if(StringUtils.isBlank(controller.getPara("from_site"))){
+        	videos.set("from_site", 2);
+        }else{
+        	videos.set("from_site", controller.getPara("from_site"));
+        }
         if(StringUtils.isNotBlank(controller.getPara("match_history_id"))){
         	videos.set("match_history_id", controller.getPara("match_history_id"));
         }else{
