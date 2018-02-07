@@ -40,12 +40,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    <div class="row visible-sm visible-xs" style="padding-bottom: 130px;">
 	    	<div class="col-xs-12 col-sm-12" style="padding:0;">
 				<ul id="myTab" class="nav nav-tabs bread" style="margin-top:40px;">
-					<li class="active" id="m_live_li"><a href="#m_live" data-toggle="tab" >直播</a></li>
-					<li id="m_bifen_li"><a href="#m_bifen" data-toggle="tab" >比分</a></li>
+					<li class="${bifen==1?'':'active'}" id="m_live_li"><a href="#m_live" data-toggle="tab" >直播</a></li>
+					<li class="${bifen==1?'active':''}" id="m_bifen_li"><a href="#m_bifen" data-toggle="tab" >比分</a></li>
 					<li ><a href="#m_chatroom" data-toggle="tab" >侃球室</a></li>
 				</ul>
 				<div id="myTabContent" class="tab-content">
-						<div class="tab-pane fade in active" id="m_live" >
+						<div class="tab-pane fade in ${bifen==1?'':'active'}" id="m_live" >
 							 <table class="table small-table" style="text-indent:0;">
 							  	<tbody>
 								<c:forEach items="${lstMatch}" var="match">
@@ -87,7 +87,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							   </tbody>
 							</table>
 						</div>
-						<div class="tab-pane fade in" id="m_bifen" >
+						<div class="tab-pane fade in ${bifen==1?'active':''}" id="m_bifen" >
 							 <table class="main" cellspacing="0" >
 									<tbody id="bifenBody" >
 										
@@ -115,11 +115,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:8px;padding-bottom: 130px;">
 		<div id="main_content" style="min-height:20px;" class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2 live-all">
 			<ul id="infoTab" class="nav nav-tabs bread" >
-				<li class="active" id="live_tab_li"><a href="#live_tab" data-toggle="tab">直播</a></li>
-				<li id="bifen_tab_li"><a href="#bifen_tab" data-toggle="tab">比分</a></li>
+				<li class="${bifen==1?'':'active'}" id="live_tab_li"><a href="#live_tab" data-toggle="tab">直播</a></li>
+				<li class="${bifen==1?'active':''}" id="bifen_tab_li"><a href="#bifen_tab" data-toggle="tab">比分</a></li>
 			</ul>
 			<div id="infoTabContent" class="tab-content">
-				<div class="tab-pane fade in active" id="live_tab" style="border-top:none;">
+				<div class="tab-pane fade in ${bifen==1?'':'active'}" id="live_tab" style="border-top:none;">
 					 <div class="row">
 					 	<div class="col-lg-10 col-md-10" >
 								<table class="table table-condensed table-hover " >
@@ -175,7 +175,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						</div>
 					 </div>
 				</div>
-				<div class="tab-pane fade in" id="bifen_tab" style="border-top:none;">
+				<div class="tab-pane fade in ${bifen==1?'active':''}" id="bifen_tab" style="border-top:none;">
 					 <div class="row">
 						 <div class="col-lg-10 col-md-10" >
 						 	<div class="row">

@@ -78,6 +78,8 @@ public class LiveController extends Controller {
 		}
 		setAttr("lstMatch", lstResult);
 		
+		setAttr("bifen", getPara("bifen"));
+		
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.LIVE.getKey());
 		render("live.jsp");
 	}
