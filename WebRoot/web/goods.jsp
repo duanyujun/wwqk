@@ -27,22 +27,36 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		
 		<%@ include file="/common/menu.jsp"%>
 	    <!-- 移动端内容开始 -->
-	    <div class="row visible-sm visible-xs" style="margin-top:10px;padding-bottom: 30px;">
+	    <div class="row visible-sm visible-xs" style="margin-top:30px;padding-bottom: 130px;">
 	    	<div class="col-xs-12 col-sm-12" style="padding:0;">
-						<table class="table small-table" style="text-indent:0;">
-						  	<tbody>
-							<c:forEach items="${videosPage.list}" var="videos">
-								<tr>
-							      <td class="a-title" style="line-height:30px;padding-left:5px;">
-							      	<div class="text_cut" style="width:350px;max-width:95%;line-height:30px;"><a style="${videos.is_red=='1'?'color:red;':''}" href="/vdetail-<fmt:formatDate value="${videos.match_date}" pattern="yyyy-MM-dd"/>-${videos.match_en_title}-${videos.id}.html" target="_blank">${videos.match_title}</a></div>
-							      </td>
-							    </tr>
-						    </c:forEach>
-						   </tbody>
-						</table>
-	    	</div>
-	    	<div class="col-xs-12 col-sm-12" style="padding:0;">
-	    		
+				<div class="row">
+					<c:forEach items="${goodsPage.list}" var="goods" varStatus="status">
+						<div class="col-lg-3 col-md-3" >
+							<div class="row" >
+								<div class="col-lg-11 col-md-11 goods-div">
+									<div style="float:left;width:100%;">
+										<a href="${goods.tbk_short_url}" target="_blank"><img src="${goods.product_img}" style="width:100%;" /></a>
+									</div>
+									<div style="float:left;width:90%;margin-left:5%;margin-right:5%;height:36px;line-height:40px;">
+										<div style="font-size:18px;color:#F40;">
+									       <span>¥</span><strong>${goods.price}</strong>
+									    </div>
+									</div>
+									<div style="float:left;width:90%;margin-left:5%;margin-right:5%;height:40px;">
+										<div class="more_text goods-link" style="height:40px;">
+									       <a href="${goods.tbk_short_url}" href="_blank" title="${goods.product_name}">${goods.product_name}</a>
+									    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 margin-top-20">
+						${pageContent}
+					</div>
+				</div>
 	    	</div>
 	    </div>
 	    <!-- 移动端内容结束 -->
@@ -56,7 +70,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 	</div>
 	
-	<div class="row clear_row_margin" style="padding-bottom: 130px;margin-top:15px;">
+	<div class="row clear_row_margin hidden-sm hidden-xs" style="padding-bottom: 130px;margin-top:15px;">
 		<div id="main_content" style="min-height:20px;padding-bottom:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="row">
 				<c:forEach items="${goodsPage.list}" var="goods" varStatus="status">
@@ -79,7 +93,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							</div>
 						</div>
 					</div>
-					
 				</c:forEach>
 			</div>
 			<div class="row">
