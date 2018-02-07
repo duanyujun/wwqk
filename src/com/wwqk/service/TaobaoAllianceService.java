@@ -23,7 +23,7 @@ public class TaobaoAllianceService {
 		String search = controller.getPara("search[value]");
 		if(StringUtils.isNotBlank(search)){
 			search =search.replaceAll("'", "").trim();
-			whereSql = " and (product_name like '%"+search+"%'" +" OR product_img like '%"+search+"%'" +" OR product_url like '%"+search+"%'" +" OR store_name like '%"+search+"%'" +" OR price like '%"+search+"%'" +" OR sale_month_count like '%"+search+"%'" +" OR earn_percent like '%"+search+"%'" +" OR earn_common like '%"+search+"%'" +" OR promotion like '%"+search+"%'" +" OR promotion_percent like '%"+search+"%'" +" OR earn_promotion like '%"+search+"%'" +" OR promotion_start like '%"+search+"%'" +" OR promotion_end like '%"+search+"%'" +" OR store_ww like '%"+search+"%'" +" OR tbk_short_url like '%"+search+"%'" +" OR tbk_url like '%"+search+"%'" +" OR tkl like '%"+search+"%'" +" OR coupon_count like '%"+search+"%'" +" OR coupon_count_last like '%"+search+"%'" +" OR coupon_desc like '%"+search+"%'" +" OR coupon_start like '%"+search+"%'" +" OR coupon_end like '%"+search+"%'" +" OR coupon_url like '%"+search+"%'" +" OR coupon_tkl like '%"+search+"%'" +" OR coupon_short_url like '%"+search+"%'" +" OR recom like '%"+search+"%')"; 
+			whereSql = " and (product_name like '%"+search+"%'"+" OR tbk_short_url like '%"+search+"%'" +" OR store_name like '%"+search+"%'" +" OR store_ww like '%"+search+"%')" ; 
 		}
 		
 		int sortColumn = controller.getParaToInt("order[0][column]");
