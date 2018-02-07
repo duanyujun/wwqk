@@ -60,11 +60,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		<div id="main_content" style="min-height:20px;padding-bottom:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">		
 			<div class="row">
 				<c:forEach items="${goodsPage.list}" var="goods" varStatus="status">
-					<div class="col-lg-3 col-md-3" style="margin-bottom:25px;">
-						<div class="row">
+					<div class="col-lg-3 col-md-3" style="margin-bottom:20px;">
+						<div class="row" style="max-height:340px;min-height:285px;height:285px;">
 							<div class="col-lg-11 col-md-11 goods-div">
-								<div style="float:left;width:100%;">
-									<a href="${goods.tbk_short_url}" target="_blank"><img src="${goods.product_img}" style="width:100%;" /></a>
+								<div style="float:left;width:100%;max-height:240px;">
+									<a href="${goods.tbk_short_url}" target="_blank"><img src="${goods.product_img}" style="width:100%;height:240px;" /></a>
 								</div>
 								<div style="float:left;width:90%;margin-left:5%;margin-right:5%;height:36px;line-height:40px;">
 									<div style="font-size:18px;color:#F40;">

@@ -25,7 +25,7 @@
      		<a href="/live.html" target="_self"><span class="wwqk_menu ${menuIndex==3?'dline':''}">直播</span></a>
      	</div>
      	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
-     		<a href="video.html" target="_self"><span class="wwqk_menu ${menuIndex==4?'dline':''}">视频</span></a>
+     		<a href="videos.html" target="_self"><span class="wwqk_menu ${menuIndex==4?'dline':''}">视频</span></a>
      	</div>
      	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
      		<a href="/data.html" target="_self"><span class="wwqk_menu ${menuIndex==5?'dline':''}">数据</span></a>
