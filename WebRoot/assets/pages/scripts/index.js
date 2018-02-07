@@ -21,14 +21,14 @@ function resizeBackground(){
 }
 
 var startCount = 1;
-var guessCount = parseInt('${guessCount}');
 var jsonObj;
 $(document).ready(function(){
 	$(window).resize(function() {
 		resizeBackground();
 	});
-	if('${jsonStr}'!=''){
-		jsonObj = JSON.parse('${jsonStr}');
+	
+	if(jsonStr!=''){
+		jsonObj = JSON.parse(jsonStr);
 		if(jsonObj.length!=0){
 			//消息提示
 			setTimeout("showMsg()",5000);
@@ -110,8 +110,8 @@ $(function(){
 		return;
 	}
     var noDataStr = '<div class="dropload-noData">暂无数据</div>';
-    if(parseInt('${initCount}')<5){
-    	if(parseInt('${initCount}')!=0){
+    if(parseInt(initCount)<5){
+    	if(parseInt(initCount)!=0){
 	    	noDataStr = '<div class="dropload-noData">&nbsp;</div>';
     	}
     }
@@ -223,7 +223,7 @@ function addRecode(fun){
 	var width;
 	var height;
 	if (winWidth<992) {
-		  var percent = (parseFloat($(this).attr("height"))/parseFloat($(this).attr("width"))).toFixed(2);
+		  var percent = (parseFloat(fun.image_big_height)/parseFloat(fun.image_big_width)).toFixed(2);
 		  width = winWidth-70;
 		  height = width * percent;
 	} 

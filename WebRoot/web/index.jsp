@@ -240,6 +240,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
 	<script src="assets/global/plugins/lobibox/js/notifications.min.js" type="text/javascript"></script>
 	<script src="assets/global/plugins/jquery.slideBox.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	var guessCount = parseInt('${guessCount}');
+	var jsonStr = '${jsonStr}';
+	var initCount = '${initCount}';
+	</script>
+	
 	<script src="assets/pages/scripts/index.js" type="text/javascript"></script>
 	
 	<script>
