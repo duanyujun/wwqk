@@ -166,31 +166,12 @@ public class TaobaoAllianceService {
 			taobaoAlliance = TaobaoAlliance.dao.findById(id);
 		}
 		
-		CommonUtils.setNullValue(taobaoAlliance, "product_name", controller.getPara("product_name"));
-		CommonUtils.setNullValue(taobaoAlliance, "product_img", controller.getPara("product_img"));
-		CommonUtils.setNullValue(taobaoAlliance, "product_url", controller.getPara("product_url"));
-		CommonUtils.setNullValue(taobaoAlliance, "store_name", controller.getPara("store_name"));
-		CommonUtils.setNullValue(taobaoAlliance, "price", controller.getPara("price"));
-		CommonUtils.setNullValue(taobaoAlliance, "sale_month_count", controller.getPara("sale_month_count"));
-		CommonUtils.setNullValue(taobaoAlliance, "earn_percent", controller.getPara("earn_percent"));
-		CommonUtils.setNullValue(taobaoAlliance, "earn_common", controller.getPara("earn_common"));
-		CommonUtils.setNullValue(taobaoAlliance, "promotion", controller.getPara("promotion"));
-		CommonUtils.setNullValue(taobaoAlliance, "earn_promotion", controller.getPara("earn_promotion"));
-		CommonUtils.setNullValue(taobaoAlliance, "promotion_start", controller.getPara("promotion_start"));
-		CommonUtils.setNullValue(taobaoAlliance, "promotion_end", controller.getPara("promotion_end"));
-		CommonUtils.setNullValue(taobaoAlliance, "store_ww", controller.getPara("store_ww"));
-		CommonUtils.setNullValue(taobaoAlliance, "tbk_short_url", controller.getPara("tbk_short_url"));
-		CommonUtils.setNullValue(taobaoAlliance, "tbk_url", controller.getPara("tbk_url"));
-		CommonUtils.setNullValue(taobaoAlliance, "tkl", controller.getPara("tkl"));
-		CommonUtils.setNullValue(taobaoAlliance, "coupon_count", controller.getPara("coupon_count"));
-		CommonUtils.setNullValue(taobaoAlliance, "coupon_count_last", controller.getPara("coupon_count_last"));
-		CommonUtils.setNullValue(taobaoAlliance, "coupon_desc", controller.getPara("coupon_desc"));
-		CommonUtils.setNullValue(taobaoAlliance, "coupon_start", controller.getPara("coupon_start"));
-		CommonUtils.setNullValue(taobaoAlliance, "coupon_end", controller.getPara("coupon_end"));
-		CommonUtils.setNullValue(taobaoAlliance, "coupon_url", controller.getPara("coupon_url"));
-		CommonUtils.setNullValue(taobaoAlliance, "coupon_tkl", controller.getPara("coupon_tkl"));
-		CommonUtils.setNullValue(taobaoAlliance, "coupon_short_url", controller.getPara("coupon_short_url"));
-		CommonUtils.setNullValue(taobaoAlliance, "recom", controller.getPara("recom"));
+		String[] fields = {"product_name","product_img", "product_url", "store_name", "price", "sale_month_count","earn_percent","earn_common",
+				"promotion","earn_promotion","promotion_start","promotion_end","store_ww","tbk_short_url","tbk_url","tkl","coupon_count",
+				"coupon_count_last","coupon_desc","coupon_start","coupon_end","coupon_url","coupon_tkl","coupon_short_url","recom","position",};
+		for(String field:fields){
+			CommonUtils.setNullValue(taobaoAlliance, field, controller.getPara(field));
+		}
 
 		save(taobaoAlliance);
 	}

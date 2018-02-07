@@ -195,7 +195,7 @@ public class IndexController extends Controller {
 	}
 	
 	private void getProducts(){
-		List<TaobaoAlliance> lstAlliance = TaobaoAlliance.dao.find("select * from taobao_alliance where recom = 1 limit 0,6");
+		List<TaobaoAlliance> lstAlliance = TaobaoAlliance.dao.find("select * from taobao_alliance where recom = 1 order by position desc limit 0,6");
 		setAttr("lstAlliance", lstAlliance);
 	}
 }
