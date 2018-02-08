@@ -238,7 +238,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	<script src="assets/global/plugins/dropload/dropload.min.js" type="text/javascript"></script>
 	<script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
-	<script src="assets/global/plugins/lobibox/js/notifications.min.js" type="text/javascript"></script>
+	<script src="assets/global/plugins/lobibox/js/notifications.min.js?v=1.0" type="text/javascript"></script>
 	<script src="assets/global/plugins/jquery.slideBox.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 	var guessCount = parseInt('${guessCount}');

@@ -89,6 +89,7 @@ function showMsg(){
 				  msg: leagueName+' '+homeName+' vs '+awayName+urlLink+'<br><span title="'+predictionAll+'">'+predictionDesc+'</span>',  
 				  icon: false, 
 				  delay: 25000, 
+				  sound: false,
 				  position: "bottom right"
 			  }
 	); 
