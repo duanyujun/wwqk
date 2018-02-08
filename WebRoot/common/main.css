@@ -158,3 +158,5 @@ div.slideBox div.tips div.nums a.active{ background-color:#093;}
 .goods-link a:focus, a:hover{text-decoration: underline; color:#f40;}
 .goods-div{min-height:220px;float:left;border:1px solid #ededed;padding-left:0;padding-right:0;padding-bottom:15px;}
 .goods-div:hover{border:1px solid #f40;}
+.live-all .nav-tabs{border-bottom:none;}
+.title2 {line-height: 30px;background: #F1F6FB;padding-left: 5px;font-weight: bold;font-size: 12px;text-indent: 5px;border-bottom: 1px dotted #CCC;}

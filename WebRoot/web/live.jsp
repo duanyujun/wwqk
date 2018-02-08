@@ -19,14 +19,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.0.3/js/bootstrap.min.js" type="text/javascript"></script>
     <link href="common/main.css" rel="stylesheet" type="text/css" />
-    <link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <title>趣点足球网 - 比赛直播|免费直播|直播网站</title>
 	<style type="text/css">
 		.label{font-size:14px;}
 		.label-default{background:#ddd;color:#333;}
-		.text_cut{text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
-		.live-all .nav-tabs{border-bottom:none;}
-		.title2 {line-height: 30px;background: #F1F6FB;padding-left: 5px;font-weight: bold;font-size: 12px;text-indent: 5px;border-bottom: 1px dotted #CCC;}
+		
 	</style>    
 </head>
 
