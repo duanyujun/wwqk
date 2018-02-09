@@ -18,6 +18,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="https://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - 运动装备，为您精选</title>
+    <style type="text/css">
+    	.goods-link a{font-size:14px;color:#404040;}
+		.goods-link a:focus, a:hover{text-decoration: underline; color:#f40;}
+		.goods-div{min-height:220px;float:left;border:1px solid #ededed;padding-left:0;padding-right:0;padding-bottom:15px;}
+		.goods-div:hover{border:1px solid #f40;}
+    </style>
 </head>
 
 <body>
