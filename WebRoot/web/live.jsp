@@ -16,8 +16,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="description" content="趣点足球网为球迷们提供五大联赛最新的足球比赛直播，比赛直播链接，比赛结果。" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="https://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.0.3/js/bootstrap.min.js" type="text/javascript"></script>
     <link href="common/main.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <title>趣点足球网 - 比赛直播|免费直播|直播网站</title>
@@ -77,7 +75,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									      	  	<c:forEach items="${match.liveList}" var="live">
 									      	  		<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a></nobr>
 									      	   </c:forEach>
-									      	   &nbsp;<nobr><span class="a-title"><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a class="live-a" target="_self" style="color:red;">比分直播</a></span></nobr>
+									      	   &nbsp;<nobr><span class="grey-title"><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a class="live-a" target="_self" >比分直播</a></span></nobr>
 									       </td>
 									    </tr>
 									</c:if>
@@ -155,7 +153,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 														      	  <c:if test="${!empty match.liveList}">
 														      	  	 &nbsp;
 														      	  </c:if>
-														      	  <nobr><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a class="live-a" >比分直播</a></nobr>
+														      	  <nobr><img src="assets/pages/img/zq.gif" style="width:18px;"/> <span class="grey-title"><a class="live-a" >比分直播</a></span></nobr>
 												      		</div>
 												      	</div>
 											      </td>
@@ -233,14 +231,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	<%@ include file="/common/footer-bifen.jsp"%>		
 	</div>
+	<script src="https://cdn.bootcss.com/bootstrap/3.0.3/js/bootstrap.min.js" type="text/javascript"></script>
 	<script>
 	
 	var pc_frame_url = '<iframe id="pc_iframe" name="pc_iframe" height="20000" src="http://live1.bet007.com/live.aspx?Edition=1&amp;lang=0&amp;ad=豹步正品足球鞋男ag长钉成人训练比赛&amp;adurl=http://m.tb.cn/h.Z0dMcWl&amp;color=DCEFFF&amp;sound=0" frameborder="0" width="100%"></iframe>';
 	var chat_frame_url = '<div class="title2" style="text-align:left;">侃球室</div><iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://chat.jcbao.org/bo360/chat?h=500" marginheight="0" marginwidth="0" frameborder="0" width="100%" height="460" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>';
 	var m_chat_url = '<iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://chat.jcbao.org/bo360/chat?h=src_height" marginheight="0" marginwidth="0" frameborder="0" width="100%" height="frame_height" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>';
-	//var m_chat_url = '<iframe src="http://www5.cbox.ws/box/?boxid=896554&amp;boxtag=nner91&amp;sec=main" marginheight="0" marginwidth="0" frameborder="0" width="100%" height="frame_height" scrolling="auto" allowtransparency="yes" name="cboxmain5-896554" id="cboxmain5-896554"></iframe>';
-	
-	//http://m.310win.com/Analysis/Football.aspx?TypeID=101
 	var m_bifen_url = '<iframe id="mobile_iframe" name="mobile_iframe" scrolling="no" frameborder="0" align="center" src="http://m.188bifen.com/" style="width:100%;height: 20000px;" rel="nofollow" border="0"></iframe>';
 	var cp_url = '<iframe frameBorder="0" scrolling="no" align="center" width="100%" height="65" rel="nofollow" src="http://www.360zhibo.com/kjgd2013.html"></iframe>';
 	var cp_more_url = '<iframe frameBorder="0" scrolling="no" align="center" width="100%" height="670" rel="nofollow" src="http://www.360zhibo.com/kjgd3013.html"></iframe>';
