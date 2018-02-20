@@ -97,8 +97,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <div class="row clear_row_margin hidden-sm hidden-xs pc-idx-list">
     	<div class="col-lg-2 col-md-2">
     		<c:if test="${!empty lstAlliance}">
-    			<div id="slideBox" class="slideBox">
-				  <ul class="items">
+    			<div id="slideBox" class="slideBox" >
+				  <ul class="items" >
 				  	<c:forEach items="${lstAlliance}" var="alliance">
 				  		<li><a href="${alliance.tbk_short_url}" title="${alliance.product_name}" target="_blank"><img src="${alliance.product_img}"></a></li>
 				  	</c:forEach>
