@@ -208,7 +208,7 @@ public class CommonUtils {
 	 * @return
 	 */
 	public static Pattern getPatternByName(String patternName){
-		return Pattern.compile("<dt>"+patternName+"</dt>.*?<dd>(.*?)</dd>");
+		return Pattern.compile("<dt>"+patternName+"</dt>.*?<dd.*?>(.*?)</dd>");
 	}
 	
 	/**
