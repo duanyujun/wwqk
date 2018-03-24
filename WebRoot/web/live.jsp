@@ -183,7 +183,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						 		<div class="col-lg-4 col-md-4">
 						 			<div class="row" >
 						 				<div id="chat_div" class="col-lg-12 col-md-12" style="border:1px solid #c0c0c0;height:490px;padding-left:0;padding-right:0;">
-						 					<div class="title2" style="text-align:left;">侃球室</div><iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://chat.jcbao.org/bo360/chat?h=500" marginheight="0" marginwidth="0" frameborder="0" width="100%" height="450" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>
+						 					<div class="title2" style="text-align:left;">侃球室</div><iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://www5.cbox.ws/box/?boxid=896554&boxtag=nner91&sec=main" marginheight="0" marginwidth="0" frameborder="0" width="100%" height="450" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>
 						 				</div>
 						 				<div id="cp_div" class="col-lg-12 col-md-12" style="margin-top:10px;border:1px solid #c0c0c0;min-height:70px;padding-left:0;padding-right:0;">
 						 					<div class="title2" style="text-align:left;"><span class="headactions">最新彩票开奖结果 <a id="toggleA" href="javascript:;" onclick="toggleCp();">更多信息...</a></span></div>
@@ -235,8 +235,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<script>
 	
 	var pc_frame_url = '<iframe id="pc_iframe" name="pc_iframe" height="20000" src="http://live1.bet007.com/live.aspx?Edition=1&amp;lang=0&amp;ad=豹步正品足球鞋男ag长钉成人训练比赛&amp;adurl=http://m.tb.cn/h.Z0dMcWl&amp;color=DCEFFF&amp;sound=0" frameborder="0" width="100%"></iframe>';
-	var chat_frame_url = '<div class="title2" style="text-align:left;">侃球室</div><iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://chat.jcbao.org/bo360/chat?h=500" marginheight="0" marginwidth="0" frameborder="0" width="100%" height="460" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>';
-	var m_chat_url = '<iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://chat.jcbao.org/bo360/chat?h=src_height" marginheight="0" marginwidth="0" frameborder="0" width="100%" height="frame_height" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>';
+	var chat_frame_url = '<div class="title2" style="text-align:left;">侃球室</div><iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://www5.cbox.ws/box/?boxid=896554&boxtag=nner91&sec=main" marginheight="0" marginwidth="0" frameborder="0" width="100%" height="460" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>';
+	var m_chat_url = '<iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://www5.cbox.ws/box/?boxid=896554&boxtag=nner91&sec=main" marginheight="0" marginwidth="0" frameborder="0" width="100%" height="frame_height" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>';
 	var m_bifen_url = '<iframe id="mobile_iframe" name="mobile_iframe" scrolling="no" frameborder="0" align="center" src="http://m.188bifen.com/" style="width:100%;height: 20000px;" rel="nofollow" border="0"></iframe>';
 	var cp_url = '<iframe frameBorder="0" scrolling="no" align="center" width="100%" height="65" rel="nofollow" src="http://www.360zhibo.com/kjgd2013.html"></iframe>';
 	var cp_more_url = '<iframe frameBorder="0" scrolling="no" align="center" width="100%" height="670" rel="nofollow" src="http://www.360zhibo.com/kjgd3013.html"></iframe>';

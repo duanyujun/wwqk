@@ -77,7 +77,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<script>
 	
 	var pc_frame_url = '<iframe id="pc_iframe" name="pc_iframe" height="20000" src="http://live1.bet007.com/live.aspx?Edition=1&amp;lang=0&amp;ad=±™≤Ω’˝∆∑◊„«Ú–¨ƒ–ag≥§∂§≥…»À—µ¡∑±»»¸&amp;adurl=http://m.tb.cn/h.Z0dMcWl&amp;color=DCEFFF&amp;sound=0" frameborder="0" width="690"></iframe>';
-	var chat_frame_url = '<div class="title2" style="text-align:left;">Ÿ©«Ú “</div><iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://chat.jcbao.org/bo360/chat?h=470" marginheight="0" marginwidth="0" frameborder="0" width="297" height="420" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>';
+	var chat_frame_url = '<div class="title2" style="text-align:left;">Ÿ©«Ú “</div><iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://www5.cbox.ws/box/?boxid=896554&boxtag=nner91&sec=main" marginheight="0" marginwidth="0" frameborder="0" width="297" height="420" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>';
 	//http://m.310win.com/Analysis/Football.aspx?TypeID=101
 	var m_bifen_url = '<iframe id="mobile_iframe" name="mobile_iframe" scrolling="no" frameborder="0" align="center" src="http://m.188bifen.com/" style="width:100%;height: 20000px;" rel="nofollow" border="0"></iframe>';
 	var cp_url = '<iframe frameBorder="0" scrolling="no" align="center" width="297" height="65" rel="nofollow" src="http://www.360zhibo.com/kjgd2013.html"></iframe>';
