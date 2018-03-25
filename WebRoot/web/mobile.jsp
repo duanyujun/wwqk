@@ -206,7 +206,7 @@ function updateBifen(){
 	
 }
 
-var chat_url = '<iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://www5.cbox.ws/box/?boxid=896554&boxtag=nner91&sec=main" marginheight="0" marginwidth="0" frameborder="0" width="100%" height="frame_height" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>';
+var chat_url = '<iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://chat.shoumi.org/bo360/chat?h=460" marginheight="0" marginwidth="0" frameborder="0" width="100%" height="frame_height" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>';
 var cp_url = '<iframe frameBorder="0" scrolling="no" align="center" width="297" height="65" rel="nofollow" src="http://www.360zhibo.com/kjgd2013.html"></iframe>';
 var cp_more_url = '<iframe frameBorder="0" scrolling="no" align="center" width="297" height="670" rel="nofollow" src="http://www.360zhibo.com/kjgd3013.html"></iframe>';
 var isAll = false;
