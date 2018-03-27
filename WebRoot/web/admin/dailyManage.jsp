@@ -362,7 +362,7 @@ function updateProduct(){
 
 function updateLeagueFifa(){
 	
-	if($("#fifaLeagueId").val()=='' || $("#fifaTeamId").val()=='' || $("#sysPlayerId").val()==''){
+	if($("#fifaLeagueId").val()=='' && $("#fifaTeamId").val()=='' && $("#sysPlayerId").val()==''){
 		showToast(2, "请选择联赛或输入系统球员ID", "温馨提示");
 		return;
 	}
