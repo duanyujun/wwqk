@@ -388,7 +388,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<script src="assets/global/plugins/dropload/dropload.min.js" type="text/javascript"></script>
 	<script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
 	
-	//https://cdn.bootcss.com/echarts/3.8.5/echarts.common.min.js
 	<script src="assets/global/scripts/echarts.js"></script>
 	
 	<script>
