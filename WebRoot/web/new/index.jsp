@@ -40,7 +40,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 					<div style="width:272px;height:30px;float:left;background:#f9f9f9;">
 						<div style="width:30px;height:30px;float:left;margin-left:4px;"><img src="${say.player_img_local}" style="width:30px;height:30px;border-radius:50%;"/></div>
-						<div style="width:230px;height:30px;line-height:30px;float:left;text-align:left;margin-left:4px;"><span class="grey-title" style="color:grey;"><a href="" target="_blank" title="${say.player_name}的详细信息">${say.player_name}</a>&nbsp;&nbsp;<fmt:formatDate value="${say.create_time}" pattern="yyyy-MM-dd"/></span></div>
+						<div style="width:230px;height:30px;line-height:30px;float:left;text-align:left;margin-left:4px;"><span class="grey-title" style="color:grey;"><a href="player-${say.player_name_en}-${say.player_id}.html" target="_blank" title="${say.player_name}的详细信息">${say.player_name}</a>&nbsp;&nbsp;<fmt:formatDate value="${say.create_time}" pattern="yyyy-MM-dd"/></span></div>
 					</div>
 				</div>
 			</div>

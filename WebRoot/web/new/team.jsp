@@ -17,6 +17,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link href="https://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/common/new/main.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/map/map.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - ${team.name}|${leagueName}${team.name}球员|${team.name}直播|${team.name}数据|${team.name}比赛|${team.name}排名</title>
 	
 </head>
@@ -31,7 +32,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<div class="bread" style="margin-bottom:10px;text-align:left;">
 				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/data-${leagueENName}-${team.league_id}.html" title="${leagueName}" target="_blank">数据</a>&nbsp;&gt;&nbsp;${team.name}
 			</div>
-			<div style="width:66%;float:left;">
+			<div style="width:66%;float:left;text-align:left;">
 				<div style="width:50%;float:left;margin-top:10px;">
 					<div style="width:100%;float:left;">						
 						<a href="${team.offical_site}" target="_blank" title="查看${team.name}官网"><img src="assets/image/soccer/teams/150x150/${team.id}.png"  style="width:150px;height:150px;" alt="${team.name}" /></a>
@@ -55,7 +56,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				
 				<div style="margin-top:10px;width:50%;float:left;">
 					<div style="width:100%;float:left;">
-						<img src="${team.venue_small_img_local}" big="${team.venue_img_local}" class="img-responsive img-rounded venue" style="width:300px;height:225px;cursor:pointer;" alt="${team.name}球场名称：${team.venue_name}" title="${team.name}球场名称：${team.venue_name}"/>
+						<img src="${team.venue_small_img_local}" big="${team.venue_img_local}" class="img-responsive venue" style="width:300px;height:225px;cursor:pointer;" alt="${team.name}球场名称：${team.venue_name}" title="${team.name}球场名称：${team.venue_name}"/>
 					</div>
 					<div style="margin-top:10px;width:100%;float:left;">
 						球场名称：${team.venue_name}
@@ -149,7 +150,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<div style="width:33%;margin-left:1%;float:left;margin-top:134px;">
 					<c:if test="${!empty lstMatchHistory}">
 						<div style="width:100%;float:left;">
-								<table class="table" style="border:1px solid #dddddd;">
+								<table class="table" style="border:1px solid #dddddd;text-align:left;">
 								  <caption style="min-height:30px;text-align:left;"><b style="margin-left:10px;">联赛排名</b></caption>
 								  <thead>
 								    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;font-size:12px;">
