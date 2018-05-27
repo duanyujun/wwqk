@@ -27,7 +27,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     	#article_div li{line-height:30px;height:30px;}
     	#article_div li:before{content:"• "; color:#ccc;}
     </style>
-   
 </head>
 
 <body>

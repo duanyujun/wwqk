@@ -1,6 +1,6 @@
 .yt_play{height:auto; margin:0px auto 6px auto;border:1px #ddd solid; background:#FFF; border-radius:5px;}
-.yt_play{ width:948px; padding:5px; border:1px #5cb85c solid; box-shadow: 0 0 4px 4px #ccc; margin:2px auto 8px auto;}
-.yt_play .player{ width:650px; height:auto; float:left;}
+.yt_play{ width:928px; padding:5px; border:1px #5cb85c solid; box-shadow: 0 0 4px 4px #ccc; margin:2px auto 8px auto;}
+.yt_play .player{ width:630px; height:auto; float:left;}
 .yt_play .player h4{height:26px; margin-top:0px;padding:0px 5px; margin-bottom:2px; background:#eeeeee; line-height:26px; font-weight:normal; font-size:14px;font-family:"微软雅黑";text-shadow: #fff 0 1px 0;}
 .yt_play .player .play{ height:460px; background:#000; overflow:hidden;}
 .yt_play .player .tags{ height:26px;margin-top:4px; line-height:26px;}

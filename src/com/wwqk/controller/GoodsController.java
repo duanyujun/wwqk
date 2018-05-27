@@ -17,7 +17,7 @@ public class GoodsController extends Controller {
 		
 		setAttr("pageContent", PageUtils.getPageContent("/goods", goodsPage, ""));
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.GOODS.getKey());
-		render("goods.jsp");
+		render("new/goods.jsp");
 	}
 	
 }

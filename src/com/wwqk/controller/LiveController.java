@@ -28,7 +28,7 @@ import com.wwqk.utils.EnumUtils;
 import com.wwqk.utils.StringUtils;
 
 public class LiveController extends Controller {
-
+	
 	public void index(){
 		
 		Date nowDate = DateTimeUtils.addHours(new Date(), -2);
@@ -81,7 +81,10 @@ public class LiveController extends Controller {
 		setAttr("bifen", getPara("bifen"));
 		
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.LIVE.getKey());
-		render("live.jsp");
+		
+		//render("live.jsp");
+		
+		render("new/live.jsp");
 	}
 	
 	public void detail(){
@@ -117,32 +120,34 @@ public class LiveController extends Controller {
 			match.set("league_id", "");
 		}
 		
-		if(StringUtils.isBlank(match.getStr("league_id"))){
-			List<TipsAll> lstTips =TipsAll.dao.find("select * from tips_all where game_id = ? order by is_home_away asc", match.getStr("game_id"));
-			if(lstTips.size()!=0){
-				TipsMatch tipsMatch = TipsMatch.dao.findFirst("select * from tips_match where live_match_id = ?", id);
-				if(tipsMatch!=null){
-					if(StringUtils.isNotBlank(tipsMatch.getStr("home_absence"))){
-						TipsAll tipsAllHome = new TipsAll();
-						tipsAllHome.set("is_home_away", "0");
-						tipsAllHome.set("is_good_bad", "1");
-						tipsAllHome.set("news", "伤停情况："+tipsMatch.getStr("home_absence"));
-						lstTips.add(0, tipsAllHome);
-					}
-					if(StringUtils.isNotBlank(tipsMatch.getStr("away_absence"))){
-						TipsAll tipsAllAway = new TipsAll();
-						tipsAllAway.set("is_home_away", "1");
-						tipsAllAway.set("is_good_bad", "1");
-						tipsAllAway.set("news", "伤停情况："+tipsMatch.getStr("away_absence"));
-						lstTips.add(tipsAllAway);
-					}
+		List<TipsAll> lstTips =TipsAll.dao.find("select * from tips_all where game_id = ? order by is_home_away asc", match.getStr("game_id"));
+		if(lstTips.size()!=0){
+			TipsMatch tipsMatch = TipsMatch.dao.findFirst("select * from tips_match where live_match_id = ?", id);
+			if(tipsMatch!=null){
+				if(StringUtils.isNotBlank(tipsMatch.getStr("home_absence"))){
+					TipsAll tipsAllHome = new TipsAll();
+					tipsAllHome.set("is_home_away", "0");
+					tipsAllHome.set("is_good_bad", "1");
+					tipsAllHome.set("news", "伤停情况："+tipsMatch.getStr("home_absence"));
+					lstTips.add(0, tipsAllHome);
 				}
-				setAttr("lstTips", lstTips);
+				if(StringUtils.isNotBlank(tipsMatch.getStr("away_absence"))){
+					TipsAll tipsAllAway = new TipsAll();
+					tipsAllAway.set("is_home_away", "1");
+					tipsAllAway.set("is_good_bad", "1");
+					tipsAllAway.set("news", "伤停情况："+tipsMatch.getStr("away_absence"));
+					lstTips.add(tipsAllAway);
+				}
 			}
-			setAttr("match", match);
-			
+			setAttr("lstTips", lstTips);
+		}
+		setAttr("match", match);
+		
+		if(StringUtils.isBlank(match.getStr("league_id"))){
 			setAttr(CommonConstants.MENU_INDEX, MenuEnum.LIVE.getKey());
-			render("liveDetail.jsp");
+			//render("liveDetail.jsp");
+			render("new/liveDetail.jsp");
+			
 		}else{
 			LeagueMatchHistory history = LeagueMatchHistory.dao.findFirst(
 					"select * from league_match_history where league_id = ? and home_team_id = ? and away_team_id = ? and year_show = ? ",
@@ -159,6 +164,8 @@ public class LiveController extends Controller {
 			
 			Team homeTeam = Team.dao.findById(history.getStr("home_team_id"));
 			setAttr("homeTeam", homeTeam);
+			Team awayTeam = Team.dao.findById(history.getStr("away_team_id"));
+			setAttr("awayTeam", awayTeam);
 			String yearShow = history.getStr("year_show").substring(0,2)+"/"+history.getStr("year_show").substring(2);
 			history.set("year_show", yearShow);
 			setAttr("history", history);
@@ -166,7 +173,7 @@ public class LiveController extends Controller {
 			setAttr("leagueENName", EnumUtils.getValue(LeagueENEnum.values(), homeTeam.getStr("league_id")));
 			
 			setAttr(CommonConstants.MENU_INDEX, MenuEnum.LIVE.getKey());
-			render("matchDetail.jsp");
+			render("new/matchDetail.jsp");
 		}
 		
 	}

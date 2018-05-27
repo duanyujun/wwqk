@@ -82,7 +82,7 @@ public class DataController extends Controller {
 		setAttr("lstMatch", lstMatch);
 		
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.DATA.getKey());
-		render("data.jsp");
+		render("new/data.jsp");
 	}
 	
 }

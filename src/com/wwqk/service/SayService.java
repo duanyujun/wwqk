@@ -174,39 +174,39 @@ public class SayService {
 		}
 		save(say);
 		
-		Fun fun = null;
-		if(StringUtils.isNotBlank(oldSayId)){
-			fun = Fun.dao.findFirst("select * from fun where source_id = ? ", oldSayId);
-		}else{
-			fun = new Fun();
-		}
-		
-		String contentOld = content;
-		if(StringUtils.isNotBlank(content) && content.length()>15){
-			content = content.substring(0, 15);
-		}
-		fun.set("title", content);
-		fun.set("summary", contentOld);
-		fun.set("type", 2);
-		fun.set("source_id", say.get("id"));
-		if(StringUtils.isNotBlank(image_small)){
-			fun.set("image_small", image_small);
-		}
-		if(StringUtils.isNotBlank(image_big)){
-			fun.set("image_big", image_big);
-			fun.set("image_big_width", say.get("image_big_width"));
-			fun.set("image_big_height", say.get("image_big_height"));
-		}
-		fun.set("player_id",player_id);
-		fun.set("player_name",player.get("name"));
-		fun.set("player_name_en", player.get("en_url"));
-		fun.set("player_image",player.get("img_small_local"));
-		if(StringUtils.isNotBlank(create_time)){
-			fun.set("create_time", create_time);
-		}
-		
-		
-		FunService.save(fun);
+//		Fun fun = null;
+//		if(StringUtils.isNotBlank(oldSayId)){
+//			fun = Fun.dao.findFirst("select * from fun where source_id = ? ", oldSayId);
+//		}else{
+//			fun = new Fun();
+//		}
+//		
+//		String contentOld = content;
+//		if(StringUtils.isNotBlank(content) && content.length()>15){
+//			content = content.substring(0, 15);
+//		}
+//		fun.set("title", content);
+//		fun.set("summary", contentOld);
+//		fun.set("type", 2);
+//		fun.set("source_id", say.get("id"));
+//		if(StringUtils.isNotBlank(image_small)){
+//			fun.set("image_small", image_small);
+//		}
+//		if(StringUtils.isNotBlank(image_big)){
+//			fun.set("image_big", image_big);
+//			fun.set("image_big_width", say.get("image_big_width"));
+//			fun.set("image_big_height", say.get("image_big_height"));
+//		}
+//		fun.set("player_id",player_id);
+//		fun.set("player_name",player.get("name"));
+//		fun.set("player_name_en", player.get("en_url"));
+//		fun.set("player_image",player.get("img_small_local"));
+//		if(StringUtils.isNotBlank(create_time)){
+//			fun.set("create_time", create_time);
+//		}
+//		
+//		
+//		FunService.save(fun);
 	}
 	
 	

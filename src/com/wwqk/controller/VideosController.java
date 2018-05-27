@@ -42,7 +42,7 @@ public class VideosController extends Controller {
 		setAttr("leagueId", leagueId);
 		
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.VIDEO.getKey());
-		render("videos.jsp");
+		render("new/videos.jsp");
 	}
 	
 	public void detail(){
@@ -78,7 +78,7 @@ public class VideosController extends Controller {
 		
 		setAttr("lstLinks", lstLinks);
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.VIDEO.getKey());
-		render("videosDetail.jsp");
+		render("new/videosDetail.jsp");
 	}
 	
 	public void play() {

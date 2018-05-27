@@ -82,7 +82,7 @@ public class TeamController extends Controller {
 		setAttr("positionList", positionList);	
 		
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.DATA.getKey());
-		render("team.jsp");
+		render("new/team.jsp");
 	}
 	
 }

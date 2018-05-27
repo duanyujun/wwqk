@@ -24,27 +24,34 @@ import com.wwqk.model.TaobaoAlliance;
 import com.wwqk.model.TipsMatch;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.DateTimeUtils;
-import com.wwqk.utils.PageUtils;
+import com.wwqk.utils.IndexUtils;
 
 public class IndexController extends Controller {
-
+	
 	public void index(){
-		Page<Fun> funPage = Fun.dao.paginate(getParaToInt("pageNumber", 1), 10, 0);
-		for(Fun fun:funPage.getList()){
-			String summary = fun.getStr("summary").replaceAll("<.*?>", "");
-			fun.set("summary", summary);
-		}
-		setAttr("funPage", funPage);
-		setAttr("initCount", funPage.getList().size());
-		getRecomMatches();
-		CommonUtils.initLeagueNameMap();
-		getMatchNews();
-		getMatchGuess();
-		getProducts();
-		setAttr("pageContent", PageUtils.getPageContent("/index", funPage, "pull-right"));
+		IndexUtils.init(this);
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.INDEX.getKey());
-		render("index.jsp");
+		render("new/index.jsp");
 	}
+	
+
+//	public void index(){
+//		Page<Fun> funPage = Fun.dao.paginate(getParaToInt("pageNumber", 1), 10, 0);
+//		for(Fun fun:funPage.getList()){
+//			String summary = fun.getStr("summary").replaceAll("<.*?>", "");
+//			fun.set("summary", summary);
+//		}
+//		setAttr("funPage", funPage);
+//		setAttr("initCount", funPage.getList().size());
+//		getRecomMatches();
+//		CommonUtils.initLeagueNameMap();
+//		getMatchNews();
+//		getMatchGuess();
+//		getProducts();
+//		setAttr("pageContent", PageUtils.getPageContent("/index", funPage, "pull-right"));
+//		setAttr(CommonConstants.MENU_INDEX, MenuEnum.INDEX.getKey());
+//		render("index.jsp");
+//	}
 	
 	public void listMore(){
 		Page<Fun> funPage = Fun.dao.paginate(getParaToInt("pageNo", 1), 10, 0);

@@ -97,7 +97,7 @@ public class SayController extends Controller {
 		}
 		
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.DATA.getKey());
-		render("sayList.jsp");
+		render("new/player.jsp");
 	}
 	
 	public void listPlayerMore(){
