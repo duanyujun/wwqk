@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.upload.UploadFile;
 import com.wwqk.model.Videos;
+import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.PinyinUtils;
 import com.wwqk.utils.StringUtils;
 
@@ -96,6 +99,13 @@ public class VideosService {
 	}
 	
 	public static void saveVideos(Controller controller){
+		
+		List<UploadFile> files = new ArrayList<UploadFile>();
+		try {
+			files = controller.getFiles();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 	
 		String id = controller.getPara("id");
 		Videos videos = null;
@@ -133,6 +143,20 @@ public class VideosService {
         if(StringUtils.isNotBlank(controller.getPara("summary"))){
         	videos.set("summary", controller.getPara("summary"));
         }
+        
+        String video_image = null;
+        for(UploadFile file : files){
+			if("video_img".equals(file.getParameterName())){
+				video_image = ImageUtils.getInstance().saveFiles(file, "videos", "173x100", UUID.randomUUID().toString(), true);
+			}
+		}
+        if(StringUtils.isNotBlank(video_image)){
+        	videos.set("video_img", video_image);
+        }
+        
+        videos.set("recom", controller.getPara("recom"));
+        
+        
         
 		save(videos);
 	}

@@ -27,7 +27,7 @@
 				</ul>
 		 <div id="myTabContent" class="tab-content">
 				<div class="tab-pane fade ${(empty isSecond)?'in active':''}" id="v_detail" >
-					 	<form class="form-horizontal" id="form" action="/admin/saveVideos"   method="post">
+					 	<form class="form-horizontal" id="form" action="/admin/saveVideos"  enctype="multipart/form-data" method="post">
 				        	  <input type="hidden" name="id" value="${videos.id}" />
 						      <div class="form-body">
 				                 <div class="form-group">
@@ -92,6 +92,29 @@
 				                           <input type="text" class="form-control" id="keywords" name="keywords"  value="${videos.keywords}" placeholder="请输入关键字">
 				                      </div>
 				                      <div class="col-md-3"><label for="name"></label></div>
+				                 </div>
+				                 <div class="form-group">
+						              <label class="col-md-3 control-label"><font color="red">*</font>封面（173x100）：</label>
+						              <div class="col-md-6">
+						                  <input type="file" class="form-control" id="video_img" name="video_img" >
+						              </div>
+						              <div class="col-md-3"><label for="video_img"></label></div>
+						          </div>
+						          <c:if test="${!empty videos.video_img}">
+						          	<div class="form-group">
+							              <label class="col-md-3 control-label"></label>
+							              <div class="col-md-6">
+							                  <img src="${videos.video_img}" />
+							              </div>
+							              <div class="col-md-3"><label for="video_img"></label></div>
+							          </div>
+						          </c:if>
+						          <div class="form-group">
+				                      <label class="col-md-3 control-label">首页推荐：</label>
+				                      <div class="col-md-6">
+				                           <input type="text" class="form-control" id="recom" name="recom"  value="${videos.recom}" >
+				                      </div>
+				                      <div class="col-md-3"><label for="recom"></label></div>
 				                 </div>
 				                 <div class="form-group">
 				                      <label class="col-md-3 control-label">简述：</label>

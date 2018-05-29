@@ -73,7 +73,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		<c:forEach items="${videoList}" var="video" varStatus="status" >
 			<div style="width:173px;height:155px;background:#eee;float:left;${status.count!=5?'margin-right:16px;':''}">
 				<div style="width:173px;height:100px;float:left;" title="${video.match_title}">
-					<a href="/vdetail-<fmt:formatDate value="${video.match_date}" pattern="yyyy-MM-dd"/>-${video.match_en_title}-${video.id}.html" target="_blank"><img src="assets/image/page/v-default.jpg" style="width:173px;height:100px;"/></a>
+					<a href="/vdetail-<fmt:formatDate value="${video.match_date}" pattern="yyyy-MM-dd"/>-${video.match_en_title}-${video.id}.html" target="_blank"><img src="${(empty video.video_img)?'assets/image/page/v-default.jpg':video.video_img}" style="width:173px;height:100px;"/></a>
 				</div>
 				<div  style="width:173px;height:55px;text-align:left;float:left;font-size:12px;padding:4px;margin-top:6px;">
 					<div class="multi-line-cut a-title" title="${video.match_title}" style="width:100%;height:40px;float:left;">

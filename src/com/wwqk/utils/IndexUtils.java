@@ -27,7 +27,7 @@ public class IndexUtils {
 		List<Fun> funList = Fun.dao.find("select * from fun where type = 1 order by create_time desc limit 0, 10");
 		controller.setAttr("funList", funList);
 		// 视频
-		List<Videos> videoList = Videos.dao.find("select * from videos order by match_date desc limit 0,5");
+		List<Videos> videoList = Videos.dao.find("select * from videos where recom=1 order by match_date desc limit 0,5");
 		controller.setAttr("videoList", videoList);
 	
 	}
