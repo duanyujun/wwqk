@@ -2,9 +2,9 @@
 
 <div class="visible-sm visible-xs" style="width:100%;float:left;">
 	<div style="width:100%;float:left;margin-top:45px;">
-		<div style="width:50%;float:left;">
+		<div style="width:50%;float:left;min-height:140px;">
 			<!-- 图片 -->
-			<img class="img-responsive" src="${say.image_small}" />
+			<img class="img-responsive" style="min-height:140px;" src="${say.image_small}" />
 		</div>
 		<div style="width:50%;height:140px;float:left;">
 			<div class="multi-line-cut" style="-webkit-line-clamp: 5;text-align:left;width:100%;height:110px;float:left;background:#f5f5f5;padding:4px;padding-top:10px;font-size:14px;">
@@ -45,7 +45,7 @@
 		<div style="width:170px;float:left;margin-left:10px;">
 			<div style="width:170px;height:155px;float:left;margin-right:10px;">
 				<div style="width:170px;height:100px;float:left;">
-					<img src="http://sr2.pplive.cn/cms/29/94/69f8b1fd1e0a760187ef40aa9dab274a.jpg.webp" class="img-responsive"/>
+					<a href="/vdetail-<fmt:formatDate value="${video.match_date}" pattern="yyyy-MM-dd"/>-${video.match_en_title}-${video.id}.html" target="_self" style="font-size:12px;"><img src="${(empty video.video_img)?'assets/image/page/v-default.jpg':video.video_img}" class="img-responsive"/></a>
 				</div>
 				<div  style="width:170px;height:55px;text-align:left;float:left;font-size:12px;padding:4px;margin-top:6px;">
 					<div class="multi-line-cut a-title" title="${video.match_title}" style="width:100%;height:40px;float:left;">
