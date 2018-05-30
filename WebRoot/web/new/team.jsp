@@ -18,6 +18,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="https://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/common/new/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/map/map.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - ${team.name}|${leagueName}${team.name}球员|${team.name}直播|${team.name}数据|${team.name}比赛|${team.name}排名</title>
 	
 </head>
@@ -196,6 +197,35 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <!-- footer start -->
 <%@ include file="/common/new/footer.jsp"%>	
+
+<script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){
+		$('.venue').viewer(
+				{toolbar:false, 
+				zIndex:20000,
+				url:"big",
+				shown: function() {
+					$(".viewer-canvas").attr("data-action","mix");
+				 }
+			 }
+		);
+	});
+	
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+	
+</script>
 
 </body>	
 </html>

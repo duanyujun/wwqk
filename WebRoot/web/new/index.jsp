@@ -17,6 +17,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="https://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/common/new/main.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - 足球说说|球员说说|球员动态|球员资讯|球星生活</title>
     
 </head>
@@ -32,7 +33,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<div style="width:500px;height:140px;float:left;">
 				<div style="width:220px;float:left;">
 					<!-- 图片 -->
-					<img src="${say.image_small}" style="width:220px;height:140px;" />
+					<img src="${say.image_small}" big="${say.image_big}" class="image" style="width:220px;height:140px;cursor:pointer;" />
 				</div>
 				<div style="width:272px;height:140px;float:left;">
 					<div class="multi-line-cut" style="-webkit-line-clamp: 5;text-align:left;width:272px;height:110px;float:left;background:#f5f5f5;padding:4px;padding-top:10px;font-size:14px;">
@@ -91,6 +92,36 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <!-- footer start -->
 <%@ include file="/common/new/footer.jsp"%>	
+
+<script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){
+		$('.image').viewer(
+				{toolbar:false, 
+				zIndex:20000,
+				url:"big",
+				shown: function() {
+					$(".viewer-canvas").attr("data-action","mix");
+				 }
+			 }
+		);
+	});
+	
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+	
+</script>
+
 
 </body>	
 </html>

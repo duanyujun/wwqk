@@ -30,7 +30,7 @@
 			${team.venue_address}&nbsp;·&nbsp;${team.venue_name}&nbsp;·&nbsp;容量：${team.venue_capacity}人
 		</div>
 		<div style="width:100%;float:left;">
-			<img src="${team.venue_small_img_local}" class="img-responsive img-rounded" alt="${team.name}球场名称：${team.venue_name}" title="${team.name}球场名称：${team.venue_name}"/>
+			<img src="${team.venue_small_img_local}" class="img-responsive venue" alt="${team.name}球场名称：${team.venue_name}" title="${team.name}球场名称：${team.venue_name}"/>
 		</div>
 	</div>
 	

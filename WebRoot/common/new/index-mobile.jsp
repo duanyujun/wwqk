@@ -4,7 +4,7 @@
 	<div style="width:100%;float:left;margin-top:45px;">
 		<div style="width:50%;float:left;min-height:140px;">
 			<!-- 图片 -->
-			<img class="img-responsive" style="min-height:140px;" src="${say.image_small}" />
+			<img class="img-responsive image" big="${say.image_big}" class="image" style="min-height:140px;" src="${say.image_small}" />
 		</div>
 		<div style="width:50%;height:140px;float:left;">
 			<div class="multi-line-cut" style="-webkit-line-clamp: 5;text-align:left;width:100%;height:110px;float:left;background:#f5f5f5;padding:4px;padding-top:10px;font-size:14px;">
