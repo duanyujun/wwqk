@@ -31,7 +31,7 @@ public class FunController extends Controller {
 		String id = getPara("id");
 		id = CommonUtils.getRewriteId(id);
 		if(StringUtils.isBlank(id)){
-			redirect("/fun");
+			redirect("/");
 			return;
 		}
 		
@@ -43,7 +43,7 @@ public class FunController extends Controller {
 		setAttr("fun", fun);
 		
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.INDEX.getKey());
-		render("funDetail.jsp");
+		render("new/funDetail.jsp");
 	}
 	
 }
