@@ -29,8 +29,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 <!-- pc content start -->
 <div class="main hidden-sm hidden-xs">
 	<div style="width:930px;float:left;">
+		<div class="bread" style="text-align:left;">
+			当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;趣点
+		</div>
 		<div style="width:100%;float:left;">
-			<div style="width:100%;float:left;height:35px;"><h3 style="font-weight:bold;">${fun.title}</h3></div>
+			<div style="width:100%;float:left;height:45px;"><h3 style="font-weight:bold;margin-top:10px;">${fun.title}</h3></div>
 			<div style="width:100%;float:left;">
 				<div class="mob-author">
                            <span class="mob-author-a" style="margin-left:0px;">
@@ -44,20 +47,20 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                    </div>
 			</div>
 		
-			<div style="width:100%;float:left;margin-top:20px;">
+			<div style="width:100%;float:left;margin-top:20px;text-align:left;">
 				<blockquote style="background-color:#f3f7f0;font-size:16px;">
 					<img src="assets/image/page/quote.png">${fun.summary}
 				</blockquote>
 			</div>
 			
-			<div style="width:100%;float:left;margin-top:10px;font-size:14px;">
+			<div style="width:100%;float:left;margin-top:10px;font-size:14px;text-align:left;">
 				<div class="well well-lg" style="line-height:2;text-indent:20px;">
 					${fun.content}
 				</div>
 			</div>
 		
 			<c:if test="${!empty fun.source_name}">
-				<div class="bread" style="width:100%;float:left;font-size:14px;">
+				<div class="bread" style="width:100%;float:left;font-size:14px;text-align:left;">
 					来源：<a href="${fun.source_url}" target="_blank">${fun.source_name}</a>
 				</div>
 			</c:if>
@@ -75,10 +78,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 <script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(function(){
-		$('.image').viewer(
+		$('.well').viewer(
 				{toolbar:false, 
 				zIndex:20000,
-				url:"big",
 				shown: function() {
 					$(".viewer-canvas").attr("data-action","mix");
 				 }
