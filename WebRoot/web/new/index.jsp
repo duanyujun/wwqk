@@ -12,13 +12,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta content="telephone=no" name="format-detection">
-	<meta name="keywords" content="趣点足球网,在线直播,球员动态,视频集锦,球队排名" />
+	<meta name="keywords" content="趣点足球网,在线直播链接,球员动态,视频集锦,球队排名" />
 	<meta name="description" content="趣点足球网为球迷们提供最新的球员资讯，直播链接以及足球数据" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="https://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/common/new/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
-    <title>趣点足球网 - 足球说说|球员说说|球员动态|球员资讯|球星生活</title>
+    <title>趣点足球网 - 足球趣闻|球员动态|直播预告|视频集锦|足球数据</title>
     <style type="text/css">
     	li{ list-style-type: none; }
     	ul{ -webkit-padding-start:5px;}
