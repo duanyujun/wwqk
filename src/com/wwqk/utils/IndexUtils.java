@@ -3,10 +3,13 @@ package com.wwqk.utils;
 import java.util.Date;
 import java.util.List;
 
+import com.alibaba.fastjson.JSON;
 import com.jfinal.core.Controller;
 import com.wwqk.model.AllLiveMatch;
 import com.wwqk.model.Fun;
+import com.wwqk.model.MatchGuess;
 import com.wwqk.model.Say;
+import com.wwqk.model.TipsMatch;
 import com.wwqk.model.Videos;
 
 /** 
@@ -29,7 +32,20 @@ public class IndexUtils {
 		// 视频
 		List<Videos> videoList = Videos.dao.find("select * from videos where recom=1 order by match_date desc limit 0,5");
 		controller.setAttr("videoList", videoList);
+		// 情报分析
+		Date nowDate = DateTimeUtils.addHours(new Date(), -2);
+		List<TipsMatch> lstTipsMatch = TipsMatch.dao.find("select * from tips_match where match_time > ? order by match_time asc limit 0, 10", nowDate);
+		formatMsg(lstTipsMatch);
+		controller.setAttr("lstTipsMatch", lstTipsMatch);
+	}
 	
+	private static void formatMsg(List<TipsMatch> lstMatch){
+		for(TipsMatch match:lstMatch){
+			String leagueName = match.getStr("league_name");
+			leagueName = CommonUtils.leagueNameIdMap.get(leagueName);
+			match.set("league_name", leagueName==null?match.getStr("league_name"):leagueName);
+			match.set("prediction_desc", match.getStr("prediction_desc").replaceAll("\\s+", "").replaceAll("\n", ""));
+		}
 	}
 	
 }

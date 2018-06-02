@@ -19,7 +19,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="/common/new/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - 足球说说|球员说说|球员动态|球员资讯|球星生活</title>
-    
+    <style type="text/css">
+    	li{ list-style-type: none; }
+    	ul{ -webkit-padding-start:5px;}
+    </style>
 </head>
 
 <body>
@@ -83,8 +86,39 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</div>
 			</div>
 		</c:forEach>
-		
 	</div>
+	
+	
+	<div style="width:930px;margin-top:10px;float:left;text-align:left;">
+	  <div id="demo" style="overflow:hidden;height:100px;line-height:100px;">
+	    <ul>
+	      <c:forEach items="${lstTipsMatch}" var="tips">
+	      		<li >
+	      			<div style="width:100%;height:90px;line-height:30px;text-align:left;float:left;">
+	      				<div class="a-title" style="overflow:hidden;width:100%;height:40px;line-height:40px;text-align:left;float:left;" >
+		      				<span class="label label-primary">${tips.league_name}</span>
+		      				<c:if test="${tips.live_match_id!=0}">
+		      					<c:if test="${!empty tips.home_team_id }">
+		      						&nbsp;<a target="_blank" href="match-<fmt:formatDate value="${tips.match_time}" pattern="yyyy-MM-dd-HHmm"/>-${tips.home_team_enname}-vs-${tips.away_team_enname}_${tips.match_key}.html"><u>${tips.home_name} vs ${tips.away_name}</u><i>（<fmt:formatDate value="${tips.match_time}" pattern="M月d日 HH:mm"/>）</i></a>
+		      					</c:if>
+		      					<c:if test="${empty tips.home_team_id }">
+		      						&nbsp;<a target="_blank" href="live-<fmt:formatDate value="${tips.match_time}" pattern="yyyy-MM-dd-HHmm"/>-${tips.home_team_enname}-vs-${tips.away_team_enname}-${tips.live_match_id}.html"><u>${tips.home_name} vs ${tips.away_name}</u><i>（<fmt:formatDate value="${tips.match_time}" pattern="M月d日 HH:mm"/>）</i></a>
+		      					</c:if>
+		      				</c:if>
+		      				<c:if test="${tips.live_match_id==0}">
+		      					&nbsp;${tips.home_name} vs ${tips.away_name}
+		      				</c:if>
+		      			</div>
+	      				<div style="overflow:hidden;width:100%;height:60px;line-height:20px;text-align:left;float:left;" title="${tips.prediction_desc}">
+		      				${tips.prediction_desc}
+		      			</div>
+	      			</div>
+	      		</li>
+	      </c:forEach>
+	    </ul>
+	  </div>
+	</div>
+	
 </div>
 
 <!-- pc content end -->
@@ -95,7 +129,20 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript">
+	function AutoScroll(obj) {
+	    $(obj).find("ul:first").animate({
+	        marginTop: "-22px"
+	    },
+	    500,
+	    function() {
+	        $(this).css({
+	            marginTop: "0px"
+	        }).find("li:first").appendTo(this);
+	    });
+	}
+
 	$(function(){
+		setInterval('AutoScroll("#demo")', 15000);
 		$('.image').viewer(
 				{toolbar:false, 
 				zIndex:20000,
@@ -105,6 +152,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				 }
 			 }
 		);
+		
 	});
 	
 	(function(){
