@@ -3,11 +3,9 @@ package com.wwqk.utils;
 import java.util.Date;
 import java.util.List;
 
-import com.alibaba.fastjson.JSON;
 import com.jfinal.core.Controller;
 import com.wwqk.model.AllLiveMatch;
 import com.wwqk.model.Fun;
-import com.wwqk.model.MatchGuess;
 import com.wwqk.model.Say;
 import com.wwqk.model.TipsMatch;
 import com.wwqk.model.Videos;
@@ -40,6 +38,7 @@ public class IndexUtils {
 	}
 	
 	private static void formatMsg(List<TipsMatch> lstMatch){
+		CommonUtils.initLeagueNameMap();
 		for(TipsMatch match:lstMatch){
 			String leagueName = match.getStr("league_name");
 			leagueName = CommonUtils.leagueNameIdMap.get(leagueName);
