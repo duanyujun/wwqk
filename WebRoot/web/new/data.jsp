@@ -228,7 +228,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										  </tbody>
 										</table>
 									
-										<table class="table table-striped table-hover pull-right" style="float:left;width:40%;border:1px solid #dddddd;border-top:none;border-left:none;">
+										<table class="table table-striped table-hover pull-right" style="float:left;width:40%;border:1px solid #dddddd;border-top:none;border-left:none;text-align:left;">
 										  <thead>
 										  	<tr>
 										  		<th colspan="4" style="border-bottom:2px solid #3CB371;"><center>助攻榜</center></th>
