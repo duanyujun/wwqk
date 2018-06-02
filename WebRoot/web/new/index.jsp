@@ -106,7 +106,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		      					</c:if>
 		      				</c:if>
 		      				<c:if test="${tips.live_match_id==0}">
-		      					&nbsp;${tips.home_name} vs ${tips.away_name}
+		      					&nbsp;${tips.home_name} vs ${tips.away_name}<i>（<fmt:formatDate value="${tips.match_time}" pattern="M月d日 HH:mm"/>）</i>
 		      				</c:if>
 		      			</div>
 	      				<div style="overflow:hidden;width:100%;height:60px;line-height:20px;text-align:left;float:left;" title="${tips.prediction_desc}">
