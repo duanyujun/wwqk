@@ -10,5 +10,5 @@ div.slideBox div.tips div.title{ position:absolute; left:0px; top:0px; height:10
 div.slideBox div.tips div.title a{ color:#FFF; font-size:10px; line-height:10px; margin-left:1px; text-decoration:none;}
 div.slideBox div.tips div.title a:hover{ text-decoration:underline !important;}
 div.slideBox div.tips div.nums{ position:absolute; right:0px; top:0px; height:100%;}
-div.slideBox div.tips div.nums a{ display:inline-block; >float:left; width:10px; height:10px; background-color:#FFF; text-indent:-99999px; margin:5px 5px 0px 0px;}
+div.slideBox div.tips div.nums a{ display:inline-block; >float:left; width:10px; height:10px; background-color:#FFF; opacity: 0.4; text-indent:-99999px; margin:5px 5px 0px 0px;}
 div.slideBox div.tips div.nums a.active{ background-color:#093;}
