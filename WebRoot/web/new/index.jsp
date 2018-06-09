@@ -18,6 +18,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="https://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/common/new/main.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/css/slideBox.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - 足球趣闻|球员动态|直播预告|视频集锦|足球数据</title>
     <style type="text/css">
     	li{ list-style-type: none; }
@@ -90,7 +91,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 	
 	<div style="width:930px;margin-top:10px;float:left;text-align:left;">
-	  <div id="demo" style="overflow:hidden;height:100px;line-height:100px;">
+	  <div id="message" style="overflow:hidden;height:100px;line-height:100px;">
 	    <ul>
 	      <c:forEach items="${lstTipsMatch}" var="tips">
 	      		<li >
@@ -119,6 +120,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	  </div>
 	</div>
 	
+	<!-- 首页推广 -->
+	<div id="slideBox" class="slideBox">
+	  <ul class="items" >
+	  	<c:forEach items="${lstAlliance}" var="alliance">
+	  		<li style="height:200px;"><a href="${alliance.tbk_short_url}" title="${alliance.product_name}"   target="_blank"><img src="${alliance.product_img}" title="${alliance.product_name}" style="width:150px;height:160px;"></a></li>
+	  	</c:forEach>
+	  </ul>
+	</div>
+	
 </div>
 
 <!-- pc content end -->
@@ -128,6 +138,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 <%@ include file="/common/new/footer.jsp"%>	
 
 <script src="assets/global/plugins/viewer/viewer-jquery.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery.slideBox.min.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 	function AutoScroll(obj) {
 	    $(obj).find("ul:first").animate({
@@ -142,7 +154,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	}
 
 	$(function(){
-		setInterval('AutoScroll("#demo")', 15000);
+		setInterval('AutoScroll("#message")', 15000);
 		$('.image').viewer(
 				{toolbar:false, 
 				zIndex:20000,
@@ -153,6 +165,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			 }
 		);
 		
+		//首页广工
+		$('#slideBox').slideBox({
+			duration : 0.3,//滚动持续时间，单位：秒
+			easing : 'linear',//swing,linear//滚动特效
+			hideClickBar : false,//不自动隐藏点选按键
+		});
 	});
 	
 	(function(){

@@ -7,6 +7,7 @@ import com.jfinal.core.Controller;
 import com.wwqk.model.AllLiveMatch;
 import com.wwqk.model.Fun;
 import com.wwqk.model.Say;
+import com.wwqk.model.TaobaoAlliance;
 import com.wwqk.model.TipsMatch;
 import com.wwqk.model.Videos;
 
@@ -35,6 +36,9 @@ public class IndexUtils {
 		List<TipsMatch> lstTipsMatch = TipsMatch.dao.find("select * from tips_match where match_time > ? order by match_time asc limit 0, 10", nowDate);
 		formatMsg(lstTipsMatch);
 		controller.setAttr("lstTipsMatch", lstTipsMatch);
+		// 推广
+		List<TaobaoAlliance> lstAlliance = TaobaoAlliance.dao.find("select tbk_short_url,product_name, product_img from taobao_alliance where recom = 1 order by position desc limit 0,5");
+		controller.setAttr("lstAlliance", lstAlliance);
 	}
 	
 	private static void formatMsg(List<TipsMatch> lstMatch){
