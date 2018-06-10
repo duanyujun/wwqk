@@ -70,9 +70,9 @@ public class SofifaUtils {
 	private static final Pattern INTER_REP_PATTERN = Pattern.compile("国际声誉</label>(.*?)<i");
 	private static final Pattern UNUSE_FOOT_PATTERN = Pattern.compile("逆足能力</label>(.*?)<i");
 	private static final Pattern TRICK_PATTERN = Pattern.compile("花式技巧</label>(.*?)<i");
-	private static final Pattern WORK_RATE_PATTERN = Pattern.compile("积极性</label>(.*?)</li>");
+	private static final Pattern WORK_RATE_PATTERN = Pattern.compile("Work Rate</label>(.*?)</li>");
 	private static final Pattern BODY_TYPE_PATTERN = Pattern.compile("身体模型</label>(.*?)</li>");
-	private static final Pattern REALEASE_PATTERN = Pattern.compile("clause</label>(.*?)</li>");
+	private static final Pattern REALEASE_PATTERN = Pattern.compile("Release Clause</label>(.*?)</li>");
 	private static final Pattern NUMBER_PATTERN = Pattern.compile("球衣号码</label>(.*?)</li>");
 	private static final Pattern CONTRACT_PATTERN = Pattern.compile("合同到期</label>(.*?)</li>");
 	private static final Pattern TEAM_PATTERN = Pattern.compile("/team/.*?>(.*?)</a>");
@@ -97,31 +97,37 @@ public class SofifaUtils {
 			}
 			String name = doc.select("h1").eq(0).text();
 			name = StringUtils.trim(name.substring(0,name.indexOf("(")));
-			fifaDb.set("fifa_name", name);
-			fifaDb.set("team", clearData(CommonUtils.matcherString(TEAM_PATTERN, doc.html())));
-			fifaDb.set("foot", clearData(CommonUtils.matcherString(FOOT_PATTERN, doc.html())));
-			fifaDb.set("inter_rep", clearData(CommonUtils.matcherString(INTER_REP_PATTERN, doc.html())));
-			fifaDb.set("unuse_foot", clearData(CommonUtils.matcherString(UNUSE_FOOT_PATTERN, doc.html())));
-			fifaDb.set("trick", clearData(CommonUtils.matcherString(TRICK_PATTERN, doc.html())));
-			fifaDb.set("work_rate", clearData(CommonUtils.matcherString(WORK_RATE_PATTERN, doc.html())));
-			fifaDb.set("body_type", clearData(CommonUtils.matcherString(BODY_TYPE_PATTERN, doc.html())));
-			fifaDb.set("release_clause", clearData(CommonUtils.matcherString(REALEASE_PATTERN, doc.html())));
+			
+			setFifaValue(fifaDb, "fifa_name", name);
+			setFifaValue(fifaDb, "team", clearData(CommonUtils.matcherString(TEAM_PATTERN, doc.html())));
+			setFifaValue(fifaDb, "foot", clearData(CommonUtils.matcherString(FOOT_PATTERN, doc.html())));
+			setFifaValue(fifaDb, "inter_rep", clearData(CommonUtils.matcherString(INTER_REP_PATTERN, doc.html())));
+			setFifaValue(fifaDb, "unuse_foot", clearData(CommonUtils.matcherString(UNUSE_FOOT_PATTERN, doc.html())));
+			setFifaValue(fifaDb, "trick", clearData(CommonUtils.matcherString(TRICK_PATTERN, doc.html())));
+			setFifaValue(fifaDb, "work_rate", clearData(CommonUtils.matcherString(WORK_RATE_PATTERN, doc.html())));
+			setFifaValue(fifaDb, "body_type", clearData(CommonUtils.matcherString(BODY_TYPE_PATTERN, doc.html())));
+			setFifaValue(fifaDb, "release_clause", clearData(CommonUtils.matcherString(REALEASE_PATTERN, doc.html())));
+			
 			Element teamInfo = doc.select(".pl").get(1);
-			fifaDb.set("position", clearData(teamInfo.select(".pos").get(0).text()));
-			fifaDb.set("number",clearData(CommonUtils.matcherString(NUMBER_PATTERN, doc.html())));
-			fifaDb.set("contract",clearData(CommonUtils.matcherString(CONTRACT_PATTERN, doc.html())));
+			setFifaValue(fifaDb, "position", clearData(teamInfo.select(".pos").get(0).text()));
+			setFifaValue(fifaDb, "number",clearData(CommonUtils.matcherString(NUMBER_PATTERN, doc.html())));
+			setFifaValue(fifaDb, "contract",clearData(CommonUtils.matcherString(CONTRACT_PATTERN, doc.html())));
+			
+			
 			Element statsInfo = doc.select(".stats").get(0);
 			Elements allTdElements = statsInfo.select("td");
-			fifaDb.set("overall_rate",clearData(allTdElements.get(0).select("span").get(0).text()));
-			fifaDb.set("potential",clearData(allTdElements.get(1).select("span").get(0).text()));
-			fifaDb.set("market_value",clearData(allTdElements.get(2).select("span").get(0).text()));
-			fifaDb.set("wage",clearData(allTdElements.get(3).select("span").get(0).text()));
-			fifaDb.set("pac", CommonUtils.matcherString(PAC_PATTERN, doc.html()));
-			fifaDb.set("sho", CommonUtils.matcherString(SHO_PATTERN, doc.html()));
-			fifaDb.set("pas", CommonUtils.matcherString(PAS_PATTERN, doc.html()));
-			fifaDb.set("dri", CommonUtils.matcherString(DRI_PATTERN, doc.html()));
-			fifaDb.set("def", CommonUtils.matcherString(DEF_PATTERN, doc.html()));
-			fifaDb.set("phy", CommonUtils.matcherString(PHY_PATTERN, doc.html()));
+			
+			setFifaValue(fifaDb, "overall_rate",clearData(allTdElements.get(0).select("span").get(0).text()));
+			setFifaValue(fifaDb, "potential",clearData(allTdElements.get(1).select("span").get(0).text()));
+			setFifaValue(fifaDb, "market_value",clearData(allTdElements.get(2).select("span").get(0).text()));
+			setFifaValue(fifaDb, "wage",clearData(allTdElements.get(3).select("span").get(0).text()));
+			setFifaValue(fifaDb, "pac", CommonUtils.matcherString(PAC_PATTERN, doc.html()));
+			setFifaValue(fifaDb, "sho", CommonUtils.matcherString(SHO_PATTERN, doc.html()));
+			setFifaValue(fifaDb, "pas", CommonUtils.matcherString(PAS_PATTERN, doc.html()));
+			setFifaValue(fifaDb, "dri", CommonUtils.matcherString(DRI_PATTERN, doc.html()));
+			setFifaValue(fifaDb, "def", CommonUtils.matcherString(DEF_PATTERN, doc.html()));
+			setFifaValue(fifaDb, "phy", CommonUtils.matcherString(PHY_PATTERN, doc.html()));
+			
 			if(fifaDb.get("id")==null){
 				fifaDb.set("id", playerId);
 				fifaDb.save();
@@ -130,6 +136,12 @@ public class SofifaUtils {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private static void setFifaValue(Sofifa fifaDb, String attribute, String value){
+		if(StringUtils.isNotEmpty(value)){
+			fifaDb.set(attribute, value);
 		}
 	}
 	
