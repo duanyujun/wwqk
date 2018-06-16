@@ -21,7 +21,8 @@ public class VideosController extends Controller {
 		//联赛id
 		String leagueId = getPara("league_id");
 		if(StringUtils.isBlank(leagueId)){
-			leagueId = LeagueEnum.YC.getKey();
+			//leagueId = LeagueEnum.YC.getKey();
+			leagueId = "8";
 		}
 		int pageNumber = getParaToInt("pageNumber", 1);
 		

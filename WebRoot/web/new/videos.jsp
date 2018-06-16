@@ -36,6 +36,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 		<div style="width:100%;padding-left:0px;padding-right:0px;">  
 				 <div style="width:100%;margin-top:8px;float:left;">
+				 	<div class="team-title" style="width:10%;heigth:20px;font-size:14px;float:left;">
+						<a href="videos-league-8.html" ><div class="${leagueId==8?'select-league':'common-league'}"><b>世界杯</b></div></a>
+					</div>
 					<div class="team-title" style="width:10%;heigth:20px;font-size:14px;float:left;">
 						<a href="videos-league-1.html" ><div class="${leagueId==1?'select-league':'common-league'}">英超</div></a>
 					</div>
@@ -57,9 +60,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<div class="team-title" style="width:10%;heigth:20px;font-size:14px;float:left;">
 						<a href="videos-league-7.html" ><div class="${leagueId==7?'select-league':'common-league'}">中超</div></a>
 					</div>
-					<div class="team-title" style="width:10%;heigth:20px;font-size:14px;float:left;">
-						<a href="videos-league-8.html" ><div class="${leagueId==8?'select-league':'common-league'}">其他</div></a>
-					</div>
+					
 				</div>
 			
 				   <div class="table-responsive" style="width:100%;margin-top:10px;float:left;">
