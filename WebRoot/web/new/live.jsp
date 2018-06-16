@@ -174,6 +174,10 @@ function changeMSize(){
 }
 
 function updateBifen(){
+	if(!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+		return;
+	 }
+	
 	var newHtml='';
 	var updateUrl = "/bifen/mobileJson?t="+Date.parse(new Date());
 	$.ajax({url:updateUrl,success: function(data){
@@ -181,7 +185,7 @@ function updateBifen(){
         	var oneMatch = $("#template").html();
         	oneMatch = oneMatch.replace("#league",data[i].league);
         	oneMatch = oneMatch.replace("#start_time",data[i].start_time);
-        	var mins = data[i].match_mins;
+        	var mins = data[i].match_mins+"";
         	if(mins.indexOf("'")!=-1){
         		mins = "&nbsp;&nbsp;"+mins.replace("'","<img src='assets/global/img/ticks.gif' />");
         	}

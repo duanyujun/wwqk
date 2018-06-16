@@ -86,3 +86,20 @@ div.round A {display:block; width:28px;height:28px;line-height:28px;BORDER: #ddd
 .content-title img{-webkit-transition:all .5s ease-in-out;-moz-transition:all .5s ease-in-out;-ms-transition:all .5s ease-in-out;-o-transition:all .5s ease-in-out;transition:all .5s ease-in-out;}
 .font-12{font-size:12px;}
 .font-14{font-size:14px;}
+.main_box{width: 100%; margin: 0 auto 10px; padding: 0;}
+.match_box{margin: 0 auto 10px auto; padding: 0; width: 100%; background:#f3faff; border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color: #CAD9E6;}
+.match_box_left{margin: 0 auto; padding: 0;  text-align: right;}
+.match_box_right{margin: 0 auto; padding: 0;  text-align: left;}
+.match_box_middle{margin: 0 auto; padding: 0;  width: 60px;  text-align:center;}
+.team_up{line-height: 20px; font-size: 12px;}
+.team_down{line-height: 26px; font-weight: bold;}
+.match_league{color:#FCA92D;}
+.match_start_time{color:#666;}
+.match_odds{color:#666;}
+.match_half_bifen{color:#666;}
+.match_mins{line-height: 20px; font-size: 12px;}
+.match_bifen{color:red; font-size: 16px; font-weight: bolder;}
+.red{background: red; color: #fff; font-size: 12px; padding: 3px; margin: 0 2px; font-weight: normal;}
+.yellow{background: yellow; color: #222; font-size: 12px; padding: 3px; margin: 0 2px; font-weight: normal;}
+.match_box td{border-bottom: white solid 10px;}
+.a_info_box td{padding: 0;}

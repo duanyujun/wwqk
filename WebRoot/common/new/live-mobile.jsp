@@ -49,17 +49,44 @@
 							   </tbody>
 							</table>
 						</div>
-						<div class="tab-pane fade in ${bifen==1?'active':''}" id="m_bifen" >
-							 <table class="main" cellspacing="0" >
-									<tbody id="bifenBody" >
-										
-								   </tbody>
-							 </table>
+						<div class="tab-pane fade in ${bifen==1?'active':''}" id="m_bifen" style="min-height:400px;">
+							 <div style="float:left;width:100%;">
+								 <table class="main_box" cellspacing="0" >
+										<tbody id="bifenBody" >
+											
+									   </tbody>
+								 </table>
+							 </div>
 						</div>
 						<div class="tab-pane fade in" id="m_chatroom" >
 								<div id="m_chat_div" style="float:left;width:100%;">
 								</div>
 						</div>
 				</div>
-
 </div>
+
+
+<table  style="display:none;">
+	<tbody id="template">
+		<tr class="match_box">
+		      <td class="match_box_left">
+		          <div class="team_up"><span class="match_league" >#league</span> <span class="match_start_time">#start_time</span></div>
+		          <div class="team_down">
+		          	#homeNameAndCards
+		          </div>
+		      </td>
+		      <td class="match_box_middle">
+		      	<div class="match_mins" style="color:#red;">#match_mins</div>
+		                   <div class="match_bifen"><span>#bifen_a:#bifen_b</span></div>
+		               </td>
+		      <td class="match_box_right">
+		          <div class="team_up"><span class="match_odds" >#odds</span><span class="match_half_bifen" >#half_bifen</span></div>
+		          <div class="team_down">
+		          	#awayNameAndCards
+		          </div>
+		      </td>
+		</tr>
+	</tbody>
+</table>
+
+
