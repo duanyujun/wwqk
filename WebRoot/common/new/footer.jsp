@@ -12,7 +12,7 @@
 				Copyright © 趣点足球网   <a href="http://www.miitbeian.gov.cn" target="_blank" style="color:white;">粤ICP备16048166号-4</a>
 			</div>
 			<div style="float:left;width:100%;height:30px;text-align:left;padding-left:10px;margin-top:5px;color:#999;font-size:13px;">	
-				本网站内容均来自互联网，我们不提供任何直播信号和视频内容，只提供导航服务。如有侵犯您的权益或有商务合作请联系QQ：562406381
+				本网站内容均来自互联网，我们不提供任何直播信号和视频内容，只提供导航服务。如有商务合作或有侵犯您的权益请联系QQ：920841228
 			</div>
 		</div>
 		<div style="float:left;width:30%;height:120px;padding-top:16px;padding-left:30px;">
@@ -22,7 +22,7 @@
 </div>
 
 <!-- 移动端footer -->
-<div class="visible-sm visible-xs" style="float:left;width:100%;height:120px; margin-top:15px; background: #404040; clear:both;color:white;">
+<div class="visible-sm visible-xs" style="float:left;width:100%; margin-top:15px; background: #404040; clear:both;color:white;">
 	<div style="float:left;width:100%;height:30px;line-height:30px;text-align:left;padding-left:10px;margin-top:16px;">
 		趣点足球网 - 做有意思的足球网站&nbsp;
 		<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261131271'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1261131271%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
@@ -31,7 +31,7 @@
 		Copyright © 趣点足球网   <a href="http://www.miitbeian.gov.cn" target="_blank" style="color:white;">粤ICP备16048166号-4</a>
 	</div>
 	<div style="float:left;width:95%;height:50px;text-align:left;padding-left:10px;">
-		本网站不提供任何直播信号和视频内容，如有侵犯您的权益或有商务合作请联系QQ：562406381
+		本网站不提供任何直播信号和视频内容，如有商务合作或有侵犯您的权益请联系QQ：920841228
 	</div>
 </div>
 
