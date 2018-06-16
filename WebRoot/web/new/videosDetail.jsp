@@ -44,7 +44,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		    <div></div>
 		    
 		    <div class="content" id="tab_content">
-		      <div class="list" >
+		      <div class="list" style="text-align:left;padding-left:2px;">
 		      	<ul>
 		      		<c:forEach items="${lstLinks}" var="link" varStatus="status">
 		      			<li onclick="chooseVideo(this);" class="${status.index==0?'f':''}"><a href="/videos/play?id=${link.id}" title="${link.title}" target="ytplayer">${link.title}</a></li>
