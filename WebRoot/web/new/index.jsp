@@ -20,10 +20,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <link href="assets/global/plugins/viewer/viewer.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/css/slideBox.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - 足球趣闻|球员动态|直播预告|视频集锦|足球数据</title>
-    <style type="text/css">
-    	li{ list-style-type: none; }
-    	ul{ -webkit-padding-start:5px;}
-    </style>
+    
 </head>
 
 <body>

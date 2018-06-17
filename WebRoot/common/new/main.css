@@ -103,3 +103,5 @@ div.round A {display:block; width:28px;height:28px;line-height:28px;BORDER: #ddd
 .yellow{background: yellow; color: #222; font-size: 12px; padding: 3px; margin: 0 2px; font-weight: normal;}
 .match_box td{border-bottom: white solid 10px;}
 .a_info_box td{padding: 0;}
+#message ul{-webkit-padding-start:5px;}
+#message ul li{list-style-type: none;}
