@@ -19,7 +19,7 @@ import com.wwqk.model.Videos;
 public class IndexUtils {
 
 	public static void init(Controller controller){
-		Say say = Say.dao.findFirst("select * from say order by create_time desc limit 0,5");
+		Say say = Say.dao.findFirst("select * from say order by create_time desc limit 0,1");
 		controller.setAttr("say", say);
 		
 		Date startDate = DateTimeUtils.addHours(new Date(), -1);
@@ -29,7 +29,7 @@ public class IndexUtils {
 		List<Fun> funList = Fun.dao.find("select * from fun where type = 1 order by create_time desc limit 0, 10");
 		controller.setAttr("funList", funList);
 		// 视频
-		List<Videos> videoList = Videos.dao.find("select * from videos where recom=1 order by match_date desc limit 0,5");
+		List<Videos> videoList = Videos.dao.find("select * from videos where recom=1 order by match_date desc limit 0,10");
 		controller.setAttr("videoList", videoList);
 		// 情报分析
 		Date nowDate = DateTimeUtils.addHours(new Date(), -2);

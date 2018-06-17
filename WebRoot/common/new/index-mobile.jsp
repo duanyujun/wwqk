@@ -41,7 +41,7 @@
 		</c:forEach>
 	</div>
 	<!-- 视频集锦 -->
-	<c:forEach items="${videoList}" var="video" varStatus="status" end="3">
+	<c:forEach items="${videoList}" var="video" varStatus="status" end="7">
 		<div style="width:170px;float:left;margin-left:10px;">
 			<div style="width:170px;height:155px;float:left;margin-right:10px;">
 				<div style="width:170px;height:100px;float:left;">

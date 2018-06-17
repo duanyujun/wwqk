@@ -76,7 +76,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	</div>
 	<div style="width:930px;margin-top:10px;float:left;">
 		<c:forEach items="${videoList}" var="video" varStatus="status" >
-			<div style="width:173px;height:155px;background:#eee;float:left;${status.count!=5?'margin-right:16px;':''}">
+			<div style="width:173px;height:155px;background:#eee;float:left;${(status.count!=5 && status.count!=10)?'margin-right:16px;':''};${status.count>5?'margin-top:15px;':''}">
 				<div style="width:173px;height:100px;float:left;" title="${video.match_title}">
 					<a href="/vdetail-<fmt:formatDate value="${video.match_date}" pattern="yyyy-MM-dd"/>-${video.match_en_title}-${video.id}.html" target="_blank"><img src="${(empty video.video_img)?'assets/image/page/v-default.jpg':video.video_img}" style="width:173px;height:100px;"/></a>
 				</div>
@@ -88,7 +88,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			</div>
 		</c:forEach>
 	</div>
-	
 	
 	<div style="width:930px;margin-top:10px;float:left;text-align:left;">
 	  <div id="message" style="overflow:hidden;height:100px;line-height:100px;">
