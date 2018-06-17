@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 
-<div class="visible-sm visible-xs" style="width:100%;float:left;text-align:left;">
+<div class="visible-sm visible-xs" style="width:100%;float:left;text-align:left;margin-top:35px;">
 <c:forEach items="${goodsPage.list}" var="goods" varStatus="status">
 			<div class="goods-div" style="width:100%;float:left;">
 				<div style="float:left;width:100%;">
