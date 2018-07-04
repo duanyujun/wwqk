@@ -120,6 +120,7 @@ public class VideosService {
         videos.set("home_team", controller.getPara("home_team"));
         videos.set("away_team", controller.getPara("away_team"));
         videos.set("match_title", controller.getPara("match_title"));
+        videos.set("is_red", controller.getPara("is_red"));
         if(StringUtils.isBlank(videos.getStr("match_en_title"))){
         	videos.set("match_en_title", PinyinUtils.getPingYin(videos.getStr("match_title")));
         }
