@@ -38,7 +38,7 @@
             </div>
             
             <div class="row" style="margin-top:20px;">
-            	<div class="col-md-6 col-sm-6 col-xs-6">
+            	<div class="col-md-8 col-sm-8 col-xs-8">
                 	<select id="leagueId">
                 		<option value="">--请选择联赛--</option>
                 		<option value="1">英超</option>
@@ -50,13 +50,16 @@
                     <button onclick="updateLeaugePlayer();" class="btn sbold green" style="margin-left:10px;"> 更新联赛成员
                         <i class="fa fa-refresh"></i>
                     </button>
+                    <button onclick="initNewSeasonLeague();" class="btn sbold green" style="margin-left:10px;"> 新赛季
+                        <i class="fa fa-refresh"></i>
+                    </button>
                 </div>
-                <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="col-md-4 col-sm-4 col-xs-4">
                     <div class="btn-group">
-                        <button onclick="updateSiteMap();" class="btn sbold green" style="margin-left:10px;"> 更新网站地图
+                        <button onclick="updateSiteMap();" class="btn sbold green" style="margin-left:10px;"> 网站地图
                             <i class="fa fa-refresh"></i>
                         </button>
-                        <button onclick="updateLives();" class="btn sbold green" style="margin-left:10px;"> 更新直播源
+                        <button onclick="updateLives();" class="btn sbold green" style="margin-left:10px;"> 直播源
                             <i class="fa fa-refresh"></i>
                         </button>
                     </div>
@@ -250,6 +253,22 @@ function updateLeaugePlayer(){
 	);
 }
 
+function initNewSeasonLeague(){
+
+	if($("#leagueId").val()==''){
+		showToast(2, "请选择联赛", "温馨提示");
+		return;
+	}
+	$("body").showLoading();
+	showToast(1, "更新中...", "温馨提示");
+	$.post("/admin/initNewSeasonLeague",
+				{leagueId: $("#leagueId").val()},
+				function(result){
+					$("body").hideLoading();
+					showToast(1, "更新成功！", "温馨提示");
+				}
+	);
+}
 
 function analyzeAll(){
 	commonPost("/admin/analyzeAll");

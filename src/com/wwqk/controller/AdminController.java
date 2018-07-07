@@ -75,6 +75,7 @@ import com.wwqk.utils.DateTimeUtils;
 import com.wwqk.utils.GeneratorUtils;
 import com.wwqk.utils.ImageUtils;
 import com.wwqk.utils.MatchGuessUtils;
+import com.wwqk.utils.NewSeasonUtils;
 import com.wwqk.utils.QuestionUtils;
 import com.wwqk.utils.SofifaUtils;
 import com.wwqk.utils.StringUtils;
@@ -987,6 +988,13 @@ public class AdminController extends Controller {
 		for(Team team : lstTeam){
 			TeamPlayers.syncTeamPlayers(team.getStr("id"));
 		}
+		renderJson(1);
+	}
+	
+	//更新联赛球员
+	public void initNewSeasonLeague(){
+		String leagueId = getPara("leagueId");
+		NewSeasonUtils.updateTeamsInLeague(leagueId);
 		renderJson(1);
 	}
 	

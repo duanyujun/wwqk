@@ -24,6 +24,7 @@ public class ImageUtils {
 	private static final String IMG_PATH = "assets/image";
 	private static final String ARTICLE_IMAGE = "article-image";
 	private static final String WEB_PROFIX = "http://cache.images.core.optasports.com/";
+	private static final String WEB_PROFIX_2 = "https://secure.cache.images.core.optasports.com/";
 	private static ImageUtils instance = null;
 	
 	public static ImageUtils getInstance(){
@@ -35,7 +36,7 @@ public class ImageUtils {
 
 	public String getImgName(String imgUrl) {
 		String oldImageUrlStr = imgUrl;
-		imgUrl = imgUrl.replace(WEB_PROFIX, "");
+		imgUrl = imgUrl.replace(WEB_PROFIX, "").replace(WEB_PROFIX_2, "");
 		//String fileName = imgUrl.substring(imgUrl.lastIndexOf("/") + 1);
 		String foldName = imgUrl.substring(0, imgUrl.lastIndexOf("/"));
 		String folderPath = getDiskPath()+getFilePath(foldName)+"/";
