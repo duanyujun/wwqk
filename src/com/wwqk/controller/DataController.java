@@ -63,8 +63,23 @@ public class DataController extends Controller {
 			teamMap.put(team.getStr("id"), team.getStr("team_img_local"));
 		}
 		for(LeagueMatchHistory match:lstMatch){
-			match.getAttrs().put("home_team_img", teamMap.get(match.getStr("home_team_id")));
-			match.getAttrs().put("away_team_img", teamMap.get(match.getStr("away_team_id")));
+			if(StringUtils.isNotBlank(teamMap.get(match.getStr("home_team_id")))){
+				match.getAttrs().put("home_team_img", teamMap.get(match.getStr("home_team_id")));
+			}else{
+				Team homeTeam = Team.dao.findById(match.getStr("home_team_id"));
+				if(homeTeam!=null){
+					match.getAttrs().put("home_team_img",homeTeam.getStr("team_img_local") );
+				}
+			}
+			
+			if(StringUtils.isNotBlank(teamMap.get(match.getStr("away_team_id")))){
+				match.getAttrs().put("away_team_img", teamMap.get(match.getStr("away_team_id")));
+			}else{
+				Team awayTeam = Team.dao.findById(match.getStr("away_team_id"));
+				if(awayTeam!=null){
+					match.getAttrs().put("away_team_img",awayTeam.getStr("team_img_local") );
+				}
+			}
 		}
 		
 		List<String> lstRound = new ArrayList<String>();

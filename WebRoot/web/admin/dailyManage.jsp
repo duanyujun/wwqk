@@ -38,7 +38,7 @@
             </div>
             
             <div class="row" style="margin-top:20px;">
-            	<div class="col-md-8 col-sm-8 col-xs-8">
+            	<div class="col-md-6 col-sm-6 col-xs-6">
                 	<select id="leagueId">
                 		<option value="">--请选择联赛--</option>
                 		<option value="1">英超</option>
@@ -54,7 +54,7 @@
                         <i class="fa fa-refresh"></i>
                     </button>
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-4">
+                <div class="col-md-6 col-sm-6 col-xs-6">
                     <div class="btn-group">
                         <button onclick="updateSiteMap();" class="btn sbold green" style="margin-left:10px;"> 网站地图
                             <i class="fa fa-refresh"></i>
