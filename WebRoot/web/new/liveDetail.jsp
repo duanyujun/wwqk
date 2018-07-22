@@ -31,14 +31,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 <%@ include file="/common/new/menu.jsp"%>
 
 <!-- pc content start -->
-<div class="main hidden-sm hidden-xs" style="margin-top:10px;font-size:14px;">
-	<div class="bread" style="margin-bottom:10px;text-align:left;">
+<div class="main hidden-sm hidden-xs live-dt">
+	<div class="bread mb_10 tleft">
 		当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/live" target="_blank">直播</a>&nbsp;&gt;&nbsp;${match.leagueName}  ${match.home_team_name} VS ${match.away_team_name}
 	</div>
-	<div class="well well-lg" style="width:930px;float:left;line-height:2;text-indent:20px;">
-		<table style="text-indent:0;text-align:left;">
+	<div class="well well-lg live-dt-inner">
+		<table class="live-dt-table">
 					<tr>
-						<td style="width:120px;">【所属赛事】：</td>
+						<td class="w120">【所属赛事】：</td>
 						<td>${match.league_name}</td>
 					</tr>
 					<tr>
@@ -53,14 +53,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<td>【直播地址】：</td>
 						<td>
 							<c:if test="${empty lstMatchLive}">
-								<span class="a-title" ><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_blank" style="color:red;">比分直播</a></span>
+								<span class="a-title" ><img src="assets/pages/img/zq.gif" class="w18"/> <a href="/bifen.html" target="_blank" class="color_red">比分直播</a></span>
 							</c:if>
 							<c:if test="${!empty lstMatchLive}">
 									<span class="a-title" >
 										<c:forEach items="${lstMatchLive}" var="live">
-											<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;</nobr>
+											<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" class="color_red">${live.live_name}</a>&nbsp;&nbsp;</nobr>
 										</c:forEach>
-										<nobr><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_blank" style="color:red;">比分直播</a></nobr>
+										<nobr><img src="assets/pages/img/zq.gif" class="w18"/> <a href="/bifen.html" target="_blank" class="color_red">比分直播</a></nobr>
 									</span>
 							</c:if>
 						</td>
@@ -75,7 +75,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									<li ><a href="#away_tab" data-toggle="tab">客队</a></li>
 								</ul>
 								<div id="infoTabContent" class="tab-content">
-									<div class="tab-pane fade in active" id="home_tab" style="border:1px solid #ddd;border-top:none;padding:8px;">
+									<div class="tab-pane fade in active live-dt-team" id="home_tab">
 											<c:forEach items="${lstTips}" var="tips">
 												<c:if test="${tips.is_home_away==0}">
 													<c:if test="${tips.is_good_bad=='0'}">
@@ -90,7 +90,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 												</c:if>
 											</c:forEach>
 									</div>
-									<div class="tab-pane fade in" id="away_tab" style="border:1px solid #ddd;border-top:none;padding:8px;">
+									<div class="tab-pane fade in live-dt-team" id="away_tab">
 											<c:forEach items="${lstTips}" var="tips">
 												<c:if test="${tips.is_home_away==1}">
 													<c:if test="${tips.is_good_bad=='0'}">
@@ -126,11 +126,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</ul>
 								<div id="guessTabContent" class="tab-content">
 									<c:forEach items="${lstGuess}" var="guess" varStatus="status">
-										<div class="tab-pane fade in ${guessId==guess.id?'active':''}" id="guess_tab_${status.index}" style="border:1px solid #ddd;border-top:none;padding:8px;">
-												<div class="alert alert-success" style="background-color:#f5f5f5;color:#333;">
+										<div class="tab-pane fade in ${guessId==guess.id?'active':''} live-dt-team" id="guess_tab_${status.index}">
+												<div class="alert alert-success live-dt-suc">
 													<span class="label label-danger">荐</span> <b>${guess.bet_title_cn}</b>
 												</div>
-												<div class="alert alert-success" style="background-color:#f5f5f5;color:#333;">
+												<div class="alert alert-success live-dt-suc">
 													${guess.content_cn}
 												</div>
 										</div>

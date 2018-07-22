@@ -31,54 +31,54 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <!-- pc content start -->
 <div class="main hidden-sm hidden-xs">
-	<div style="width:930px;float:left;">
-		<div class="bread" style="text-align:left;margin-bottom:5px;">
+	<div class="left_w930">
+		<div class="bread left mb_5">
 			当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;数据
 		</div>
 	
-		<div style="width:100%;float:left;">
-			<div style="width:20%;float:left;">
-				<a href="data-premier-league-1.html" class="link-img"><img src="assets/image/page/league-logo1.jpg" style="width:60px;height:60px;"/></a>
+		<div class="w100left">
+			<div class="w20left">
+				<a href="data-premier-league-1.html" class="link-img"><img src="assets/image/page/league-logo1.jpg" class="w60h60"/></a>
 			</div>
-			<div style="width:20%;float:left;">
-				<a href="data-primera-division-2.html" class="link-img"><img src="assets/image/page/league-logo2.jpg" style="width:60px;height:60px;"/></a>
+			<div class="w20left">
+				<a href="data-primera-division-2.html" class="link-img"><img src="assets/image/page/league-logo2.jpg" class="w60h60"/></a>
 			</div>
-			<div style="width:20%;float:left;">
-				<a href="data-bundesliga-3.html" class="link-img"><img src="assets/image/page/league-logo3.jpg" style="width:60px;height:60px;"/></a>
+			<div class="w20left">
+				<a href="data-bundesliga-3.html" class="link-img"><img src="assets/image/page/league-logo3.jpg" class="w60h60"/></a>
 			</div>
-			<div style="width:20%;float:left;">
-				<a href="data-sesie-a-4.html" class="link-img"><img src="assets/image/page/league-logo4.jpg" style="width:60px;height:60px;"/></a>
+			<div class="w20left">
+				<a href="data-sesie-a-4.html" class="link-img"><img src="assets/image/page/league-logo4.jpg" class="w60h60"/></a>
 			</div>
-			<div style="width:20%;float:left;">
-				<a href="data-ligue-1-5.html" class="link-img"><img src="assets/image/page/league-logo5.jpg" style="width:60px;height:60px;"/></a>
+			<div class="w20left">
+				<a href="data-ligue-1-5.html" class="link-img"><img src="assets/image/page/league-logo5.jpg" class="w60h60"/></a>
 			</div>
 		</div>
-		<div style="width:100%;float:left;margin-top:8px;">
-			<div class="team-title" style="width:20%;float:left;font-size:14px;padding-left:64px;">
+		<div class="w100left mt_8" >
+			<div class="team-title w20left fs14_pl64">
 				<a href="data-premier-league-1.html" ><div class="${leagueId==1?'select-league':'common-league'}">英超</div></a>
 			</div>
-			<div class="team-title" style="width:20%;float:left;font-size:14px;padding-left:64px;">
+			<div class="team-title w20left fs14_pl64">
 				<a href="data-primera-division-2.html" ><div class="${leagueId==2?'select-league':'common-league'}">西甲</div></a>
 			</div>
-			<div class="team-title" style="width:20%;float:left;font-size:14px;padding-left:64px;">
+			<div class="team-title w20left fs14_pl64">
 				<a href="data-bundesliga-3.html" ><div class="${leagueId==3?'select-league':'common-league'}">德甲</div></a>
 			</div>
-			<div class="team-title" style="width:20%;float:left;font-size:14px;padding-left:64px;">
+			<div class="team-title w20left fs14_pl64">
 				<a href="data-sesie-a-4.html" ><div class="${leagueId==4?'select-league':'common-league'}">意甲</div></a>
 			</div>
-			<div class="team-title" style="width:20%;float:left;font-size:14px;padding-left:64px;">
+			<div class="team-title w20left fs14_pl64">
 				<a href="data-ligue-1-5.html" ><div class="${leagueId==5?'select-league':'common-league'}">法甲</div></a>
 			</div>
 		</div>
 		
-		<div style="width:100%;float:left;margin-top:15px;">
+		<div class="w100left mt_15">
 			<ul id="myTab" class="nav nav-tabs bread" >
 				<li class="active"><a href="#match_rank" data-toggle="tab">赛程</a></li>
 				<li ><a href="#team_rank" data-toggle="tab">球队排名</a></li>
 				<li><a href="#player_rank" data-toggle="tab">球员排名</a></li>
 			</ul>
 			<div id="myTabContent" class="tab-content">
-					<div class="tab-pane fade in active" id="match_rank" style="border:1px solid #ddd;border-top:none;padding-bottom:8px;">
+					<div class="tab-pane fade in active data-rank" id="match_rank">
 						<div class="schedule-nav" >
 							    <div class="sn-list round">
 							        <ul class="udv-clearfix" >
@@ -91,7 +91,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							    </div>
 							</div>
 
-							<div id="roundCtr" style="margin-bottom:5px;margin-left:1%;">
+							<div id="roundCtr" class="mb5ml1">
 								<div class="schedule-round">
 								    <div class="sr-ctr">
 								        <div class="sr-ctr-in udv-clearfix" >
@@ -126,12 +126,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					</div>
 			
 					<div class="tab-pane fade" id="team_rank">
-							<table class="table table-hover" style="border:1px solid #dddddd;border-top:none;text-align:left;">
+							<table class="table table-hover data-team-rank" >
 							  <thead>
 							  	<tr >
-							  		<th colspan="10" style="border-right:1px solid #dddddd;border-bottom:2px solid #3CB371;"><center>积分榜</center></th>
+							  		<th colspan="10" class="data-team-rank-trth"><center>积分榜</center></th>
 							  	</tr>
-							    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
+							    <tr class="data-team-rank-tr">
 							      <th>排名</th>
 							      <th>球队</th>
 							      <th>场次</th>
@@ -186,7 +186,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									</c:choose> 
 							  	</c:if>
 								  <td>${status.count}</td>
-							      <td class="team-title" ><a href="team-${team.team_name_en}-${team.team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${team.team_id}.png" style="width:25px;height:25px;" alt="${team.team_name}" title="${team.team_name}"/>&nbsp;${team.team_name}</a></td>
+							      <td class="team-title" ><a href="team-${team.team_name_en}-${team.team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${team.team_id}.png" class="w25h25" alt="${team.team_name}" title="${team.team_name}"/>&nbsp;${team.team_name}</a></td>
 							      <td>${team.round_count}</td>
 							      <td>${team.win_count}</td>
 							      <td>${team.even_count}</td>
@@ -202,12 +202,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							</table>
 					</div>
 					<div class="tab-pane fade" id="player_rank">
-										<table class="table table-striped table-hover " style="float:left;width:55%;border:1px solid #dddddd;border-top:none;border-right:none;text-align:left;">
+										<table class="table table-striped table-hover data-player-rank" >
 										  <thead>
 										  	<tr >
-										  		<th colspan="5" style="border-bottom:2px solid #3CB371;"><center>射手榜</center></th>
+										  		<th colspan="5" class="data-player-rank-trth"><center>射手榜</center></th>
 										  	</tr>
-										    <tr style="background:#3CB371;color:white;border:1px solid #3CB371;">
+										    <tr class="data-player-rank-tr">
 										      <th>排名</th>
 										      <th>球员</th>
 										      <th>球队</th>
@@ -219,21 +219,21 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										  	<c:forEach items="${shooterList}"  var="shooter" varStatus="status">
 											    <tr>
 											      <td>${status.count}</td>
-											      <td class="team-title" ><a href="player-${shooter.player_name_en}-${shooter.player_id}.html" target="_blank"><img src="${shooter.player_img}" style="width:25px;height:25px;" alt="${shooter.player_name}" title="${shooter.player_name}"/>&nbsp;${shooter.player_name}</a></td>
-											      <td class="team-title" ><a href="team-${shooter.team_name_en}-${shooter.team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${shooter.team_id}.png" style="width:25px;height:25px;" alt="${shooter.team_name}" title="${shooter.team_name}"/>&nbsp;${shooter.team_name}</a></td>
+											      <td class="team-title" ><a href="player-${shooter.player_name_en}-${shooter.player_id}.html" target="_blank"><img src="${shooter.player_img}" class="w25h25" alt="${shooter.player_name}" title="${shooter.player_name}"/>&nbsp;${shooter.player_name}</a></td>
+											      <td class="team-title" ><a href="team-${shooter.team_name_en}-${shooter.team_id}.html" target="_blank"><img src="assets/image/soccer/teams/25x25/${shooter.team_id}.png" class="w25h25" alt="${shooter.team_name}" title="${shooter.team_name}"/>&nbsp;${shooter.team_name}</a></td>
 											      <td ><center>${shooter.goal_count}</center></td>
-											      <td style="border-right:1px solid #dddddd;"><center>${shooter.penalty_count}</center></td>
+											      <td class="br1"><center>${shooter.penalty_count}</center></td>
 											    </tr>
 											</c:forEach>
 										  </tbody>
 										</table>
 									
-										<table class="table table-striped table-hover pull-right" style="float:left;width:40%;border:1px solid #dddddd;border-top:none;border-left:none;text-align:left;">
+										<table class="table table-striped table-hover pull-right data-assist-rank" >
 										  <thead>
 										  	<tr>
-										  		<th colspan="4" style="border-bottom:2px solid #3CB371;"><center>助攻榜</center></th>
+										  		<th colspan="4" class="data-assist-trth"><center>助攻榜</center></th>
 										  	</tr>
-										    <tr style="background:#3CB371;color:white;border-left:1px solid #3CB371;border-right:1px solid #3CB371;">
+										    <tr class="data-assist-tr" >
 										      <th><nobr>排名</nobr></th>
 										      <th>球员</th>
 										      <th>球队</th>
@@ -244,8 +244,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 										  	<c:forEach items="${assistsList}"  var="assists" varStatus="status">
 											    <tr>
 											      <td style="border-left:1px solid #dddddd;">${status.count}</td>
-											      <td class="team-title" ><a href="player-${assists.player_name_en}-${assists.player_id}.html" target="_blank"><nobr><img src="${assists.player_img}" style="width:25px;height:25px;" alt="${assists.player_name}" title="${assists.player_name}" />&nbsp;${assists.player_name}</nobr></a></td>
-											      <td class="team-title" ><a href="team-${assists.team_name_en}-${assists.team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${assists.team_id}.png" style="width:25px;height:25px;" alt="${assists.team_name}" title="${assists.team_name}"/>&nbsp;${assists.team_name}</nobr></a></td>
+											      <td class="team-title" ><a href="player-${assists.player_name_en}-${assists.player_id}.html" target="_blank"><nobr><img src="${assists.player_img}" class="w25h25" alt="${assists.player_name}" title="${assists.player_name}" />&nbsp;${assists.player_name}</nobr></a></td>
+											      <td class="team-title" ><a href="team-${assists.team_name_en}-${assists.team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${assists.team_id}.png" class="w25h25" alt="${assists.team_name}" title="${assists.team_name}"/>&nbsp;${assists.team_name}</nobr></a></td>
 											      <td ><center>${assists.assists_count}</center></td>
 											    </tr>
 										    </c:forEach>

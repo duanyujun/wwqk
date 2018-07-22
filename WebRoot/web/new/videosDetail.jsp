@@ -27,11 +27,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <!-- pc content start -->
 <div class="main hidden-sm hidden-xs">
-	<div style="width:930px;float:left;">
-		<div class="bread" style="margin-bottom:10px;text-align:left;">
+	<div class="left_w930">
+		<div class="bread tleft mb_10">
 			当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;视频&nbsp;&gt;&nbsp;${videos.match_title}
 		</div>
-		<div class="yt_play clearfix" style="margin-top:10px;margin-left:0px;">
+		<div class="yt_play clearfix vdetail">
 		  <div class="player">
 		    <h4><b>正在播放：</b><span id="playingSpan">${lstLinks[0].title}</span></h4> 
 							    <div class="play"><iframe name="ytplayer" id="ytplayer" frameborder="0" width="650" height="488" marginheight="0" marginwidth="0" scrolling="no" src=""></iframe></div>

@@ -33,22 +33,22 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <!-- pc content start -->
 <div class="main hidden-sm hidden-xs">
-	<div style="width:930px;float:left;">
-		<div class="bread" style="margin-bottom:10px;text-align:left;">
+	<div class="left_w930">
+		<div class="bread mb_10 tleft">
 				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/live.html" target="_blank">直播</a>&nbsp;&gt;&nbsp;${leagueName} ${history.year_show}赛季 第${history.match_round}轮 ${homeTeam.name} VS ${history.away_team_name}
 		</div>
-		<div class="well well-lg" style="text-align:left;line-height:2;text-indent:20px;background:#fdfdfd;">
-				<table style="text-indent:0;">
+		<div class="well well-lg match-wl">
+				<table class="tin0">
 					<tr>
-						<td style="width:120px;">【所属赛事】：</td>
-						<td style="text-algin:left;"><span class="a-title" ><a href="data-${leagueENName}-${history.league_id}.html" target="_blank"><u>${leagueName}</u></a> （第${history.match_round}轮）</span></td>
+						<td class="w120">【所属赛事】：</td>
+						<td class="tleft"><span class="a-title" ><a href="data-${leagueENName}-${history.league_id}.html" target="_blank"><u>${leagueName}</u></a> （第${history.match_round}轮）</span></td>
 					</tr>
 					<tr>
 						<td>【对阵球队】：</td>
 						<td>
-							<span class="a-title" ><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank"><u>${homeTeam.name}</u></a><span style="color:#888" title="排名第${homeTeam.rank}">[ ${homeTeam.rank} ]</span> vs <a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank"><u>${history.away_team_name}</u></a><span style="color:#888" title="排名第${awayTeam.rank}">[ ${awayTeam.rank} ]</span></span>
+							<span class="a-title" ><a href="team-${homeTeam.name_en}-${homeTeam.id}.html" target="_blank"><u>${homeTeam.name}</u></a><span class="color_888" title="排名第${homeTeam.rank}">[ ${homeTeam.rank} ]</span> vs <a href="team-${history.away_team_en_name}-${history.away_team_id}.html" target="_blank"><u>${history.away_team_name}</u></a><span class="color_888" title="排名第${awayTeam.rank}">[ ${awayTeam.rank} ]</span></span>
 							<c:if test="${history.status=='完场'}">
-							（完场：<span style="color:red;">${history.result}</span>）
+							（完场：<span class="cred">${history.result}</span>）
 							</c:if>
 						</td>
 					</tr>
@@ -87,14 +87,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							</c:if>
 							<c:if test="${history.status!='完场'}">
 									<c:if test="${empty lstMatchLive}">
-										<span class="a-title" ><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_blank" style="color:red;">比分直播</a></span>
+										<span class="a-title" ><img src="assets/pages/img/zq.gif" class="w18" /> <a href="/bifen.html" target="_blank" class="cred">比分直播</a></span>
 									</c:if>
 									<c:if test="${!empty lstMatchLive}">
 											<span class="a-title" >
 												<c:forEach items="${lstMatchLive}" var="live">
-													<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;</nobr>
+													<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" class="cred">${live.live_name}</a>&nbsp;&nbsp;</nobr>
 												</c:forEach>
-												<nobr><img src="assets/pages/img/zq.gif" style="width:18px;"/> <a href="/bifen.html" target="_blank" style="color:red;">比分直播</a></nobr>
+												<nobr><img src="assets/pages/img/zq.gif" class="w18" /> <a href="/bifen.html" target="_blank" class="cred">比分直播</a></nobr>
 											</span>
 									</c:if>
 							</c:if>
@@ -111,7 +111,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 									<li ><a href="#away_tab" data-toggle="tab">客队</a></li>
 								</ul>
 								<div id="infoTabContent" class="tab-content">
-									<div class="tab-pane fade in active" id="home_tab" style="border:1px solid #ddd;border-top:none;padding:8px;">
+									<div class="tab-pane fade in active match-tip" id="home_tab" >
 											<c:forEach items="${lstTips}" var="tips">
 												<c:if test="${tips.is_home_away==0}">
 													<c:if test="${tips.is_good_bad=='0'}">
@@ -126,7 +126,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 												</c:if>
 											</c:forEach>
 									</div>
-									<div class="tab-pane fade in" id="away_tab" style="border:1px solid #ddd;border-top:none;padding:8px;">
+									<div class="tab-pane fade in match-tip" id="away_tab" >
 											<c:forEach items="${lstTips}" var="tips">
 												<c:if test="${tips.is_home_away==1}">
 													<c:if test="${tips.is_good_bad=='0'}">
@@ -158,11 +158,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								</ul>
 								<div id="guessTabContent" class="tab-content">
 									<c:forEach items="${lstGuess}" var="guess" varStatus="status">
-										<div class="tab-pane fade in ${guessId==guess.id?'active':''}" id="guess_tab_${status.index}" style="border:1px solid #ddd;border-top:none;padding:8px;">
-												<div class="alert alert-success" style="background-color:#f5f5f5;color:#333;">
+										<div class="tab-pane fade in ${guessId==guess.id?'active':''} match-tip" id="guess_tab_${status.index}" >
+												<div class="alert alert-success match-guess">
 													<span class="label label-danger">荐</span> <b>${guess.bet_title_cn}</b>
 												</div>
-												<div class="alert alert-success" style="background-color:#f5f5f5;color:#333;">
+												<div class="alert alert-success match-guess">
 													${guess.content_cn}
 												</div>
 										</div>
@@ -177,8 +177,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<tr>
 						<td>【主队球场】：</td>
 						<td>
-							[${homeTeam.venue_name} &nbsp;&nbsp;<span style="color:#888;">容量：${homeTeam.venue_capacity}人</span>]
-							<img src="${homeTeam.venue_small_img_local}" big="${homeTeam.venue_img_local}" style="cursor:pointer;" class="img-responsive img-rounded venue"  alt="${homeTeam.name}球场名称：${homeTeam.venue_name}" title="${homeTeam.name}球场名称：${homeTeam.venue_name}"/>
+							[${homeTeam.venue_name} &nbsp;&nbsp;<span class="color_888">容量：${homeTeam.venue_capacity}人</span>]
+							<img src="${homeTeam.venue_small_img_local}" big="${homeTeam.venue_img_local}" class="img-responsive img-rounded venue pointer"  alt="${homeTeam.name}球场名称：${homeTeam.venue_name}" title="${homeTeam.name}球场名称：${homeTeam.venue_name}"/>
 						</td>
 					</tr>
 					

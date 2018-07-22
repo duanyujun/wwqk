@@ -29,56 +29,56 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <!-- pc content start -->
 <div class="main hidden-sm hidden-xs">
-	<div style="width:930px;float:left;">
-		<div style="width:500px;float:left;">
-			<div style="width:500px;height:140px;float:left;">
-				<div style="width:220px;float:left;">
+	<div class="left_w930" >
+		<div class="left_w500">
+			<div class="left_w500 h_140">
+				<div class="left w220">
 					<!-- 图片 -->
-					<img src="${say.image_small}" big="${say.image_big}" class="image" style="width:220px;height:140px;cursor:pointer;" />
+					<img src="${say.image_small}" big="${say.image_big}" class="image w220 h_140 pointer" />
 				</div>
-				<div style="width:272px;height:140px;float:left;">
-					<div class="multi-line-cut" style="-webkit-line-clamp: 5;text-align:left;width:272px;height:110px;float:left;background:#f5f5f5;padding:4px;padding-top:10px;font-size:14px;">
+				<div class="h_140 left w272" >
+					<div class="multi-line-cut idx-content" >
 						<span style="color:#666;"><i>${say.content}</i></span>
 					</div>
-					<div style="width:272px;height:30px;float:left;background:#f9f9f9;">
-						<div style="width:30px;height:30px;float:left;margin-left:4px;"><img src="${say.player_img_local}" style="width:30px;height:30px;border-radius:50%;"/></div>
-						<div style="width:230px;height:30px;line-height:30px;float:left;text-align:left;margin-left:4px;"><span class="grey-title" style="color:grey;"><a href="player-${say.player_name_en}-${say.player_id}.html" target="_blank" title="${say.player_name}的详细信息">${say.player_name}</a>&nbsp;&nbsp;<fmt:formatDate value="${say.create_time}" pattern="yyyy-MM-dd"/></span></div>
+					<div class="idx-player">
+						<div class="idx-player-div"><img src="${say.player_img_local}" class="idx-player-img" /></div>
+						<div class="idx-player-name"><span class="grey-title" style="color:grey;"><a href="player-${say.player_name_en}-${say.player_id}.html" target="_blank" title="${say.player_name}的详细信息">${say.player_name}</a>&nbsp;&nbsp;<fmt:formatDate value="${say.create_time}" pattern="yyyy-MM-dd"/></span></div>
 					</div>
 				</div>
 			</div>
-			<div style="width:500px;height:296px;float:left;text-align:left;padding-left:3px;padding-top:5px;">
+			<div class="idx-fun-div">
 				<c:forEach items="${funList}" var="fun">
-					<div class="text-cut a-title" title="${fun.title}" style="width:490px;height:29px;line-height:29px;font-size:14px;"><span style="font-size:16px;color:#ddd;">&bull;</span> <a href="/fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_blank"><span >${fun.title}（<fmt:formatDate value="${fun.create_time}" pattern="yyyy/MM/dd"/>）</span></a></div>
+					<div class="text-cut a-title idx-fun-title" title="${fun.title}" ><span class="idx-fun-dot" >&bull;</span> <a href="/fdetail-<fmt:formatDate value="${fun.create_time}" pattern="yyyy-MM-dd"/>-${fun.title_en}-${fun.id}.html" target="_blank"><span >${fun.title}（<fmt:formatDate value="${fun.create_time}" pattern="yyyy/MM/dd"/>）</span></a></div>
 				</c:forEach>
 			</div>
 		</div>
-		<div style="width:430px;height:436px;float:left;border:1px #e5e5e5 solid; padding:3px;padding-top:5px;">
+		<div class="idx-match">
 				<c:forEach items="${liveMatchList}" var="match" >
-					<div style="width:424px;height:60px;float:left;">
-						<div style="width:100%;height:30px;line-height:30px;float:left;text-align:left;padding-left:5px;">
-							<span class="label label-primary">${match.league_name}</span> <span style="color:#aaa;font-size:12px;">${match.weekday}</span>
+					<div class="idx-match-each" >
+						<div class="idx-match-title">
+							<span class="label label-primary">${match.league_name}</span> <span class="idx-match-wk" >${match.weekday}</span>
 						</div>
-						<div class="a-title" style="width:100%;height:30px;line-height:30px;text-align:left;padding-left:5px;">
-							<span style="color:#888;"><fmt:formatDate value="${match.match_datetime}" pattern="M月d日 HH:mm"/></span> 
+						<div class="a-title idx-match-team" >
+							<span class="color_888"><fmt:formatDate value="${match.match_datetime}" pattern="M月d日 HH:mm"/></span> 
 								<c:if test="${empty match.league_id}">
-									<a href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_blank" title="查看详情">${match.home_team_name} <img src="assets/image/page/team_default.png" style="width:20px;height:20px;" > <span style="font-size:12px;color:#777;">VS</span> <img src="assets/image/page/team_default.png" style="width:20px;height:20px;" > ${match.away_team_name }<c:if test="${match.game_id!=0}"> <span class="label label-success" title="分析">析</span></c:if></a>
+									<a href="/live-<fmt:formatDate value="${match.match_datetime}" pattern="yyyy-MM-dd"/>-${match.home_team_enname}-vs-${match.away_team_enname}-${match.id}.html" target="_blank" title="查看详情">${match.home_team_name} <img src="assets/image/page/team_default.png" class="idx-match-team-img" > <span class="idx-match-vs">VS</span> <img src="assets/image/page/team_default.png" class="idx-match-team-img" > ${match.away_team_name }<c:if test="${match.game_id!=0}"> <span class="label label-success" title="分析">析</span></c:if></a>
 								</c:if>
 								<c:if test="${!empty match.league_id}">
-									<a href="/match-${match.home_team_enname}-vs-${match.away_team_enname}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank" title="查看详情">${match.home_team_name} <img src="assets/image/page/team_default.png" style="width:20px;height:20px;" > <span style="font-size:12px;color:#777;">VS</span> <img src="assets/image/page/team_default.png" style="width:20px;height:20px;" > ${match.away_team_name }<c:if test="${match.game_id!=0}"> <span class="label label-success" title="分析">析</span></c:if></a>
+									<a href="/match-${match.home_team_enname}-vs-${match.away_team_enname}_${match.year_show}-${match.home_team_id}vs${match.away_team_id}.html" target="_blank" title="查看详情">${match.home_team_name} <img src="assets/image/page/team_default.png" class="idx-match-team-img" > <span class="idx-match-vs">VS</span> <img src="assets/image/page/team_default.png" class="idx-match-team-img" > ${match.away_team_name }<c:if test="${match.game_id!=0}"> <span class="label label-success" title="分析">析</span></c:if></a>
 								</c:if>
 						</div>
 					</div>
 				</c:forEach>
 		</div>
 	</div>
-	<div style="width:930px;margin-top:10px;float:left;">
+	<div class="idx-video" >
 		<c:forEach items="${videoList}" var="video" varStatus="status" >
-			<div style="width:173px;height:155px;background:#eee;float:left;${(status.count!=5 && status.count!=10)?'margin-right:16px;':''};${status.count>5?'margin-top:15px;':''}">
-				<div style="width:173px;height:100px;float:left;" title="${video.match_title}">
-					<a href="/vdetail-<fmt:formatDate value="${video.match_date}" pattern="yyyy-MM-dd"/>-${video.match_en_title}-${video.id}.html" target="_blank"><img src="${(empty video.video_img)?'assets/image/page/v-default.jpg':video.video_img}" style="width:173px;height:100px;"/></a>
+			<div class="idx-video-each" style="${(status.count!=5 && status.count!=10)?'margin-right:16px;':''};${status.count>5?'margin-top:15px;':''}">
+				<div class="idx-video-img left"  title="${video.match_title}">
+					<a href="/vdetail-<fmt:formatDate value="${video.match_date}" pattern="yyyy-MM-dd"/>-${video.match_en_title}-${video.id}.html" target="_blank"><img src="${(empty video.video_img)?'assets/image/page/v-default.jpg':video.video_img}" class="idx-video-img"/></a>
 				</div>
-				<div  style="width:173px;height:55px;text-align:left;float:left;font-size:12px;padding:4px;margin-top:6px;">
-					<div class="multi-line-cut a-title" title="${video.match_title}" style="width:100%;height:40px;float:left;">
+				<div  class="idx-video-title">
+					<div class="multi-line-cut a-title idx-video-t" title="${video.match_title}">
 						<a href="/vdetail-<fmt:formatDate value="${video.match_date}" pattern="yyyy-MM-dd"/>-${video.match_en_title}-${video.id}.html" target="_blank">${video.match_title}</a>
 					</div>
 				</div>
@@ -86,13 +86,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</c:forEach>
 	</div>
 	
-	<div style="width:930px;margin-top:10px;float:left;text-align:left;">
-	  <div id="message" style="overflow:hidden;height:100px;line-height:100px;">
+	<div class="idx-tip-outter">
+	  <div id="message" class="idx-tip" >
 	    <ul>
 	      <c:forEach items="${lstTipsMatch}" var="tips">
 	      		<li >
-	      			<div style="width:100%;height:90px;line-height:30px;text-align:left;float:left;">
-	      				<div class="a-title" style="overflow:hidden;width:100%;height:40px;line-height:40px;text-align:left;float:left;" >
+	      			<div  class="idx-tip-each" >
+	      				<div class="a-title idx-tip-inner" >
 		      				<span class="label label-primary">${tips.league_name}</span>
 		      				<c:if test="${tips.live_match_id!=0}">
 		      					<c:if test="${!empty tips.home_team_id }">
@@ -106,7 +106,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		      					&nbsp;${tips.home_name} vs ${tips.away_name}<i>（<fmt:formatDate value="${tips.match_time}" pattern="M月d日 HH:mm"/>）</i>
 		      				</c:if>
 		      			</div>
-	      				<div style="overflow:hidden;width:100%;height:60px;line-height:20px;text-align:left;float:left;" title="${tips.prediction_desc}">
+	      				<div class="idx-tip-desc" title="${tips.prediction_desc}">
 		      				${tips.prediction_desc}
 		      			</div>
 	      			</div>
@@ -120,7 +120,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div id="slideBox" class="slideBox">
 	  <ul class="items" >
 	  	<c:forEach items="${lstAlliance}" var="alliance">
-	  		<li style="height:200px;"><a href="${alliance.tbk_short_url}" title="${alliance.product_name}"   target="_blank"><img src="${alliance.product_img}" title="${alliance.product_name}" style="width:150px;height:160px;"></a></li>
+	  		<li class="h_200"><a href="${alliance.tbk_short_url}" title="${alliance.product_name}"   target="_blank"><img src="${alliance.product_img}" title="${alliance.product_name}" class="idx-tip-pimg" ></a></li>
 	  	</c:forEach>
 	  </ul>
 	</div>
@@ -161,7 +161,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			 }
 		);
 		
-		//首页广工
+		//首页广告
 		$('#slideBox').slideBox({
 			duration : 0.3,//滚动持续时间，单位：秒
 			easing : 'linear',//swing,linear//滚动特效

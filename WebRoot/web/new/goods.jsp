@@ -32,23 +32,23 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <!-- pc content start -->
 <div class="main hidden-sm hidden-xs">
-	<div style="width:930px;float:left;">
-		<div style="width:100%;float:left;padding-left:3%;">
+	<div class="left_w930">
+		<div class="goods-div">
 			<c:forEach items="${goodsPage.list}" var="goods" varStatus="status">
-				<div style="float:left;width:25%; margin-bottom:20px;">
-					<div style="float:left;width:100%;text-align:center;">
-						<div style="width:94%;max-height:340px;min-height:285px;height:285px;">
-							<div style="width:100%;">
-								<div style="float:left;width:100%;max-height:240px;">
-									<a href="${goods.tbk_short_url}" target="_blank"><img src="${goods.product_img}" style="width:100%;height:240px;" /></a>
+				<div class="goods-each">
+					<div class="goods-each-div">
+						<div class="goods-inner">
+							<div class="udv-clearfix">
+								<div class="goods-link">
+									<a href="${goods.tbk_short_url}" target="_blank"><img src="${goods.product_img}" class="goods-img" /></a>
 								</div>
-								<div style="float:left;width:90%;margin-left:5%;margin-right:5%;height:36px;line-height:40px;">
-									<div style="font-size:18px;color:#F40;">
+								<div class="goods-price">
+									<div class="goods-price-color">
 								       <span>¥</span><strong>${goods.price}</strong>
 								    </div>
 								</div>
-								<div style="float:left;width:90%;margin-left:5%;margin-right:5%;height:40px;">
-									<div class="more_text goods-link" style="height:40px;">
+								<div class="goods-title">
+									<div class="more_text goods-link h_40">
 								       <a href="${goods.tbk_short_url}" href="_blank" title="${goods.product_name}">${goods.product_name}</a>
 								    </div>
 								</div>
@@ -58,7 +58,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</div>
 			</c:forEach>
 		</div>
-		<div style="width:100%;float:left;margin-top:20px;">
+		<div class="goods-page">
 				${pageContent}
 		</div>
 	</div>

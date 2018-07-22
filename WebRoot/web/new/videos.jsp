@@ -30,52 +30,52 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <!-- pc content start -->
 <div class="main hidden-sm hidden-xs">
-	<div style="width:930px;float:left;">
-		<div class="bread" style="text-align:left;margin-bottom:10px;">
+	<div class="left_w930">
+		<div class="bread tleft mb_10">
 				当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;视频
 		</div>
-		<div style="width:100%;padding-left:0px;padding-right:0px;">  
-				 <div style="width:100%;margin-top:8px;float:left;">
-				 	<div class="team-title" style="width:10%;heigth:20px;font-size:14px;float:left;">
+		<div class="video-type">  
+				 <div class="video-inner">
+				 	<div class="team-title video-type-each">
 						<a href="videos-league-8.html" ><div class="${leagueId==8?'select-league':'common-league'}"><b>世界杯</b></div></a>
 					</div>
-					<div class="team-title" style="width:10%;heigth:20px;font-size:14px;float:left;">
+					<div class="team-title video-type-each">
 						<a href="videos-league-1.html" ><div class="${leagueId==1?'select-league':'common-league'}">英超</div></a>
 					</div>
-					<div class="team-title" style="width:10%;heigth:20px;font-size:14px;float:left;">
+					<div class="team-title video-type-each" >
 						<a href="videos-league-2.html" ><div class="${leagueId==2?'select-league':'common-league'}">西甲</div></a>
 					</div>
-					<div class="team-title" style="width:10%;heigth:20px;font-size:14px;float:left;">
+					<div class="team-title video-type-each">
 						<a href="videos-league-3.html" ><div class="${leagueId==3?'select-league':'common-league'}">德甲</div></a>
 					</div>
-					<div class="team-title" style="width:10%;heigth:20px;font-size:14px;float:left;">
+					<div class="team-title video-type-each">
 						<a href="videos-league-4.html" ><div class="${leagueId==4?'select-league':'common-league'}">意甲</div></a>
 					</div>
-					<div class="team-title" style="width:10%;heigth:20px;font-size:14px;float:left;">
+					<div class="team-title video-type-each">
 						<a href="videos-league-5.html" ><div class="${leagueId==5?'select-league':'common-league'}">法甲</div></a>
 					</div>
-					<div class="team-title" style="width:10%;heigth:20px;font-size:14px;float:left;">
+					<div class="team-title video-type-each">
 						<a href="videos-league-6.html" ><div class="${leagueId==6?'select-league':'common-league'}">欧冠</div></a>
 					</div>
-					<div class="team-title" style="width:10%;heigth:20px;font-size:14px;float:left;">
+					<div class="team-title video-type-each">
 						<a href="videos-league-7.html" ><div class="${leagueId==7?'select-league':'common-league'}">中超</div></a>
 					</div>
 					
 				</div>
 			
-				   <div class="table-responsive" style="width:100%;margin-top:10px;float:left;">
-						<table class="table table-condensed table-hover" style="border-bottom:1px solid #dddddd;text-align:left;">
+				   <div class="table-responsive video-each">
+						<table class="table table-condensed table-hover video-table">
 						  <tbody>
 						  	<c:forEach items="${videosPage.list}" var="videos">
 						    <tr>
-						      <td class="a-title" style="line-height:30px;"><a style="${videos.is_red=='1'?'color:red;':''}" href="/vdetail-<fmt:formatDate value="${videos.match_date}" pattern="yyyy-MM-dd"/>-${videos.match_en_title}-${videos.id}.html" target="_blank">${videos.match_title}</a></td>
+						      <td class="a-title lheight_30" ><a style="${videos.is_red=='1'?'color:red;':''}" href="/vdetail-<fmt:formatDate value="${videos.match_date}" pattern="yyyy-MM-dd"/>-${videos.match_en_title}-${videos.id}.html" target="_blank">${videos.match_title}</a></td>
 						    </tr>
 						    </c:forEach>
 						  </tbody>
 						</table>
 					</div>
 					
-					<div style="width:100%;float:left;margin-top:20px;padding-right:0px;">
+					<div class="video-page">
 						<div class="scott pull-right" >
 							<a href="/videos-league-${leagueId}-page-1.html" title="首页"> &lt;&lt; </a>
 							

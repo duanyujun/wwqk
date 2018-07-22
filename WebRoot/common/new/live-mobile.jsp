@@ -3,7 +3,7 @@
 <div class="visible-sm visible-xs" style="width:100%;float:left;">
 	<ul id="myTab" class="nav nav-tabs bread" style="margin-top:40px;">
 					<li class="${bifen==1?'':'active'}" id="m_live_li"><a href="#m_live" data-toggle="tab" >直播</a></li>
-					<li class="${bifen==1?'active':''}" id="m_bifen_li"><a href="#m_bifen" data-toggle="tab" >比分</a></li>
+					<li class="${bifen==1?'active':''}" id="m_bifen_li"><a href="#m_bifen" data-toggle="tab" >比分<img src='assets/global/img/ticks.gif' /></a></li>
 					<li ><a href="#m_chatroom" data-toggle="tab" >侃球室</a></li>
 				</ul>
 				<div id="myTabContent" class="tab-content">

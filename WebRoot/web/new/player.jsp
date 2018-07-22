@@ -35,27 +35,27 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <!-- pc content start -->
 <div class="main hidden-sm hidden-xs">
-	<div style="width:930px;float:left;">
-		<div class="bread" style="text-align:left;margin-bottom:10px;">
+	<div class="left_w930">
+		<div class="bread tleft mb10">
 			当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;<a href="/data.html" target="_blank">数据</a>&nbsp;&gt;&nbsp;${player.name}
 		</div>
-		<div style="width:66%;float:left;">
-			<div style="width:25%;float:left;text-align:left;">
-				<img src="${player.img_big_local}" style="width:150px;height:150px;" alt="${player.name}" title="${player.name}"/>
+		<div class="w66 left">
+			<div class="w25 left tleft">
+				<img src="${player.img_big_local}" class="w150h150" alt="${player.name}" title="${player.name}"/>
 			</div>
-			<div style="width:75%;float:left;">
-				<div style="width:50%;float:left;text-align:left;">
-					<div style="width:100%;float:left;line-height:32px;">${player.first_name}·${player.last_name}</div>
-					<div style="width:100%;float:left;line-height:32px;">${player.nationality} ${player.birthday}（${player.age}岁）</div>
-					<div style="width:100%;float:left;line-height:32px;">${player.height}&nbsp;·&nbsp;${player.weight}&nbsp;<c:if test="${!empty player.foot}">·&nbsp;惯用${player.foot}</c:if></div>
-					<div style="width:100%;float:left;line-height:32px;">
+			<div class="w75 left">
+				<div class="w50 left tleft">
+					<div class="player-info" >${player.first_name}·${player.last_name}</div>
+					<div class="player-info">${player.nationality} ${player.birthday}（${player.age}岁）</div>
+					<div class="player-info">${player.height}&nbsp;·&nbsp;${player.weight}&nbsp;<c:if test="${!empty player.foot}">·&nbsp;惯用${player.foot}</c:if></div>
+					<div class="player-info">
 						<c:if test="${!empty player.team_id}">
-								<span class="grey-title"><a href="team-${player.team_name_en}-${player.team_id}.html" target="_blank" title="${player.team_name}"><img src="assets/image/soccer/teams/25x25/${player.team_id}.png" style="width:25px;height:25px;"/>&nbsp;${player.team_name}</a></span>
+								<span class="grey-title"><a href="team-${player.team_name_en}-${player.team_id}.html" target="_blank" title="${player.team_name}"><img src="assets/image/soccer/teams/25x25/${player.team_id}.png" class="w25h25"/>&nbsp;${player.team_name}</a></span>
 							</c:if>
 							&nbsp;·&nbsp;${player.position}<c:if test="${!empty player.number}">&nbsp;·&nbsp;${player.number}号</c:if>
 					</div>
 					
-					<div style="width:100%;float:left;line-height:32px;">
+					<div class="player-info">
 						<c:if test="${!empty fifa}">
 							周薪：${fifa.wage}&nbsp;
 							</c:if>
@@ -63,61 +63,61 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				      		数据：
 				      		</c:if>
 							<c:if test="${player.goal_count!=0}">
-				      			<span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" style="margin-top:-5px;" /> <b>${player.goal_count}</b></span>
+				      			<span title="进球数：${player.goal_count}"><img src="assets/pages/img/goal-small.png" class="mtn5" /> <b>${player.goal_count}</b></span>
 				      		</c:if>
 				      		<c:if test="${player.goal_count!=0 && player.assists_count!=0}">
 				      		&nbsp;
 				      		</c:if>
 				      		<c:if test="${player.assists_count!=0}">
-				      			<span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" style="margin-top:-5px;" /> <b>${player.assists_count}</b></span>
+				      			<span title="助攻数：${player.assists_count}"><img src="assets/pages/img/goal-assists.png" class="mtn5" /> <b>${player.assists_count}</b></span>
 				      		</c:if>
 					</div>
 				</div>
-				<div style="width:50%;float:left;">
-					<div id="radardiv" style="width: 220px; height: 160px; -webkit-tap-highlight-color: transparent; user-select: none; background: transparent;"></div>
+				<div class="w50 left">
+					<div id="radardiv" class="player-radar"></div>
 				</div>
 			</div>
 			
-			<div style="width:100%;float:left;text-align:left;margin-top:10px;">
+			<div class="w100left tleft mt10">
 				<c:if test="${!empty fifa}">
-					<div class="width:100%;float:left;">
-						<div style="width:33%;float:left;margin-top:10px;">国际声誉： <c:forEach var="i" begin="1" end="${fifa.inter_rep}"><i class="fa fa-star gold"></i></c:forEach></div>
-						<div style="width:33%;float:left;margin-top:10px;">逆足能力：<c:forEach var="i" begin="1" end="${fifa.unuse_foot}"><i class="fa fa-star gold"></i></c:forEach></div>
-						<div style="width:33%;float:left;margin-top:10px;">花式技巧：<c:forEach var="i" begin="1" end="${fifa.trick}"><i class="fa fa-star gold"></i></c:forEach></div>
-						<div style="width:33%;float:left;margin-top:10px;">积极性：${fifa.work_rate}</div>
-						<div style="width:33%;float:left;margin-top:10px;">身价：${fifa.market_value}</div>
-						<div style="width:33%;float:left;margin-top:10px;">违约金：${fifa.release_clause}</div>
-						<div style="width:33%;float:left;margin-top:10px;">合同到期：${fifa.contract}</div>
-						<div style="width:33%;float:left;margin-top:10px;">综合能力：<span class="label label-success">${fifa.overall_rate}</span></div>
-						<div style="width:33%;float:left;margin-top:10px;">潜力：<span class="label label-success">${fifa.potential}</span></div>
+					<div class="w100left">
+						<div class="player-fifa">国际声誉： <c:forEach var="i" begin="1" end="${fifa.inter_rep}"><i class="fa fa-star gold"></i></c:forEach></div>
+						<div class="player-fifa">逆足能力：<c:forEach var="i" begin="1" end="${fifa.unuse_foot}"><i class="fa fa-star gold"></i></c:forEach></div>
+						<div class="player-fifa">花式技巧：<c:forEach var="i" begin="1" end="${fifa.trick}"><i class="fa fa-star gold"></i></c:forEach></div>
+						<div class="player-fifa">积极性：${fifa.work_rate}</div>
+						<div class="player-fifa">身价：${fifa.market_value}</div>
+						<div class="player-fifa">违约金：${fifa.release_clause}</div>
+						<div class="player-fifa">合同到期：${fifa.contract}</div>
+						<div class="player-fifa">综合能力：<span class="label label-success">${fifa.overall_rate}</span></div>
+						<div class="player-fifa">潜力：<span class="label label-success">${fifa.potential}</span></div>
 					</div>
 				</c:if>
 			</div>
-			<div style="width:100%;float:left;text-align:left;margin-top:15px;">
+			<div class="player-say">
 				<c:if test="${!empty NO_SAY}">
-					<div style="width:100%;float:left;font-size:16px;">
-						<nobr><span style="font-weight:bold;">${player.name}</span>目前还没发表说说，去瞅瞅<b>${leagueName}</b>其他人的吧 <img src="assets/image/page/smile.png"  style="width:32px;height:32px;"/></nobr>
+					<div class="w100 left fs16">
+						<nobr><span class="bold">${player.name}</span>目前还没发表说说，去瞅瞅<b>${leagueName}</b>其他人的吧 <img src="assets/image/page/smile.png" class="w32h32" /></nobr>
 					</div>
 				</c:if>
 				
 				<c:forEach items="${sayPage.list}" var="say" varStatus="status">
-					<div style="width:100%;float:left;text-align:left;padding-right:15px;">
-						<div style="width:100%;float:left;text-align:left;border:1px solid #E3E7EA;${status.index!=0?'border-top:0;':''}padding:10px;padding-bottom:10px;">
-							<div style="width:100%;float:left;">
-								<div style="width:8%;float:left;">
-									<a href="player-${say.player_name_en}-${say.player_id}.html" style="color:#292f33;" target="_blank"><img src="${say.player_img_local}" style="width:48px;height:48px;" alt="${say.player_name}" title="${say.player_name}"/></a>
+					<div class="w100left tleft pr15" >
+						<div class="player-say-p" style="${status.index!=0?'border-top:0;':''}">
+							<div class="w100left">
+								<div class="left w8" >
+									<a href="player-${say.player_name_en}-${say.player_id}.html" class="color292f33" target="_blank"><img src="${say.player_img_local}" class="w48h48" alt="${say.player_name}" title="${say.player_name}"/></a>
 								</div>
-								<div style="width:90%;float:left;">
-									<div class="say-info" style="width:100%;float:left;">
-										<span style="display:block;font-weight:bold;color:#292f33;float:left;"><a href="player-${say.player_name_en}-${say.player_id}.html" style="color:#292f33;" target="_blank">${say.player_name}</a></span>
-										<span style="display:block;color:#8899a6;font-size:13px;float:left;cursor:pointer;" title="<fmt:formatDate value="${say.create_time}" pattern="yyyy-MM-dd HH:mm"/>"> - <fmt:formatDate value="${say.create_time}" pattern="MM月dd日"/></span>
+								<div class="left w90">
+									<div class="say-info w100left">
+										<span class="player-say-pname"><a href="player-${say.player_name_en}-${say.player_id}.html" class="color292f33" target="_blank">${say.player_name}</a></span>
+										<span class="player-say-ptime" title="<fmt:formatDate value="${say.create_time}" pattern="yyyy-MM-dd HH:mm"/>"> - <fmt:formatDate value="${say.create_time}" pattern="MM月dd日"/></span>
 									</div>
-									<div style="width:100%;float:left;">
-										<span style="color:#292f33;font-size:14px;">${say.content}</span>
+									<div class="w100left">
+										<span class="color292f33 fs14">${say.content}</span>
 									</div>
-									<div style="width:100%;float:left;margin-top:10px;">
+									<div class="w100left mt10">
 										<c:if test="${!empty say.image_big}">
-											<img src="${say.image_big}" class="img-responsive image" style="height:300px;cursor:pointer;" alt="${say.content}" title="${say.player_name} - ${say.content}" />
+											<img src="${say.image_big}" class="img-responsive image h_300 pointer" alt="${say.content}" title="${say.player_name} - ${say.content}" />
 										</c:if>
 									</div>
 								</div>
@@ -128,7 +128,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				
 				<c:if test="${empty NO_SAY}">
 					<c:if test="${sayPage.totalPage>1}">
-							<div style="width:100%;float:left;margin-top:20px;padding-right:13px;">
+							<div class="player-say-page">
 								<div class="scott pull-right">
 									<a href="player-${player.en_url}-${player.id}_1.html" title="首页"> &lt;&lt; </a>
 									
@@ -173,7 +173,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</c:if>
 				
 				<c:if test="${!empty NO_SAY}">
-					<div class="pull-right say-info" style="width:100%;float:left;margin-top:10px;">
+					<div class="pull-right say-info w100left mt10" >
 						<a href="/" target="_blank" title="去首页看看">去首页看看&gt;&gt;</a>
 					</div>
 				</c:if>
@@ -181,15 +181,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				
 			</div>
 		</div>
-		<div style="width:33%;margin-left:1%;float:left;">
-			<div id="article_div" style="width:100%;float:left;text-align:left;" >
+		<div class="player-trans">
+			<div id="article_div" class="w100left tleft">
 				<c:if test="${!empty lstTransfer}">
-					<p>转会情况<span style="color:#aaa;">（M：百万欧元）</span></p>
+					<p>转会情况<span class="coloraaa">（M：百万欧元）</span></p>
 					<table >
 					  <tbody>
 					  	<c:forEach items="${lstTransfer}" var="transfer">
 						    <tr>
-						      	<td class="grey-title" style="height:25px;line-height:25px;"><fmt:formatDate value="${transfer.date}" pattern="yy/MM/dd"/> ${transfer.from_team} → ${transfer.to_team} ${transfer.value}${transfer.extra}<c:if test="${(empty transfer.extra) && transfer.value!='租借' &&  transfer.value!='免签' &&  transfer.value!='无信息'}">万欧元</c:if></td>
+						      	<td class="grey-title hlh25"><fmt:formatDate value="${transfer.date}" pattern="yy/MM/dd"/> ${transfer.from_team} → ${transfer.to_team} ${transfer.value}${transfer.extra}<c:if test="${(empty transfer.extra) && transfer.value!='租借' &&  transfer.value!='免签' &&  transfer.value!='无信息'}">万欧元</c:if></td>
 						    </tr>
 					     </c:forEach>
 					  </tbody>
@@ -197,12 +197,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</c:if>
 				
 				<c:if test="${!empty lstNews}">
-					<p style="margin-top:10px;">相关新闻</p>
+					<p class="mt10" >相关新闻</p>
 					<table >
 					  <tbody>
 					  	<c:forEach items="${lstNews}" var="news">
 						    <tr>
-						      	<td class="text_cut grey-title" style="width:285px;height:25px;line-height:25px;" title="<fmt:formatDate value="${news.create_time}" pattern="yyyy-MM-dd"/> ${news.title}"><a target="_blank" href="/fdetail-<fmt:formatDate value="${news.create_time}" pattern="yyyy-MM-dd"/>-${news.title_en}-${news.id}.html"><fmt:formatDate value="${news.create_time}" pattern="MM/dd"/> ${news.title}</a></td>
+						      	<td class="text_cut grey-title hlh25 w285" title="<fmt:formatDate value="${news.create_time}" pattern="yyyy-MM-dd"/> ${news.title}"><a target="_blank" href="/fdetail-<fmt:formatDate value="${news.create_time}" pattern="yyyy-MM-dd"/>-${news.title_en}-${news.id}.html"><fmt:formatDate value="${news.create_time}" pattern="MM/dd"/> ${news.title}</a></td>
 						    </tr>
 					     </c:forEach>
 					  </tbody>
