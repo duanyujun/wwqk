@@ -175,11 +175,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 								  	</c:if>
 								  	<c:if test="${position.team_id==team.id}">
 								  		<tr>
-										  <td class="team-border border-right0">${status.count}</td>
-									      <td class="team-title team-border border-right0 border-left0"><a href="team-${position.team_name_en}-${position.team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${position.team_id}.png" class="w25h25"  title="${position.team_name}"/>&nbsp;${position.team_name}</nobr></a></td>
-									      <td class="team-border border-right0 border-left0">${position.round_count}</td>
-									      <td class="team-border border-right0 border-left0">${position.goal_count}</td>
-									      <td class="team-border border-left0">${position.points}</td>
+										  <td class="team-border border-right0" style="border-top:1px solid #00A50D;">${status.count}</td>
+									      <td class="team-title team-border border-right0 border-left0" style="border-top:1px solid #00A50D;"><a href="team-${position.team_name_en}-${position.team_id}.html" target="_blank"><nobr><img src="assets/image/soccer/teams/25x25/${position.team_id}.png" class="w25h25"  title="${position.team_name}"/>&nbsp;${position.team_name}</nobr></a></td>
+									      <td class="team-border border-right0 border-left0" style="border-top:1px solid #00A50D;">${position.round_count}</td>
+									      <td class="team-border border-right0 border-left0" style="border-top:1px solid #00A50D;">${position.goal_count}</td>
+									      <td class="team-border border-left0" style="border-top:1px solid #00A50D;">${position.points}</td>
 									    </tr>
 								  	</c:if>
 								   </c:forEach>

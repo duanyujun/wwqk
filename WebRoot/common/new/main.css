@@ -193,6 +193,7 @@ div.round A {display:block; width:28px;height:28px;line-height:28px;BORDER: #ddd
 .team-border{border:1px solid #00A50D;}
 .border-left0{border-left:0;}
 .border-right0{border-right:0;}
+.border-top0{border-top:0;}
 /*player*/
 .player-info{width:100%;float:left;line-height:32px;}
 .player-radar{width: 220px; height: 160px; -webkit-tap-highlight-color: transparent; user-select: none; background: transparent;}
