@@ -87,14 +87,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							</c:if>
 							<c:if test="${history.status!='完场'}">
 									<c:if test="${empty lstMatchLive}">
-										<span class="a-title" ><img src="assets/pages/img/zq.gif" class="w18" /> <a href="/bifen.html" target="_blank" class="cred">比分直播</a></span>
+										<span class="a-title" ><img src="assets/pages/img/zq.gif" class="w18" /> <a href="/bifen.html" target="_blank" style="color:red;">比分直播</a></span>
 									</c:if>
 									<c:if test="${!empty lstMatchLive}">
 											<span class="a-title" >
 												<c:forEach items="${lstMatchLive}" var="live">
-													<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" class="cred">${live.live_name}</a>&nbsp;&nbsp;</nobr>
+													<nobr><i class="fa fa-tv"></i> <a href="${live.live_url}" target="_blank" style="color:red;">${live.live_name}</a>&nbsp;&nbsp;</nobr>
 												</c:forEach>
-												<nobr><img src="assets/pages/img/zq.gif" class="w18" /> <a href="/bifen.html" target="_blank" class="cred">比分直播</a></nobr>
+												<nobr><img src="assets/pages/img/zq.gif" class="w18" /> <a href="/bifen.html" target="_blank" style="color:red;">比分直播</a></nobr>
 											</span>
 									</c:if>
 							</c:if>

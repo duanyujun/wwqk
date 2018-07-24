@@ -34,7 +34,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 		<ul id="infoTab" class="nav nav-tabs bread" >
 				<li class="${bifen==1?'':'active'}" id="live_tab_li"><a href="#live_tab" data-toggle="tab">直播</a></li>
-				<li class="${bifen==1?'active':''}" id="bifen_tab_li"><a href="#bifen_tab" data-toggle="tab">比分</a></li>
+				<li class="${bifen==1?'active':''}" id="bifen_tab_li"><a href="#bifen_tab" data-toggle="tab">比分<img src='assets/global/img/ticks.gif' /></a></li>
 			</ul>
 			<div id="infoTabContent" class="tab-content">
 				<div class="tab-pane fade in ${bifen==1?'':'active'}" id="live_tab" style="border-top:none;">
