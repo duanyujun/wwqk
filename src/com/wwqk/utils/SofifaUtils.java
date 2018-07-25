@@ -23,7 +23,7 @@ public class SofifaUtils {
 	//球员 https://sofifa.com/player/193301?hl=zh-CN
 
 	public static void collectLeague(String leagueId){
-		Connection connection = Jsoup.connect("https://sofifa.com/league/"+leagueId+"?hl=zh-CN");
+		Connection connection = Jsoup.connect("https://sofifa.com/league/"+leagueId);
 		for(Entry<String, String> entry : MatchUtils.getSofifaHeader().entrySet()){
 			connection.header(entry.getKey(), entry.getValue());
 		}
@@ -46,7 +46,7 @@ public class SofifaUtils {
 	private static int countAll = 1;
 	public static void collectTeam(String teamId){
 		//System.err.println((countAll++)+" https://sofifa.com/team/"+teamId+"?hl=zh-CN");
-		Connection connection = Jsoup.connect("https://sofifa.com/team/"+teamId+"?hl=zh-CN");
+		Connection connection = Jsoup.connect("https://sofifa.com/team/"+teamId);
 		for(Entry<String, String> entry : MatchUtils.getSofifaHeader().entrySet()){
 			connection.header(entry.getKey(), entry.getValue());
 		}
@@ -85,7 +85,7 @@ public class SofifaUtils {
 
 	
 	public static void collectPlayer(String playerId){
-		Connection connection = Jsoup.connect("https://sofifa.com/player/"+playerId+"?hl=zh-CN");
+		Connection connection = Jsoup.connect("https://sofifa.com/player/"+playerId);
 		for(Entry<String, String> entry : MatchUtils.getSofifaHeader().entrySet()){
 			connection.header(entry.getKey(), entry.getValue());
 		}
@@ -115,12 +115,12 @@ public class SofifaUtils {
 			
 			
 			Element statsInfo = doc.select(".stats").get(0);
-			Elements allTdElements = statsInfo.select("td");
+			Elements allSpanElements = statsInfo.select("span");
 			
-			setFifaValue(fifaDb, "overall_rate",clearData(allTdElements.get(0).select("span").get(0).text()));
-			setFifaValue(fifaDb, "potential",clearData(allTdElements.get(1).select("span").get(0).text()));
-			setFifaValue(fifaDb, "market_value",clearData(allTdElements.get(2).select("span").get(0).text()));
-			setFifaValue(fifaDb, "wage",clearData(allTdElements.get(3).select("span").get(0).text()));
+			setFifaValue(fifaDb, "overall_rate",clearData(allSpanElements.get(0).text()));
+			setFifaValue(fifaDb, "potential",clearData(allSpanElements.get(1).text()));
+			setFifaValue(fifaDb, "market_value",clearData(allSpanElements.get(2).text()));
+			setFifaValue(fifaDb, "wage",clearData(allSpanElements.get(3).text()));
 			setFifaValue(fifaDb, "pac", CommonUtils.matcherString(PAC_PATTERN, doc.html()));
 			setFifaValue(fifaDb, "sho", CommonUtils.matcherString(SHO_PATTERN, doc.html()));
 			setFifaValue(fifaDb, "pas", CommonUtils.matcherString(PAS_PATTERN, doc.html()));
