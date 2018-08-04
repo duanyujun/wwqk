@@ -39,5 +39,10 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/shiro-web-1.2.4.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/slf4j-api-1.7.19.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/slf4j-simple-1.7.19.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/rome-1.9.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/rome-utils-1.9.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xmlbeans-2.3.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jdom-2.0.6.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/poi-3.6-20091214.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
