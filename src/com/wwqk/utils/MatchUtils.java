@@ -364,13 +364,14 @@ public class MatchUtils {
 	
 	public static Map<String, String> getSofifaHeader(){
 		   Map<String, String> header = new HashMap<String, String>();  
-	       header.put("Accept", "*/*");
-	       header.put("Accept-Encoding", "gzip, deflate");  
+	       header.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+	       header.put("Accept-Encoding", "gzip, deflate, br");  
 	       header.put("Accept-Language", "zh-CN,zh;q=0.9");
 	       header.put("Connection", "keep-alive"); 
 	       header.put("Host", "sofifa.com");
-	       header.put("Cookie", "PHPSESSID=firndt2cnmpo9tebglqi9e81dh; _ga=GA1.2.193032852.1528534780; cookie=1; playerCol=ae%2Coa%2Cpt%2Cvl%2Cwg%2Ctt; teamCol=oa%2Cat%2Cmd%2Cdf%2Cps%2Ctb; engine=frostbite; units=imperial; currency=EUR; _gid=GA1.2.1278639679.1532534270; hl=zh-CN; _gat=1");
-	       header.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36");
+	       header.put("Refer", "https://sofifa.com/teams/hot");
+	       header.put("Cookie", "PHPSESSID=k3t66l09e7nn0423ohr3ockumg; cookie=1; playerCol=ae%2Coa%2Cpt%2Cvl%2Cwg%2Ctt; teamCol=oa%2Cat%2Cmd%2Cdf%2Cps%2Ctb; engine=frostbite; units=imperial; currency=EUR; _ga=GA1.2.1905187734.1533920869; _gid=GA1.2.887988565.1533920870; hl=zh-CN");
+	       header.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36");
 	       
 	       return header;
 	}

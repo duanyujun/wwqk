@@ -54,8 +54,10 @@ public class SofifaUtils {
 			Document doc = connection.get();
 			Elements elements = doc.select(".persist-area");
 			Elements aTags = elements.get(0).select("a");
+			int count = 0;
 			for(Element a : aTags){
 				if(a.attr("href").contains("/player/")){
+					System.err.println("count:"+(++count)+" "+a.attr("href"));
 					collectPlayer(a.attr("href").replace("/player/", ""));
 				}
 			}
