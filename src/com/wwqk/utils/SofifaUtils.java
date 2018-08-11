@@ -75,6 +75,7 @@ public class SofifaUtils {
 	private static final Pattern WORK_RATE_PATTERN = Pattern.compile("Work Rate</label>(.*?)</li>");
 	private static final Pattern BODY_TYPE_PATTERN = Pattern.compile("身体模型</label>(.*?)</li>");
 	private static final Pattern REALEASE_PATTERN = Pattern.compile("Release Clause</label>(.*?)</li>");
+	private static final Pattern REALEASE_PATTERN_2 = Pattern.compile("违约金</label>(.*?)</li>");
 	private static final Pattern NUMBER_PATTERN = Pattern.compile("球衣号码</label>(.*?)</li>");
 	private static final Pattern CONTRACT_PATTERN = Pattern.compile("合同到期</label>(.*?)</li>");
 	private static final Pattern TEAM_PATTERN = Pattern.compile("/team/.*?>(.*?)</a>");
@@ -108,7 +109,12 @@ public class SofifaUtils {
 			setFifaValue(fifaDb, "trick", clearData(CommonUtils.matcherString(TRICK_PATTERN, doc.html())));
 			setFifaValue(fifaDb, "work_rate", clearData(CommonUtils.matcherString(WORK_RATE_PATTERN, doc.html())));
 			setFifaValue(fifaDb, "body_type", clearData(CommonUtils.matcherString(BODY_TYPE_PATTERN, doc.html())));
-			setFifaValue(fifaDb, "release_clause", clearData(CommonUtils.matcherString(REALEASE_PATTERN, doc.html())));
+			String releaseClause = clearData(CommonUtils.matcherString(REALEASE_PATTERN, doc.html()));
+			if(StringUtils.isBlank(releaseClause)){
+				releaseClause = clearData(CommonUtils.matcherString(REALEASE_PATTERN_2, doc.html()));
+			}
+			
+			setFifaValue(fifaDb, "release_clause", releaseClause);
 			
 			Element teamInfo = doc.select(".pl").get(1);
 			setFifaValue(fifaDb, "position", clearData(teamInfo.select(".pos").get(0).text()));
