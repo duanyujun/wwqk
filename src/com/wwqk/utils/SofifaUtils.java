@@ -24,6 +24,7 @@ public class SofifaUtils {
 
 	public static void collectLeague(String leagueId){
 		Connection connection = Jsoup.connect("https://sofifa.com/league/"+leagueId);
+		connection.timeout(30000);
 		for(Entry<String, String> entry : MatchUtils.getSofifaHeader().entrySet()){
 			connection.header(entry.getKey(), entry.getValue());
 		}
@@ -47,6 +48,7 @@ public class SofifaUtils {
 	public static void collectTeam(String teamId){
 		//System.err.println((countAll++)+" https://sofifa.com/team/"+teamId+"?hl=zh-CN");
 		Connection connection = Jsoup.connect("https://sofifa.com/team/"+teamId);
+		connection.timeout(30000);
 		for(Entry<String, String> entry : MatchUtils.getSofifaHeader().entrySet()){
 			connection.header(entry.getKey(), entry.getValue());
 		}
@@ -89,6 +91,7 @@ public class SofifaUtils {
 	
 	public static void collectPlayer(String playerId){
 		Connection connection = Jsoup.connect("https://sofifa.com/player/"+playerId);
+		connection.timeout(30000);
 		for(Entry<String, String> entry : MatchUtils.getSofifaHeader().entrySet()){
 			connection.header(entry.getKey(), entry.getValue());
 		}
@@ -150,6 +153,8 @@ public class SofifaUtils {
 	private static void setFifaValue(Sofifa fifaDb, String attribute, String value){
 		if(StringUtils.isNotEmpty(value)){
 			fifaDb.set(attribute, value);
+		}else{
+			fifaDb.set(attribute, "0");
 		}
 	}
 	

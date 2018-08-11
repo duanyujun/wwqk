@@ -103,7 +103,7 @@ public class CommonUtils {
 		if(matcher.find()){
 			return matcher.group(1);
 		}
-		return "0";
+		return "";
 	}
 	
 	/**
