@@ -36,9 +36,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 		<div class="video-type">  
 				 <div class="video-inner">
-				 	<div class="team-title video-type-each">
-						<a href="videos-league-8.html" ><div class="${leagueId==8?'select-league':'common-league'}"><b>世界杯</b></div></a>
-					</div>
+				 	
 					<div class="team-title video-type-each">
 						<a href="videos-league-1.html" ><div class="${leagueId==1?'select-league':'common-league'}">英超</div></a>
 					</div>
@@ -60,7 +58,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<div class="team-title video-type-each">
 						<a href="videos-league-7.html" ><div class="${leagueId==7?'select-league':'common-league'}">中超</div></a>
 					</div>
-					
+					<div class="team-title video-type-each">
+						<a href="videos-league-8.html" ><div class="${leagueId==8?'select-league':'common-league'}">其他</div></a>
+					</div>
 				</div>
 			
 				   <div class="table-responsive video-each">

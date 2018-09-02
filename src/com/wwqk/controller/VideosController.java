@@ -22,7 +22,7 @@ public class VideosController extends Controller {
 		String leagueId = getPara("league_id");
 		if(StringUtils.isBlank(leagueId)){
 			//leagueId = LeagueEnum.YC.getKey();
-			leagueId = "8";
+			leagueId = "1";
 		}
 		int pageNumber = getParaToInt("pageNumber", 1);
 		
