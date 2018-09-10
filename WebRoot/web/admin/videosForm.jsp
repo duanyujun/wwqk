@@ -87,7 +87,7 @@
 				                      <div class="col-md-3"><label for="name"></label></div>
 				                 </div>
 				                 <div class="form-group">
-				                      <label class="col-md-3 control-label">关键字：</label>
+				                      <label class="col-md-3 control-label"><span class="keywordTitle" style="cursor:pointer;"><u>关键字</u>：</span></label>
 				                      <div class="col-md-6">
 				                           <input type="text" class="form-control" id="keywords" name="keywords"  value="${videos.keywords}" placeholder="请输入关键字">
 				                      </div>
@@ -327,6 +327,28 @@ $(function(){
     	
         $(this).ajaxSubmit(options);
         return false;
+    });
+    
+    $(".keywordTitle").click(function(){
+    	var home = $("#home_team").val();
+    	var away = $("#away_team").val();
+    	var title = $("#match_title").val();
+    	title = title.replace("视频","");
+    	var arrayTitle = title.split(" ");
+    	var result = "";
+    	for(var i=0; i<arrayTitle.length; i++){
+    		if(i!=0){
+    			result = result + ',';
+    		}
+    		if(arrayTitle[i]=='录像'){
+    			result = result+home+'录像';
+    		}else if(arrayTitle[i]=='集锦'){
+    			result = result+away+'集锦';
+    		}else{
+    			result = result + arrayTitle[i];
+    		}
+    	}
+    	$("#keywords").val(result);
     });
 });
 
