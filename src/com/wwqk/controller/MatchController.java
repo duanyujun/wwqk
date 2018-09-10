@@ -146,7 +146,7 @@ public class MatchController extends Controller {
 		}
 		
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.LIVE.getKey());
-		render("matchDetail.jsp");
+		render("new/matchDetail.jsp");
 	}
 	
 }

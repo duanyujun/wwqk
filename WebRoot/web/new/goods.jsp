@@ -12,12 +12,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta content="telephone=no" name="format-detection">
-	<meta name="keywords" content="趣点足球网,在线直播,球员动态,视频集锦,球队排名" />
-	<meta name="description" content="趣点足球网为球迷们提供最新的球员资讯，直播链接以及足球数据" />
+	<meta name="keywords" content="足球周边,正品球衣,球鞋,美津浓,阿迪达斯,CR7" />
+	<meta name="description" content="趣点足球网为球迷们推荐最好的足球周边产品,正品球衣,足球运动装备" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="https://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/common/new/main.css" rel="stylesheet" type="text/css" />
-    <title>趣点足球网 - 足球说说|球员说说|球员动态|球员资讯|球星生活</title>
+    <title>趣点足球网 - 足球周边|精选好品|足球|球衣|球鞋</title>
     <style type="text/css">
     	.goods-link a{font-size:14px;color:#404040;}
 		.goods-link a:focus, a:hover{text-decoration: underline; color:#f40;}
