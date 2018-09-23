@@ -46,6 +46,7 @@ import com.wwqk.model.Videos;
 import com.wwqk.model.VideosRealLinks;
 import com.wwqk.plugin.AnalyzeZgzcw;
 import com.wwqk.plugin.Live5chajian;
+import com.wwqk.plugin.LiveZhibome;
 import com.wwqk.plugin.LiveZuqiula;
 import com.wwqk.plugin.MatchSina;
 import com.wwqk.plugin.News7M;
@@ -1006,9 +1007,11 @@ public class AdminController extends Controller {
 	
 	//更新直播源
 	public void updateLives(){
-		LiveZuqiula.getLiveSource();
+		
 		//Live24zbw.getLiveSource();
-		Live5chajian.getLiveSource();
+		//Live5chajian.getLiveSource();
+		LiveZhibome.getLiveSource();
+		LiveZuqiula.getLiveSource();
 		renderJson(1);
 	}
 	

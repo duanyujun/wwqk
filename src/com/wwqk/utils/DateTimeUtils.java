@@ -109,6 +109,10 @@ public final class DateTimeUtils {
     
     public final static String ISO_DATETIME_NOSEC_FORMAT = "yyyy-MM-dd HH:mm";
     
+    public final static String ISO_DATETIME_CN_FORMAT = "yyyy年MM月dd日 HH点mm分";
+    
+    public final static String[] ISO_DATETIME_CN_FORMAT_ARRAY = {ISO_DATETIME_CN_FORMAT};
+    
     public final static String[] ISO_DATETIME_NOSEC_FORMAT_ARRAY = {ISO_DATETIME_NOSEC_FORMAT};
     
     public final static String DAY_NAMES[] = { "周日", "周一", "周二", "周三", "周四", "周五", "周六" };

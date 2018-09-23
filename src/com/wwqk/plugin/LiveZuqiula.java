@@ -73,6 +73,7 @@ public class LiveZuqiula {
 				String dateStr = StringUtils.trim(timeGroupStr.substring(0,firstWhiteSpace));
 				//星期一
 				String weekDayStr = StringUtils.trim(timeGroupStr.substring(firstWhiteSpace+1,timeGroupStr.lastIndexOf(" ")));
+				weekDayStr = weekDayStr.replace("天", "日");
 				Elements matchItems = element.select("li");
 				for(Element item:matchItems){
 					String leagueName = StringUtils.trim(item.select("a").get(0).text());

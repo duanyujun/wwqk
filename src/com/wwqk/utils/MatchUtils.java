@@ -198,7 +198,16 @@ public class MatchUtils {
 	       header.put("Pragma", "no-cache");  
 	       
 	       return header;
-		}
+	}
+	
+	public static Map<String, String> getZhibomeHeader(){
+		   Map<String, String> header = new HashMap<String, String>();  
+	       header.put("Host", "www.zhibo.me");
+	       header.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36");
+	       header.put("Referer", "http://www.zhibo.me/");  
+	       
+	       return header;
+	}
 	
 	public static Map<String, String> getZgzcwHeader(String refererURL){
 		   Map<String, String> header = new HashMap<String, String>();  
