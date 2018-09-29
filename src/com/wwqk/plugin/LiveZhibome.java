@@ -100,6 +100,10 @@ public class LiveZhibome {
 					continue;
 				}
 				
+				if(matchInfoEle.children().size()<5){
+					continue;
+				}
+				
 				homeTeamName = matchInfoEle.child(1).text();
 				awayTeamName = matchInfoEle.child(4).text();
 

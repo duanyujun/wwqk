@@ -141,6 +141,10 @@ public class LiveZuqiula {
 						if(StringUtils.isNotBlank(homeTeamId) && StringUtils.isNotBlank(awayTeamId)){
 							Team home = Team.dao.findById(homeTeamId);
 							Team away = Team.dao.findById(awayTeamId);
+							if(home==null || away==null){
+								continue;
+							}
+							
 							allLiveMatch.set("home_team_id", homeTeamId);
 							allLiveMatch.set("away_team_id", awayTeamId);
 							allLiveMatch.set("league_id", leagueId);
