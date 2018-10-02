@@ -42,10 +42,10 @@ import com.wwqk.model.Sofifa;
 import com.wwqk.model.TaobaoAlliance;
 import com.wwqk.model.Team;
 import com.wwqk.model.TipsMatch;
+import com.wwqk.model.ValueObject;
 import com.wwqk.model.Videos;
 import com.wwqk.model.VideosRealLinks;
 import com.wwqk.plugin.AnalyzeZgzcw;
-import com.wwqk.plugin.Live5chajian;
 import com.wwqk.plugin.LiveZhibome;
 import com.wwqk.plugin.LiveZuqiula;
 import com.wwqk.plugin.MatchSina;
@@ -85,6 +85,8 @@ import com.wwqk.utils.TranslateUtils;
 import com.wwqk.utils.VideosZuqiulaUtils;
 
 public class AdminController extends Controller {
+	
+	private static final int AJAX_PAGE_SIZE = 30;
 	
 	public void index(){
 		Subject currentUser = SecurityUtils.getSubject();
@@ -329,9 +331,11 @@ public class AdminController extends Controller {
 		if(id!=null){
 			LeagueShooter163 shooter163 = LeagueShooter163.dao.findById(id);
 			setAttr("shooter163", shooter163);
+			if(StringUtils.isNotBlank(shooter163.getStr("player_id"))){
+				Player player = Player.dao.findById(shooter163.getStr("player_id"));
+				setAttr("player", player);
+			}
 		}
-		List<Player> lstPlayer = Player.dao.find("select p.*, t.name team_name from player p, team t where p.team_id = t.id ");
-		setAttr("lstPlayer", lstPlayer);
 		
 		render("admin/shooter163Form.jsp");
 	}
@@ -366,12 +370,61 @@ public class AdminController extends Controller {
 		if(id!=null){
 			LeagueAssists163 assists163 = LeagueAssists163.dao.findById(id);
 			setAttr("assists163", assists163);
+			if(StringUtils.isNotBlank(assists163.getStr("player_id"))){
+				Player player = Player.dao.findById(assists163.getStr("player_id"));
+				setAttr("player", player);
+			}
 		}
-		List<Player> lstPlayer = Player.dao.find("select p.*, t.name team_name from player p, team t where p.team_id = t.id ");
-		setAttr("lstPlayer", lstPlayer);
 		
 		render("admin/assists163Form.jsp");
 	}
+	
+	//球员数据
+    public void playData(){
+    	String keyword = getPara("q");
+    	StringBuilder countSql = new StringBuilder("select count(p.id) from player p, team t where p.team_id = t.id");
+    	StringBuilder sql = new StringBuilder("select p.id, p.name, t.name team_name from player p, team t where p.team_id = t.id");
+    	if(StringUtils.isNotBlank(keyword)){
+    		keyword = keyword.replace("'", "");
+    		countSql.append(" and (p.name like '%").append(keyword).append("%' or t.name like '%").append(keyword).append("%') ");
+    		sql.append(" and (p.name like '%").append(keyword).append("%' or t.name like '%").append(keyword).append("%')");
+    	}
+    	
+    	Long recordsTotal = Db.queryLong(countSql.toString());
+    	
+    	int page = 0;
+    	String pageParam = getPara("page");
+    	if(StringUtils.isBlank(pageParam)){
+    		page = 1;
+    	}else{
+    		page = Integer.valueOf(pageParam);
+    	}
+    	int start = (page -1) * AJAX_PAGE_SIZE;
+    	int end = page * AJAX_PAGE_SIZE;
+    	sql.append(" limit ").append(start).append(",").append(end);
+    	
+    	List<ValueObject> listValue = new ArrayList<ValueObject>();
+    	List<Player> lstPlayers = Player.dao.find(sql.toString());
+    	for (Player player : lstPlayers) {
+    		ValueObject valueObject = new ValueObject();
+    		valueObject.setId(Integer.valueOf(player.getStr("id")));
+    		valueObject.setText(player.getStr("name")+":"+player.getStr("id")+"/"+player.getStr("team_name"));
+    		listValue.add(valueObject);
+    	}
+    	Map<String, Object> resultMap = new HashMap<String, Object>();
+    	resultMap.put("items", listValue);
+    	resultMap.put("totalCount", recordsTotal);
+    	
+//    	Map<String, Boolean> moreMap = new HashMap<String, Boolean>();
+//    	if(totalPage>page){
+//    		moreMap.put("more", true);
+//    	}else{
+//    		moreMap.put("more", false);
+//    	}
+//    	resultMap.put("pagination", moreMap);
+    	
+    	renderJson(resultMap);
+    }
 	
 	public void saveAssists163(){
 		Assists163Service.saveAssists163(this);
