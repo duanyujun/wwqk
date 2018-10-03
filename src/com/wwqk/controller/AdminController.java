@@ -758,10 +758,12 @@ public class AdminController extends Controller {
 		if(id!=null){
 			Sofifa sofifa = Sofifa.dao.findById(id);
 			setAttr("sofifa", sofifa);
+			if(StringUtils.isNotBlank(sofifa.getStr("player_id"))){
+				Player player = Player.dao.findById(sofifa.getStr("player_id"));
+				setAttr("player", player);
+			}
 		}
-		//全部player
-		List<Player> lstPlayer = Player.dao.find("select p.id, p.name, t.name team_name from player p, team t where p.team_id = t.id ");
-		setAttr("lstPlayer", lstPlayer);
+		
 		render("admin/sofifaForm.jsp");
 	}
 	
