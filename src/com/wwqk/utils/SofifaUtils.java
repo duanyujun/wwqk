@@ -70,16 +70,26 @@ public class SofifaUtils {
 	}
 	
 	
-	private static final Pattern FOOT_PATTERN = Pattern.compile("惯用脚</label>(.*?)</li>");
-	private static final Pattern INTER_REP_PATTERN = Pattern.compile("国际声誉</label>(.*?)<i");
-	private static final Pattern UNUSE_FOOT_PATTERN = Pattern.compile("逆足能力</label>(.*?)<i");
-	private static final Pattern TRICK_PATTERN = Pattern.compile("花式技巧</label>(.*?)<i");
+	//private static final Pattern FOOT_PATTERN = Pattern.compile("惯用脚</label>(.*?)</li>");
+	private static final Pattern FOOT_PATTERN = Pattern.compile("Preferred Foot</label>(.*?)</li>");
+	//private static final Pattern INTER_REP_PATTERN = Pattern.compile("国际声誉</label>(.*?)<i");
+	private static final Pattern INTER_REP_PATTERN = Pattern.compile("International Reputation</label>(.*?)<i");
+	//private static final Pattern UNUSE_FOOT_PATTERN = Pattern.compile("逆足能力</label>(.*?)<i");
+	private static final Pattern UNUSE_FOOT_PATTERN = Pattern.compile("Weak Foot</label>(.*?)<i");
+	//private static final Pattern TRICK_PATTERN = Pattern.compile("花式技巧</label>(.*?)<i");
+	private static final Pattern TRICK_PATTERN = Pattern.compile("Skill Moves</label>(.*?)<i");
+	//private static final Pattern WORK_RATE_PATTERN = Pattern.compile("Work Rate</label>(.*?)</li>");
 	private static final Pattern WORK_RATE_PATTERN = Pattern.compile("Work Rate</label>(.*?)</li>");
-	private static final Pattern BODY_TYPE_PATTERN = Pattern.compile("身体模型</label>(.*?)</li>");
+	//private static final Pattern BODY_TYPE_PATTERN = Pattern.compile("身体模型</label>(.*?)</li>");
+	private static final Pattern BODY_TYPE_PATTERN = Pattern.compile("Body Type</label>(.*?)</li>");
+	//private static final Pattern REALEASE_PATTERN = Pattern.compile("Release Clause</label>(.*?)</li>");
 	private static final Pattern REALEASE_PATTERN = Pattern.compile("Release Clause</label>(.*?)</li>");
+	//private static final Pattern REALEASE_PATTERN_2 = Pattern.compile("违约金</label>(.*?)</li>");
 	private static final Pattern REALEASE_PATTERN_2 = Pattern.compile("违约金</label>(.*?)</li>");
-	private static final Pattern NUMBER_PATTERN = Pattern.compile("球衣号码</label>(.*?)</li>");
-	private static final Pattern CONTRACT_PATTERN = Pattern.compile("合同到期</label>(.*?)</li>");
+	//private static final Pattern NUMBER_PATTERN = Pattern.compile("球衣号码</label>(.*?)</li>");
+	private static final Pattern NUMBER_PATTERN = Pattern.compile("Jersey Number</label>(.*?)</li>");
+	//private static final Pattern CONTRACT_PATTERN = Pattern.compile("合同到期</label>(.*?)</li>");
+	private static final Pattern CONTRACT_PATTERN = Pattern.compile("Contract Valid Until</label>(.*?)</li>");
 	private static final Pattern TEAM_PATTERN = Pattern.compile("/team/.*?>(.*?)</a>");
 	private static final Pattern PAC_PATTERN = Pattern.compile("pointPAC =(.*?);");
 	private static final Pattern SHO_PATTERN = Pattern.compile("pointSHO =(.*?);");
@@ -106,11 +116,11 @@ public class SofifaUtils {
 			
 			setFifaValue(fifaDb, "fifa_name", name);
 			setFifaValue(fifaDb, "team", clearData(CommonUtils.matcherString(TEAM_PATTERN, doc.html())));
-			setFifaValue(fifaDb, "foot", clearData(CommonUtils.matcherString(FOOT_PATTERN, doc.html())));
+			setFifaValue(fifaDb, "foot", transCn(clearData(CommonUtils.matcherString(FOOT_PATTERN, doc.html()))));
 			setFifaValue(fifaDb, "inter_rep", clearData(CommonUtils.matcherString(INTER_REP_PATTERN, doc.html())));
 			setFifaValue(fifaDb, "unuse_foot", clearData(CommonUtils.matcherString(UNUSE_FOOT_PATTERN, doc.html())));
 			setFifaValue(fifaDb, "trick", clearData(CommonUtils.matcherString(TRICK_PATTERN, doc.html())));
-			setFifaValue(fifaDb, "work_rate", clearData(CommonUtils.matcherString(WORK_RATE_PATTERN, doc.html())));
+			setFifaValue(fifaDb, "work_rate", transCn(clearData(CommonUtils.matcherString(WORK_RATE_PATTERN, doc.html()))));
 			setFifaValue(fifaDb, "body_type", clearData(CommonUtils.matcherString(BODY_TYPE_PATTERN, doc.html())));
 			String releaseClause = clearData(CommonUtils.matcherString(REALEASE_PATTERN, doc.html()));
 			if(StringUtils.isBlank(releaseClause)){
@@ -164,6 +174,24 @@ public class SofifaUtils {
 		}
 		source = source.replaceAll("<.*?>", "").replaceAll("\\s+", "");
 		return source;
+	}
+	
+	public static String transCn(String param){
+		if(StringUtils.isNotBlank(param)){
+			if(param.contains("Right")){
+				param = param.replace("Right", "右脚");
+			}else if(param.contains("Left")){
+				param = param.replace("Left", "左脚");
+			}else if(param.contains("Both")){
+				param = param.replace("Both", "双脚");
+			}else{
+				param = param.replace("High", "高");
+				param = param.replace("Medium", "中");
+				param = param.replace("Low", "低");
+			}
+		}
+		
+		return param;
 	}
 	
 	public static void main(String[] args) {
