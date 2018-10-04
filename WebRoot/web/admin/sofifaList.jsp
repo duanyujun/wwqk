@@ -56,21 +56,12 @@
                         <input type="checkbox" class="group-checkable" data-set="#main_table .checkboxes" /> 
                     </th>
                     <th>fifa姓名</th>
-                    <th>速度</th>
-                    <th>射门</th>
-                    <th>传球</th>
-                    <th>盘带</th>
-                    <th>防守</th>
-                    <th>力量</th>
-                    <th>综合能力</th>
-                    <th>潜力</th>
+                    <th>fifa球队</th>
                     <th>身价</th>
                     <th>周薪</th>
                     <th>系统球员id</th>
-                    <th>惯用脚</th>
                     <th>位置</th>
                     <th>号码</th>
-
                 </tr>
             </thead>
         </table>
@@ -99,7 +90,7 @@ $(document).ready(function() {
                   "render": function ( data, type, full, meta ) {
                       return '<a href="" class="editClass" >'+data+'</a>';
               }}
-              ,{"targets":2,"orderable": true,"searchable": false},{"targets":3,"orderable": true,"searchable": false},{"targets":4,"orderable": true,"searchable": false},{"targets":5,"orderable": true,"searchable": false},{"targets":6,"orderable": true,"searchable": false},{"targets":7,"orderable": true,"searchable": false},{"targets":8,"orderable": true,"searchable": false},{"targets":9,"orderable": true,"searchable": false},{"targets":10,"orderable": true,"searchable": false},{"targets":11,"orderable": true,"searchable": false},{"targets":12,"orderable": true,"searchable": false},{"targets":13,"orderable": false,"searchable": false},{"targets":14,"orderable": false,"searchable": false},{"targets":15,"orderable": false,"searchable": false}     
+              ,{"targets":2,"orderable": true,"searchable": true},{"targets":3,"orderable": true,"searchable": false},{"targets":4,"orderable": true,"searchable": false},{"targets":5,"orderable": true,"searchable": false},{"targets":6,"orderable": false,"searchable": false} ,{"targets":7,"orderable": false,"searchable": false}  
         
         ],
         "order": [[1, 'asc']],

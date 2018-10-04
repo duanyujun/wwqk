@@ -31,38 +31,17 @@ public class SofifaService {
               orderSql = " order by fifa_name "+sortType;
               break;
             case 2:
-              orderSql = " order by pac "+sortType;
+              orderSql = " order by team "+sortType;
               break;
             case 3:
-              orderSql = " order by sho "+sortType;
-              break;
+                orderSql = " order by market_value "+sortType;
+                break;
             case 4:
-              orderSql = " order by pas "+sortType;
-              break;
-            case 5:
-              orderSql = " order by dri "+sortType;
-              break;
-            case 6:
-              orderSql = " order by def "+sortType;
-              break;
-            case 7:
-              orderSql = " order by phy "+sortType;
-              break;
-            case 8:
-              orderSql = " order by overall_rate "+sortType;
-              break;
-            case 9:
-              orderSql = " order by potential "+sortType;
-              break;
-            case 10:
-              orderSql = " order by market_value "+sortType;
-              break;
-            case 11:
               orderSql = " order by wage "+sortType;
               break;
-            case 12:
-              orderSql = " order by player_id "+sortType;
-              break;
+            case 5:
+                orderSql = " order by player_id "+sortType;
+                break;
 		default:
 			break;
 		}
@@ -79,25 +58,17 @@ public class SofifaService {
 			lstSofifa = Sofifa.dao.find(sql+whereSql+orderSql+limitSql);
 			data = new Object[lstSofifa.size()];
 			for(int i=0; i<lstSofifa.size(); i++){
-				Object[] obj = new Object[16];
+				Object[] obj = new Object[8];
 				Sofifa sofifa = lstSofifa.get(i);
 				obj[0] = sofifa.get("id");
 				
 				obj[1] = sofifa.get("fifa_name");
-				obj[2] = sofifa.get("pac");
-				obj[3] = sofifa.get("sho");
-				obj[4] = sofifa.get("pas");
-				obj[5] = sofifa.get("dri");
-				obj[6] = sofifa.get("def");
-				obj[7] = sofifa.get("phy");
-				obj[8] = sofifa.get("overall_rate");
-				obj[9] = sofifa.get("potential");
-				obj[10] = sofifa.get("market_value");
-				obj[11] = sofifa.get("wage");
-				obj[12] = sofifa.get("player_id");
-				obj[13] = sofifa.get("foot");
-				obj[14] = sofifa.get("position");
-				obj[15] = sofifa.get("number");
+				obj[2] = sofifa.get("team");
+				obj[3] = sofifa.get("market_value");
+				obj[4] = sofifa.get("wage");
+				obj[5] = sofifa.get("player_id");
+				obj[6] = sofifa.get("position");
+				obj[7] = sofifa.get("number");
 
 				data[i] = obj;
 			}
