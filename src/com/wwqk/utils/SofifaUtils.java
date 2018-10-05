@@ -1,6 +1,7 @@
 package com.wwqk.utils;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
@@ -149,6 +150,7 @@ public class SofifaUtils {
 			setFifaValue(fifaDb, "def", CommonUtils.matcherString(DEF_PATTERN, doc.html()));
 			setFifaValue(fifaDb, "phy", CommonUtils.matcherString(PHY_PATTERN, doc.html()));
 			
+			fifaDb.set("update_time", new Date());
 			if(fifaDb.get("id")==null){
 				fifaDb.set("id", playerId);
 				fifaDb.save();
