@@ -189,6 +189,9 @@ public class LiveZhibome {
 					for (Element elementLive : lives) {
 						MatchLive matchLive = new MatchLive();
 						String liveName = StringUtils.trim(elementLive.text());
+						if(liveName.contains("足球比分")){
+							continue;
+						}
 						String liveUrl = elementLive.attr("href");
 						if (liveUrl.startsWith("..")) {
 							liveUrl = SITE_URL + liveUrl.substring(2);
