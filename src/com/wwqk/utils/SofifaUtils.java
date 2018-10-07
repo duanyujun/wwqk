@@ -57,10 +57,8 @@ public class SofifaUtils {
 			Document doc = connection.get();
 			Elements elements = doc.select(".persist-area");
 			Elements aTags = elements.get(0).select("a");
-			int count = 0;
 			for(Element a : aTags){
 				if(a.attr("href").contains("/player/")){
-					System.err.println("count:"+(++count)+" "+a.attr("href"));
 					collectPlayer(a.attr("href").replace("/player/", ""));
 				}
 			}
@@ -101,6 +99,7 @@ public class SofifaUtils {
 
 	
 	public static void collectPlayer(String playerId){
+		System.err.println("playerId："+playerId);
 		Connection connection = Jsoup.connect("https://sofifa.com/player/"+playerId);
 		connection.timeout(30000);
 		for(Entry<String, String> entry : MatchUtils.getSofifaHeader().entrySet()){
