@@ -16,7 +16,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta name="description" content="趣点足球网为球迷们提供五大联赛最新的足球比赛直播，比赛直播链接，比分直播，比赛结果。" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="https://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="/common/new/main.css" rel="stylesheet" type="text/css" />
+    <link href="/common/new/main.css?ts=2342892" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <title>趣点足球网 - 比赛直播|比分直播|免费直播|直播链接|比赛结果|赛事分析</title>
     
@@ -33,8 +33,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			当前位置：<a href="/" target="_blank">首页</a>&nbsp;&gt;&nbsp;直播
 		</div>
 		<ul id="infoTab" class="nav nav-tabs bread" >
-				<li class="${bifen==1?'':'active'}" id="live_tab_li"><a href="#live_tab" data-toggle="tab">直播</a></li>
 				<li class="${bifen==1?'active':''}" id="bifen_tab_li"><a href="#bifen_tab" data-toggle="tab">比分<img src='assets/global/img/ticks.gif' /></a></li>
+				<li class="${bifen==1?'':'active'}" id="live_tab_li"><a href="#live_tab" data-toggle="tab">链接</a></li>
 			</ul>
 			<div id="infoTabContent" class="tab-content">
 				<div class="tab-pane fade in ${bifen==1?'':'active'}" id="live_tab" style="border-top:none;">
@@ -87,7 +87,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<div class="tab-pane fade in ${bifen==1?'active':''} live-tab" id="bifen_tab" >
 					 <div class="live-bifen">
 			 			<div id="pc_div h_20000">
-							<iframe id="pc_iframe" name="pc_iframe" height="20000" src="http://live1.bet007.com/live.aspx?Edition=1&amp;lang=0&amp;ad=豹步正品足球鞋男ag长钉成人训练比赛&amp;adurl=http://m.tb.cn/h.Z0dMcWl&amp;color=DCEFFF&amp;sound=0" frameborder="0" width="100%"></iframe>
+							<iframe id="pc_iframe" name="pc_iframe" height="20000" src="https://free.leisu.com/?width=720&theme=red&skin=188" frameborder="0" width="100%"></iframe>
 						</div>
 			 		</div>
 			 		<div class="live-chat">
@@ -95,7 +95,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		 					<div class="title2 tleft" >侃球室</div>
 		 					<iframe id="pc_chat_iframe" name="pc_chat_iframe"  src="http://chat.shoumi.org/bo360/chat?h=490" marginheight="0" marginwidth="0" frameborder="0" width="100%" height="450" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>
 		 				</div>
-		 				<div id="cp_div" class="live-cp" >
+		 				<div id="cp_div" class="live-cp" style="display:none">
 		 					<div class="title2 tleft"><span class="headactions">最新彩票开奖结果 <a id="toggleA" href="javascript:;" onclick="toggleCp();">更多信息...</a></span></div>
 							<div id="cp" style="min-height:70px;">
 								<iframe frameBorder="0" scrolling="no" align="center" width="297" height="65" rel="nofollow" src="http://www.360zhibo.com/kjgd2013.html"></iframe>
@@ -117,7 +117,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <script src="https://cdn.bootcss.com/bootstrap/3.0.3/js/bootstrap.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-var pc_frame_url = '<iframe id="pc_iframe" name="pc_iframe" height="20000" src="http://live1.bet007.com/live.aspx?Edition=1&amp;lang=0&amp;ad=新品美津浓足球鞋MONARCIDA&nbsp;NEO&nbsp;AS&nbsp;tf碎钉男子人草比赛训练鞋&amp;adurl=https://s.click.taobao.com/bjshsPw&amp;color=DCEFFF&amp;sound=0" frameborder="0" width="100%"></iframe>';
+var pc_frame_url = '<iframe id="pc_iframe" name="pc_iframe" height="20000" src="https://free.leisu.com/?width=720&theme=red&skin=188" frameborder="0" width="100%"></iframe>';
 var chat_frame_url = '<div class="title2" style="text-align:left;">侃球室</div><iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://www5.cbox.ws/box/?boxid=896554&boxtag=nner91&sec=main" marginheight="0" marginwidth="0" frameborder="0" width="100%" height="460" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>';
 var m_chat_url = '<iframe id="pc_chat_iframe" name="pc_chat_iframe" src="http://chat.shoumi.org/bo360/chat?h=460" marginheight="0" marginwidth="0" frameborder="0" width="100%" height="frame_height" scrolling="no" allowtransparency="yes" style="margin-top:2px;"></iframe>';
 var m_bifen_url = '<iframe id="mobile_iframe" name="mobile_iframe" scrolling="no" frameborder="0" align="center" src="http://m.188bifen.com/" style="width:100%;height: 20000px;" rel="nofollow" border="0"></iframe>';

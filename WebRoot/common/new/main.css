@@ -140,10 +140,10 @@ div.round A {display:block; width:28px;height:28px;line-height:28px;BORDER: #ddd
 .live-cut{width:110px;line-height:35px;}
 .live-line{height:35px;line-height:35px;}
 .live-tab{width:100%;border-top:none;float:left;}
-.live-bifen{width:65%;float:left;}
-.live-chat{width:34%;float:left;margin-left:1%;}
+.live-bifen{width:77%;float:left;}
+.live-chat{width:22%;float:left;margin-left:1%;}
 .live-chat-div{width:100%;border:1px solid #c0c0c0;height:490px;padding-left:0;padding-right:0;}
-.live-cp{width:100%;margin-top:10px;border:1px solid #c0c0c0;min-height:70px;padding-left:0;padding-right:0;}
+.live-cp{display:none;width:100%;margin-top:10px;border:1px solid #c0c0c0;min-height:70px;padding-left:0;padding-right:0;}
 .live-dt{margin-top:10px;font-size:14px;}
 .live-dt-inner{width:930px;float:left;line-height:2;text-indent:20px;}
 .live-dt-table{text-indent:0;text-align:left;}
