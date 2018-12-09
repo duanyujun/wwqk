@@ -127,6 +127,25 @@
             
             <div class="row" style="margin-top:20px;">
             	<div class="col-md-12 col-sm-12 col-xs-12">
+                	<select id="videosLeagueId" >
+                		<option value="">--请选择联赛--</option>
+                		<option value="1">英超</option>
+                		<option value="2">西甲</option>
+                		<option value="3">德甲</option>
+                		<option value="4">意甲</option>
+                		<option value="5">法甲</option>
+                		<option value="6">欧冠</option>
+                		<option value="7">中超</option>
+                		<option value="8">其他</option>
+                	</select>
+                    <button onclick="updateVideosDate();" class="btn sbold green" style="margin-left:10px;"> 更新视频时间
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="row" style="margin-top:20px;">
+            	<div class="col-md-12 col-sm-12 col-xs-12">
                 	<select id="fifaLeagueId" >
                 		<option value="">--请选择联赛--</option>
                 		<option value="13">英超</option>
@@ -395,6 +414,24 @@ function updateLeagueFifa(){
 				}
 	);
 }
+
+function updateVideosDate(){
+	if($("#videosLeagueId").val()==''){
+		showToast(2, "请选择联赛", "温馨提示");
+		return;
+	}
+	$("body").showLoading();
+	showToast(1, "更新中...", "温馨提示");
+	$.post("/admin/updateVideosDate",
+				{leagueId: $("#videosLeagueId").val()},
+				function(result){
+					$("body").hideLoading();
+					showToast(1, "更新成功！", "温馨提示");
+				}
+	);
+	
+}
+
 
 function updateQuestion(){
 	

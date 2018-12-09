@@ -82,6 +82,7 @@ import com.wwqk.utils.SofifaUtils;
 import com.wwqk.utils.StringUtils;
 import com.wwqk.utils.TaobaoUtils;
 import com.wwqk.utils.TranslateUtils;
+import com.wwqk.utils.VideosUtils;
 import com.wwqk.utils.VideosZuqiulaUtils;
 
 public class AdminController extends Controller {
@@ -1182,6 +1183,14 @@ public class AdminController extends Controller {
 			if(sofifa!=null){
 				SofifaUtils.collectPlayer(sofifa.getStr("id"));
 			}
+		}
+		renderJson(1);
+	}
+	
+	public void updateVideosDate(){
+		String leagueId = getPara("leagueId");
+		if(StringUtils.isNotBlank(leagueId)){
+			VideosUtils.repairLeagueVideos(Integer.valueOf(leagueId));
 		}
 		renderJson(1);
 	}
