@@ -87,7 +87,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<div class="tab-pane fade in ${bifen==1?'active':''} live-tab" id="bifen_tab" >
 					 <div class="live-bifen">
 			 			<div id="pc_div h_20000">
-							<iframe id="pc_iframe" name="pc_iframe" height="20000" src="https://free.leisu.com/?width=720&theme=red&skin=188" frameborder="0" width="100%"></iframe>
+							<iframe id="pc_iframe" name="pc_iframe" height="20000" src="http://free.win007.com/live.aspx?Edition=1&lang=0&color=F0F0E0&sound=0&ad=优步k5跑步机家用款减肥静音减震室内电动迷你智能折叠家用跑步机&adurl=https://s.click.taobao.com/5VshsPw" frameborder="0" width="100%"></iframe>
 						</div>
 			 		</div>
 			 		<div class="live-chat">
