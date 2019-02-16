@@ -75,7 +75,7 @@ public class VideosUtils {
 				}else{
 					video.set("match_date", leagueMatch.getDate("match_date"));
 					String titleStr = sbTitle.append(year).append("年").append(month).append("月").append(day).append("日 ")
-							.append(leagueArray[leagueId-1]).append("第").append(leagueMatch.get("match_round")).append("轮 ").append(video.getStr("home_team"))
+							.append(leagueArray[leagueId-1]).append("第").append(leagueMatch.getInt("match_round")).append("轮 ").append(video.getStr("home_team"))
 							.append("vs").append(video.getStr("away_team")).append(" 视频录像 集锦").toString();
 					video.set("match_title", titleStr);
 					video.set("match_history_id", leagueMatch.getStr("id"));
