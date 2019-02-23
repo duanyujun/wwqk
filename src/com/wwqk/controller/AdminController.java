@@ -41,8 +41,10 @@ import com.wwqk.model.Say;
 import com.wwqk.model.Sofifa;
 import com.wwqk.model.TaobaoAlliance;
 import com.wwqk.model.Team;
+import com.wwqk.model.TeamDic;
 import com.wwqk.model.TipsMatch;
 import com.wwqk.model.ValueObject;
+import com.wwqk.model.ValueTextObject;
 import com.wwqk.model.Videos;
 import com.wwqk.model.VideosRealLinks;
 import com.wwqk.plugin.AnalyzeZgzcw;
@@ -51,6 +53,7 @@ import com.wwqk.plugin.LiveZuqiula;
 import com.wwqk.plugin.MatchSina;
 import com.wwqk.plugin.News7M;
 import com.wwqk.plugin.OddsUtils;
+import com.wwqk.plugin.OkoooTeam;
 import com.wwqk.plugin.PlayerInfoPlugin;
 import com.wwqk.plugin.ShooterAssister163;
 import com.wwqk.plugin.TeamPlayers;
@@ -68,6 +71,7 @@ import com.wwqk.service.SayService;
 import com.wwqk.service.Shooter163Service;
 import com.wwqk.service.SofifaService;
 import com.wwqk.service.TaobaoAllianceService;
+import com.wwqk.service.TeamDicService;
 import com.wwqk.service.TeamService;
 import com.wwqk.service.TipsMatchService;
 import com.wwqk.service.VideosService;
@@ -423,6 +427,45 @@ public class AdminController extends Controller {
 //    		moreMap.put("more", false);
 //    	}
 //    	resultMap.put("pagination", moreMap);
+    	
+    	renderJson(resultMap);
+    }
+    
+  //球员数据
+    public void teamDicSearchData(){
+    	String keyword = getPara("q");
+    	StringBuilder countSql = new StringBuilder("select count(id) from team_dic where ok_id > 0");
+    	StringBuilder sql = new StringBuilder("select ok_id, std_name, league_name from team_dic where ok_id > 0");
+    	if(StringUtils.isNotBlank(keyword)){
+    		keyword = keyword.replace("'", "");
+    		countSql.append(" and (std_name like '%").append(keyword).append("%' or league_name like '%").append(keyword).append("%') ");
+    		sql.append(" and (std_name like '%").append(keyword).append("%' or league_name like '%").append(keyword).append("%') ");
+    	}
+    	
+    	Long recordsTotal = Db.queryLong(countSql.toString());
+    	
+    	int page = 0;
+    	String pageParam = getPara("page");
+    	if(StringUtils.isBlank(pageParam)){
+    		page = 1;
+    	}else{
+    		page = Integer.valueOf(pageParam);
+    	}
+    	int start = (page -1) * AJAX_PAGE_SIZE;
+    	int end = page * AJAX_PAGE_SIZE;
+    	sql.append(" limit ").append(start).append(",").append(end);
+    	
+    	List<ValueTextObject> listValue = new ArrayList<ValueTextObject>();
+    	List<TeamDic> lstTeamDics = TeamDic.dao.find(sql.toString());
+    	for (TeamDic teamDic : lstTeamDics) {
+    		ValueTextObject valueTextObject = new ValueTextObject();
+    		valueTextObject.setId(teamDic.getStr("std_name"));
+    		valueTextObject.setText(teamDic.getStr("std_name")+":"+teamDic.getInt("ok_id")+":"+teamDic.getStr("league_name"));
+    		listValue.add(valueTextObject);
+    	}
+    	Map<String, Object> resultMap = new HashMap<String, Object>();
+    	resultMap.put("items", listValue);
+    	resultMap.put("totalCount", recordsTotal);
     	
     	renderJson(resultMap);
     }
@@ -1228,6 +1271,11 @@ public class AdminController extends Controller {
 		renderJson(1);
 	}
 	
+	public void updateStdTeams(){
+		OkoooTeam.collectTeams();
+		renderJson(1);
+	}
+	
 	public void updateQuestion(){
 		String url = getPara("url");
 		String refererUrl = getPara("refererUrl");
@@ -1236,5 +1284,40 @@ public class AdminController extends Controller {
 			QuestionUtils.collect(url,refererUrl, qtype, false);
 		}
 		renderJson(1);
+	}
+	
+	
+	public void listTeamDic(){
+		render("admin/teamDicList.jsp");
+	}
+	
+	public void teamDicData(){
+		Map<Object, Object> map = TeamDicService.teamDicData(this);
+		renderJson(map);
+	}
+	
+	public void editTeamDic(){
+		String id = getPara("id");
+		if(id!=null){
+			TeamDic teamDic = TeamDic.dao.findById(id);
+			setAttr("teamDic", teamDic);
+		}
+		render("admin/teamDicForm.jsp");
+	}
+	
+	public void saveTeamDic(){
+		TeamDicService.saveTeamDic(this);
+		renderJson(1);
+	}
+	
+	public void deleteTeamDic(){
+		String ids = getPara("ids");
+		if(StringUtils.isNotBlank(ids)){
+			String whereSql = " where id in (" + ids +")";
+			Db.update("delete from team_dic "+whereSql);
+			renderJson(1);
+		}else{
+			renderJson(0);
+		}
 	}
 }

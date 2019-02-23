@@ -281,23 +281,25 @@ public class CodeGenerator {
 	
 	public static void main(String[] args) {
 		//getColumnVO(colomnName, colomnType, colomnComment, 
-		//isInForm, isInList, isOrderable, isSearchable, finalType, isRequired)
+		//isInForm, isInList, isOrderable, isSearchable, finalType[0、text；1、wangEditor；2、file], isRequired)
 		
 		List<ColumnVO> lstColumnVO = new ArrayList<ColumnVO>();
-		ColumnVO c1 = getColumnVO("title", null, "题目名称", 1, 1, 1, 1, 0, 1);
-		ColumnVO c2 = getColumnVO("source_id", null, "源id", 1, 1, 0, 0, 0, 0);
-		ColumnVO c3 = getColumnVO("r_answer", null, "正确答案（ABCD）", 1, 1, 0, 0, 0, 0);
-		ColumnVO c4 = getColumnVO("answer_show", null, "完整正确答案", 1, 1, 0, 0, 0, 0);
-		ColumnVO c5 = getColumnVO("update_time", null, "更新时间", 1, 0, 1, 0, 0, 0);
-		ColumnVO c6 = getColumnVO("status", null, "状态", 1, 1, 1, 0, 0, 0);
-		ColumnVO c7 = getColumnVO("type", null, "类型", 1, 1, 0, 0, 0, 0);
+		ColumnVO c1 = getColumnVO("ok_id", null, "okid", 1, 1, 0, 0, 0, 0);
+		ColumnVO c2 = getColumnVO("team_name", null, "原始名称", 1, 1, 1, 1, 0, 0);
+		ColumnVO c3 = getColumnVO("md5", null, "md5", 1, 1, 0, 0, 0, 1);
+		ColumnVO c4 = getColumnVO("std_md5", null, "标准md5", 1, 1, 0, 0, 0, 0);
+		ColumnVO c5 = getColumnVO("std_name", null, "标准名称", 1, 1, 1, 1, 0, 0);
+		ColumnVO c6 = getColumnVO("std_name_py", null, "标准拼音", 1, 1, 1, 1, 0, 0);
+		ColumnVO c7 = getColumnVO("league_name", null, "所属联赛", 1, 1, 0, 1, 0, 0);
+		ColumnVO c8 = getColumnVO("std_name_en", null, "球队英文", 1, 0, 0, 0, 0, 0);
 	
-		ColumnVO[] allColumns = {c1,c2,c3,c4,c5,c6,c7};
+		ColumnVO[] allColumns = {c1,c2,c3,c4,c5,c6,c7,c8};
 		for(ColumnVO columnVO : allColumns){
 			lstColumnVO.add(columnVO);
 		}
 		
-		build("question", "题目", "com.wwqk", lstColumnVO);
+		build("team_dic", "球队名称字典", "com.wwqk", lstColumnVO);
+		System.err.println("done!!!");
 	}
 	
 	//getColumnVO(colomnName, colomnType, colomnComment, isInForm, isInList, isOrderable, isSearchable, finalType, isRequired)

@@ -141,6 +141,10 @@
                     <button onclick="updateVideosDate();" class="btn sbold green" style="margin-left:10px;"> 更新视频时间
                         <i class="fa fa-refresh"></i>
                     </button>
+                    
+                    <button onclick="updateStdTeams();" class="btn sbold green" style="margin-left:10px;"> 更新标准球队名称
+                        <i class="fa fa-refresh"></i>
+                    </button>
                 </div>
             </div>
             
@@ -396,6 +400,10 @@ function updateMatchGuess(){
 function updateProduct(){
 	showToast(1, "更新中...", "温馨提示");
 	$('#form').submit();
+}
+
+function updateStdTeams(){
+	commonPost("/admin/updateStdTeams");
 }
 
 function updateLeagueFifa(){

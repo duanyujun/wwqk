@@ -74,6 +74,7 @@ import com.wwqk.model.ShooterAssistsSource;
 import com.wwqk.model.Sofifa;
 import com.wwqk.model.TaobaoAlliance;
 import com.wwqk.model.Team;
+import com.wwqk.model.TeamDic;
 import com.wwqk.model.TipsAll;
 import com.wwqk.model.TipsMatch;
 import com.wwqk.model.Transfer;
@@ -183,7 +184,7 @@ public class MainConfig extends JFinalConfig {
 		arp.addMapping("taobao_alliance", TaobaoAlliance.class);
 		arp.addMapping("question", Question.class);
 		arp.addMapping("answer", Answer.class);
-		
+		arp.addMapping("team_dic", TeamDic.class);
 		
 		me.add(c3p0Plugin);
 		me.add(arp);
