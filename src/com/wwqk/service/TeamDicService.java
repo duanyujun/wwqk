@@ -38,6 +38,9 @@ public class TeamDicService {
 			case 3:
               orderSql = " order by std_name_py "+sortType;
               break;
+			case 4:
+              orderSql = " order by ok_id "+sortType;
+              break;
 
 			default:
 				break;
@@ -100,9 +103,16 @@ public class TeamDicService {
 			teamDic.set("ok_id", Integer.valueOf(controller.getPara("ok_id")));
 		}
 		
+		String stdMd5 = controller.getPara("std_md5");
+		if(StringUtils.isBlank(stdMd5)){
+			teamDic.set("std_md5", "0");
+		}else{
+			teamDic.set("std_md5", stdMd5);
+		}
+		
 		if(teamDic.getInt("ok_id")==0 
 				&& StringUtils.isNotBlank(controller.getPara("std_name"))
-				&& StringUtils.isBlank(controller.getPara("std_md5"))){ 
+				&& "0".equals(teamDic.getStr("std_md5"))){ 
 			TeamDic teamDicDB = TeamDic.dao.findFirst("select * from team_dic where std_name = ?", controller.getPara("std_name"));
 			teamDic.set("std_md5", teamDicDB.get("std_md5"));
 	        teamDic.set("std_name", teamDicDB.get("std_name"));
@@ -110,7 +120,6 @@ public class TeamDicService {
 	        teamDic.set("league_name", teamDicDB.get("league_name"));
 	        teamDic.set("std_name_en", teamDicDB.get("std_name_en"));
 		}else{
-			teamDic.set("std_md5", controller.getPara("std_md5"));
 	        teamDic.set("std_name", controller.getPara("std_name"));
 	        teamDic.set("std_name_py", controller.getPara("std_name_py"));
 	        teamDic.set("league_name", controller.getPara("league_name"));

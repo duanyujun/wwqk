@@ -280,6 +280,7 @@ public class CodeGenerator {
 	}
 	
 	public static void main(String[] args) {
+		//注：不在列表中展示的字段放在末尾，不影响排序字段sql的生成
 		//getColumnVO(colomnName, colomnType, colomnComment, 
 		//isInForm, isInList, isOrderable, isSearchable, finalType[0、text；1、wangEditor；2、file], isRequired)
 		

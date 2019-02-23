@@ -93,7 +93,7 @@ $(document).ready(function() {
               }},
               {"targets":2,"orderable": true,"searchable": true},
               {"targets":3,"orderable": true,"searchable": true},
-              {"targets":4,"orderable": false,"searchable": false},
+              {"targets":4,"orderable": true,"searchable": false},
               {"targets":5,"orderable": false,"searchable": false},
               {"targets":6,"orderable": false,"searchable": false},
               {"targets":7,"orderable": false,"searchable": true}     
