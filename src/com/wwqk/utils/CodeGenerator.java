@@ -211,7 +211,7 @@ public class CodeGenerator {
 		StringBuilder sb = new StringBuilder();
 		for(int i=0; i<lstColumnVO.size(); i++){
 			if(lstColumnVO.get(i).getIsOrderable()==1){
-				sb.append("case ").append(i+1).append(":\n")
+				sb.append("              case ").append(i+1).append(":\n")
 				.append("              orderSql = \" order by ").append(lstColumnVO.get(i).getColomnName())
 				.append(" \"+sortType;").append("\n              break;\n");
 			}
@@ -284,12 +284,13 @@ public class CodeGenerator {
 		//isInForm, isInList, isOrderable, isSearchable, finalType[0、text；1、wangEditor；2、file], isRequired)
 		
 		List<ColumnVO> lstColumnVO = new ArrayList<ColumnVO>();
-		ColumnVO c1 = getColumnVO("ok_id", null, "okid", 1, 1, 0, 0, 0, 0);
-		ColumnVO c2 = getColumnVO("team_name", null, "原始名称", 1, 1, 1, 1, 0, 0);
-		ColumnVO c3 = getColumnVO("md5", null, "md5", 1, 1, 0, 0, 0, 1);
-		ColumnVO c4 = getColumnVO("std_md5", null, "标准md5", 1, 1, 0, 0, 0, 0);
-		ColumnVO c5 = getColumnVO("std_name", null, "标准名称", 1, 1, 1, 1, 0, 0);
-		ColumnVO c6 = getColumnVO("std_name_py", null, "标准拼音", 1, 1, 1, 1, 0, 0);
+		
+		ColumnVO c1 = getColumnVO("team_name", null, "原始名称", 1, 1, 1, 1, 0, 0);
+		ColumnVO c2 = getColumnVO("std_name", null, "标准名称", 1, 1, 1, 1, 0, 0);
+		ColumnVO c3 = getColumnVO("std_name_py", null, "标准拼音", 1, 1, 1, 1, 0, 0);
+		ColumnVO c4 = getColumnVO("ok_id", null, "okid", 1, 1, 0, 0, 0, 0);
+		ColumnVO c5 = getColumnVO("md5", null, "md5", 1, 1, 0, 0, 0, 1);
+		ColumnVO c6 = getColumnVO("std_md5", null, "标准md5", 1, 1, 0, 0, 0, 0);
 		ColumnVO c7 = getColumnVO("league_name", null, "所属联赛", 1, 1, 0, 1, 0, 0);
 		ColumnVO c8 = getColumnVO("std_name_en", null, "球队英文", 1, 0, 0, 0, 0, 0);
 	
