@@ -55,7 +55,7 @@ public class TeamService {
 			lstLeagues = League.dao.find(sql+whereSql+orderSql+limitSql);
 			data = new Object[lstLeagues.size()];
 			for(int i=0; i<lstLeagues.size(); i++){
-				Object[] obj = new Object[6];
+				Object[] obj = new Object[7];
 				League roles = lstLeagues.get(i);
 				obj[0] = roles.get("id");
 				obj[1] = roles.get("name");
@@ -63,6 +63,7 @@ public class TeamService {
 				obj[3] = roles.get("venue_name");
 				obj[4] = roles.get("league_name");
 				obj[5] = roles.get("team_url");
+				obj[6] = roles.get("std_md5");
 				data[i] = obj;
 			}
 		}

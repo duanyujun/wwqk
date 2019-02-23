@@ -152,18 +152,6 @@ function initSelect2(){
 	 });
 }
 
-function initSelect(){
-	$(".bs-select").selectpicker({
-        noneSelectedText:'请选择',
-        noneResultsText:"查询不到 {0}"
-    });
-	
-	if('${shooter163.player_id}'!=''){
-		$('.bs-select').selectpicker('val', '${shooter163.player_id}');
-	}
-}
-
-
 function cancel(){
 	$('#main-content').load($('#urlHidden').val());
 }

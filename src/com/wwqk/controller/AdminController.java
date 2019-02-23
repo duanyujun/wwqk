@@ -141,6 +141,11 @@ public class AdminController extends Controller {
 		if(id!=null){
 			Team team = Team.dao.findById(id);
 			setAttr("team", team);
+			//设置stdMd5
+			if(StringUtils.isNotBlank(team.getStr("std_md5"))){
+				TeamDic teamDic =  TeamDic.dao.findFirst("select std_md5, std_name, league_name from team_dic where std_md5 = ?", team.getStr("std_md5"));
+				setAttr("teamDic", teamDic);
+			}
 		}
 		
 		render("admin/teamForm.jsp");
@@ -199,6 +204,7 @@ public class AdminController extends Controller {
 			cloth = "assets/image/soccer/teams/cloth/"+cloth;
 		}
 		team.set("cloth", cloth);
+		team.set("std_md5", getPara("std_md5"));
 		
 		team.update();
 		
@@ -431,7 +437,7 @@ public class AdminController extends Controller {
     	renderJson(resultMap);
     }
     
-  //球员数据
+    //标准球队名称
     public void teamDicSearchData(){
     	String keyword = getPara("q");
     	StringBuilder countSql = new StringBuilder("select count(id) from team_dic where ok_id > 0");
@@ -469,6 +475,46 @@ public class AdminController extends Controller {
     	
     	renderJson(resultMap);
     }
+    
+    //标准球队md5
+    public void teamDicStdMd5(){
+    	String keyword = getPara("q");
+    	StringBuilder countSql = new StringBuilder("select count(id) from team_dic where ok_id > 0");
+    	StringBuilder sql = new StringBuilder("select std_md5,ok_id, std_name, league_name from team_dic where ok_id > 0");
+    	if(StringUtils.isNotBlank(keyword)){
+    		keyword = keyword.replace("'", "");
+    		countSql.append(" and (std_name like '%").append(keyword).append("%' or league_name like '%").append(keyword).append("%') ");
+    		sql.append(" and (std_name like '%").append(keyword).append("%' or league_name like '%").append(keyword).append("%') ");
+    	}
+    	
+    	Long recordsTotal = Db.queryLong(countSql.toString());
+    	
+    	int page = 0;
+    	String pageParam = getPara("page");
+    	if(StringUtils.isBlank(pageParam)){
+    		page = 1;
+    	}else{
+    		page = Integer.valueOf(pageParam);
+    	}
+    	int start = (page -1) * AJAX_PAGE_SIZE;
+    	int end = page * AJAX_PAGE_SIZE;
+    	sql.append(" limit ").append(start).append(",").append(end);
+    	
+    	List<ValueTextObject> listValue = new ArrayList<ValueTextObject>();
+    	List<TeamDic> lstTeamDics = TeamDic.dao.find(sql.toString());
+    	for (TeamDic teamDic : lstTeamDics) {
+    		ValueTextObject valueTextObject = new ValueTextObject();
+    		valueTextObject.setId(teamDic.getStr("std_md5"));
+    		valueTextObject.setText(teamDic.getStr("std_name")+":"+teamDic.getInt("ok_id")+":"+teamDic.getStr("league_name"));
+    		listValue.add(valueTextObject);
+    	}
+    	Map<String, Object> resultMap = new HashMap<String, Object>();
+    	resultMap.put("items", listValue);
+    	resultMap.put("totalCount", recordsTotal);
+    	
+    	renderJson(resultMap);
+    }
+    
 	
 	public void saveAssists163(){
 		Assists163Service.saveAssists163(this);

@@ -60,6 +60,7 @@
                     <th> 球场名称 </th>
                     <th> 所在联赛 </th>
                     <th> 球队链接 </th>
+                    <th> 标准md5 </th>
                 </tr>
             </thead>
         </table>

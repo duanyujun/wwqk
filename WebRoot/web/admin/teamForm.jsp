@@ -7,6 +7,11 @@
 <link href="${ctx}/assets/global/plugins/ztree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css" />
 <script src="${ctx}/assets/global/plugins/ztree/js/jquery.ztree.core.min.js" type="text/javascript"></script>
 <script src="${ctx}/assets/global/plugins/ztree/js/jquery.ztree.excheck.min.js" type="text/javascript"></script>
+<link href="${ctx}/assets/global/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/assets/global/plugins/select2/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="${ctx}/assets/global/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="${ctx}/assets/global/plugins/select2/i18n/zh-CN.js" type="text/javascript"></script>
+
 <style>
 .error{
 	color:red;
@@ -103,12 +108,24 @@
 		              </div>
 		              <div class="col-md-3"><label for="team_url"></label></div>
 		          </div>
-		          <div class="form-group">
+		          <div class="form-group" style="disply:none;">
 		              <label class="col-md-3 control-label">球衣：</label>
 		              <div class="col-md-6">
 		                  <input type="text" class="form-control" name="cloth" value="${team.cloth}"  placeholder="请输入球衣">
 		              </div>
 		              <div class="col-md-3"><label for="cloth"></label></div>
+		          </div>
+		          
+		          <div class="form-group">
+		              <label class="col-md-3 control-label">标准md5：</label>
+		              <div class="col-md-6">
+		              	  <select class="bs-select2 form-control"  id="std_md5" name="std_md5" >
+		              	  	 <c:if test="${!empty teamDic}">
+		              	  	 	 <option value="${teamDic.std_md5}" selected="selected">${teamDic.std_name}:${teamDic.league_name}</option>
+		              	  	 </c:if>
+		              	  </select>
+		              </div>
+		              <div class="col-md-3"><label for="std_md5"></label></div>
 		          </div>
 		          
 		          <div class="form-group">
@@ -124,6 +141,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	initSelect2();
 	var validator = $("#form").validate({
 		errorPlacement: function(error, element) {
 			$( element )
@@ -134,6 +152,42 @@ $(document).ready(function() {
 		errorElement: "span"
 	});
 });
+
+
+function initSelect2(){
+	$(".bs-select2").select2({
+	     ajax: {
+	         type:'GET',
+	         url: "/admin/teamDicStdMd5",
+	         dataType: 'json',
+	         delay: 250,
+	         data: function (params) {
+	             return {
+	            	 q: params.term, // search term 请求参数 ， 请求框中输入的参数
+	                 page: params.page
+	             };
+	         },
+	         processResults: function (data, params) {
+	             params.page = params.page || 1;
+	             return {
+	                 results: data.items,
+	                 pagination: {
+	                     more: (params.page * 30) < data.totalCount
+	                 }
+	             };
+	         },
+	         cache: true
+	     },
+	     placeholder:'请选择',//默认文字提示
+	     language: "zh-CN",
+	     tags: true,//允许手动添加
+	     allowClear: true,//允许清空
+	     escapeMarkup: function (markup) { return markup; }, // 自定义格式化防止xss注入
+	     minimumInputLength: 1,//最少输入多少个字符后开始查询
+	     formatResult: function formatRepo(repo){return repo.text;}, // 函数用来渲染结果
+	     formatSelection: function formatRepoSelection(repo){return repo.text;} // 函数用于呈现当前的选择
+	 });
+}
 
 
 function cancel(){
