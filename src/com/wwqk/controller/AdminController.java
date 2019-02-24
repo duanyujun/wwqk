@@ -1327,6 +1327,11 @@ public class AdminController extends Controller {
 		renderJson(1);
 	}
 	
+	public void setOtherStdMd5(){
+		OkoooTeam.setOtherStdMd5();
+		renderJson(1);
+	}
+	
 	public void updateQuestion(){
 		String url = getPara("url");
 		String refererUrl = getPara("refererUrl");

@@ -148,6 +148,9 @@
                     <button onclick="collectLeague5StdName();" class="btn sbold green" style="margin-left:10px;"> L5标准team
                         <i class="fa fa-refresh"></i>
                     </button>
+                    <button onclick="setOtherStdMd5();" class="btn sbold green" style="margin-left:10px;"> 其他标准team
+                        <i class="fa fa-refresh"></i>
+                    </button>
                 </div>
             </div>
             
@@ -411,6 +414,10 @@ function updateStdTeams(){
 
 function collectLeague5StdName(){
 	commonPost("/admin/collectLeague5StdName");
+}
+
+function setOtherStdMd5(){
+	commonPost("/admin/setOtherStdMd5");
 }
 
 function updateLeagueFifa(){
