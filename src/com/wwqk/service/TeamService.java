@@ -12,8 +12,8 @@ import com.wwqk.utils.StringUtils;
 public class TeamService {
 
 	public static Map<Object, Object> teamData(Controller controller){
-		String sumSql = "select count(*) from team t, league l where t.league_id = l.id ";
-		String sql = "select t.*, l.name league_name from team t, league l where t.league_id = l.id ";
+		String sumSql = "select count(*) from team t left join league l on t.league_id = l.id where 1=1 ";
+		String sql = "select t.*, l.name league_name from team t left join league l on t.league_id = l.id where 1=1 ";
 		String orderSql = "";
 		String whereSql = "";
 		String limitSql = "";
@@ -39,6 +39,9 @@ public class TeamService {
 		case 4:
 			orderSql = " order by l.name "+sortType;
 			break;
+		case 6:
+			orderSql = " order by t.std_md5 "+sortType;
+			break;
 		default:
 			break;
 		}
@@ -48,10 +51,12 @@ public class TeamService {
 		if(length!=-1){
 			limitSql = " limit "+start+","+length;
 		}
+		
 		Long recordsTotal = Db.queryLong(sumSql+whereSql);
 		List<League> lstLeagues = new ArrayList<League>();
 		Object[] data = null;
 		if(recordsTotal!=0){
+		
 			lstLeagues = League.dao.find(sql+whereSql+orderSql+limitSql);
 			data = new Object[lstLeagues.size()];
 			for(int i=0; i<lstLeagues.size(); i++){

@@ -142,7 +142,10 @@
                         <i class="fa fa-refresh"></i>
                     </button>
                     
-                    <button onclick="updateStdTeams();" class="btn sbold green" style="margin-left:10px;"> 更新标准球队名称
+                    <button onclick="updateStdTeams();" class="btn sbold green" style="margin-left:10px;"> 澳客标准team
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                    <button onclick="collectLeague5StdName();" class="btn sbold green" style="margin-left:10px;"> L5标准team
                         <i class="fa fa-refresh"></i>
                     </button>
                 </div>
@@ -404,6 +407,10 @@ function updateProduct(){
 
 function updateStdTeams(){
 	commonPost("/admin/updateStdTeams");
+}
+
+function collectLeague5StdName(){
+	commonPost("/admin/collectLeague5StdName");
 }
 
 function updateLeagueFifa(){

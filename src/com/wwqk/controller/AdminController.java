@@ -1322,6 +1322,11 @@ public class AdminController extends Controller {
 		renderJson(1);
 	}
 	
+	public void collectLeague5StdName(){
+		OkoooTeam.collectLeague5StdName();
+		renderJson(1);
+	}
+	
 	public void updateQuestion(){
 		String url = getPara("url");
 		String refererUrl = getPara("refererUrl");
@@ -1331,7 +1336,6 @@ public class AdminController extends Controller {
 		}
 		renderJson(1);
 	}
-	
 	
 	public void listTeamDic(){
 		render("admin/teamDicList.jsp");

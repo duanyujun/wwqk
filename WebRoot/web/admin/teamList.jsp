@@ -87,7 +87,16 @@ $(document).ready(function() {
                   "searchable": true,
                   "render": function ( data, type, full, meta ) {
                       return '<a href="" class="editClass" >'+data+'</a>';
-                    }}
+                    }
+              },{
+                  "targets": 5,
+                  "orderable": true,
+                  "searchable": true,
+                  "render": function ( data, type, full, meta ) {
+                      return '<a href="'+data+'" target="_blank">'+data+'</a>';
+                    }
+              },
+              {"targets":6,"orderable": true,"searchable": false}
         
         ],
         "order": [[1, 'asc']],
