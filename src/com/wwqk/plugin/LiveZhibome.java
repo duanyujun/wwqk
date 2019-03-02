@@ -32,8 +32,8 @@ import com.wwqk.utils.StringUtils;
 public class LiveZhibome {
 
 	private static final String SITE_URL = "http://www.zhibo.me";
-	private static final Pattern datePattern = Pattern
-			.compile("(\\d+年\\d+月\\d+日 \\d+点\\d+分)");
+	private static final Pattern datePattern = Pattern.compile("(\\d+年\\d+月\\d+日 \\d+点\\d+分)");
+	private static Set<String> filterSet = new HashSet<String>();
 
 	public static void main(String[] args) {
 		getLiveSource();
@@ -93,10 +93,16 @@ public class LiveZhibome {
 				// 获取联赛和主客队名称
 				matchInfoEle = detailDocument.select(".hotmore").first();
 				leagueName = matchInfoEle.child(0).text();
+				if(filterSet.contains(leagueName)) {
+					continue;
+				}
+				
 				if(leagueName.contains("篮") || leagueName.contains("排") || "冰球".equals(leagueName) || "MLB".equals(leagueName)
 						|| "格斗".equals(leagueName) || "摩托艇".equals(leagueName) || "羽毛球".equals(leagueName) || "游戏".equals(leagueName)
 						|| "斯诺克".equals(leagueName) || "橄榄球".equals(leagueName) || "节目".equals(leagueName) || "自行车".equals(leagueName) 
-						|| "足球".equals(leagueName)){
+						|| "足球".equals(leagueName) || "NBA".equals(leagueName)  || "CBA".equals(leagueName)  || "WCBA".equals(leagueName)
+						|| "台球".equals(leagueName) || "赛车".equals(leagueName) || "NCAA".equals(leagueName)){
+					filterSet.add(leagueName);
 					continue;
 				}
 				
@@ -106,6 +112,9 @@ public class LiveZhibome {
 				
 				homeTeamName = matchInfoEle.child(1).text();
 				awayTeamName = matchInfoEle.child(4).text();
+				if(StringUtils.isBlank(homeTeamName) && StringUtils.isBlank("awayTeamName")) {
+					continue;
+				}
 
 				List<MatchLive> lstMatchLives = new ArrayList<MatchLive>();
 				String homeTeamId = CommonUtils.nameIdMap.get(homeTeamName);

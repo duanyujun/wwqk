@@ -107,7 +107,11 @@ public class OkoooTeam {
 	}
 	
 	public static void setOtherStdMd5(){
-		setLeagueMatchStdMd5();
+		//setLeagueMatchStdMd5();
+		setMatchLiveStdMd5();
+		//setVideosStdMd5();
+		//setTipsMatchStdMd5();
+		//setAllLiveMatchStdMd5();
 	}
 	
 	/**
