@@ -37,52 +37,50 @@ public class LiveController extends Controller {
 		List<AllLiveMatch> lstAllLiveMatch = AllLiveMatch.dao.find("select * from all_live_match where match_datetime > ? order by match_datetime asc", nowDate);
 		//过滤相同比赛
 		//filterSameMatch(lstAllLiveMatch);
-		
-		for(AllLiveMatch match:lstAllLiveMatch){
-			sb.append("'").append(match.getStr("match_key")).append("',");
-		}
-		if(sb.length()>1){
-			sb.deleteCharAt(sb.length()-1);
-		}
-		sb.append(")");
-		List<MatchLive> lstMatchLive = MatchLive.dao.find("select match_key, live_name, live_url  from match_live where match_key in "+sb.toString());
-		Map<String, List<MatchLive>> liveMap = new HashMap<String, List<MatchLive>>();
-		for(MatchLive live : lstMatchLive){
-			if(liveMap.get(live.getStr("match_key"))==null){
-				List<MatchLive> list = new ArrayList<MatchLive>();
-				liveMap.put(live.getStr("match_key"), list);
+		if(lstAllLiveMatch.size()>0) {
+			for(AllLiveMatch match:lstAllLiveMatch){
+				sb.append("'").append(match.getStr("match_key")).append("',");
 			}
-			liveMap.get(live.getStr("match_key")).add(live);
+			if(sb.length()>1){
+				sb.deleteCharAt(sb.length()-1);
+			}
+			sb.append(")");
+			List<MatchLive> lstMatchLive = MatchLive.dao.find("select match_key, live_name, live_url  from match_live where match_key in "+sb.toString());
+			Map<String, List<MatchLive>> liveMap = new HashMap<String, List<MatchLive>>();
+			for(MatchLive live : lstMatchLive){
+				if(liveMap.get(live.getStr("match_key"))==null){
+					List<MatchLive> list = new ArrayList<MatchLive>();
+					liveMap.put(live.getStr("match_key"), list);
+				}
+				liveMap.get(live.getStr("match_key")).add(live);
+			}
+			
+			
+			Set<String> set = new HashSet<String>();
+			for(AllLiveMatch match : lstAllLiveMatch){
+				if(!"英超".equals(match.getStr("league_name"))
+						&& !"西甲".equals(match.getStr("league_name"))
+						&& !"德甲".equals(match.getStr("league_name")) 
+						&& !"意甲".equals(match.getStr("league_name")) 
+						&& !"法甲".equals(match.getStr("league_name"))){
+					match.set("league_id", "");
+				}
+				String dateWeek = match.getStr("match_date_week").replaceAll("\\s+", " ");
+				dateWeek = StringUtils.trim(dateWeek.replace("星期", "周").replace("天", "日"));
+				if(!set.contains(dateWeek)){
+					set.add(dateWeek);
+					AllLiveMatch group = new AllLiveMatch();
+					group.set("match_date_week", dateWeek);
+					lstResult.add(group);
+				}
+				match.getAttrs().put("liveList", liveMap.get(match.getStr("match_key")));
+				lstResult.add(match);
+			}
 		}
 		
-		
-		Set<String> set = new HashSet<String>();
-		for(AllLiveMatch match : lstAllLiveMatch){
-			if(!"英超".equals(match.getStr("league_name"))
-					&& !"西甲".equals(match.getStr("league_name"))
-					&& !"德甲".equals(match.getStr("league_name")) 
-					&& !"意甲".equals(match.getStr("league_name")) 
-					&& !"法甲".equals(match.getStr("league_name"))){
-				match.set("league_id", "");
-			}
-			String dateWeek = match.getStr("match_date_week").replaceAll("\\s+", " ");
-			dateWeek = StringUtils.trim(dateWeek.replace("星期", "周").replace("天", "日"));
-			if(!set.contains(dateWeek)){
-				set.add(dateWeek);
-				AllLiveMatch group = new AllLiveMatch();
-				group.set("match_date_week", dateWeek);
-				lstResult.add(group);
-			}
-			match.getAttrs().put("liveList", liveMap.get(match.getStr("match_key")));
-			lstResult.add(match);
-		}
 		setAttr("lstMatch", lstResult);
-		
 		setAttr("bifen", getPara("bifen"));
-		
 		setAttr(CommonConstants.MENU_INDEX, MenuEnum.LIVE.getKey());
-		
-		//render("live.jsp");
 		
 		render("new/live.jsp");
 	}
