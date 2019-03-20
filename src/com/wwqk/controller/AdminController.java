@@ -1328,7 +1328,8 @@ public class AdminController extends Controller {
 	}
 	
 	public void setOtherStdMd5(){
-		OkoooTeam.setOtherStdMd5();
+		String stdType = getPara("stdType");
+		OkoooTeam.setOtherStdMd5(stdType);
 		renderJson(1);
 	}
 	

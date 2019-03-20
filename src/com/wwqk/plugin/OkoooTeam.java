@@ -108,7 +108,7 @@ public class OkoooTeam {
 		Db.update(sql);
 	}
 	
-	public static void setOtherStdMd5(){
+	public static void setOtherStdMd5(String stdType){
 		System.err.println("setLeagueMatchStdMd5 开始...");
 		setLeagueMatchStdMd5();
 		System.err.println("setMatchLiveStdMd5 开始...");
@@ -120,6 +120,18 @@ public class OkoooTeam {
 		System.err.println("setAllLiveMatchStdMd5 开始...");
 		setAllLiveMatchStdMd5();
 		System.err.println("setOtherStdMd5 结束...");
+		
+//		if(StringUtils.isBlank(stdType) || "1".equals(stdType)){
+//			setLeagueMatchStdMd5();
+//		}else if("2".equals(stdType)){
+//			setMatchLiveStdMd5();
+//		}else if("3".equals(stdType)){
+//			setVideosStdMd5();
+//		}else if("4".equals(stdType)){
+//			setTipsMatchStdMd5();
+//		}else if("5".equals(stdType)){
+//			setAllLiveMatchStdMd5();
+//		}
 	}
 	
 	/**

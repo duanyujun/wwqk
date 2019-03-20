@@ -28,9 +28,9 @@ public class ProductMatchJob implements Job {
 		//直播迷直播源
 		LiveZhibome.getLiveSource();
 		//足球啦直播源
-		LiveZuqiula.getLiveSource();
+		//LiveZuqiula.getLiveSource();
 		//24zbw直播源  暂时停掉
-		//Live24zbw.getLiveSource();
+		Live24zbw.getLiveSource();
 		//5chajian直播源
 		//Live5chajian.getLiveSource();
 		//情报

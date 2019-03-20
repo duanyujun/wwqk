@@ -148,6 +148,14 @@
                     <button onclick="collectLeague5StdName();" class="btn sbold green" style="margin-left:10px;"> L5标准team
                         <i class="fa fa-refresh"></i>
                     </button>
+                    <select id="stdType" >
+                		<option value="">--请选择类型--</option>
+                		<option value="1">leagueMatch</option>
+                		<option value="2">matchLive</option>
+                		<option value="3">videos</option>
+                		<option value="4">tipsMatch</option>
+                		<option value="5">allLiveMatch</option>
+                	</select>
                     <button onclick="setOtherStdMd5();" class="btn sbold green" style="margin-left:10px;"> 其他标准team
                         <i class="fa fa-refresh"></i>
                     </button>
@@ -417,7 +425,7 @@ function collectLeague5StdName(){
 }
 
 function setOtherStdMd5(){
-	commonPost("/admin/setOtherStdMd5");
+	commonPost("/admin/setOtherStdMd5?stdType="+$("#stdType").val());
 }
 
 function updateLeagueFifa(){

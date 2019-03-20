@@ -55,7 +55,7 @@ public class TeamController extends Controller {
 		setAttr("team", team);
 		
 		if(StringUtils.isNotBlank(team.getStr("league_id"))){
-			MatchSourceSina source = MatchSourceSina.dao.findFirst("select * from match_source_sina where league_id = ?",team.get("league_id"));
+			MatchSourceSina source = MatchSourceSina.dao.findFirst("select * from match_source_sina where league_id = ?",team.getStr("league_id"));
 			//最近五场比赛
 			List<LeagueMatchHistory> lstMatchHistory = LeagueMatchHistory.dao.find("select * from league_match_history where year = ? and match_round <=? and (home_team_id = ? or away_team_id = ?) order by match_round desc limit 0,5 ",source.get("year"),source.get("current_round"), teamId, teamId);
 			setAttr("lstMatchHistory", lstMatchHistory);
