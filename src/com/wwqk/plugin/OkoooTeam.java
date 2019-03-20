@@ -14,9 +14,11 @@ import org.jsoup.select.Elements;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
+import com.wwqk.model.AllLiveMatch;
 import com.wwqk.model.LeagueMatchHistory;
 import com.wwqk.model.MatchLive;
 import com.wwqk.model.TeamDic;
+import com.wwqk.model.TipsMatch;
 import com.wwqk.model.Videos;
 import com.wwqk.utils.CommonUtils;
 import com.wwqk.utils.MatchUtils;
@@ -107,11 +109,17 @@ public class OkoooTeam {
 	}
 	
 	public static void setOtherStdMd5(){
-		//setLeagueMatchStdMd5();
+		System.err.println("setLeagueMatchStdMd5 开始...");
+		setLeagueMatchStdMd5();
+		System.err.println("setMatchLiveStdMd5 开始...");
 		setMatchLiveStdMd5();
-		//setVideosStdMd5();
-		//setTipsMatchStdMd5();
-		//setAllLiveMatchStdMd5();
+		System.err.println("setVideosStdMd5 开始...");
+		setVideosStdMd5();
+		System.err.println("setTipsMatchStdMd5 开始...");
+		setTipsMatchStdMd5();
+		System.err.println("setAllLiveMatchStdMd5 开始...");
+		setAllLiveMatchStdMd5();
+		System.err.println("setOtherStdMd5 结束...");
 	}
 	
 	/**
@@ -144,10 +152,10 @@ public class OkoooTeam {
 		Db.update(sqlLmhAway2);
 		
 		//剩下没有的插入到team_dic表中
-		List<LeagueMatchHistory> listHistory = LeagueMatchHistory.dao.find("select home_team_name, away_team_name, home_std_md5, away_std_md5 from league_match_history where home_std_md5 is null or away_std_md5 is null ");
+		List<LeagueMatchHistory> listHistory = LeagueMatchHistory.dao.find("select home_team_name, away_team_name, home_std_md5, away_std_md5, league_name from league_match_history where home_std_md5 is null or away_std_md5 is null ");
 		for(LeagueMatchHistory history : listHistory){
-			commonAddTeamDic(history.getStr("home_std_md5"), history.getStr("home_team_name"));
-			commonAddTeamDic(history.getStr("away_std_md5"), history.getStr("away_team_name"));
+			commonAddTeamDic(history.getStr("home_std_md5"), history.getStr("home_team_name"), history.getStr("league_name"));
+			commonAddTeamDic(history.getStr("away_std_md5"), history.getStr("away_team_name"), history.getStr("league_name"));
 		}
 	}
 	
@@ -162,10 +170,16 @@ public class OkoooTeam {
 		Db.update(sqlLmAway);
 		
 		//剩下没有的插入到team_dic表中
-		List<MatchLive> listHistory = MatchLive.dao.find("select home_team_name, away_team_name, home_std_md5, away_std_md5 from match_live where home_std_md5 is null or away_std_md5 is null ");
+		List<MatchLive> listHistory = MatchLive.dao.find("select home_team_name, away_team_name, home_std_md5, away_std_md5, match_key from match_live where home_std_md5 is null or away_std_md5 is null ");
+		String leagueName = null;
+		AllLiveMatch allLiveMatch = null;
 		for(MatchLive history : listHistory){
-			commonAddTeamDic(history.getStr("home_std_md5"), history.getStr("home_team_name"));
-			commonAddTeamDic(history.getStr("away_std_md5"), history.getStr("away_team_name"));
+			allLiveMatch = AllLiveMatch.dao.findFirst("select * from all_live_match where match_key = ?", history.getStr("match_key"));
+			if(allLiveMatch!=null) {
+				leagueName = allLiveMatch.getStr("league_name");
+			}
+			commonAddTeamDic(history.getStr("home_std_md5"), history.getStr("home_team_name"), leagueName);
+			commonAddTeamDic(history.getStr("away_std_md5"), history.getStr("away_team_name"), leagueName);
 		}
 	}
 	
@@ -182,8 +196,10 @@ public class OkoooTeam {
 		//剩下没有的插入到team_dic表中
 		List<Videos> listHistory = Videos.dao.find("select home_team, away_team, home_std_md5, away_std_md5 from videos where home_std_md5 is null or away_std_md5 is null ");
 		for(Videos history : listHistory){
-			commonAddTeamDic(history.getStr("home_std_md5"), history.getStr("home_team"));
-			commonAddTeamDic(history.getStr("away_std_md5"), history.getStr("away_team"));
+			if(StringUtils.isNotBlank(history.getStr("home_team")) && StringUtils.isNotBlank(history.getStr("away_team"))) {
+				commonAddTeamDic(history.getStr("home_std_md5"), history.getStr("home_team"), history.getStr("match_title"));
+				commonAddTeamDic(history.getStr("away_std_md5"), history.getStr("away_team"), history.getStr("match_title"));
+			}
 		}
 	}
 	
@@ -199,10 +215,10 @@ public class OkoooTeam {
 		Db.update(sqlLmAway);
 		
 		//剩下没有的插入到team_dic表中
-		List<Videos> listHistory = Videos.dao.find("select home_name, away_name, home_std_md5, away_std_md5 from tips_match where home_std_md5 is null or away_std_md5 is null ");
-		for(Videos history : listHistory){
-			commonAddTeamDic(history.getStr("home_std_md5"), history.getStr("home_team"));
-			commonAddTeamDic(history.getStr("away_std_md5"), history.getStr("away_team"));
+		List<TipsMatch> listHistory = TipsMatch.dao.find("select home_name, away_name, home_std_md5, away_std_md5, league_name from tips_match where home_std_md5 is null or away_std_md5 is null ");
+		for(TipsMatch history : listHistory){
+			commonAddTeamDic(history.getStr("home_std_md5"), history.getStr("home_team"), history.getStr("league_name"));
+			commonAddTeamDic(history.getStr("away_std_md5"), history.getStr("away_team"), history.getStr("league_name"));
 		}
 	}
 	
@@ -218,10 +234,10 @@ public class OkoooTeam {
 		Db.update(sqlLmAway);
 		
 		//剩下没有的插入到team_dic表中
-		List<MatchLive> listHistory = MatchLive.dao.find("select home_team_name, away_team_name, home_std_md5, away_std_md5 from all_live_match where home_std_md5 is null or away_std_md5 is null ");
+		List<MatchLive> listHistory = MatchLive.dao.find("select home_team_name, away_team_name, home_std_md5, away_std_md5, league_name  from all_live_match where home_std_md5 is null or away_std_md5 is null ");
 		for(MatchLive history : listHistory){
-			commonAddTeamDic(history.getStr("home_std_md5"), history.getStr("home_team_name"));
-			commonAddTeamDic(history.getStr("away_std_md5"), history.getStr("away_team_name"));
+			commonAddTeamDic(history.getStr("home_std_md5"), history.getStr("home_team_name"), history.getStr("league_name"));
+			commonAddTeamDic(history.getStr("away_std_md5"), history.getStr("away_team_name"), history.getStr("league_name"));
 		}
 	}
 	
@@ -230,14 +246,18 @@ public class OkoooTeam {
 	 * @param stdMd5
 	 * @param teamName
 	 */
-	private static void commonAddTeamDic(String stdMd5, String teamName){
-		if(StringUtils.isBlank(stdMd5)){
+	private static void commonAddTeamDic(String stdMd5, String teamName, String leagueName){
+		if(StringUtils.isBlank(stdMd5) && StringUtils.isNotBlank(teamName)){
 			TeamDic teamDicDB = TeamDic.dao.findFirst("select * from team_dic where team_name = ?", teamName);
 			if(teamDicDB==null){
 				TeamDic teamDic = new TeamDic();
 				teamDic.set("team_name", teamName);
 				teamDic.set("md5", CommonUtils.md5(teamName));
+				teamDic.set("league_name", leagueName);
 				teamDic.save();
+			}else {
+				teamDicDB.set("league_name", leagueName);
+				teamDicDB.update();
 			}
 		}
 	}
