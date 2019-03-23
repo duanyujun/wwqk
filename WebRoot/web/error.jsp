@@ -12,92 +12,56 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta content="telephone=no" name="format-detection">
-	<meta name="keywords" content="趣点足球网,球员说说,球星资讯,球员动态,球星生活" />
-	<meta name="description" content="趣点足球网为球迷们提供最新的球员生活、球星生活动态，球员资讯" />
+	<meta name="keywords" content="趣点足球网,在线直播链接,球员动态,视频集锦,球队排名" />
+	<meta name="description" content="趣点足球网为球迷们提供最新的球员资讯，直播链接以及足球数据" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
     <link href="https://cdn.bootcss.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="common/main.css" rel="stylesheet" type="text/css" />
-    <title>趣点足球网 - 足球说说|球员说说|球员动态|球员资讯|球星生活</title>
+    <link href="/common/new/main.css" rel="stylesheet" type="text/css" />
+    <title>趣点足球网 - 足球趣闻|球员动态|直播预告|视频集锦|足球数据</title>
 </head>
 
 <body>
-<div id="all_content">
-	<div class="container">
-		<div class="row menu_bg clear_row_margin hidden-sm hidden-xs" >
-			<div id="main_nav" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">	
-				<div>
-					<div class="logo_div">
-						<a href="" title="首页">趣点足球网</a>
-					</div>
-					<ul style="float:left;">
-						<li class="menu_width"><a href="">首页</a></li>
-						<li class="menu_width"><a href="bifen.html">比分</a></li>
-						<li class="menu_width"><a href="live.html">直播</a></li>
-						<li class="menu_width"><a href="videos.html">视频</a></li>
-						<li class="menu_width"><a href="data.html">数据</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		
-		<div class="row menu_link navbar-fixed-top  visible-sm visible-xs" style="background:#00A50D;min-height:35px;color:white;">
-	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
-	       		<a href="/" target="_self"><span class="wwqk_menu">首页</span></a>
-	       	</div>
-	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
-	       		<a href="/bifen.html" target="_self"><span class="wwqk_menu">比分</span></a>
-	       	</div>
-	       	<div class="col-xs-2 col-sm-2 wwqk_menu_wh" >
-	       		<a href="/live.html" target="_self"><span class="wwqk_menu">直播</span></a>
-	       	</div>
-	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
-	       		<a href="/videos.html" target="_self"><span class="wwqk_menu">视频</span></a>
-	       	</div>
-	       	<div class="col-xs-3 col-sm-3 wwqk_menu_wh" >
-	       		<a href="/data.html" target="_self"><span class="wwqk_menu">数据</span></a>
-	       	</div>
-	    </div>
-	    
-	    <!-- 移动端开始 -->
+<!-- header start -->
+<%@ include file="/common/new/menu.jsp"%>
+
+<div class="visible-sm visible-xs" style="width:100%;float:left;">
+	<!-- 移动端开始 -->
 	    <div id="list_content" class="row visible-sm visible-xs" style="margin-top:45px;padding-bottom: 130px;">
 	    	<div class="col-lg-12 col-md-12" style="margin-top:30px;">
 				<span style="font-size:18px;"><img src="assets/image/page/cry.png" />对不起，服务器出小差了！</span>
 			</div>
-			<div class="col-lg-12 col-md-12" style="font-size:14px;margin-top:10px;">
-				<div onclick="javascript:history.go(-1);">返回到之前浏览的页面</div>
-			</div>
-			<div class="col-lg-12 col-md-12" style="font-size:14px;margin-top:10px;">
-				<b>或者：</b><a href="/" target="_self" style="color:grey;">返回主页</a>
-			</div>
+			
 	    </div>
 	    <!-- 移动端结束 -->
-	</div>
-	
-	
-	<!-- PC端开始 -->
-	<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:10px;padding-bottom: 130px;">
-		<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">		
-				<div class="row" style="margin-top:100px;">
-					<div class="col-lg-12 col-md-12">
-						<h1><img src="assets/image/page/cry.png" />对不起，服务器开小差了！</h1>
-					</div>
-					<div class="col-lg-12 col-md-12" style="font-size:16px;margin-top:10px;">
-						<div onclick="javascript:history.go(-1);" style="cursor: pointer;width:200px;">返回到之前浏览的页面</div>
-					</div>
-					<div class="col-lg-12 col-md-12" style="font-size:16px;margin-top:10px;">
-						<b>或者：</b><a href="/" target="_self" style="color:grey;">返回主页</a>
-					</div>
+</div>
+
+
+<!-- pc content start -->
+<div class="main hidden-sm hidden-xs" >
+	<div class="left_w930" style="height:min-height:900px;">
+		<!-- PC端开始 -->
+			<div class="row clear_row_margin hidden-sm hidden-xs" style="margin-top:10px;padding-bottom: 300px;">
+				<div id="main_content" style="min-height:20px;" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">		
+						<div class="row" style="margin-top:100px;">
+							<div class="col-lg-12 col-md-12">
+								<h1><img src="assets/image/page/cry.png" />对不起，服务器开小差了！</h1>
+							</div>
+							
+						</div>
 				</div>
-		</div>
+			</div>
+			<!-- PC端结束 -->
+			
 	</div>
-	<!-- PC端结束 -->
-	
-	
-	<%@ include file="/common/footer.jsp"%>	
-	</div>
-	
-	
-	<script>
+</div>
+
+<!-- pc content end -->
+<%@ include file="/common/new/index-mobile.jsp"%>	
+
+<!-- footer start -->
+<%@ include file="/common/new/footer.jsp"%>	
+
+<script>
 	
 	(function(){
 	    var bp = document.createElement('script');
@@ -112,6 +76,5 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    s.parentNode.insertBefore(bp, s);
 	})();
 	</script>
-		
-</body>	
 
+</body>	

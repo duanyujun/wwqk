@@ -172,7 +172,7 @@ public class FunService {
 		save(fun);
 		//将文本内容保存到article表里面
 		if(fun.get("id")!=null && fun.get("player_id")!=null){
-			Article article = Article.dao.findFirst("select * from article where fun_id = ? ", fun.get("id"));
+			Article article = Article.dao.findFirst("select * from article where fun_id = ? ", fun.getLong("id"));
 			if(article==null){
 				article = new Article();
 			}
