@@ -48,6 +48,7 @@ import com.wwqk.model.ValueTextObject;
 import com.wwqk.model.Videos;
 import com.wwqk.model.VideosRealLinks;
 import com.wwqk.plugin.AnalyzeZgzcw;
+import com.wwqk.plugin.Live5chajian;
 import com.wwqk.plugin.LiveZhibome;
 import com.wwqk.plugin.LiveZuqiula;
 import com.wwqk.plugin.MatchSina;
@@ -1328,8 +1329,10 @@ public class AdminController extends Controller {
 	}
 	
 	public void setOtherStdMd5(){
-		String stdType = getPara("stdType");
-		OkoooTeam.setOtherStdMd5(stdType);
+//		String stdType = getPara("stdType");
+//		OkoooTeam.setOtherStdMd5(stdType);
+		LiveZhibome.getLiveSource();
+		Live5chajian.getLiveSource();
 		renderJson(1);
 	}
 	

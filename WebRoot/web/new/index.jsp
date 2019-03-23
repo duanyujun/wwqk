@@ -53,10 +53,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			</div>
 		</div>
 		<div class="idx-match">
-				<c:forEach items="${liveMatchList}" var="match" >
+				<c:forEach items="${liveMatchList}" var="match" varStatus="varStatus">
 					<div class="idx-match-each" >
 						<div class="idx-match-title">
-							<span class="label label-primary">${match.league_name}</span> <span class="idx-match-wk" >${match.weekday}</span>
+							<div style="float:left;width:70%;height:30px;line-height:30px;">
+								<span class="label label-primary">${match.league_name}</span> <span class="idx-match-wk" >${match.weekday}</span>
+							</div>
+							<div class="a-title" style="float:left;width:30%;height:30px;line-height:30px;text-align:right;">
+								<a href="/live.html" target="_blank" title="查看更多赛事"><span class="idx-match-wk" >${varStatus.index==0?'更多...':''}&nbsp;</span></a>
+							</div>
 						</div>
 						<div class="a-title idx-match-team" >
 							<span class="color_888"><fmt:formatDate value="${match.match_datetime}" pattern="M月d日 HH:mm"/></span> 
