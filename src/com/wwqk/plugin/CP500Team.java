@@ -1,5 +1,6 @@
 package com.wwqk.plugin;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -38,10 +39,6 @@ public class CP500Team {
 			
 			String leagueUrl = "";
 			String leagueName = "";
-			String teamUrl = "";
-			String teamId = "";
-			String teamName = "";
-			String stdTeamName = "";
 			Set<String> teamIdSet = new HashSet<>();
 			
 			//联赛和国际赛事
@@ -62,101 +59,76 @@ public class CP500Team {
 					data = connectDetail.data(detailHeaderMap);
 					document = data.get();
 					Elements teamElements = document.select(".jTrInterval").select("a");
-					for(Element teamEle:teamElements) {
-						if(!teamEle.attr("href").contains("/team/")) {
-							continue;
-						}
-						teamUrl = teamEle.attr("href");
-						teamName = teamEle.text();
-						teamId = teamUrl.substring(teamUrl.indexOf("/team/")+6);
-						teamId = teamId.substring(0, teamId.length()-1);
-						
-						if(teamIdSet.contains(teamId)){
-							continue;
-						}else{
-							teamIdSet.add(teamId);
-						}
-						
-						TeamDic teamDic = new TeamDic();
-						teamDic.set("ok_id", teamId);
-						teamDic.set("team_name", teamName);
-						teamDic.set("md5", CommonUtils.md5(teamName));
-						stdTeamName = SpecialNameUtils.getStdName(teamName);
-						
-						teamDic.set("std_name", stdTeamName);
-						teamDic.set("std_md5", CommonUtils.md5(stdTeamName));
-						teamDic.set("std_name_py", PinyinUtils.getPingYin(stdTeamName));
-						teamDic.set("league_name", leagueName);
-						teamDic.set("team_url", teamUrl);
-						TeamDic teamDicDB = TeamDic.dao.findFirst("select * from team_dic where ok_id = ?", teamId);
-						
-						if(teamDicDB!=null){
-							teamDic.set("id", teamDicDB.get("id"));
-							teamDic.update();
-						}else{
-							teamDic.save();
-						}
-					}
+					
+					collectOneLeague(teamIdSet,teamElements, leagueName);
 					
 					Thread.sleep(200);
 				}
-				
-//				connect = Jsoup.connect(leagueUrl).ignoreContentType(true);
-//				data = connect.data(MatchUtils.getOkoooHeader("http://www.okooo.com/soccer/"));
-//				document = data.get();
-//				Element teamsElement = document.select(".LotteryList_Data").last();
-//				teamsHtml = teamsElement.html();
-//				teamMatcher = TEAM_PATTERN.matcher(teamsHtml);
-//				while (teamMatcher.find()) {
-//					teamId = teamMatcher.group(1);
-//					if(teamIdSet.contains(teamId)){
-//						continue;
-//					}else{
-//						teamIdSet.add(teamId);
-//					}
-//					
-//					teamName = teamMatcher.group(2).replace("\\s+", "");
-//					TeamDic teamDic = new TeamDic();
-//					teamDic.set("ok_id", teamId);
-//					teamDic.set("team_name", teamName);
-//					teamDic.set("md5", CommonUtils.md5(teamName));
-//					stdTeamName = SpecialNameUtils.getStdName(teamName);
-//					
-//					if(stdTeamName.contains("img")){
-//						continue;
-//					}
-//					teamDic.set("std_name", stdTeamName);
-//					teamDic.set("std_md5", CommonUtils.md5(stdTeamName));
-//					teamDic.set("std_name_py", PinyinUtils.getPingYin(stdTeamName));
-//					teamDic.set("league_name", leagueName);
-//					TeamDic teamDicDB = TeamDic.dao.findFirst("select * from team_dic where ok_id = ?", teamId);
-//					
-//					if(teamDicDB!=null){
-//						teamDic.set("id", teamDicDB.get("id"));
-//						teamDic.update();
-//					}else{
-//						teamDic.save();
-//					}
-//				}
-				
 			}
-			
-//			//各大洲杯赛
-//			elements = document.select(".lrace_bei");
-//			for(Element areaElement : elements){
-//				Elements leagueElements = areaElement.select("a");
-//				for(Element leagueElement : leagueElements){
-//					if(!leagueElement.attr("href").contains("zuqiu-")) {
-//						continue;
-//					}
-//					leagueName = leagueElement.text();
-//					leagueUrl = HOST + leagueElement.attr("href");
-//					System.err.println(leagueName+":"+leagueUrl);
-//				}
-//			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 
+	 * @param targetUrl http://liansai.500.com/zuqiu-5222/teams/
+	 * referUrl http://liansai.500.com/zuqiu-5222/
+	 */
+	public static void collectOneUrl(String leagueName, String targetUrl){
+		Connection connectDetail = Jsoup.connect(targetUrl);
+		Connection data = connectDetail.data(MatchUtils.getCP500Header(targetUrl.substring(0, targetUrl.indexOf("teams/"))));
+		Document document = null;
+		try {
+			document = data.get();
+			Elements teamElements = document.select(".jTrInterval").select("a");
+			collectOneLeague(new HashSet<>(), teamElements, leagueName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//收集一个league页面的球队
+	private static void collectOneLeague(Set<String> teamIdSet,Elements teamElements, String leagueName) {
+		String teamUrl = null;
+		String teamName = null;
+		String teamId = null;
+		String stdTeamName = null;
+		for(Element teamEle:teamElements) {
+			if(!teamEle.attr("href").contains("/team/")) {
+				continue;
+			}
+			teamUrl = teamEle.attr("href");
+			teamName = teamEle.text();
+			teamId = teamUrl.substring(teamUrl.indexOf("/team/")+6);
+			teamId = teamId.substring(0, teamId.length()-1);
+			
+			if(teamIdSet.contains(teamId)){
+				continue;
+			}else{
+				teamIdSet.add(teamId);
+			}
+			
+			TeamDic teamDic = new TeamDic();
+			teamDic.set("ok_id", teamId);
+			teamDic.set("team_name", teamName);
+			teamDic.set("md5", CommonUtils.md5(teamName));
+			stdTeamName = SpecialNameUtils.getStdName(teamName);
+			
+			teamDic.set("std_name", stdTeamName);
+			teamDic.set("std_md5", CommonUtils.md5(stdTeamName));
+			teamDic.set("std_name_py", PinyinUtils.getPingYin(stdTeamName));
+			teamDic.set("league_name", leagueName);
+			teamDic.set("team_url", teamUrl);
+			TeamDic teamDicDB = TeamDic.dao.findFirst("select * from team_dic where ok_id = ?", teamId);
+			
+			if(teamDicDB!=null){
+				teamDic.set("id", teamDicDB.get("id"));
+				teamDic.update();
+			}else{
+				teamDic.save();
+			}
 		}
 	}
 	

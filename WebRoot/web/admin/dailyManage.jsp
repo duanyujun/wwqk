@@ -198,17 +198,11 @@
             
              <div class="row" style="margin-top:20px;">
             	<div class="col-md-12 col-sm-12 col-xs-12">
-                	<select id="qtype" >
-                		<option value="">--请选择题目类型--</option>
-                		<c:forEach items="${lstQtype}" var="qtype">
-	                		<option value="${qtype.key }">${qtype.value}</option>
-                		</c:forEach>
-                	</select>
-                	引用URL：
-                	<input type="text" id="refererUrl"  placeholder="refererUrl" />
-                	目标：
-                	<input type="text" id="url"  placeholder="url" />
-                    <button onclick="updateQuestion();" class="btn sbold green" style="margin-left:10px;"> 更新题目
+                	联赛名称：
+                	<input type="text" id="leagueName500"  placeholder="越南杯" />
+                	联赛URL：
+                	<input type="text" id="leagueUrl500"  placeholder="http://liansai.500.com/zuqiu-5222/teams/" />
+                    <button onclick="updateLeague500();" class="btn sbold green" style="margin-left:10px;"> 更新500League_Teams
                         <i class="fa fa-refresh"></i>
                     </button>
                 </div>
@@ -473,6 +467,22 @@ function updateQuestion(){
 	showToast(1, "更新中...", "温馨提示");
 	$.post("/admin/updateQuestion",
 				{qtype: $("#qtype").val(), refererUrl:$("#refererUrl").val(), url:$("#url").val()},
+				function(result){
+					$("body").hideLoading();
+					showToast(1, "更新成功！", "温馨提示");
+				}
+	);
+}
+
+function updateLeague500(){
+	if($("#leagueName500").val()=='' || $("#leagueUrl500").val()==''){
+		showToast(2, "请填写完整", "温馨提示");
+		return;
+	}
+	$("body").showLoading();
+	showToast(1, "更新中...", "温馨提示");
+	$.post("/admin/updateLeague500",
+				{leagueName500: $("#leagueName500").val(), leagueUrl500:$("#leagueUrl500").val()},
 				function(result){
 					$("body").hideLoading();
 					showToast(1, "更新成功！", "温馨提示");

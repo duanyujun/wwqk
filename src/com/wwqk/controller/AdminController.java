@@ -1348,6 +1348,15 @@ public class AdminController extends Controller {
 		renderJson(1);
 	}
 	
+	public void updateLeague500(){
+		String leagueName500 = getPara("leagueName500");
+		String leagueUrl500 = getPara("leagueUrl500");
+		if(StringUtils.isNotBlank(leagueName500) && StringUtils.isNotBlank(leagueUrl500)){
+			CP500Team.collectOneUrl(leagueName500, leagueUrl500);
+		}
+		renderJson(1);
+	}
+	
 	public void listTeamDic(){
 		render("admin/teamDicList.jsp");
 	}
