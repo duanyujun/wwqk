@@ -414,6 +414,18 @@ public class MatchUtils {
 	       return header;
 	}
 	
+	public static Map<String, String> getCP500Header(String refererURL){
+		   Map<String, String> header = new HashMap<String, String>();  
+		   header.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+	       header.put("Accept-Encoding", "gzip, deflate, br");  
+	       header.put("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8");
+	       //header.put("Cache-Control", "no-cache");
+	       header.put("Host", "liansai.500.com");
+	       header.put("Pragma", "no-cache");  
+	       header.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36");
+	       header.put("Referer", refererURL);  // https://liansai.500.com/
+	       return header;
+	}
 	
 	public static void main(String[] args) throws IOException {
 		String SIET_URL = "http://m.188bifen.com/json/zuqiu.htm?k=0.61970021480676236";

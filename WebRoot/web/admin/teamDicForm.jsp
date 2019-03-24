@@ -34,6 +34,7 @@
                       <label class="col-md-3 control-label">okid：</label>
                       <div class="col-md-6">
                            <input type="text" class="form-control" id="ok_id" name="ok_id"  value="${teamDic.ok_id}" readonly placeholder="okid">
+                      	   <label for="chk_std"><input type="checkbox" id="chk_std" name="chk_std" />设为标准</label>
                       </div>
                       <div class="col-md-3"><label for="name"></label></div>
                  </div>

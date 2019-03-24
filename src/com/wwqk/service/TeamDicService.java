@@ -9,6 +9,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.wwqk.model.TeamDic;
 import com.wwqk.utils.CommonUtils;
+import com.wwqk.utils.PinyinUtils;
 import com.wwqk.utils.StringUtils;
 
 public class TeamDicService {
@@ -88,6 +89,7 @@ public class TeamDicService {
 	
 	public static void saveTeamDic(Controller controller){
 	
+		String chkStd = controller.getPara("chk_std");
 		String id = controller.getPara("id");
 		TeamDic teamDic = null;
 		if(StringUtils.isBlank(id)){
@@ -134,6 +136,19 @@ public class TeamDicService {
         	teamDic.set("md5", controller.getPara("md5"));
         }
 
+        //如果是自设标准
+        if("on".equals(chkStd) && teamDic.getInt("ok_id")==0) {
+        	TeamDic tempTeamDic = TeamDic.dao.findFirst("select max(ok_id) ok_id from team_dic");
+        	if(tempTeamDic.getInt("ok_id")<2000000) {
+        		teamDic.set("ok_id", 2000000);
+        	}else {
+        		teamDic.set("ok_id", tempTeamDic.getInt("ok_id")+1);
+        	}
+        	teamDic.set("std_md5", teamDic.get("md5"));
+	        teamDic.set("std_name", teamDic.get("team_name"));
+	        teamDic.set("std_name_py", PinyinUtils.getPingYin(teamDic.get("team_name")));
+        }
+        
 		save(teamDic);
 	}
 	
